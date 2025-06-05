@@ -251,6 +251,95 @@ local function spawnPreviewPed(cData, coords, isExtra)
     end
     return ped
 end
+
+local function spawnPreviewPeds(characters)
+    spawnIdx = spawnIdx + 1
+    local myIdx = spawnIdx
+    CreateThread(function()
+        local oldChar = charPed
+        local oldExtra = extraPed
+        safeDelete(oldChar)
+        safeDelete(oldExtra)
+        charPed = nil
+        extraPed = nil
+        activeChar = characters[1]
+        extraChar = characters[2]
+        local myChar = spawnPreviewPed(activeChar, Config.PedCoords, false)
+        if myIdx ~= spawnIdx then
+            safeDelete(myChar)
+            return
+        end
+        charPed = myChar
+        local myExtra
+        if extraChar then
+            myExtra = spawnPreviewPed(extraChar, Config.SecondPedCoords, true)
+            if myIdx ~= spawnIdx then
+                safeDelete(myChar)
+                safeDelete(myExtra)
+                return
+            end
+            extraPed = myExtra
+        end
+        if not arrowActive then
+            arrowActive = true
+            CreateThread(function()
+                while arrowActive do
+                    if charPed and DoesEntityExist(charPed) then
+                        local c = GetEntityCoords(charPed)
+                        DrawMarker(2, c.x, c.y, c.z + 1.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.4, 0.4, 148, 0, 211, 200, false, true, 2, false, nil, nil, false)
+                    end
+                    Wait(0)
+                end
+            end)
+    model = model ~= nil and tonumber(model) or joaat(randommodels[math.random(#randommodels)])
+    loadModel(model)
+    local ped = CreatePed(2, model, coords.x, coords.y, coords.z - 0.98, coords.w, false, true)
+    SetPedComponentVariation(ped, 0, 0, 0, 2)
+    FreezeEntityPosition(ped, false)
+    SetEntityInvincible(ped, true)
+    PlaceObjectOnGroundProperly(ped)
+    SetBlockingOfNonTemporaryEvents(ped, true)
+    if data then
+        data = json.decode(data)
+        TriggerEvent('qb-clothing:client:loadPlayerClothing', data, ped)
+    end
+    if isExtra then
+        local RandomAnimins = {
+            "WORLD_HUMAN_HANG_OUT_STREET",
+            "WORLD_HUMAN_STAND_IMPATIENT",
+            "WORLD_HUMAN_STAND_MOBILE",
+            "WORLD_HUMAN_SMOKING_POT",
+            "WORLD_HUMAN_LEANING",
+            "WORLD_HUMAN_DRUG_DEALER_HARD",
+            "WORLD_HUMAN_MUSCLE_FLEX",
+            "WORLD_HUMAN_STAND_MOBILE_UPRIGHT",
+            "WORLD_HUMAN_CLIPBOARD",
+            "WORLD_HUMAN_AA_SMOKE",
+            "WORLD_HUMAN_DRINKING",
+            "WORLD_HUMAN_CHEERING",
+            "WORLD_HUMAN_HUMAN_STATUE",
+            "WORLD_HUMAN_STUPOR",
+            "WORLD_HUMAN_TOURIST_MOBILE",
+            "WORLD_HUMAN_JOG_STANDING",
+            "WORLD_HUMAN_PUSH_UPS",
+            "WORLD_HUMAN_SIT_UPS",
+            "WORLD_HUMAN_YOGA",
+            "WORLD_HUMAN_PROSTITUTE_HIGH_CLASS",
+            "WORLD_HUMAN_PROSTITUTE_LOW_CLASS",
+            "WORLD_HUMAN_CAR_PARK_ATTENDANT",
+            "WORLD_HUMAN_GUARD_STAND",
+            "WORLD_HUMAN_BINOCULARS",
+            "WORLD_HUMAN_PAPARAZZI"
+        }
+        local PlayAnimin = RandomAnimins[math.random(#RandomAnimins)]
+        SetPedCanPlayAmbientAnims(ped, true)
+        TaskStartScenarioInPlace(ped, PlayAnimin, 0, true)
+        -- extra ped performs ambient scenario
+    else
+        -- main ped idle
+    end
+    return ped
+end
     model = model ~= nil and tonumber(model) or joaat(randommodels[math.random(#randommodels)])
     loadModel(model)
     local ped = CreatePed(2, model, coords.x, coords.y, coords.z - 0.98, coords.w, false, true)
@@ -620,7 +709,7 @@ end)
 
 -- NUI Callbacks
 
-RegisterNUICallback('closeUI', function(_, cb)
+RegisterNUICallback('closeUI', function(data, cb)
     local cData = data.cData
     DoScreenFadeOut(10)
     TriggerServerEvent('pappu-multicharacter:server:loadUserData', cData)
