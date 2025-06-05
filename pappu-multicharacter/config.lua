@@ -2,6 +2,7 @@ Config = {}
 Config.Interior = vector3(-1004.36, -477.9, 51.63) -- Interior to load where characters are previewed
 Config.DefaultSpawn = vector3(-1004.36, -477.9, 51.63) -- Default spawn coords if you have start apartments disabled
 Config.PedCoords = vector4(-1007.326, -477.578, 50.028, 208.64) -- Create preview ped at these coordinates
+Config.SecondPedCoords = vector4(-1005.9, -476.0, 50.028, 180.0) -- Second preview ped location
 Config.HiddenCoords = vector4(-1001.11, -478.06, 50.03, 24.55) -- Hides your actual ped while you are in selection
 Config.CamCoords = vector4(-1005.53, -480.73, 50.52, 27.44) -- Camera coordinates for character preview screen
 Config.EnableDeleteButton = true -- Define if the player can delete the character or not
