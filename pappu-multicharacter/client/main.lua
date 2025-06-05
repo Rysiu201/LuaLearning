@@ -54,8 +54,15 @@ end
 
 local function safeDelete(entity)
     if DoesEntityExist(entity) then
+        NetworkRequestControlOfEntity(entity)
+        local attempts = 0
+        while not NetworkHasControlOfEntity(entity) and attempts < 20 do
+            Wait(0)
+            NetworkRequestControlOfEntity(entity)
+            attempts = attempts + 1
+        end
         SetEntityAsMissionEntity(entity, false, true)
-        DeleteEntity(entity)
+        DeletePed(entity)
     end
 end
 
