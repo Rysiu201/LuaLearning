@@ -188,6 +188,114 @@ local function spawnPreviewPeds(characters)
             end)
         end
     end)
+    CreateThread(function()
+        local model
+        local data
+        if cData then
+            if not cached_player_skins[cData.citizenid] then
+                local temp_model = promise.new()
+                local temp_data = promise.new()
+                QBCore.Functions.TriggerCallback('pappu-multicharacter:server:getSkin', function(m, d)
+                    temp_model:resolve(m)
+                    temp_data:resolve(d)
+                end, cData.citizenid)
+                model = Citizen.Await(temp_model)
+                data = Citizen.Await(temp_data)
+                cached_player_skins[cData.citizenid] = {model = model, data = data}
+            else
+                model = cached_player_skins[cData.citizenid].model
+                data = cached_player_skins[cData.citizenid].data
+            end
+        end
+
+        model = model ~= nil and tonumber(model) or joaat(randommodels[math.random(#randommodels)])
+        loadModel(model)
+        local ped = CreatePed(2, model, coords.x, coords.y, coords.z - 0.98, coords.w, false, true)
+        SetPedComponentVariation(ped, 0, 0, 0, 2)
+        FreezeEntityPosition(ped, false)
+        SetEntityInvincible(ped, true)
+        PlaceObjectOnGroundProperly(ped)
+        SetBlockingOfNonTemporaryEvents(ped, true)
+        if data then
+            data = json.decode(data)
+            TriggerEvent('qb-clothing:client:loadPlayerClothing', data, ped)
+        end
+        if isExtra then
+            local RandomAnimins = {
+                "WORLD_HUMAN_HANG_OUT_STREET",
+                "WORLD_HUMAN_STAND_IMPATIENT",
+                "WORLD_HUMAN_STAND_MOBILE",
+                "WORLD_HUMAN_SMOKING_POT",
+                "WORLD_HUMAN_LEANING",
+                "WORLD_HUMAN_DRUG_DEALER_HARD",
+                "WORLD_HUMAN_MUSCLE_FLEX",
+                "WORLD_HUMAN_STAND_MOBILE_UPRIGHT",
+                "WORLD_HUMAN_CLIPBOARD",
+                "WORLD_HUMAN_AA_SMOKE",
+                "WORLD_HUMAN_DRINKING",
+                "WORLD_HUMAN_CHEERING",
+                "WORLD_HUMAN_HUMAN_STATUE",
+                "WORLD_HUMAN_STUPOR",
+                "WORLD_HUMAN_TOURIST_MOBILE",
+                "WORLD_HUMAN_JOG_STANDING",
+                "WORLD_HUMAN_PUSH_UPS",
+                "WORLD_HUMAN_SIT_UPS",
+                "WORLD_HUMAN_YOGA",
+                "WORLD_HUMAN_PROSTITUTE_HIGH_CLASS",
+                "WORLD_HUMAN_PROSTITUTE_LOW_CLASS",
+                "WORLD_HUMAN_CAR_PARK_ATTENDANT",
+                "WORLD_HUMAN_GUARD_STAND",
+                "WORLD_HUMAN_BINOCULARS",
+                "WORLD_HUMAN_PAPARAZZI"
+            }
+            local PlayAnimin = RandomAnimins[math.random(#RandomAnimins)]
+            SetPedCanPlayAmbientAnims(ped, true)
+            TaskStartScenarioInPlace(ped, PlayAnimin, 0, true)
+        end
+
+        if isExtra then
+            extraPed = ped
+        else
+            charPed = ped
+        end
+    end)
+end
+
+local function spawnPreviewPeds(characters)
+    if DoesEntityExist(charPed) then DeleteEntity(charPed) end
+    if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
+    charPed = nil
+    extraPed = nil
+    activeChar = characters[1]
+    extraChar = characters[2]
+    if activeChar then
+        spawnPreviewPed(activeChar, Config.PedCoords, false)
+    else
+        spawnPreviewPed(nil, Config.PedCoords, false)
+    end
+    if extraChar then
+        spawnPreviewPed(extraChar, Config.SecondPedCoords, true)
+    elseif characters[1] then
+        spawnPreviewPed(characters[1], Config.PedCoords, false)
+    else
+        spawnPreviewPed(nil, Config.PedCoords, false)
+    end
+    if characters[2] then
+        spawnPreviewPed(characters[2], Config.SecondPedCoords, true)
+    end
+    if not arrowActive then
+        arrowActive = true
+        CreateThread(function()
+            while arrowActive do
+                if charPed and DoesEntityExist(charPed) then
+                    local c = GetEntityCoords(charPed)
+                    DrawMarker(2, c.x, c.y, c.z + 1.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.4, 0.4, 148, 0, 211, 200, false, true, 2, false, nil, nil, false)
+                    DrawMarker(27, c.x, c.y, c.z + 1.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.4, 0.4, 148, 0, 211, 200, false, true, 2, false, nil, nil, false)
+                end
+                Wait(0)
+            end
+        end)
+    end
 end
 
 local function skyCam(bool)
@@ -240,6 +348,8 @@ RegisterNetEvent('pappu-multicharacter:client:closeNUIdefault', function() -- Th
     if not IsScreenFadedOut() then DoScreenFadeOut(500) end
     safeDelete(charPed)
     safeDelete(extraPed)
+    if DoesEntityExist(charPed) then DeleteEntity(charPed) end
+    if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
     arrowActive = false
     SetNuiFocus(false, false)
     DoScreenFadeOut(500)
@@ -271,6 +381,8 @@ end)
 RegisterNetEvent('pappu-multicharacter:client:closeNUI', function()
     safeDelete(charPed)
     safeDelete(extraPed)
+    if DoesEntityExist(charPed) then DeleteEntity(charPed) end
+    if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
     arrowActive = false
     SetNuiFocus(false, false)
 end)
@@ -343,6 +455,37 @@ RegisterNUICallback('closeUI', function(_, cb)
     SetEntityAsMissionEntity(charPed, true, true)
     safeDelete(charPed)
     safeDelete(extraPed)
+    if DoesEntityExist(charPed) then DeleteEntity(charPed) end
+    if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
+    arrowActive = false
+    if Config.SkipSelection then
+        SetNuiFocus(false, false)
+        skyCam(false)
+    else
+        openCharMenu(false)
+    end
+    cb("ok")
+end)
+
+RegisterNUICallback('disconnectButton', function(_, cb)
+    SetEntityAsMissionEntity(charPed, true, true)
+    if DoesEntityExist(charPed) then DeleteEntity(charPed) end
+    if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
+    arrowActive = false
+    TriggerServerEvent('pappu-multicharacter:server:disconnect')
+    cb("ok")
+end)
+
+-- NUI Callbacks
+
+RegisterNUICallback('closeUI', function(_, cb)
+    local cData = data.cData
+    DoScreenFadeOut(10)
+    TriggerServerEvent('pappu-multicharacter:server:loadUserData', cData)
+    openCharMenu(false)
+    SetEntityAsMissionEntity(charPed, true, true)
+    if DoesEntityExist(charPed) then DeleteEntity(charPed) end
+    if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
     arrowActive = false
     if Config.SkipSelection then
         SetNuiFocus(false, false)
@@ -357,6 +500,8 @@ RegisterNUICallback('disconnectButton', function(_, cb)
     SetEntityAsMissionEntity(charPed, true, true)
     safeDelete(charPed)
     safeDelete(extraPed)
+    if DoesEntityExist(charPed) then DeleteEntity(charPed) end
+    if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
     arrowActive = false
     TriggerServerEvent('pappu-multicharacter:server:disconnect')
     cb("ok")
@@ -370,6 +515,8 @@ RegisterNUICallback('selectCharacter', function(data, cb)
     SetEntityAsMissionEntity(charPed, true, true)
     safeDelete(charPed)
     safeDelete(extraPed)
+    if DoesEntityExist(charPed) then DeleteEntity(charPed) end
+    if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
     arrowActive = false
     cb("ok")
 end)
@@ -381,6 +528,82 @@ RegisterNUICallback('cDataPed', function(nData, cb)
     extraChar = previous
     spawnPreviewPeds({activeChar, extraChar})
     cb("ok")
+    SetEntityAsMissionEntity(charPed, true, true)
+    if DoesEntityExist(charPed) then DeleteEntity(charPed) end
+    if cData ~= nil then
+        if not cached_player_skins[cData.citizenid] then
+            local temp_model = promise.new()
+            local temp_data = promise.new()
+
+            QBCore.Functions.TriggerCallback('pappu-multicharacter:server:getSkin', function(model, data)
+                temp_model:resolve(model)
+                temp_data:resolve(data)
+            end, cData.citizenid)
+
+            local resolved_model = Citizen.Await(temp_model)
+            local resolved_data = Citizen.Await(temp_data)
+
+            cached_player_skins[cData.citizenid] = {model = resolved_model, data = resolved_data}
+        end
+
+        local model = cached_player_skins[cData.citizenid].model
+        local data = cached_player_skins[cData.citizenid].data
+
+        model = model ~= nil and tonumber(model) or false
+
+        if model ~= nil then
+            CreateThread(function()
+                RequestModel(model)
+                while not HasModelLoaded(model) do
+                    Wait(0)
+                end
+                charPed = CreatePed(2, model, Config.PedCoords.x, Config.PedCoords.y, Config.PedCoords.z - 0.98, Config.PedCoords.w, false, true)
+                local RandomAnimins = {
+                    "WORLD_HUMAN_HANG_OUT_STREET",
+                    "WORLD_HUMAN_STAND_IMPATIENT",
+                    "WORLD_HUMAN_STAND_MOBILE",
+                    "WORLD_HUMAN_SMOKING_POT",
+                    "WORLD_HUMAN_LEANING",
+                    "WORLD_HUMAN_DRUG_DEALER_HARD",
+                    "WORLD_HUMAN_MUSCLE_FLEX",
+                    "WORLD_HUMAN_STAND_MOBILE_UPRIGHT",
+                    "WORLD_HUMAN_CLIPBOARD",
+                    "WORLD_HUMAN_AA_SMOKE",
+                    "WORLD_HUMAN_DRINKING",
+                    "WORLD_HUMAN_CHEERING",
+                    "WORLD_HUMAN_HUMAN_STATUE",
+                    "WORLD_HUMAN_STUPOR",
+                    "WORLD_HUMAN_TOURIST_MOBILE",
+                    "WORLD_HUMAN_JOG_STANDING",
+                    "WORLD_HUMAN_PUSH_UPS",
+                    "WORLD_HUMAN_SIT_UPS",
+                    "WORLD_HUMAN_YOGA",
+                    "WORLD_HUMAN_PROSTITUTE_HIGH_CLASS",
+                    "WORLD_HUMAN_PROSTITUTE_LOW_CLASS",
+                    "WORLD_HUMAN_CAR_PARK_ATTENDANT",
+                    "WORLD_HUMAN_GUARD_STAND",
+                    "WORLD_HUMAN_BINOCULARS",
+                    "WORLD_HUMAN_PAPARAZZI"
+                }
+                local PlayAnimin = RandomAnimins[math.random(#RandomAnimins)]
+                SetPedCanPlayAmbientAnims(charPed, true)
+                TaskStartScenarioInPlace(charPed, PlayAnimin, 0, true)
+                SetPedComponentVariation(charPed, 0, 0, 0, 2)
+                FreezeEntityPosition(charPed, false)
+                SetEntityInvincible(charPed, true)
+                PlaceObjectOnGroundProperly(charPed)
+                SetBlockingOfNonTemporaryEvents(charPed, true)
+                data = json.decode(data)
+                TriggerEvent('qb-clothing:client:loadPlayerClothing', data, charPed)
+            end)
+        else
+            initializePedModel()
+        end
+        cb("ok")
+    else
+        initializePedModel()
+        cb("ok")
+    end
 end)
 
 RegisterNUICallback('setupCharacters', function(_, cb)
@@ -420,4 +643,3 @@ RegisterNUICallback('removeCharacter', function(data, cb)
     print('usunieta')
     cb("ok")
 end)
-
