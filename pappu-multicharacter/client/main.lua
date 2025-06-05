@@ -1,5 +1,7 @@
 local cam = nil
 local charPed = nil
+local extraPed = nil
+local arrowActive = false
 local loadScreenCheckState = false
 local QBCore = exports['qb-core']:GetCoreObject()
 local cached_player_skins = {}
@@ -65,6 +67,107 @@ local function initializePedModel(model, data)
     end)
 end
 
+local function spawnPreviewPed(cData, coords, isExtra)
+    CreateThread(function()
+        local model
+        local data
+        if cData then
+            if not cached_player_skins[cData.citizenid] then
+                local temp_model = promise.new()
+                local temp_data = promise.new()
+                QBCore.Functions.TriggerCallback('pappu-multicharacter:server:getSkin', function(m, d)
+                    temp_model:resolve(m)
+                    temp_data:resolve(d)
+                end, cData.citizenid)
+                model = Citizen.Await(temp_model)
+                data = Citizen.Await(temp_data)
+                cached_player_skins[cData.citizenid] = {model = model, data = data}
+            else
+                model = cached_player_skins[cData.citizenid].model
+                data = cached_player_skins[cData.citizenid].data
+            end
+        end
+
+        model = model ~= nil and tonumber(model) or joaat(randommodels[math.random(#randommodels)])
+        loadModel(model)
+        local ped = CreatePed(2, model, coords.x, coords.y, coords.z - 0.98, coords.w, false, true)
+        SetPedComponentVariation(ped, 0, 0, 0, 2)
+        FreezeEntityPosition(ped, false)
+        SetEntityInvincible(ped, true)
+        PlaceObjectOnGroundProperly(ped)
+        SetBlockingOfNonTemporaryEvents(ped, true)
+        if data then
+            data = json.decode(data)
+            TriggerEvent('qb-clothing:client:loadPlayerClothing', data, ped)
+        end
+        if isExtra then
+            local RandomAnimins = {
+                "WORLD_HUMAN_HANG_OUT_STREET",
+                "WORLD_HUMAN_STAND_IMPATIENT",
+                "WORLD_HUMAN_STAND_MOBILE",
+                "WORLD_HUMAN_SMOKING_POT",
+                "WORLD_HUMAN_LEANING",
+                "WORLD_HUMAN_DRUG_DEALER_HARD",
+                "WORLD_HUMAN_MUSCLE_FLEX",
+                "WORLD_HUMAN_STAND_MOBILE_UPRIGHT",
+                "WORLD_HUMAN_CLIPBOARD",
+                "WORLD_HUMAN_AA_SMOKE",
+                "WORLD_HUMAN_DRINKING",
+                "WORLD_HUMAN_CHEERING",
+                "WORLD_HUMAN_HUMAN_STATUE",
+                "WORLD_HUMAN_STUPOR",
+                "WORLD_HUMAN_TOURIST_MOBILE",
+                "WORLD_HUMAN_JOG_STANDING",
+                "WORLD_HUMAN_PUSH_UPS",
+                "WORLD_HUMAN_SIT_UPS",
+                "WORLD_HUMAN_YOGA",
+                "WORLD_HUMAN_PROSTITUTE_HIGH_CLASS",
+                "WORLD_HUMAN_PROSTITUTE_LOW_CLASS",
+                "WORLD_HUMAN_CAR_PARK_ATTENDANT",
+                "WORLD_HUMAN_GUARD_STAND",
+                "WORLD_HUMAN_BINOCULARS",
+                "WORLD_HUMAN_PAPARAZZI"
+            }
+            local PlayAnimin = RandomAnimins[math.random(#RandomAnimins)]
+            SetPedCanPlayAmbientAnims(ped, true)
+            TaskStartScenarioInPlace(ped, PlayAnimin, 0, true)
+        end
+
+        if isExtra then
+            extraPed = ped
+        else
+            charPed = ped
+        end
+    end)
+end
+
+local function spawnPreviewPeds(characters)
+    if DoesEntityExist(charPed) then DeleteEntity(charPed) end
+    if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
+    charPed = nil
+    extraPed = nil
+    if characters[1] then
+        spawnPreviewPed(characters[1], Config.PedCoords, false)
+    else
+        spawnPreviewPed(nil, Config.PedCoords, false)
+    end
+    if characters[2] then
+        spawnPreviewPed(characters[2], Config.SecondPedCoords, true)
+    end
+    if not arrowActive then
+        arrowActive = true
+        CreateThread(function()
+            while arrowActive do
+                if charPed and DoesEntityExist(charPed) then
+                    local c = GetEntityCoords(charPed)
+                    DrawMarker(27, c.x, c.y, c.z + 1.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.4, 0.4, 148, 0, 211, 200, false, true, 2, false, nil, nil, false)
+                end
+                Wait(0)
+            end
+        end)
+    end
+end
+
 local function skyCam(bool)
     TriggerEvent('qb-weathersync:client:DisableSync')
     if bool then
@@ -113,7 +216,9 @@ end
 
 RegisterNetEvent('pappu-multicharacter:client:closeNUIdefault', function() -- This event is only for no starting apartments
     if not IsScreenFadedOut() then DoScreenFadeOut(500) end
-    DeleteEntity(charPed)
+    if DoesEntityExist(charPed) then DeleteEntity(charPed) end
+    if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
+    arrowActive = false
     SetNuiFocus(false, false)
     DoScreenFadeOut(500)
     Wait(2000)
@@ -142,7 +247,9 @@ RegisterNetEvent('pappu-multicharacter:client:closeNUIdefault', function() -- Th
 end)
 
 RegisterNetEvent('pappu-multicharacter:client:closeNUI', function()
-    DeleteEntity(charPed)
+    if DoesEntityExist(charPed) then DeleteEntity(charPed) end
+    if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
+    arrowActive = false
     SetNuiFocus(false, false)
 end)
 
@@ -212,7 +319,9 @@ RegisterNUICallback('closeUI', function(_, cb)
     TriggerServerEvent('pappu-multicharacter:server:loadUserData', cData)
     openCharMenu(false)
     SetEntityAsMissionEntity(charPed, true, true)
-    DeleteEntity(charPed)
+    if DoesEntityExist(charPed) then DeleteEntity(charPed) end
+    if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
+    arrowActive = false
     if Config.SkipSelection then
         SetNuiFocus(false, false)
         skyCam(false)
@@ -224,7 +333,9 @@ end)
 
 RegisterNUICallback('disconnectButton', function(_, cb)
     SetEntityAsMissionEntity(charPed, true, true)
-    DeleteEntity(charPed)
+    if DoesEntityExist(charPed) then DeleteEntity(charPed) end
+    if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
+    arrowActive = false
     TriggerServerEvent('pappu-multicharacter:server:disconnect')
     cb("ok")
 end)
@@ -237,7 +348,9 @@ RegisterNUICallback('closeUI', function(_, cb)
     TriggerServerEvent('pappu-multicharacter:server:loadUserData', cData)
     openCharMenu(false)
     SetEntityAsMissionEntity(charPed, true, true)
-    DeleteEntity(charPed)
+    if DoesEntityExist(charPed) then DeleteEntity(charPed) end
+    if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
+    arrowActive = false
     if Config.SkipSelection then
         SetNuiFocus(false, false)
         skyCam(false)
@@ -249,7 +362,9 @@ end)
 
 RegisterNUICallback('disconnectButton', function(_, cb)
     SetEntityAsMissionEntity(charPed, true, true)
-    DeleteEntity(charPed)
+    if DoesEntityExist(charPed) then DeleteEntity(charPed) end
+    if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
+    arrowActive = false
     TriggerServerEvent('pappu-multicharacter:server:disconnect')
     cb("ok")
 end)
@@ -260,14 +375,16 @@ RegisterNUICallback('selectCharacter', function(data, cb)
     TriggerServerEvent('pappu-multicharacter:server:loadUserData', cData)
     openCharMenu(false)
     SetEntityAsMissionEntity(charPed, true, true)
-    DeleteEntity(charPed)
+    if DoesEntityExist(charPed) then DeleteEntity(charPed) end
+    if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
+    arrowActive = false
     cb("ok")
 end)
 
 RegisterNUICallback('cDataPed', function(nData, cb)
     local cData = nData.cData
     SetEntityAsMissionEntity(charPed, true, true)
-    DeleteEntity(charPed)
+    if DoesEntityExist(charPed) then DeleteEntity(charPed) end
     if cData ~= nil then
         if not cached_player_skins[cData.citizenid] then
             local temp_model = promise.new()
@@ -351,6 +468,7 @@ RegisterNUICallback('setupCharacters', function(_, cb)
             action = "setupCharacters",
             characters = result
         })
+        spawnPreviewPeds(result)
         cb("ok")
     end)
 end)
