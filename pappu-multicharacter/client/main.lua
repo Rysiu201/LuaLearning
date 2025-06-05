@@ -157,7 +157,7 @@ local function spawnPreviewPeds(characters)
     end
     if extraChar then
         spawnPreviewPed(extraChar, Config.SecondPedCoords, true)
-    if characters[1] then
+    elseif characters[1] then
         spawnPreviewPed(characters[1], Config.PedCoords, false)
     else
         spawnPreviewPed(nil, Config.PedCoords, false)
@@ -515,4 +515,3 @@ RegisterNUICallback('removeCharacter', function(data, cb)
     print('usunieta')
     cb("ok")
 end)
-
