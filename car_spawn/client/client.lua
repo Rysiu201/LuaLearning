@@ -4,7 +4,7 @@ RegisterCommand('auto', function(source, args)
     local vehicle = args[1] -- Zmienna odpowiadająca za wczytanie do zmiennej naszego argumentu[1]
     local ped = PlayerPedId() -- Wczytujemy, że my to my czyli postać PED
     local pos = GetEntityCoords(ped) -- Wczytujemy coords naszej postaci PED
-    local posheading = GetEntityHeading(pos)
+    local posheading = GetEntityHeading(ped)
 
     RequestModel(vehicle) -- Request gry o podany w args[1] model samochodu
 
@@ -36,7 +36,7 @@ function carspawn(car)
     local vehicle = car -- Zmienna odpowiadająca za wczytanie do zmiennej naszego argumentu[1]
     local ped = PlayerPedId() -- Wczytujemy, że my to my czyli postać PED
     local pos = GetEntityCoords(ped) -- Wczytujemy coords naszej postaci PED
-    local posheading = GetEntityHeading(pos)
+    local posheading = GetEntityHeading(ped)
 
     RequestModel(vehicle) -- Request gry o podany w args[1] model samochodu
 

@@ -2,7 +2,7 @@
 function spawn(vehicle)
     local ped = PlayerPedId()                                                                 -- Wczytujemy, że my to my czyli postać PED
     local pos = GetEntityCoords(ped)                                                          -- Wczytujemy coords naszej postaci PED
-    local posheading = GetEntityHeading(pos)
+    local posheading = GetEntityHeading(ped)
     RequestModel(vehicle)                                                                     -- Request gry o podany w args[1] model samochodu
 
     while not HasModelLoaded(vehicle) do
