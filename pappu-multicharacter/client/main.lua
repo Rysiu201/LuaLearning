@@ -1,6 +1,8 @@
 local cam = nil
 local charPed = nil
 local extraPed = nil
+local activeChar = nil
+local extraChar = nil
 local arrowActive = false
 local loadScreenCheckState = false
 local QBCore = exports['qb-core']:GetCoreObject()
@@ -146,6 +148,15 @@ local function spawnPreviewPeds(characters)
     if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
     charPed = nil
     extraPed = nil
+    activeChar = characters[1]
+    extraChar = characters[2]
+    if activeChar then
+        spawnPreviewPed(activeChar, Config.PedCoords, false)
+    else
+        spawnPreviewPed(nil, Config.PedCoords, false)
+    end
+    if extraChar then
+        spawnPreviewPed(extraChar, Config.SecondPedCoords, true)
     if characters[1] then
         spawnPreviewPed(characters[1], Config.PedCoords, false)
     else
@@ -160,6 +171,7 @@ local function spawnPreviewPeds(characters)
             while arrowActive do
                 if charPed and DoesEntityExist(charPed) then
                     local c = GetEntityCoords(charPed)
+                    DrawMarker(2, c.x, c.y, c.z + 1.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.4, 0.4, 148, 0, 211, 200, false, true, 2, false, nil, nil, false)
                     DrawMarker(27, c.x, c.y, c.z + 1.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.4, 0.4, 148, 0, 211, 200, false, true, 2, false, nil, nil, false)
                 end
                 Wait(0)
@@ -383,6 +395,11 @@ end)
 
 RegisterNUICallback('cDataPed', function(nData, cb)
     local cData = nData.cData
+    local previous = activeChar
+    activeChar = cData
+    extraChar = previous
+    spawnPreviewPeds({activeChar, extraChar})
+    cb("ok")
     SetEntityAsMissionEntity(charPed, true, true)
     if DoesEntityExist(charPed) then DeleteEntity(charPed) end
     if cData ~= nil then
