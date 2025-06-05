@@ -53,6 +53,90 @@ local function loadModel(model)
 end
 
 local function safeDelete(entity)
+    if not DoesEntityExist(entity) then return end
+
+    NetworkRequestControlOfEntity(entity)
+    local attempts = 0
+    while not NetworkHasControlOfEntity(entity) and attempts < 50 do
+        Wait(0)
+        NetworkRequestControlOfEntity(entity)
+        attempts = attempts + 1
+    end
+
+    SetEntityAsMissionEntity(entity, false, true)
+    DeleteEntity(entity)
+end
+
+
+local function spawnPreviewPed(cData, coords, isExtra)
+    local model
+    local data
+    if cData then
+        if not cached_player_skins[cData.citizenid] then
+            local temp_model = promise.new()
+            local temp_data = promise.new()
+            QBCore.Functions.TriggerCallback('pappu-multicharacter:server:getSkin', function(m, d)
+                temp_model:resolve(m)
+                temp_data:resolve(d)
+            end, cData.citizenid)
+            model = Citizen.Await(temp_model)
+            data = Citizen.Await(temp_data)
+            cached_player_skins[cData.citizenid] = {model = model, data = data}
+        else
+            model = cached_player_skins[cData.citizenid].model
+            data = cached_player_skins[cData.citizenid].data
+        end
+    end
+
+    model = model ~= nil and tonumber(model) or joaat(randommodels[math.random(#randommodels)])
+    loadModel(model)
+    local ped = CreatePed(2, model, coords.x, coords.y, coords.z - 0.98, coords.w, false, true)
+    SetPedComponentVariation(ped, 0, 0, 0, 2)
+    FreezeEntityPosition(ped, false)
+    SetEntityInvincible(ped, true)
+    PlaceObjectOnGroundProperly(ped)
+    SetBlockingOfNonTemporaryEvents(ped, true)
+    if data then
+        data = json.decode(data)
+        TriggerEvent('qb-clothing:client:loadPlayerClothing', data, ped)
+    end
+    if isExtra then
+        local RandomAnimins = {
+            "WORLD_HUMAN_HANG_OUT_STREET",
+            "WORLD_HUMAN_STAND_IMPATIENT",
+            "WORLD_HUMAN_STAND_MOBILE",
+            "WORLD_HUMAN_SMOKING_POT",
+            "WORLD_HUMAN_LEANING",
+            "WORLD_HUMAN_DRUG_DEALER_HARD",
+            "WORLD_HUMAN_MUSCLE_FLEX",
+            "WORLD_HUMAN_STAND_MOBILE_UPRIGHT",
+            "WORLD_HUMAN_CLIPBOARD",
+            "WORLD_HUMAN_AA_SMOKE",
+            "WORLD_HUMAN_DRINKING",
+            "WORLD_HUMAN_CHEERING",
+            "WORLD_HUMAN_HUMAN_STATUE",
+            "WORLD_HUMAN_STUPOR",
+            "WORLD_HUMAN_TOURIST_MOBILE",
+            "WORLD_HUMAN_JOG_STANDING",
+            "WORLD_HUMAN_PUSH_UPS",
+            "WORLD_HUMAN_SIT_UPS",
+            "WORLD_HUMAN_YOGA",
+            "WORLD_HUMAN_PROSTITUTE_HIGH_CLASS",
+            "WORLD_HUMAN_PROSTITUTE_LOW_CLASS",
+            "WORLD_HUMAN_CAR_PARK_ATTENDANT",
+            "WORLD_HUMAN_GUARD_STAND",
+            "WORLD_HUMAN_BINOCULARS",
+            "WORLD_HUMAN_PAPARAZZI"
+        }
+        local PlayAnimin = RandomAnimins[math.random(#RandomAnimins)]
+        SetPedCanPlayAmbientAnims(ped, true)
+        TaskStartScenarioInPlace(ped, PlayAnimin, 0, true)
+        -- extra ped performs ambient scenario
+    else
+        -- main ped idle
+    end
+    return ped
+end
     if DoesEntityExist(entity) then
         SetEntityAsMissionEntity(entity, false, true)
         DeleteEntity(entity)
@@ -245,12 +329,32 @@ local function spawnPreviewPeds(characters)
     spawnIdx = spawnIdx + 1
     local myIdx = spawnIdx
     CreateThread(function()
+        local oldChar = charPed
+        local oldExtra = extraPed
+        safeDelete(oldChar)
+        safeDelete(oldExtra)
         safeDelete(charPed)
         safeDelete(extraPed)
         charPed = nil
         extraPed = nil
         activeChar = characters[1]
         extraChar = characters[2]
+        local myChar = spawnPreviewPed(activeChar, Config.PedCoords, false)
+        if myIdx ~= spawnIdx then
+            safeDelete(myChar)
+            return
+        end
+        charPed = myChar
+        local myExtra
+        if extraChar then
+            myExtra = spawnPreviewPed(extraChar, Config.SecondPedCoords, true)
+            if myIdx ~= spawnIdx then
+                safeDelete(myChar)
+                safeDelete(myExtra)
+                return
+            end
+            extraPed = myExtra
+        end
         if activeChar then
             spawnPreviewPed(activeChar, Config.PedCoords, false)
         else
@@ -441,6 +545,9 @@ end
 RegisterNetEvent('pappu-multicharacter:client:closeNUIdefault', function() -- This event is only for no starting apartments
     if not IsScreenFadedOut() then DoScreenFadeOut(500) end
     safeDelete(charPed)
+    charPed = nil
+    safeDelete(extraPed)
+    extraPed = nil
     safeDelete(extraPed)
     if DoesEntityExist(charPed) then DeleteEntity(charPed) end
     if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
@@ -474,6 +581,9 @@ end)
 
 RegisterNetEvent('pappu-multicharacter:client:closeNUI', function()
     safeDelete(charPed)
+    charPed = nil
+    safeDelete(extraPed)
+    extraPed = nil
     safeDelete(extraPed)
     if DoesEntityExist(charPed) then DeleteEntity(charPed) end
     if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
@@ -541,13 +651,16 @@ end)
 
 -- NUI Callbacks
 
-RegisterNUICallback('closeUI', function(_, cb)
+RegisterNUICallback('closeUI', function(data, cb)
     local cData = data.cData
     DoScreenFadeOut(10)
     TriggerServerEvent('pappu-multicharacter:server:loadUserData', cData)
     openCharMenu(false)
     SetEntityAsMissionEntity(charPed, true, true)
     safeDelete(charPed)
+    charPed = nil
+    safeDelete(extraPed)
+    extraPed = nil
     safeDelete(extraPed)
     if DoesEntityExist(charPed) then DeleteEntity(charPed) end
     if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
@@ -564,6 +677,9 @@ end)
 RegisterNUICallback('disconnectButton', function(_, cb)
     SetEntityAsMissionEntity(charPed, true, true)
     safeDelete(charPed)
+    charPed = nil
+    safeDelete(extraPed)
+    extraPed = nil
     safeDelete(extraPed)
     if DoesEntityExist(charPed) then DeleteEntity(charPed) end
     if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
@@ -610,6 +726,9 @@ RegisterNUICallback('selectCharacter', function(data, cb)
     openCharMenu(false)
     SetEntityAsMissionEntity(charPed, true, true)
     safeDelete(charPed)
+    charPed = nil
+    safeDelete(extraPed)
+    extraPed = nil
     safeDelete(extraPed)
     if DoesEntityExist(charPed) then DeleteEntity(charPed) end
     if DoesEntityExist(extraPed) then DeleteEntity(extraPed) end
