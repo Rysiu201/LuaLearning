@@ -137,11 +137,6 @@ local function spawnPreviewPed(cData, coords, isExtra)
     end
     return ped
 end
-    if DoesEntityExist(entity) then
-        SetEntityAsMissionEntity(entity, false, true)
-        DeleteEntity(entity)
-    end
-end
 
 local function spawnPreviewPed(cData, coords, isExtra)
     local model
@@ -410,6 +405,10 @@ local function spawnPreviewPeds(characters)
         model = model ~= nil and tonumber(model) or joaat(randommodels[math.random(#randommodels)])
         loadModel(model)
         local ped = CreatePed(2, model, coords.x, coords.y, coords.z - 0.98, coords.w, false, true)
+        if DoesEntityExist(ped) then
+        SetEntityAsMissionEntity(ped, false, true)
+        DeleteEntity(ped)
+        end
         SetPedComponentVariation(ped, 0, 0, 0, 2)
         FreezeEntityPosition(ped, false)
         SetEntityInvincible(ped, true)
