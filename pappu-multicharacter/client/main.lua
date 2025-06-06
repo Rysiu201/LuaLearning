@@ -1,11 +1,8 @@
 local cam = nil
-local charPed = nil
-local extraPed = nil
--- Used to cancel old preview spawn threads
-local spawnIdx = 0
-local activeChar = nil
-local extraChar = nil
 local arrowActive = false
+local arrowPed = nil
+local spawnedPeds = {}
+local spawnedData = {}
 local loadScreenCheckState = false
 local QBCore = exports['qb-core']:GetCoreObject()
 local cached_player_skins = {}
@@ -68,7 +65,7 @@ local function safeDelete(entity)
 end
 
 
-local function spawnPreviewPed(cData, coords, isExtra)
+local function spawnPreviewPed(cData, coords)
     local model
     local data
     if cData then
@@ -100,6 +97,9 @@ local function spawnPreviewPed(cData, coords, isExtra)
         data = json.decode(data)
         TriggerEvent('qb-clothing:client:loadPlayerClothing', data, ped)
     end
+    local anim = Config.PreviewAnimations[math.random(#Config.PreviewAnimations)]
+    SetPedCanPlayAmbientAnims(ped, true)
+    TaskStartScenarioInPlace(ped, anim, 0, true)
     if isExtra then
         local RandomAnimins = {
             "WORLD_HUMAN_HANG_OUT_STREET",
@@ -139,6 +139,51 @@ local function spawnPreviewPed(cData, coords, isExtra)
 end
 
 local function spawnPreviewPeds(characters)
+    for _, ped in pairs(spawnedPeds) do
+        safeDelete(ped)
+    end
+    spawnedPeds = {}
+    spawnedData = {}
+
+    local available = {}
+    for i, v in ipairs(Config.PreviewSlots) do
+        available[i] = v
+    end
+
+    for _, cData in ipairs(characters) do
+        if #available == 0 then break end
+        local idx = math.random(#available)
+        local coords = table.remove(available, idx)
+        local ped = spawnPreviewPed(cData, coords)
+        spawnedPeds[cData.cid] = ped
+        spawnedData[cData.cid] = cData
+    end
+end
+
+local function startArrow(ped)
+    arrowPed = ped
+    if not arrowActive then
+        arrowActive = true
+        CreateThread(function()
+            while arrowActive do
+                if arrowPed and DoesEntityExist(arrowPed) then
+                    local c = GetEntityCoords(arrowPed)
+                    DrawMarker(27, c.x, c.y, c.z + 1.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.4, 0.4, 148, 0, 211, 200, false, true, 2, false, nil, nil, false)
+                end
+                Wait(0)
+            end
+        end)
+    end
+end
+
+local function clearPreview()
+    for _, ped in pairs(spawnedPeds) do
+        safeDelete(ped)
+    end
+    spawnedPeds = {}
+    spawnedData = {}
+    arrowActive = false
+    arrowPed = nil
     spawnIdx = spawnIdx + 1
     local myIdx = spawnIdx
     CreateThread(function()
@@ -229,6 +274,7 @@ end
 
 RegisterNetEvent('pappu-multicharacter:client:closeNUIdefault', function() -- This event is only for no starting apartments
     if not IsScreenFadedOut() then DoScreenFadeOut(500) end
+    clearPreview()
     safeDelete(charPed)
     charPed = nil
     safeDelete(extraPed)
@@ -262,6 +308,7 @@ RegisterNetEvent('pappu-multicharacter:client:closeNUIdefault', function() -- Th
 end)
 
 RegisterNetEvent('pappu-multicharacter:client:closeNUI', function()
+    clearPreview()
     safeDelete(charPed)
     charPed = nil
     safeDelete(extraPed)
@@ -335,6 +382,7 @@ RegisterNUICallback('closeUI', function(data, cb)
     DoScreenFadeOut(10)
     TriggerServerEvent('pappu-multicharacter:server:loadUserData', cData)
     openCharMenu(false)
+    clearPreview()
     SetEntityAsMissionEntity(charPed, true, true)
     safeDelete(charPed)
     charPed = nil
@@ -351,6 +399,7 @@ RegisterNUICallback('closeUI', function(data, cb)
 end)
 
 RegisterNUICallback('disconnectButton', function(_, cb)
+    clearPreview()
     SetEntityAsMissionEntity(charPed, true, true)
     safeDelete(charPed)
     charPed = nil
@@ -366,6 +415,7 @@ RegisterNUICallback('selectCharacter', function(data, cb)
     DoScreenFadeOut(10)
     TriggerServerEvent('pappu-multicharacter:server:loadUserData', cData)
     openCharMenu(false)
+    clearPreview()
     SetEntityAsMissionEntity(charPed, true, true)
     safeDelete(charPed)
     charPed = nil
@@ -377,6 +427,11 @@ end)
 
 RegisterNUICallback('cDataPed', function(nData, cb)
     local cData = nData.cData
+    if cData and cData.cid and spawnedPeds[cData.cid] then
+        startArrow(spawnedPeds[cData.cid])
+    else
+        arrowPed = nil
+    end
     local previous = activeChar
     activeChar = cData
     extraChar = previous
@@ -421,3 +476,4 @@ RegisterNUICallback('removeCharacter', function(data, cb)
     print('usunieta')
     cb("ok")
 end)
+
