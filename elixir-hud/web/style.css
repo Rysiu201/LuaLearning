@@ -1158,7 +1158,9 @@ video {
   align-items: center;
   position: absolute;
   bottom: calc(0.092592592vh * 15);
-  margin-left: calc(0.092592592vh * 15);
+  left: 50%;
+  transform: translateX(-50%);
+  margin-left: 0;
   z-index: 1;
 }
 .statsIndicators-cont .statsIndicators-list ul {
@@ -1178,24 +1180,8 @@ video {
   display: flex;
   align-items: center;
   position: relative;
-  -webkit-clip-path: polygon(
-    50% 0%,
-    97.632% 25%,
-    97.632% 75%,
-    50% 100%,
-    2.369% 75%,
-    2.369% 25%,
-    50% 0%
-  );
-  clip-path: polygon(
-    50% 0%,
-    97.632% 25%,
-    97.632% 75%,
-    50% 100%,
-    2.369% 75%,
-    2.369% 25%,
-    50% 0%
-  );
+  -webkit-clip-path: circle(50%);
+  clip-path: circle(50%);
   padding: calc(0.092592592vh * 5);
 }
 .statsIndicators-cont .statsIndicators-list ul li .container .icon-cont {
@@ -1205,24 +1191,8 @@ video {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  -webkit-clip-path: polygon(
-    50% 0%,
-    97.632% 25%,
-    97.632% 75%,
-    50% 100%,
-    2.369% 75%,
-    2.369% 25%,
-    50% 0%
-  );
-  clip-path: polygon(
-    50% 0%,
-    97.632% 25%,
-    97.632% 75%,
-    50% 100%,
-    2.369% 75%,
-    2.369% 25%,
-    50% 0%
-  );
+  -webkit-clip-path: circle(50%);
+  clip-path: circle(50%);
 }
 .statsIndicators-cont .statsIndicators-list ul li .container .icon-cont .value {
   width: 100%;
