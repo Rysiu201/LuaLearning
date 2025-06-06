@@ -65,6 +65,7 @@ local function safeDelete(entity)
 end
 
 
+local function spawnPreviewPed(cData, coords, anim)
 local function spawnPreviewPed(cData, coords)
     local model
     local data
@@ -97,6 +98,22 @@ local function spawnPreviewPed(cData, coords)
         data = json.decode(data)
         TriggerEvent('qb-clothing:client:loadPlayerClothing', data, ped)
     end
+    local chosenAnim = anim or Config.PreviewAnimations[math.random(#Config.PreviewAnimations)]
+    SetPedCanPlayAmbientAnims(ped, true)
+    TaskStartScenarioInPlace(ped, chosenAnim, 0, true)
+    return ped
+end
+
+local function spawnPreviewPeds(characters)
+    for _, ped in pairs(spawnedPeds) do
+        safeDelete(ped)
+    end
+    spawnedPeds = {}
+    spawnedData = {}
+
+    local available = {}
+    for i, v in ipairs(Config.PreviewSlots) do
+        available[i] = v
     local anim = Config.PreviewAnimations[math.random(#Config.PreviewAnimations)]
     SetPedCanPlayAmbientAnims(ped, true)
     TaskStartScenarioInPlace(ped, anim, 0, true)
@@ -174,8 +191,31 @@ local function startArrow(ped)
             end
         end)
     end
+    for _, cData in ipairs(characters) do
+        if #available == 0 then break end
+        local idx = math.random(#available)
+        local slot = table.remove(available, idx)
+        local ped = spawnPreviewPed(cData, slot.coords, slot.anim)
+        spawnedPeds[cData.cid] = ped
+        spawnedData[cData.cid] = cData
+    end
 end
 
+local function startArrow(ped)
+    arrowPed = ped
+    if not arrowActive then
+        arrowActive = true
+        CreateThread(function()
+            while arrowActive do
+                if arrowPed and DoesEntityExist(arrowPed) then
+                    local c = GetEntityCoords(arrowPed)
+                    DrawMarker(2, c.x, c.y, c.z + 1.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.4, 0.4, 148, 0, 211, 200, false, true, 2, false, nil, nil, false)
+                    DrawMarker(27, c.x, c.y, c.z + 1.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.4, 0.4, 148, 0, 211, 200, false, true, 2, false, nil, nil, false)
+                end
+                Wait(0)
+            end
+        end)
+    end
 local function clearPreview()
     for _, ped in pairs(spawnedPeds) do
         safeDelete(ped)
@@ -224,6 +264,16 @@ local function clearPreview()
             end)
         end
     end)
+end
+
+local function clearPreview()
+    for _, ped in pairs(spawnedPeds) do
+        safeDelete(ped)
+    end
+    spawnedPeds = {}
+    spawnedData = {}
+    arrowActive = false
+    arrowPed = nil
 end
 
 local function skyCam(bool)
