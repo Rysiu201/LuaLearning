@@ -6971,3 +6971,7 @@ svg.active .svg-elem-1 {
   order: 2;
 }
 
+#mic-icon {
+  display: none;
+}
+

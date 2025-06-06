@@ -586,6 +586,7 @@ window.addEventListener("message", function (event) {
     }
   } else if (event.data.action == "talking") {
     if (event.data.talking) {
+      $("#mic-icon").css("display", "block");
       if (event.data.radioshit) {
         $(".icon-cont[name=radio]")
           .parent()
@@ -616,6 +617,7 @@ window.addEventListener("message", function (event) {
           );
       }
     } else {
+      $("#mic-icon").css("display", "none");
       $(".icon-cont[name=voice]")
         .parent()
         .css("background", "rgba(255, 255, 255, 0.35)");
