@@ -379,6 +379,7 @@ local function spawnPreviewPeds(characters)
                 while arrowActive do
                     if charPed and DoesEntityExist(charPed) then
                         local c = GetEntityCoords(charPed)
+                        DrawMarker(27, c.x, c.y, c.z + 1.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.4, 0.4, 148, 0, 211, 200, false, true, 2, false, nil, nil, false)
                         DrawMarker(2, c.x, c.y, c.z + 1.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.4, 0.4, 148, 0, 211, 200, false, true, 2, false, nil, nil, false)
                     end
                     Wait(0)
