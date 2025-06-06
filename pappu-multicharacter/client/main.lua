@@ -66,6 +66,7 @@ end
 
 
 local function spawnPreviewPed(cData, coords, anim)
+local function spawnPreviewPed(cData, coords)
     local model
     local data
     if cData then
@@ -113,8 +114,83 @@ local function spawnPreviewPeds(characters)
     local available = {}
     for i, v in ipairs(Config.PreviewSlots) do
         available[i] = v
+    local anim = Config.PreviewAnimations[math.random(#Config.PreviewAnimations)]
+    SetPedCanPlayAmbientAnims(ped, true)
+    TaskStartScenarioInPlace(ped, anim, 0, true)
+    if isExtra then
+        local RandomAnimins = {
+            "WORLD_HUMAN_HANG_OUT_STREET",
+            "WORLD_HUMAN_STAND_IMPATIENT",
+            "WORLD_HUMAN_STAND_MOBILE",
+            "WORLD_HUMAN_SMOKING_POT",
+            "WORLD_HUMAN_LEANING",
+            "WORLD_HUMAN_DRUG_DEALER_HARD",
+            "WORLD_HUMAN_MUSCLE_FLEX",
+            "WORLD_HUMAN_STAND_MOBILE_UPRIGHT",
+            "WORLD_HUMAN_CLIPBOARD",
+            "WORLD_HUMAN_AA_SMOKE",
+            "WORLD_HUMAN_DRINKING",
+            "WORLD_HUMAN_CHEERING",
+            "WORLD_HUMAN_HUMAN_STATUE",
+            "WORLD_HUMAN_STUPOR",
+            "WORLD_HUMAN_TOURIST_MOBILE",
+            "WORLD_HUMAN_JOG_STANDING",
+            "WORLD_HUMAN_PUSH_UPS",
+            "WORLD_HUMAN_SIT_UPS",
+            "WORLD_HUMAN_YOGA",
+            "WORLD_HUMAN_PROSTITUTE_HIGH_CLASS",
+            "WORLD_HUMAN_PROSTITUTE_LOW_CLASS",
+            "WORLD_HUMAN_CAR_PARK_ATTENDANT",
+            "WORLD_HUMAN_GUARD_STAND",
+            "WORLD_HUMAN_BINOCULARS",
+            "WORLD_HUMAN_PAPARAZZI"
+        }
+        local PlayAnimin = RandomAnimins[math.random(#RandomAnimins)]
+        SetPedCanPlayAmbientAnims(ped, true)
+        TaskStartScenarioInPlace(ped, PlayAnimin, 0, true)
+        -- extra ped performs ambient scenario
+    else
+        -- main ped idle
+    end
+    return ped
+end
+
+local function spawnPreviewPeds(characters)
+    for _, ped in pairs(spawnedPeds) do
+        safeDelete(ped)
+    end
+    spawnedPeds = {}
+    spawnedData = {}
+
+    local available = {}
+    for i, v in ipairs(Config.PreviewSlots) do
+        available[i] = v
     end
 
+    for _, cData in ipairs(characters) do
+        if #available == 0 then break end
+        local idx = math.random(#available)
+        local coords = table.remove(available, idx)
+        local ped = spawnPreviewPed(cData, coords)
+        spawnedPeds[cData.cid] = ped
+        spawnedData[cData.cid] = cData
+    end
+end
+
+local function startArrow(ped)
+    arrowPed = ped
+    if not arrowActive then
+        arrowActive = true
+        CreateThread(function()
+            while arrowActive do
+                if arrowPed and DoesEntityExist(arrowPed) then
+                    local c = GetEntityCoords(arrowPed)
+                    DrawMarker(27, c.x, c.y, c.z + 1.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.4, 0.4, 148, 0, 211, 200, false, true, 2, false, nil, nil, false)
+                end
+                Wait(0)
+            end
+        end)
+    end
     for _, cData in ipairs(characters) do
         if #available == 0 then break end
         local idx = math.random(#available)
@@ -140,6 +216,54 @@ local function startArrow(ped)
             end
         end)
     end
+local function clearPreview()
+    for _, ped in pairs(spawnedPeds) do
+        safeDelete(ped)
+    end
+    spawnedPeds = {}
+    spawnedData = {}
+    arrowActive = false
+    arrowPed = nil
+    spawnIdx = spawnIdx + 1
+    local myIdx = spawnIdx
+    CreateThread(function()
+        local oldChar = charPed
+        local oldExtra = extraPed
+        safeDelete(oldChar)
+        safeDelete(oldExtra)
+        charPed = nil
+        extraPed = nil
+        activeChar = characters[1]
+        extraChar = characters[2]
+        local myChar = spawnPreviewPed(activeChar, Config.PedCoords, false)
+        if myIdx ~= spawnIdx then
+            safeDelete(myChar)
+            return
+        end
+        charPed = myChar
+        local myExtra
+        if extraChar then
+            myExtra = spawnPreviewPed(extraChar, Config.SecondPedCoords, true)
+            if myIdx ~= spawnIdx then
+                safeDelete(myChar)
+                safeDelete(myExtra)
+                return
+            end
+            extraPed = myExtra
+        end
+        if not arrowActive then
+            arrowActive = true
+            CreateThread(function()
+                while arrowActive do
+                    if charPed and DoesEntityExist(charPed) then
+                        local c = GetEntityCoords(charPed)
+                        DrawMarker(2, c.x, c.y, c.z + 1.2, 0.0, 0.0, 0.0, 180.0, 0.0, 0.0, 0.2, 0.2, 0.2, 148, 0, 211, 200, true, true, 1, false, nil, nil, false)
+                    end
+                    Wait(0)
+                end
+            end)
+        end
+    end)
 end
 
 local function clearPreview()
@@ -159,7 +283,7 @@ local function skyCam(bool)
         SetTimecycleModifier('hud_def_blur')
         SetTimecycleModifierStrength(1.0)
         FreezeEntityPosition(PlayerPedId(), false)
-        cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", Config.CamCoords.x, Config.CamCoords.y, Config.CamCoords.z, 0.0 ,0.0, Config.CamCoords.w, 60.00, false, 0)
+        cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", Config.CamCoords.x, Config.CamCoords.y, Config.CamCoords.z, -40.0 ,0.0, Config.CamCoords.w, 75.00, false, 0)
         SetCamActive(cam, true)
         RenderScriptCams(true, false, 1, true, true)
     else
@@ -201,6 +325,11 @@ end
 RegisterNetEvent('pappu-multicharacter:client:closeNUIdefault', function() -- This event is only for no starting apartments
     if not IsScreenFadedOut() then DoScreenFadeOut(500) end
     clearPreview()
+    safeDelete(charPed)
+    charPed = nil
+    safeDelete(extraPed)
+    extraPed = nil
+    arrowActive = false
     SetNuiFocus(false, false)
     DoScreenFadeOut(500)
     Wait(2000)
@@ -230,6 +359,11 @@ end)
 
 RegisterNetEvent('pappu-multicharacter:client:closeNUI', function()
     clearPreview()
+    safeDelete(charPed)
+    charPed = nil
+    safeDelete(extraPed)
+    extraPed = nil
+    arrowActive = false
     SetNuiFocus(false, false)
 end)
 
@@ -299,6 +433,12 @@ RegisterNUICallback('closeUI', function(data, cb)
     TriggerServerEvent('pappu-multicharacter:server:loadUserData', cData)
     openCharMenu(false)
     clearPreview()
+    SetEntityAsMissionEntity(charPed, true, true)
+    safeDelete(charPed)
+    charPed = nil
+    safeDelete(extraPed)
+    extraPed = nil
+    arrowActive = false
     if Config.SkipSelection then
         SetNuiFocus(false, false)
         skyCam(false)
@@ -310,6 +450,12 @@ end)
 
 RegisterNUICallback('disconnectButton', function(_, cb)
     clearPreview()
+    SetEntityAsMissionEntity(charPed, true, true)
+    safeDelete(charPed)
+    charPed = nil
+    safeDelete(extraPed)
+    extraPed = nil
+    arrowActive = false
     TriggerServerEvent('pappu-multicharacter:server:disconnect')
     cb("ok")
 end)
@@ -320,6 +466,12 @@ RegisterNUICallback('selectCharacter', function(data, cb)
     TriggerServerEvent('pappu-multicharacter:server:loadUserData', cData)
     openCharMenu(false)
     clearPreview()
+    SetEntityAsMissionEntity(charPed, true, true)
+    safeDelete(charPed)
+    charPed = nil
+    safeDelete(extraPed)
+    extraPed = nil
+    arrowActive = false
     cb("ok")
 end)
 
@@ -330,6 +482,10 @@ RegisterNUICallback('cDataPed', function(nData, cb)
     else
         arrowPed = nil
     end
+    local previous = activeChar
+    activeChar = cData
+    extraChar = previous
+    spawnPreviewPeds({activeChar, extraChar})
     cb("ok")
 end)
 
