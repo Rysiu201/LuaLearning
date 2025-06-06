@@ -172,7 +172,7 @@ local function spawnPreviewPeds(characters)
                 while arrowActive do
                     if charPed and DoesEntityExist(charPed) then
                         local c = GetEntityCoords(charPed)
-                        DrawMarker(27, c.x, c.y, c.z + 1.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.4, 0.4, 148, 0, 211, 200, false, true, 2, false, nil, nil, false)
+                        DrawMarker(2, c.x, c.y, c.z + 1.2, 0.0, 0.0, 0.0, 180.0, 0.0, 0.0, 0.2, 0.2, 0.2, 148, 0, 211, 200, true, true, 1, false, nil, nil, false)
                     end
                     Wait(0)
                 end
@@ -188,7 +188,7 @@ local function skyCam(bool)
         SetTimecycleModifier('hud_def_blur')
         SetTimecycleModifierStrength(1.0)
         FreezeEntityPosition(PlayerPedId(), false)
-        cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", Config.CamCoords.x, Config.CamCoords.y, Config.CamCoords.z, 0.0 ,0.0, Config.CamCoords.w, 60.00, false, 0)
+        cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", Config.CamCoords.x, Config.CamCoords.y, Config.CamCoords.z, -40.0 ,0.0, Config.CamCoords.w, 75.00, false, 0)
         SetCamActive(cam, true)
         RenderScriptCams(true, false, 1, true, true)
     else
@@ -421,4 +421,3 @@ RegisterNUICallback('removeCharacter', function(data, cb)
     print('usunieta')
     cb("ok")
 end)
-
