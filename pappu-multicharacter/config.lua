@@ -7,6 +7,26 @@ Config.HiddenCoords = vector4(-1001.11, -478.06, 50.03, 24.55) -- Hides your act
 Config.CamCoords = vector4(-1005.53, -480.73, 50.52, 27.44) -- Camera coordinates for character preview screen
 Config.EnableDeleteButton = true -- Define if the player can delete the character or not
 
+Config.PreviewSlots = {
+    vector4(-1007.3, -477.6, 50.028, 208.6),
+    vector4(-1005.9, -476.0, 50.028, 180.0),
+    vector4(-1004.0, -476.5, 50.028, 160.0),
+    vector4(-1003.0, -478.0, 50.028, 140.0),
+    vector4(-1006.5, -479.0, 50.028, 200.0),
+    vector4(-1008.2, -475.3, 50.028, 220.0),
+    vector4(-1002.0, -475.5, 50.028, 130.0)
+}
+
+Config.PreviewAnimations = {
+    "WORLD_HUMAN_HANG_OUT_STREET",
+    "WORLD_HUMAN_STAND_IMPATIENT",
+    "WORLD_HUMAN_SMOKING_POT",
+    "WORLD_HUMAN_LEANING",
+    "WORLD_HUMAN_DRINKING",
+    "WORLD_HUMAN_MUSCLE_FLEX",
+    "WORLD_HUMAN_AA_SMOKE"
+}
+
 Config.inventoryexport =  "pappu-inventorynp"
 
 Config.DefaultNumberOfCharacters = 2 --  Max 4 // Dont Go More Than 4
