@@ -82,6 +82,40 @@ $(document).ready(function () {
 
   let storedPos = localStorage.getItem("hud_position");
   if (storedPos) {
+    $(".np-text-box[name=hudposition]").val(getHudLabel(storedPos));
+    applyHudPosition(storedPos);
+  } else {
+    localStorage.setItem("hud_position", "center");
+    $(".np-text-box[name=hudposition]").val(getHudLabel("center"));
+    applyHudPosition("center");
+  }
+
+  $(".option").click(function () {
+    let Description = $(this).html();
+    let val = $(this).data("value") || Description;
+    $(this)
+      .parent()
+      .parent()
+      .children(".np-text-box")
+      .prop("value", Description);
+    let trinkVal = $(this).parent().parent().children(".np-text-box").attr("trink");
+    if (trinkVal == "preference") {
+      loadPreference();
+    } else if (trinkVal == "hudpos") {
+      localStorage.setItem("hud_position", val);
+      applyHudPosition(val);
+    }
+  });
+  $(".settings-dropdown").click(function () {
+    if ($(this).children(".options").css("display") == "none") {
+      $(this).children(".options").css("display", "flex");
+    } else {
+      $(this).children(".options").css("display", "none");
+    }
+  });
+
+  let storedPos = localStorage.getItem("hud_position");
+  if (storedPos) {
     $(".np-text-box[name=hudposition]").val(storedPos);
     applyHudPosition(storedPos);
   } else {
@@ -289,6 +323,24 @@ function refreshInputs() {
   });
 }
 
+function getHudLabel(pos) {
+  if (pos === "left") return "Lewa";
+  if (pos === "right") return "Prawa";
+  return "Środek";
+}
+
+function applyHudPosition(pos) {
+  const cont = $(".statsIndicators-cont");
+  cont.removeClass("left center right");
+  if (pos === "left") {
+    cont.addClass("left");
+  } else if (pos === "right") {
+    cont.addClass("right");
+  } else {
+    cont.addClass("center");
+  }
+}
+
 function applyHudPosition(pos) {
   const cont = $(".statsIndicators-cont");
   cont.removeClass("left center right");
@@ -398,19 +450,19 @@ function rpmUpdate(rpm) {
   let mappedNumber = mapNumber(rpm * 10, 0, 10, 0, 17) + 1;
   $(".rpm-hud").each(function (index) {
     if (index < mappedNumber) {
-      $(this)
-        .addClass("ring-mediumspringgreen bg-mediumspringgreen")
-        .removeClass("bg-neutral-600 ring-neutral-600");
-      if (index <= 17 && index >= 15) {
-        $(this).addClass("bg-red-500");
+      if (index >= 12) {
+        $(this)
+          .addClass("ring-red-500 bg-red-500")
+          .removeClass("ring-mediumspringgreen bg-mediumspringgreen bg-neutral-600 ring-neutral-600");
+      } else {
+        $(this)
+          .addClass("ring-mediumspringgreen bg-mediumspringgreen")
+          .removeClass("ring-red-500 bg-red-500 bg-neutral-600 ring-neutral-600");
       }
     } else {
       $(this)
         .addClass("bg-neutral-600 ring-neutral-600")
-        .removeClass("ring-mediumspringgreen bg-mediumspringgreen");
-      if (index <= 17 && index >= 15) {
-        $(this).removeClass("bg-red-500");
-      }
+        .removeClass("ring-mediumspringgreen bg-mediumspringgreen ring-red-500 bg-red-500");
     }
   });
 }
@@ -611,6 +663,11 @@ window.addEventListener("message", function (event) {
       if (event.data.radioshit) {
         $(".icon-cont[name=radio]")
           .parent()
+  } else if (event.data.action == "talking") {
+    if (event.data.talking) {
+      if (event.data.radioshit) {
+        $(".icon-cont[name=radio]")
+          .parent()
           .css("background", "rgba(185, 65, 65, 0.5)");
         $(".icon-cont[name=radio]").css(
           "background",
@@ -623,6 +680,24 @@ window.addEventListener("message", function (event) {
             " radial-gradient(rgba(185, 65, 65, 0.5), rgba(185, 65, 65, 0.5))"
           );
       } else {
+        $(".icon-cont[name=voice]")
+          .parent()
+          .css("background", "rgba(207, 0, 255, 0.35)");
+        $(".icon-cont[name=voice]").css(
+          "background",
+          "radial-gradient(rgba(207, 0, 255, 0), rgba(207, 0, 255, 0.5))"
+        );
+        $(".icon-cont[name=voice]")
+          .children()
+          .css(
+            "background-image",
+            " radial-gradient(rgba(207, 0, 255, 0.5), rgba(207, 0, 255, 0.5))"
+          );
+      }
+    } else {
+      $(".icon-cont[name=voice]")
+        .parent()
+        .css("background", "rgba(255, 255, 255, 0.35)");
         $(".icon-cont[name=voice]")
           .parent()
           .css("background", "rgba(207, 0, 255, 0.35)");

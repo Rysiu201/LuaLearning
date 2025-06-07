@@ -456,6 +456,34 @@
             </div>
             <div class="_option_1hwi9_191">
               <div class="_texts_1hwi9_215">
+                <div class="_title_1hwi9_44">Pozycja HUD</div>
+                <div class="_description_1hwi9_53">Wybierz położenie HUD</div>
+              </div>
+              <div class="settings-dropdown np-dropdow-active">
+                <input
+                  class="np-text-box input-focused"
+                  type="text"
+                  readonly=""
+                  name="hudposition"
+                  trink="hudpos"
+                  placeholder="Wybierz opcję..."
+                  value="center"
+                />
+                <div class="options">
+                  <div>Wybierz opcję...</div>
+                  <div class="option" data-value="left">Lewa</div>
+                  <div class="option" data-value="center">Środek</div>
+                  <div class="option" data-value="right">Prawa</div>
+                </div>
+              </div>
+            </div>
+            <div class="_option_1hwi9_191">
+              <div class="_texts_1hwi9_215">
+                <div class="_title_1hwi9_44">Pokazuj tlen gdy potrzebny</div>
+                <div class="_description_1hwi9_53">Włącz pasek tlenu</div>
+            </div>
+            <div class="_option_1hwi9_191">
+              <div class="_texts_1hwi9_215">
                 <div class="_title_1hwi9_44">HUD Position</div>
                 <div class="_description_1hwi9_53">Choose HUD alignment</div>
               </div>
@@ -530,9 +558,9 @@
             </div>
             <div class="_option_1hwi9_191">
               <div class="_texts_1hwi9_215">
-                <div class="_title_1hwi9_44">Show Harness durability</div>
+                <div class="_title_1hwi9_44">Pokaż wytrzymałość pasów</div>
                 <div class="_description_1hwi9_53">
-                  Toggle the harness durability
+                  Przełącz wytrzymałość pasów
                 </div>
               </div>
               <div
@@ -554,9 +582,9 @@
             </div>
             <div class="_option_1hwi9_191">
               <div class="_texts_1hwi9_215">
-                <div class="_title_1hwi9_44">Show Nitrous levels</div>
+                <div class="_title_1hwi9_44">Pokaż poziom podtlenku azotu</div>
                 <div class="_description_1hwi9_53">
-                  Toggle the nitrous levels
+                  Przełącz poziom podtlenku azotu
                 </div>
               </div>
               <div
@@ -578,8 +606,8 @@
             </div>
             <div class="_option_1hwi9_191">
               <div class="_texts_1hwi9_215">
-                <div class="_title_1hwi9_44">Show Black Bars</div>
-                <div class="_description_1hwi9_53">Toggle the black bars</div>
+                <div class="_title_1hwi9_44">Pokaż czarne pasy</div>
+                <div class="_description_1hwi9_53">Przełącz czarne pasy</div>
               </div>
               <div
                 class="settings-switch-wrapper"
@@ -761,6 +789,7 @@
     <div id="root">
       <div class="h-screen w-screen">
         <div class="statsIndicators-cont center">
+        <div class="statsIndicators-cont center">
           <div class="statsIndicators-list">
             <ul>
 
@@ -806,6 +835,11 @@
                     </div>
                   </div>
                 </div>
+                <p class="inter500 p-black62">4</p>
+              </li>
+
+
+              <li>
                 <p class="inter500 p-black62">4</p>
               </li>
 
@@ -1576,6 +1610,7 @@
           style="display: none"
         >
           <div class="absolute bottom-[3rem] left-[19rem]">
+          <div class="absolute bottom-[3rem] left-[19rem]">
           <div class="absolute bottom-[3rem] right-[3rem]">
             <div class="relative flex h-[7rem]">
               <div
@@ -1583,36 +1618,22 @@
               >
                 <div class="flex justify-start gap-2 text-left text-white">
                   <div
-                    class="flex h-full w-8 flex-col items-center justify-center gap-1 self-end rounded-sm border-2 border-gray-400/50 font-bold text-gray-700 [background:radial-gradient(50%_50%_at_50%_50%,_#00f8b9,_#0e8e6e)]"
+                    class="flex h-full w-8 flex-col items-center justify-center gap-1 self-end rounded-sm border-2 border-gray-400/50 font-bold text-gray-700 [background:radial-gradient(50%_50%_at_50%_50%,_#b200ff,_#7100a6)]"
                   >
                     <span class="h-5 text-xl" id="gearText">N</span>
-                    <span class="h-4 w-4 text-gray-700">
-                      <svg
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="fa"
-                        viewBox="0 0 512 512"
-                        style="
-                          height: 1em;
-                          vertical-align: -0.002em;
-                          transform-origin: center center;
-                          overflow: visible;
-                        "
-                      >
-                        <g
-                          transform="translate(256 256)"
-                          transform-origin="128 0"
-                        >
-                          <g transform="translate(12.8,-51.2) scale(0.75,0.75)">
-                            <path
-                              d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8c-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4L83.1 425.9c-8.8 2.8-18.6 .3-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 273.1 64 264.6 64 256s.6-17.1 1.7-25.4L22.4 191.2c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160z"
-                              fill="currentColor"
-                              transform="translate(-256 -256)"
-                            ></path>
-                          </g>
-                        </g>
-                      </svg>
-                    </span>
+                    <img class="w-4 h-4" src="gear-shift.svg" alt="" />
+                  </div>
+                  <div class="relative">
+                    <span
+                      class="absolute left-[0.25rem] top-[-0.5rem] text-[3.5rem] leading-none shadow-black/30 [text-shadow:_-2px_2px_0_var(--tw-shadow-color),_2px_2px_0_var(--tw-shadow-color),_-2px_-2px_0_var(--tw-shadow-color),_2px_-2px_0_var(--tw-shadow-color)]"
+                      ><span class="speedometera" style="color: gray">0</span
+                      ><span class="speedometera" style="color: gray">0</span
+                      ><span class="speedometera" style="color: gray">0</span
+                      ></span
+                    ><span
+                      class="absolute left-[4.6rem] top-[-1.6rem] text-neutral-300"
+                      >MPH</span
+                    >
                   </div>
                   <div class="relative">
                     <span
@@ -1630,58 +1651,59 @@
                 <div class="relative h-7 w-full rounded-sm">
                   <div class="absolute bottom-2 flex h-full gap-1">
                     <div
+                      class="rpm-hud h-full w-1 rounded-sm ring-2 ring-opacity-5 bg-mediumspringgreen ring-mediumspringgreen"
                       class="rpm-hud h-full w-2 rounded-sm ring-2 ring-opacity-5 bg-mediumspringgreen ring-mediumspringgreen"
                     ></div>
                     <div
-                      class="rpm-hud h-full w-2 rounded-sm ring-2 ring-opacity-5 bg-mediumspringgreen ring-mediumspringgreen"
+                      class="rpm-hud h-full w-1 rounded-sm ring-2 ring-opacity-5 bg-mediumspringgreen ring-mediumspringgreen"
                     ></div>
                     <div
-                      class="rpm-hud h-full w-2 rounded-sm ring-2 ring-opacity-5 bg-mediumspringgreen ring-mediumspringgreen"
+                      class="rpm-hud h-full w-1 rounded-sm ring-2 ring-opacity-5 bg-mediumspringgreen ring-mediumspringgreen"
                     ></div>
                     <div
-                      class="rpm-hud h-full w-2 rounded-sm ring-2 ring-opacity-5 bg-mediumspringgreen ring-mediumspringgreen"
+                      class="rpm-hud h-full w-1 rounded-sm ring-2 ring-opacity-5 bg-mediumspringgreen ring-mediumspringgreen"
                     ></div>
                     <div
-                      class="rpm-hud h-full w-2 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
+                      class="rpm-hud h-full w-1 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
                     ></div>
                     <div
-                      class="rpm-hud h-full w-2 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
+                      class="rpm-hud h-full w-1 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
                     ></div>
                     <div
-                      class="rpm-hud h-full w-2 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
+                      class="rpm-hud h-full w-1 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
                     ></div>
                     <div
-                      class="rpm-hud h-full w-2 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
+                      class="rpm-hud h-full w-1 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
                     ></div>
                     <div
-                      class="rpm-hud h-full w-2 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
+                      class="rpm-hud h-full w-1 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
                     ></div>
                     <div
-                      class="rpm-hud h-full w-2 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
+                      class="rpm-hud h-full w-1 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
                     ></div>
                     <div
-                      class="rpm-hud h-full w-2 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
+                      class="rpm-hud h-full w-1 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
                     ></div>
                     <div
-                      class="rpm-hud h-full w-2 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
+                      class="rpm-hud h-full w-1 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
                     ></div>
                     <div
-                      class="rpm-hud h-full w-2 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
+                      class="rpm-hud h-full w-1 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
                     ></div>
                     <div
-                      class="rpm-hud h-full w-2 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
+                      class="rpm-hud h-full w-1 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
                     ></div>
                     <div
-                      class="rpm-hud h-full w-2 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
+                      class="rpm-hud h-full w-1 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
                     ></div>
                     <div
-                      class="rpm-hud h-full w-2 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
+                      class="rpm-hud h-full w-1 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
                     ></div>
                     <div
-                      class="rpm-hud h-full w-2 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
+                      class="rpm-hud h-full w-1 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
                     ></div>
                     <div
-                      class="rpm-hud h-full w-2 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
+                      class="rpm-hud h-full w-1 rounded-sm ring-2 ring-opacity-5 bg-neutral-600 ring-neutral-600"
                     ></div>
                   </div>
                 </div>
@@ -1692,6 +1714,13 @@
                 }
               </style>
               
+              <div class="mt-1 flex h-[6.15rem] gap-2 justify-center">
+                <div class="icon-outline flex w-[0.75rem] flex-col gap-2 from-neutral-800/30 to-white text-white">
+                  <object id="vehicleIcon1" data=" noun-electric-vehicle-charging-station-1287583.svg" type="image/svg+xml"></object>
+                  <object id="vehicleIcon2" data="noun-fuel-38066.svg" type="image/svg+xml"></object>
+                  <div
+                    class="flex h-full w-full flex-col-reverse overflow-hidden rounded-sm border-4 border-[var(--tw-gradient-from)] bg-[var(--tw-gradient-from)]"
+                  >
               <div class="absolute left-[9.5rem] top-[-1.15rem] flex h-[6.15rem] gap-1">
                 <div class="icon-outline flex w-[0.75rem] flex-col gap-2 from-neutral-800/30 to-white text-white">
                   <i id="vehicleIcon1" class="fa-solid fa-bolt hud-icon"></i>
@@ -1707,6 +1736,12 @@
                   </div>
                 </div>             
                 <div class="icon-outline flex w-[0.75rem] flex-col gap-2 from-neutral-800/30 to-white text-white">
+                  <object id="vehicleIcon3" data="Font_Awesome_5_solid_car-battery.svg" type="image/svg+xml"></object>
+                  <object id="vehicleIcon4" data="Font_Awesome_5_solid_car-battery.svg" type="image/svg+xml"></object>
+                  <div
+                    class="flex h-full w-full flex-col-reverse overflow-hidden rounded-sm border-4 border-[var(--tw-gradient-from)] bg-[var(--tw-gradient-from)]"
+                  >
+                <div class="icon-outline flex w-[0.75rem] flex-col gap-2 from-neutral-800/30 to-white text-white">
                   <i id="vehicleIcon3" class="fa-solid fa-car-battery hud-icon"></i>
                   <i id="vehicleIcon4" class="fa-solid fa-car-battery hud-icon"></i>
                   <div
@@ -1719,6 +1754,8 @@
                     ></div>
                   </div>
                 </div>
+                <div class="icon-outline flex w-[0.75rem] flex-col gap-2 from-red-950/30 to-white text-white">
+                  <object id="vehicleIcon5" data="pursuit-mode.svg" type="image/svg+xml" style="color: red; background-image: red"></object>
                 <div class="icon-outline flex w-[0.75rem] flex-col gap-2 from-red-950/30 to-white text-white">
                   <i id="vehicleIcon5" class="fa-solid fa-gauge-high hud-icon"></i>
 
@@ -1733,6 +1770,22 @@
                   </div>
                 </div>
               </div>
+              <div class="absolute left-[0.5rem] top-[-1.5rem] flex gap-2 items-center">
+                <div class="relative flex flex-row items-center" id="seatbelt">
+                    <div class="text-orange-500">
+                        <img class="w-4" style="margin-bottom: 0.5em;" alt="" src="group-11-53332fd1.svg" />
+                    </div>
+                </div>
+                <div class="relative flex flex-row items-center flex-shrink-0" id="lowfuel">
+                    <div class="text-orange-500">
+                        <img class="pulsate" style="width: 1.3em; height: 1.3em; margin-bottom: 0.7em;" alt="" src="engine_orange.svg" />
+                    </div>
+                </div>
+                <div class="relative flex flex-row items-center flex-shrink-0" id="engine">
+                    <div class="text-orange-500">
+                        <img style="width: 1.3em; height: 1.3em; margin-bottom: 0.7em;" alt="" src="engine_red.svg" />
+                    </div>
+                </div>
               <div class="absolute left-[0.5rem] top-[-1.5rem] flex gap-2 items-center">
                   <div class="relative flex flex-row items-center" id="seatbelt">
                       <i class="fa-solid fa-seatbelt text-orange-500 hud-icon"></i>
