@@ -819,19 +819,6 @@ video {
 .w-1 {
   width: 0.25rem;
 }
-.w-2 {
-  width: 0.5rem;
-}
-.hud-icon {
-  width: 1rem;
-  height: 1rem;
-  display: inline-block;
-  color: white;
-}
-.speed-digits {
-  left: 0.5rem;
-  top: -0.8rem;
-}
 .w-1\/5 {
   width: 20%;
 }
@@ -1170,11 +1157,32 @@ video {
   display: flex;
   align-items: center;
   position: absolute;
-  bottom: calc(0.092592592vh * 15);
+  bottom: 3rem;
   left: 50%;
   transform: translateX(-50%);
   margin-left: 0;
   z-index: 1;
+}
+.statsIndicators-cont.left {
+  left: 0;
+  right: auto;
+  transform: none;
+  margin-left: calc(0.092592592vh * 15);
+  bottom: 3rem;
+}
+.statsIndicators-cont.center {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  margin-left: 0;
+  bottom: 3rem;
+}
+.statsIndicators-cont.right {
+  right: calc(0.092592592vh * 15);
+  left: auto;
+  transform: none;
+  margin-left: 0;
+  bottom: 3rem;
 }
 .statsIndicators-cont .statsIndicators-list ul {
   display: flex;
