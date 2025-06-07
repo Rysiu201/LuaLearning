@@ -1176,6 +1176,24 @@ video {
   margin-left: 0;
   z-index: 1;
 }
+.statsIndicators-cont.left {
+  left: 0;
+  right: auto;
+  transform: none;
+  margin-left: calc(0.092592592vh * 15);
+}
+.statsIndicators-cont.center {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  margin-left: 0;
+}
+.statsIndicators-cont.right {
+  right: calc(0.092592592vh * 15);
+  left: auto;
+  transform: none;
+  margin-left: 0;
+}
 .statsIndicators-cont .statsIndicators-list ul {
   display: flex;
   gap: calc(0.092592592vh * 10);
