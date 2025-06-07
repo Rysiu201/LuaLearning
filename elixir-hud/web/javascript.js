@@ -106,6 +106,38 @@ $(document).ready(function () {
       applyHudPosition(val);
     }
   });
+  $(".settings-dropdown").click(function () {
+    if ($(this).children(".options").css("display") == "none") {
+      $(this).children(".options").css("display", "flex");
+    } else {
+      $(this).children(".options").css("display", "none");
+    }
+  });
+
+  let storedPos = localStorage.getItem("hud_position");
+  if (storedPos) {
+    $(".np-text-box[name=hudposition]").val(storedPos);
+    applyHudPosition(storedPos);
+  } else {
+    localStorage.setItem("hud_position", "center");
+    applyHudPosition("center");
+  }
+
+  $(".option").click(function () {
+    let Description = $(this).html();
+    $(this)
+      .parent()
+      .parent()
+      .children(".np-text-box")
+      .prop("value", Description);
+    let trinkVal = $(this).parent().parent().children(".np-text-box").attr("trink");
+    if (trinkVal == "preference") {
+      loadPreference();
+    } else if (trinkVal == "hudpos") {
+      localStorage.setItem("hud_position", Description);
+      applyHudPosition(Description);
+    }
+  });
 
   $("._saveButton_1hwi9_61").click(function () {
     if ($("._options_1hwi9_191[menuid=hud]").css("display") == "flex") {
@@ -303,6 +335,18 @@ function applyHudPosition(pos) {
   if (pos === "left") {
     cont.addClass("left");
   } else if (pos === "right") {
+    cont.addClass("right");
+  } else {
+    cont.addClass("center");
+  }
+}
+
+function applyHudPosition(pos) {
+  const cont = $(".statsIndicators-cont");
+  cont.removeClass("left center right");
+  if (pos === "Lewo") {
+    cont.addClass("left");
+  } else if (pos === "Prawo") {
     cont.addClass("right");
   } else {
     cont.addClass("center");
@@ -619,6 +663,11 @@ window.addEventListener("message", function (event) {
       if (event.data.radioshit) {
         $(".icon-cont[name=radio]")
           .parent()
+  } else if (event.data.action == "talking") {
+    if (event.data.talking) {
+      if (event.data.radioshit) {
+        $(".icon-cont[name=radio]")
+          .parent()
           .css("background", "rgba(185, 65, 65, 0.5)");
         $(".icon-cont[name=radio]").css(
           "background",
@@ -631,6 +680,24 @@ window.addEventListener("message", function (event) {
             " radial-gradient(rgba(185, 65, 65, 0.5), rgba(185, 65, 65, 0.5))"
           );
       } else {
+        $(".icon-cont[name=voice]")
+          .parent()
+          .css("background", "rgba(207, 0, 255, 0.35)");
+        $(".icon-cont[name=voice]").css(
+          "background",
+          "radial-gradient(rgba(207, 0, 255, 0), rgba(207, 0, 255, 0.5))"
+        );
+        $(".icon-cont[name=voice]")
+          .children()
+          .css(
+            "background-image",
+            " radial-gradient(rgba(207, 0, 255, 0.5), rgba(207, 0, 255, 0.5))"
+          );
+      }
+    } else {
+      $(".icon-cont[name=voice]")
+        .parent()
+        .css("background", "rgba(255, 255, 255, 0.35)");
         $(".icon-cont[name=voice]")
           .parent()
           .css("background", "rgba(207, 0, 255, 0.35)");
@@ -733,5 +800,4 @@ $(document).keyup(function (e) {
     $("._container_1hwi9_2").css("display", "none");
   }
 });
-
 
