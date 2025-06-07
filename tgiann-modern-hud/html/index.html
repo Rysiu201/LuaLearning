@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/main.js"></script>
+
+  <script src="js/font.min.js"></script>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/hudmune.css" />
+  <link rel="stylesheet" href="css/circle.css" />
+  <link rel="stylesheet" href="css/square.css" />
+  <link rel="stylesheet" href="css/car.css" />
+  <link rel="stylesheet" href="css/normal.css" />
+  <link rel="stylesheet" href="css/notif.css" />
+</head>
+
+<body>
+  <div id="notif">
+    <!-- js -->
+  </div>
+
+  <div class="mainBG">
+    <div class="money-cash">
+      <p class="munnie">&dollar;&nbsp;<span id="cash">0</span></p>
+      <p class="munnie" id="addCash">
+        &dollar;&nbsp;<span id="addCashValue">0</span>
+      </p>
+    </div>
+
+    <div class="circlemap">
+      <div class="circlemapoutline">
+        <div id="circleCompass">W</div>
+
+        <div class="minimapBarCenter">
+          <div class="minimapHealth">
+            <div class="minimapHealthCircle" id="circlehealth"></div>
+          </div>
+
+          <div class="minimapArmor">
+            <div class="minimapArmorCircle" id="circlearmor"></div>
+          </div>
+        </div>
+
+        <div class="microphoneBox">
+          <div class="microphoneMicrophone">
+            <i class="fa-solid fa-microphone"></i>
+          </div>
+          <div class="microphoneMiniBoxs">
+            <div class="microphoneMiniBox" id="circlemicdot1"></div>
+            <div class="microphoneMiniBox" id="circlemicdot2"></div>
+            <div class="microphoneMiniBox" id="circlemicdot3" style="background: rgba(255, 255, 255, 0.25)"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="circleStreetNameBox">
+        <div class="circleStreetNameBoxLeft">
+          <i class="fa-solid fa-location-arrow"></i>
+        </div>
+        <div class="circleStreetNameBoxRight">
+          <div id="circleStreetNameBoxTop"></div>
+          <div id="circleStreetNameBoxBottom"></div>
+        </div>
+      </div>
+
+      <div class="circleStatusHud">
+        <div class="circleStatusBar" id="circleHungerBar">
+          <i class="fa-solid fa-pizza-slice"></i>
+          <div class="circleStatusBarBg" id="circlehunger"></div>
+        </div>
+        <div class="circleStatusBar" id="circleWaterBar">
+          <i class="fas fa-tint"></i>
+          <div class="circleStatusBarBg" id="circlewater"></div>
+        </div>
+        <div class="circleStatusBar" id="circleStaminaBar">
+          <i class="fas fa-running"></i>
+          <div class="circleStatusBarBg" id="circlestamina"></div>
+        </div>
+        <div class="circleStatusBar" id="circleStressBar">
+          <i class="fa-solid fa-brain"></i>
+          <div class="circleStatusBarBg" id="circleStress"></div>
+        </div>
+        <div class="circleStatusBar" id="circleOxyBar">
+          <i class="fas fa-lungs"></i>
+          <div class="circleStatusBarBg" id="circleoxy"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="squaremap">
+      <div class="squaremapoutline"></div>
+      <div class="squareHealthArmor">
+        <div class="squareHealthArmorBox">
+          <div class="squareHealthArmorBoxBg" id="squarehealth"></div>
+        </div>
+        <div class="squareHealthArmorBox">
+          <div class="squareHealthArmorBoxBg" id="squarearmor"></div>
+        </div>
+      </div>
+
+      <div class="squareStreetNameCompass">
+        <div class="squareMicrophoneBox">
+          <div class="microphoneMicrophone">
+            <i class="fa-solid fa-microphone"></i>
+          </div>
+          <div class="microphoneMiniCircles">
+            <div class="microphoneMiniCircle" id="squaremicdot1"></div>
+            <div class="microphoneMiniCircle" id="squaremicdot2"></div>
+            <div class="microphoneMiniCircle" id="squaremicdot3" style="background: rgba(255, 255, 255, 0.25)"></div>
+          </div>
+        </div>
+
+        <div id="squareCompass">W</div>
+        <div class="squareStreetNameCompassRight">
+          <div id="squareStreetNameBoxTop"></div>
+          <div id="squareStreetNameBoxBottom"></div>
+        </div>
+      </div>
+
+      <div class="squareStatusHud">
+        <div class="squareStatusHudTop">
+          <div class="squareStatusBar" id="squareHungerBar">
+            <i class="fa-solid fa-pizza-slice"></i>
+            <div class="squareStatusBarBg" id="squarehunger"></div>
+          </div>
+        </div>
+        <div class="squareStatusHudBottom">
+          <div class="squareStatusBar" id="squareWaterBar">
+            <i class="fas fa-tint"></i>
+            <div class="squareStatusBarBg" id="squarewater"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="normalHud">
+      <div class="normalHudTop">
+        <div class="normalStatusHudTop">
+          <div class="normalStatusBar" id="normalHungerBar">
+            <i class="fa-solid fa-pizza-slice"></i>
+            <div class="normalStatusBarBg" id="normalhunger"></div>
+          </div>
+          <div class="normalStatusBar" id="normalWaterBar">
+            <i class="fas fa-tint"></i>
+            <div class="normalStatusBarBg" id="normalwater"></div>
+          </div>
+          <div class="normalStatusBar" id="normalStaminaBar">
+            <i class="fas fa-running"></i>
+            <div class="normalStatusBarBg" id="normalstamina"></div>
+          </div>
+          <div class="normalStatusBar" id="normalOxyBar">
+            <i class="fas fa-lungs"></i>
+            <div class="normalStatusBarBg" id="normaloxy"></div>
+          </div>
+        </div>
+        <div class="normalStreetNameCompass">
+          <div class="normaleMicrophoneBox">
+            <div class="microphoneMicrophone">
+              <i class="fa-solid fa-microphone"></i>
+            </div>
+            <div class="microphoneMiniCircles">
+              <div class="microphoneMiniCircle" id="normalmicdot1"></div>
+              <div class="microphoneMiniCircle" id="normalmicdot2"></div>
+              <div class="microphoneMiniCircle" id="normalmicdot3" style="background: rgba(255, 255, 255, 0.25)"></div>
+            </div>
+          </div>
+
+          <div id="normalCompass"></div>
+          <div class="normalStreetNameCompassRight">
+            <div id="normalStreetNameBoxTop"></div>
+            <div id="normalStreetNameBoxBottom"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="normalStatusHud">
+        <div class="normalStatusBar normalStatusBarBig" id="normalHungerBar">
+          <i class="fa-solid fa-heart"></i>
+          <div class="normalStatusBarBg" id="normalhealth"></div>
+        </div>
+        <div class="normalStatusBar normalStatusBarBig" id="normalWaterBar">
+          <i class="fas fa-shield-alt"></i>
+          <div class="normalStatusBarBg" id="normalarmor"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hud-menu-container">
+    <div class="hud-menu">
+      <div class="hud-menu-header">
+        <div class="hud-menu-header-text">Ustawienia HUD</div>
+        <div class="hud-menu-header-close">
+          <i class="fas fa-window-close"></i>
+        </div>
+      </div>
+
+      <div class="hud-checkbox-menu-container">
+
+        <div class="hud-menu-content">
+          <div class="hud-menu-content-setting">
+            <div class="hud-menu-content-setting-text">Tryb filmowy</div>
+            <label class="switch">
+              <input type="checkbox" id="blackbar" />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="hud-menu-content">
+          <div class="hud-menu-content-setting">
+            <div class="hud-menu-content-setting-text">Tlen / Wytrzymałość</div>
+            <label class="switch">
+              <input type="checkbox" id="stamina-checkbox" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="hud-menu-content">
+          <div class="hud-menu-content-setting">
+            <div class="hud-menu-content-setting-text">Pragnienie</div>
+            <label class="switch">
+              <input type="checkbox" id="water" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="hud-menu-content">
+          <div class="hud-menu-content-setting">
+            <div class="hud-menu-content-setting-text">Głód</div>
+            <label class="switch">
+              <input type="checkbox" id="hunger" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="blackbar-container">
+    <div class="blackbar-bar"></div>
+    <div class="blackbar-bar"></div>
+  </div>
+</body>
+
+</html>
