@@ -403,6 +403,76 @@
     color: var(--zr-blue);
 }
 
+#zr-info-header {
+    position: absolute;
+    top: -3vw;
+    left: 0;
+    width: 20.833vw;
+    display: flex;
+    align-items: center;
+    gap: 0.521vw;
+}
+
+#zr-info-avatar {
+    width: 3vw;
+    height: 3vw;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+}
+
+#zr-info-extra {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-size: 0.729vw;
+}
+
+#zr-changelog-btn {
+    position: absolute;
+    width: 20.833vw;
+    height: 2.083vw;
+    left: 43.229vw;
+    top: 15vw;
+    border-radius: 0.208vw;
+    background-color: rgba(0, 255, 203, 0.6);
+    color: white;
+    font-size: 0.729vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 0.052vw rgba(220, 113, 232, 0.6);
+}
+
+#zr-changelog-btn:hover {
+    background-color: rgba(0, 255, 203, 0.8);
+}
+
+#zr-changelog {
+    display: none;
+    position: absolute;
+    width: 20.833vw;
+    height: 17.969vw;
+    left: 43.229vw;
+    top: 0;
+    border-radius: 0.417vw;
+    background-color: var(--zr-dark);
+    color: white;
+    overflow-y: auto;
+}
+
+#zr-changelog-title {
+    text-align: center;
+    font-size: 1.302vw;
+    font-weight: bold;
+    margin-top: 1vw;
+}
+
+#zr-changelog-content {
+    margin: 1vw;
+    font-size: 0.833vw;
+}
+
 @media (width: 3440px) and (height: 1440px) {
     #zr-logo {
         transform: translateX(-50%) scale(75%);

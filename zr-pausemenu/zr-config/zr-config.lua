@@ -39,3 +39,7 @@ zr_trans.job            = 'Praca'
 zr_trans.cash           = 'Gotówka'
 zr_trans.bank           = 'Bank'
 zr_trans.currency       = '$' -- lub '$', zależnie od waluty na serwerze
+zr_trans.changelog      = 'Changelog'
+zr_trans.changelogbtn   = 'Zobacz zmiany'
+
+zr_config.changelog = 'Brak informacji o zmianach.'

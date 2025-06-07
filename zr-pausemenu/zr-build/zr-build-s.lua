@@ -26,6 +26,9 @@ if zr_config.framework == 'QB' then
     QBCore.Functions.CreateCallback('zr-pausemenu:GetData', function(source, cb)
         local Player = QBCore.Functions.GetPlayer(source)
         cb({
+            server_date = os.date('%d.%m.%Y'),
+            server_time = os.date('%H:%M:%S'),
+            changelog   = zr_config.changelog,
             zr_data = {
                 zr_firstName = Player.PlayerData.charinfo.firstname,
                 zr_lastName = Player.PlayerData.charinfo.lastname,
@@ -66,6 +69,9 @@ elseif zr_config.framework == 'ESX' then
         local xPlayer = ESX.GetPlayerFromId(source)
 
         cb({
+            server_date = os.date('%d.%m.%Y'),
+            server_time = os.date('%H:%M:%S'),
+            changelog   = zr_config.changelog,
             zr_data = {
                 zr_firstName = xPlayer.get('firstName'),
                 zr_lastName = xPlayer.get('lastName'),
