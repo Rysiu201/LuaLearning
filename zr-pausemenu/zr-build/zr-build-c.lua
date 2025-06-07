@@ -37,12 +37,32 @@ function zr_pausemenu_show()
 
     local zrData = Citizen.Await(p)
 
+    local ped = PlayerPedId()
+    local headshot = RegisterPedheadshot(ped)
+    while not IsPedheadshotReady(headshot) or not IsPedheadshotValid(headshot) do
+        Wait(0)
+    end
+    local txd = GetPedheadshotTxdString(headshot)
+
+    local coords = GetEntityCoords(ped)
+    local street1, street2 = GetStreetNameAtCoord(coords.x, coords.y, coords.z)
+    local location = GetStreetNameFromHashKey(street1)
+    if street2 and street2 ~= 0 then
+        location = location .. ' / ' .. GetStreetNameFromHashKey(street2)
+    end
+
     SendNUIMessage({
         type = 'show',
         config = zr_config,
         jobs = zrData.zr_jobs,
-        data = zrData.zr_data
+        data = zrData.zr_data,
+        server_date = zrData.server_date,
+        server_time = zrData.server_time,
+        changelog = zrData.changelog,
+        headshot = txd,
+        location = location
     })
+    UnregisterPedheadshot(headshot)
     SetNuiFocus(true, true)
     StartScreenEffect(zr_config.zr_blur, 0, true)
 end
