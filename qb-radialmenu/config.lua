@@ -7,7 +7,7 @@ Config.EnableExtraMenu = true
 Config.MenuItems = {
     [1] = {
         id = 'emotes',
-        title = 'Animasyonlar',
+        title = 'Animacje',
         icon = 'face-meh-blank',
         type = 'client',
         event = 'rp:RecieveMenu',
@@ -15,7 +15,7 @@ Config.MenuItems = {
     },
     [6] = {
         id = 'kimlikislemleri',
-        title = 'Kimlik İşlemleri',
+        title = 'Dokumenty',
         icon = 'id-card',
         type = 'client',
         event = 'kimlikislemleri',
@@ -23,40 +23,40 @@ Config.MenuItems = {
     },
     [5] = {
         id = 'blips',
-        title = 'Konumlar',
+        title = 'Lokacje',
         icon = 'map-marked-alt',
         items = {
             {
                 id = 'gasstation',
-                title = 'Benzin İstasyonu',
+                title = 'Stacja benzynowa',
                 icon = 'gas-pump',
                 type = 'client',
                 event = 'LegacyFuel:blipAcKapa',
                 shouldClose = true
             }, {
                 id = 'kafeler',
-                title = 'İşletmeler',
+                title = 'Biznesy',
                 icon = 'wine-glass',
                 type = 'client',
                 event = 'kafeler:blipAcKapa',
                 shouldClose = true
             }, {
                 id = 'clothing',
-                title = 'Kıyafet Mağazası',
+                title = 'Sklep z ubraniami',
                 icon = 'tshirt',
                 type = 'client',
                 event = 'kiyafetci:blipAcKapa',
                 shouldClose = true
             },{
                 id = 'bankalar',
-                title = 'Bankalar',
+                title = 'Banki',
                 icon = 'dollar-sign',
                 type = 'client',
                 event = 'banka:blipAcKapa',
                 shouldClose = true
             },{
                 id = 'malikane',
-                title = 'Özel Mülk',
+                title = 'Posiadłość',
                 icon = 'house-user',
                 type = 'client',
                 event = 'malikane:blipAcKapa',
@@ -66,47 +66,47 @@ Config.MenuItems = {
     },
     [2] = {
         id = 'actions',
-        title = 'Etkileşimler',
+        title = 'Interakcje',
         icon = 'users',
         items = {
             {
                 id = 'handcuff',
-                title = 'Kelepçe',
+                title = 'Kajdanki',
                 icon = 'user-lock',
                 type = 'client',
                 event = 'police:client:CuffPlayerSoft',
                 shouldClose = true
             }, {
                 id = 'playerinvehicle',
-                title = 'Arabaya Bindir',
+                title = 'Wsadź do pojazdu',
                 icon = 'car-side',
                 type = 'client',
                 event = 'police:client:PutPlayerInVehicle',
                 shouldClose = true
             }, {
                 id = 'playeroutvehicle',
-                title = 'Arabadan İndir',
+                title = 'Wyjmij z pojazdu',
                 icon = 'car-side',
                 type = 'client',
                 event = 'police:client:SetPlayerOutVehicle',
                 shouldClose = true
             }, {
                 id = 'stealplayer',
-                title = 'Soy',
+                title = 'Okradnij',
                 icon = 'mask',
                 type = 'client',
                 event = 'police:client:RobPlayer',
                 shouldClose = true
             },{
                 id = 'escort2',
-                title = 'Kucakla',
+                title = 'Podnieś',
                 icon = 'user-friends',
                 type = 'command',
                 event = 'kucakla',
                 shouldClose = true
             }, {
                 id = 'escort2',
-                title = 'Oyuncuyu Taşı',
+                title = 'Wyprowadź gracza',
                 icon = 'user-friends',
                 type = 'client',
                 event = 'police:client:EscortPlayer',
@@ -116,7 +116,7 @@ Config.MenuItems = {
     },
     [3] = {
         id = 'walkstyles',
-        title = 'Yürüyüş Stilleri',
+        title = 'Style chodzenia',
         icon = 'walking',
         items = {
             {
@@ -170,7 +170,7 @@ Config.MenuItems = {
                 shouldClose = true
             }, {
                 id = 'morewalk',
-                title = 'Daha Fazla',
+                title = 'Więcej',
                 icon = 'bars',
                 items = {
                     {
@@ -224,7 +224,7 @@ Config.MenuItems = {
                         shouldClose = true
                     }, {
                         id = 'morewalk',
-                        title = 'Daha Fazla',
+                        title = 'Więcej',
                         icon = 'bars',
                         items = {
                             {
@@ -278,7 +278,7 @@ Config.MenuItems = {
                                 shouldClose = true
                             }, {
                                 id = 'morewalk',
-                                title = 'Daha Fazla',
+                                title = 'Więcej',
                                 icon = 'bars',
                                 items = {
                                     {
@@ -332,7 +332,7 @@ Config.MenuItems = {
                                         shouldClose = true
                                     }, {
                                         id = 'morewalk',
-                                        title = 'Daha Fazla',
+                                        title = 'Więcej',
                                         icon = 'bars',
                                         items = {
                                             {
@@ -386,7 +386,7 @@ Config.MenuItems = {
                                                 shouldClose = true
                                             }, {
                                                 id = 'morewalk',
-                                                title = 'Daha Fazla',
+                                                title = 'Więcej',
                                                 icon = 'bars',
                                                 items = {
                                                     {
@@ -440,7 +440,7 @@ Config.MenuItems = {
                                                         shouldClose = true
                                                     }, {
                                                         id = 'morewalk',
-                                                        title = 'Daha Fazla',
+                                                        title = 'Więcej',
                                                         icon = 'bars',
                                                         items = {
                                                             {
@@ -501,7 +501,7 @@ Config.MenuItems = {
                                                                 shouldClose = true
                                                             }, {
                                                                 id = 'morewalk',
-                                                                title = 'Daha Fazla',
+                                                                title = 'Więcej',
                                                                 icon = 'bars',
                                                                 items = {
                                                                     {
@@ -562,7 +562,7 @@ Config.MenuItems = {
                                                                         shouldClose = true
                                                                     }, {
                                                                         id = 'morewalk',
-                                                                        title = 'Daha Fazla',
+                                                                        title = 'Więcej',
                                                                         icon = 'bars',
                                                                         items = {
                                                                             {
@@ -643,13 +643,13 @@ Config.MenuItems = {
 
     [4] = {
         id = 'general',
-        title = 'Genel',
+        title = 'Ogólne',
         icon = 'globe-europe',
         items = {
             {
                 
                 id = 'givekey',
-                title = 'Araç Anahtarı Ver',
+                title = 'Przekaż kluczyki',
                 icon = 'key',
                 type = 'command',
                 event = 'anahtarver',
@@ -657,7 +657,7 @@ Config.MenuItems = {
             },{
                 
                 id = 'tersdüz',
-                title = 'Aracı Çevir',
+                title = 'Obróć pojazd',
                 icon = 'car',
                 type = 'client',
                 event = 'ters-duz',
@@ -665,122 +665,122 @@ Config.MenuItems = {
             },{
                 
                     id = 'clothesmenu',
-                    title = 'Kıyafet',
+                    title = 'Ubrania',
                     icon = 'tshirt',
                     items = {
                         {
                             id = 'Hair',
-                            title = 'Saç',
+                            title = 'Włosy',
                             icon = 'user',
                             type = 'client',
                             event = 'qb-radialmenu:ToggleClothing',
                             shouldClose = true
                         }, {
                             id = 'Ear',
-                            title = 'Kulak',
+                            title = 'Ucho',
                             icon = 'deaf',
                             type = 'client',
                             event = 'qb-radialmenu:ToggleProps',
                             shouldClose = true
                         }, {
                             id = 'Neck',
-                            title = 'Boyun',
+                            title = 'Szyja',
                             icon = 'user-tie',
                             type = 'client',
                             event = 'qb-radialmenu:ToggleClothing',
                             shouldClose = true
                         }, {
                             id = 'Top',
-                            title = 'Üst Giyim',
+                            title = 'Górna odzież',
                             icon = 'tshirt',
                             type = 'client',
                             event = 'qb-radialmenu:ToggleClothing',
                             shouldClose = true
                         }, {
                             id = 'Shirt',
-                            title = 'Alt Giyim',
+                            title = 'Dolna odzież',
                             icon = 'tshirt',
                             type = 'client',
                             event = 'qb-radialmenu:ToggleClothing',
                             shouldClose = true
                         }, {
                             id = 'Pants',
-                            title = 'Pantolon',
+                            title = 'Spodnie',
                             icon = 'user',
                             type = 'client',
                             event = 'qb-radialmenu:ToggleClothing',
                             shouldClose = true
                         }, {
                             id = 'Shoes',
-                            title = 'Ayakkabı',
+                            title = 'Buty',
                             icon = 'shoe-prints',
                             type = 'client',
                             event = 'qb-radialmenu:ToggleClothing',
                             shouldClose = true
                         }, {
                             id = 'meer',
-                            title = 'Ekstralar',
+                            title = 'Dodatki',
                             icon = 'plus',
                             items = {
                                 {
                                     id = 'Hat',
-                                    title = 'Şapka',
+                                    title = 'Czapka',
                                     icon = 'hat-cowboy-side',
                                     type = 'client',
                                     event = 'qb-radialmenu:ToggleProps',
                                     shouldClose = true
                                 }, {
                                     id = 'Glasses',
-                                    title = 'Gözlük',
+                                    title = 'Okulary',
                                     icon = 'glasses',
                                     type = 'client',
                                     event = 'qb-radialmenu:ToggleProps',
                                     shouldClose = true
                                 }, {
                                     id = 'Visor',
-                                    title = 'Vizör',
+                                    title = 'Daszek',
                                     icon = 'hat-cowboy-side',
                                     type = 'client',
                                     event = 'qb-radialmenu:ToggleProps',
                                     shouldClose = true
                                 }, {
                                     id = 'Mask',
-                                    title = 'Maske',
+                                    title = 'Maska',
                                     icon = 'theater-masks',
                                     type = 'client',
                                     event = 'qb-radialmenu:ToggleClothing',
                                     shouldClose = true
                                 }, {
                                     id = 'Vest',
-                                    title = 'Çelik Yelek',
+                                    title = 'Kamizelka kuloodporna',
                                     icon = 'vest',
                                     type = 'client',
                                     event = 'qb-radialmenu:ToggleClothing',
                                     shouldClose = true
                                 }, {
                                     id = 'Bag',
-                                    title = 'Çanta',
+                                    title = 'Torba',
                                     icon = 'shopping-bag',
                                     type = 'client',
                                     event = 'qb-radialmenu:ToggleClothing',
                                     shouldClose = true
                                 }, {
                                     id = 'Bracelet',
-                                    title = 'Bileklik',
+                                    title = 'Bransoletka',
                                     icon = 'user',
                                     type = 'client',
                                     event = 'qb-radialmenu:ToggleProps',
                                     shouldClose = true
                                 }, {
                                     id = 'Watch',
-                                    title = 'Saat',
+                                    title = 'Zegarek',
                                     icon = 'stopwatch',
                                     type = 'client',
                                     event = 'qb-radialmenu:ToggleProps',
                                     shouldClose = true
                                 }, {
                                     id = 'Gloves',
-                                    title = 'Eldiven',
+                                    title = 'Rękawiczki',
                                     icon = 'mitten',
                                     type = 'client',
                                     event = 'qb-radialmenu:ToggleClothing',
@@ -801,54 +801,54 @@ Config.JobInteractions = {
     ["ambulance"] = {
         {
             id = 'statuscheck',
-            title = 'Sağlık Durumu Kontrol Et',
+            title = 'Sprawdź stan zdrowia',
             icon = 'heartbeat',
             type = 'client',
             event = 'hospital:client:CheckStatus',
             shouldClose = true
         },{
             id = 'revivep',
-            title = 'Canlandır',
+            title = 'Reanimuj',
             icon = 'user-md',
             type = 'client',
             event = 'hospital:client:RevivePlayer',
             shouldClose = true
         },{
             id = 'treatwounds',
-            title = 'Yara İyileştir',
+            title = 'Wylecz rany',
             icon = 'band-aid',
             type = 'client',
             event = 'hospital:client:TreatWounds',
             shouldClose = true
         }, {
             id = 'emergencybutton2',
-            title = 'Acil Durum Butonu',
+            title = 'Przycisk alarmowy',
             icon = 'bell',
             type = 'client',
             event = 'police:client:SendPoliceEmergencyAlert',
             shouldClose = true
         }, {
             id = 'escort',
-            title = 'Oyuncuyu Taşı',
+            title = 'Wyprowadź gracza',
             icon = 'user-friends',
             type = 'client',
             event = 'police:client:EscortPlayer',
             shouldClose = true
         }, {
             id = 'stretcheroptions',
-            title = 'Sedye',
+            title = 'Nosze',
             icon = 'procedures',
             items = {
                 {
                     id = 'spawnstretcher',
-                    title = 'Sedye Çıkart',
+                    title = 'Wyjmij nosze',
                     icon = 'plus',
                     type = 'client',
                     event = 'qb-radialmenu:client:TakeStretcher',
                     shouldClose = false
                 }, {
                     id = 'despawnstretcher',
-                    title = 'Sedye Bırak',
+                    title = 'Odłóż nosze',
                     icon = 'minus',
                     type = 'client',
                     event = 'qb-radialmenu:client:RemoveStretcher',
@@ -860,21 +860,21 @@ Config.JobInteractions = {
     ["taxi"] = {
         {
             id = 'togglemeter',
-            title = 'Sayacı Göster/Gizle',
+            title = 'Pokaż/ukryj licznik',
             icon = 'eye-slash',
             type = 'client',
             event = 'qb-taxi:client:toggleMeter',
             shouldClose = false
         }, {
             id = 'togglemouse',
-            title = 'Sayacı Aç/Kapat',
+            title = 'Włącz/wyłącz licznik',
             icon = 'hourglass-start',
             type = 'client',
             event = 'qb-taxi:client:enableMeter',
             shouldClose = true
         }, {
             id = 'npc_mission',
-            title = 'NPC Görevi',
+            title = 'Misja NPC',
             icon = 'taxi',
             type = 'client',
             event = 'qb-taxi:client:DoTaxiNpc',
@@ -884,35 +884,35 @@ Config.JobInteractions = {
     ["mechanic"] = {
         {
             id = 'repair',
-            title = 'Aracı Tamir Et',
+            title = 'Napraw pojazd',
             icon = 'eye-slash',
             type = 'client',
             event = 'bedoflex:mechrepair',
             shouldClose = true
         }, {
             id = 'clean',
-            title = 'Aracı Temizle',
+            title = 'Umyj pojazd',
             icon = 'hourglass-start',
             type = 'client',
             event = 'bedoflex:mechclean',
             shouldClose = true
         }, {
             id = 'hijack',
-            title = 'Aracın Kapısını Aç',
+            title = 'Otwórz drzwi pojazdu',
             icon = 'taxi',
             type = 'client',
             event = 'bedoflex:hijack',
             shouldClose = true
         }, {
             id = 'impound',
-            title = 'Aracı Çek',
+            title = 'Odholuj pojazd',
             icon = 'taxi',
             type = 'client',
             event = 'bedoflex:mechimpound',
             shouldClose = true
         }, {
             id = 'cezakes',
-            title = 'Ceza Kes',
+            title = 'Wystaw mandat',
             icon = 'money-bill',
             type = 'client',
             event = 'police:client:BillPlayer',
@@ -922,35 +922,35 @@ Config.JobInteractions = {
     ["mechanic2"] = {
         {
             id = 'repair',
-            title = 'Aracı Tamir Et',
+            title = 'Napraw pojazd',
             icon = 'eye-slash',
             type = 'client',
             event = 'bedoflex:mechrepair',
             shouldClose = true
         }, {
             id = 'clean',
-            title = 'Aracı Temizle',
+            title = 'Umyj pojazd',
             icon = 'hourglass-start',
             type = 'client',
             event = 'bedoflex:mechclean',
             shouldClose = true
         }, {
             id = 'hijack',
-            title = 'Aracın Kapısını Aç',
+            title = 'Otwórz drzwi pojazdu',
             icon = 'taxi',
             type = 'client',
             event = 'bedoflex:hijack',
             shouldClose = true
         }, {
             id = 'impound',
-            title = 'Aracı Çek',
+            title = 'Odholuj pojazd',
             icon = 'taxi',
             type = 'client',
             event = 'bedoflex:mechimpound',
             shouldClose = true
         }, {
             id = 'cezakes',
-            title = 'Ceza Kes',
+            title = 'Wystaw mandat',
             icon = 'money-bill',
             type = 'client',
             event = 'police:client:BillPlayer',
@@ -960,35 +960,35 @@ Config.JobInteractions = {
     ["mechanic3"] = {
         {
             id = 'repair',
-            title = 'Aracı Tamir Et',
+            title = 'Napraw pojazd',
             icon = 'eye-slash',
             type = 'client',
             event = 'bedoflex:mechrepair',
             shouldClose = true
         }, {
             id = 'clean',
-            title = 'Aracı Temizle',
+            title = 'Umyj pojazd',
             icon = 'hourglass-start',
             type = 'client',
             event = 'bedoflex:mechclean',
             shouldClose = true
         }, {
             id = 'hijack',
-            title = 'Aracın Kapısını Aç',
+            title = 'Otwórz drzwi pojazdu',
             icon = 'taxi',
             type = 'client',
             event = 'bedoflex:hijack',
             shouldClose = true
         }, {
             id = 'impound',
-            title = 'Aracı Çek',
+            title = 'Odholuj pojazd',
             icon = 'taxi',
             type = 'client',
             event = 'bedoflex:mechimpound',
             shouldClose = true
         }, {
             id = 'cezakes',
-            title = 'Ceza Kes',
+            title = 'Wystaw mandat',
             icon = 'money-bill',
             type = 'client',
             event = 'police:client:BillPlayer',
@@ -998,35 +998,35 @@ Config.JobInteractions = {
     ["mechanic4"] = {
         {
             id = 'repair',
-            title = 'Aracı Tamir Et',
+            title = 'Napraw pojazd',
             icon = 'eye-slash',
             type = 'client',
             event = 'bedoflex:mechrepair',
             shouldClose = true
         }, {
             id = 'clean',
-            title = 'Aracı Temizle',
+            title = 'Umyj pojazd',
             icon = 'hourglass-start',
             type = 'client',
             event = 'bedoflex:mechclean',
             shouldClose = true
         }, {
             id = 'hijack',
-            title = 'Aracın Kapısını Aç',
+            title = 'Otwórz drzwi pojazdu',
             icon = 'taxi',
             type = 'client',
             event = 'bedoflex:hijack',
             shouldClose = true
         }, {
             id = 'impound',
-            title = 'Aracı Çek',
+            title = 'Odholuj pojazd',
             icon = 'taxi',
             type = 'client',
             event = 'bedoflex:mechimpound',
             shouldClose = true
         }, {
             id = 'cezakes',
-            title = 'Ceza Kes',
+            title = 'Wystaw mandat',
             icon = 'money-bill',
             type = 'client',
             event = 'police:client:BillPlayer',
@@ -1043,54 +1043,54 @@ Config.JobInteractions = {
             shouldClose = true
         }, {
             id = 'impound',
-            title = 'Aracı Çek',
+            title = 'Odholuj pojazd',
             icon = 'taxi',
             type = 'client',
             event = 'tgiann-menuv3:arac-cek',
             shouldClose = true
         }, {
             id = 'policeinteraction',
-            title = 'Polis Etkileşimleri',
+            title = 'Interakcje policyjne',
             icon = 'tasks',
             items = {
                  {
                     id = 'statuscheck',
-                    title = 'Sağlık Durumu Kontrol Et',
+                    title = 'Sprawdź stan zdrowia',
                     icon = 'heartbeat',
                     type = 'client',
                     event = 'hospital:client:CheckStatus',
                     shouldClose = true
                 }, {
                     id = 'cezakes',
-                    title = 'Ceza Kes',
+                    title = 'Wystaw mandat',
                     icon = 'money-bill',
                     type = 'client',
                     event = 'police:client:BillPlayer',
                     shouldClose = true
                 }, {
                     id = 'kamukes',
-                    title = 'Kamu Kes',
+                    title = 'Grzywna publiczna',
                     icon = 'money-bill',
                     type = 'client',
                     event = 'police:client:Kamuver',
                     shouldClose = true
                 },{
                     id = 'hapis',
-                    title = 'Hapise At',
+                    title = 'Wsadź do więzienia',
                     icon = 'user-lock',
                     type = 'command',
                     event = 'jail',
                     shouldClose = true
                 },{
                     id = 'escort',
-                    title = 'Oyuncuyu Taşı ',
+                    title = 'Wyprowadź gracza ',
                     icon = 'user-friends',
                     type = 'client',
                     event = 'police:client:EscortPlayer',
                     shouldClose = true
                 }, {
                     id = 'searchplayer',
-                    title = 'Ara',
+                    title = 'Przeszukaj',
                     icon = 'search',
                     type = 'client',
                     event = 'police:client:SearchPlayer',
@@ -1099,7 +1099,7 @@ Config.JobInteractions = {
             }
         }, {
             id = 'policeobjects',
-            title = 'Objeler',
+            title = 'Obiekty',
             icon = 'road',
             type = 'client',
             event = 'atomik:obje',
@@ -1116,54 +1116,54 @@ Config.JobInteractions = {
             shouldClose = true
         }, {
             id = 'impound',
-            title = 'Aracı Çek',
+            title = 'Odholuj pojazd',
             icon = 'taxi',
             type = 'client',
             event = 'tgiann-menuv3:arac-cek',
             shouldClose = true
         }, {
             id = 'policeinteraction',
-            title = 'Polis Etkileşimleri',
+            title = 'Interakcje policyjne',
             icon = 'tasks',
             items = {
                  {
                     id = 'statuscheck',
-                    title = 'Sağlık Durumu Kontrol Et',
+                    title = 'Sprawdź stan zdrowia',
                     icon = 'heartbeat',
                     type = 'client',
                     event = 'hospital:client:CheckStatus',
                     shouldClose = true
                 }, {
                     id = 'cezakes',
-                    title = 'Ceza Kes',
+                    title = 'Wystaw mandat',
                     icon = 'money-bill',
                     type = 'client',
                     event = 'police:client:BillPlayer',
                     shouldClose = true
                 }, {
                     id = 'kamukes',
-                    title = 'Kamu Kes',
+                    title = 'Grzywna publiczna',
                     icon = 'money-bill',
                     type = 'client',
                     event = 'police:client:Kamuver',
                     shouldClose = true
                 },{
                     id = 'hapis',
-                    title = 'Hapise At',
+                    title = 'Wsadź do więzienia',
                     icon = 'user-lock',
                     type = 'command',
                     event = 'jail',
                     shouldClose = true
                 },{
                     id = 'escort',
-                    title = 'Oyuncuyu Taşı ',
+                    title = 'Wyprowadź gracza ',
                     icon = 'user-friends',
                     type = 'client',
                     event = 'police:client:EscortPlayer',
                     shouldClose = true
                 }, {
                     id = 'searchplayer',
-                    title = 'Ara',
+                    title = 'Przeszukaj',
                     icon = 'search',
                     type = 'client',
                     event = 'police:client:SearchPlayer',
@@ -1172,7 +1172,7 @@ Config.JobInteractions = {
             }
         }, {
             id = 'policeobjects',
-            title = 'Objeler',
+            title = 'Obiekty',
             icon = 'road',
             type = 'client',
             event = 'atomik:obje',
@@ -1189,54 +1189,54 @@ Config.JobInteractions = {
             shouldClose = true
         }, {
             id = 'impound',
-            title = 'Aracı Çek',
+            title = 'Odholuj pojazd',
             icon = 'taxi',
             type = 'client',
             event = 'tgiann-menuv3:arac-cek',
             shouldClose = true
         }, {
             id = 'policeinteraction',
-            title = 'Polis Etkileşimleri',
+            title = 'Interakcje policyjne',
             icon = 'tasks',
             items = {
                  {
                     id = 'statuscheck',
-                    title = 'Sağlık Durumu Kontrol Et',
+                    title = 'Sprawdź stan zdrowia',
                     icon = 'heartbeat',
                     type = 'client',
                     event = 'hospital:client:CheckStatus',
                     shouldClose = true
                 }, {
                     id = 'cezakes',
-                    title = 'Ceza Kes',
+                    title = 'Wystaw mandat',
                     icon = 'money-bill',
                     type = 'client',
                     event = 'police:client:BillPlayer',
                     shouldClose = true
                 }, {
                     id = 'kamukes',
-                    title = 'Kamu Kes',
+                    title = 'Grzywna publiczna',
                     icon = 'money-bill',
                     type = 'client',
                     event = 'police:client:Kamuver',
                     shouldClose = true
                 },{
                     id = 'hapis',
-                    title = 'Hapise At',
+                    title = 'Wsadź do więzienia',
                     icon = 'user-lock',
                     type = 'command',
                     event = 'jail',
                     shouldClose = true
                 },{
                     id = 'escort',
-                    title = 'Oyuncuyu Taşı ',
+                    title = 'Wyprowadź gracza ',
                     icon = 'user-friends',
                     type = 'client',
                     event = 'police:client:EscortPlayer',
                     shouldClose = true
                 }, {
                     id = 'searchplayer',
-                    title = 'Ara',
+                    title = 'Przeszukaj',
                     icon = 'search',
                     type = 'client',
                     event = 'police:client:SearchPlayer',
@@ -1245,7 +1245,7 @@ Config.JobInteractions = {
             }
         }, {
             id = 'policeobjects',
-            title = 'Objeler',
+            title = 'Obiekty',
             icon = 'road',
             type = 'client',
             event = 'atomik:obje',
@@ -1262,54 +1262,54 @@ Config.JobInteractions = {
             shouldClose = true
         }, {
             id = 'impound',
-            title = 'Aracı Çek',
+            title = 'Odholuj pojazd',
             icon = 'taxi',
             type = 'client',
             event = 'tgiann-menuv3:arac-cek',
             shouldClose = true
         }, {
             id = 'policeinteraction',
-            title = 'Polis Etkileşimleri',
+            title = 'Interakcje policyjne',
             icon = 'tasks',
             items = {
                  {
                     id = 'statuscheck',
-                    title = 'Sağlık Durumu Kontrol Et',
+                    title = 'Sprawdź stan zdrowia',
                     icon = 'heartbeat',
                     type = 'client',
                     event = 'hospital:client:CheckStatus',
                     shouldClose = true
                 }, {
                     id = 'cezakes',
-                    title = 'Ceza Kes',
+                    title = 'Wystaw mandat',
                     icon = 'money-bill',
                     type = 'client',
                     event = 'police:client:BillPlayer',
                     shouldClose = true
                 }, {
                     id = 'kamukes',
-                    title = 'Kamu Kes',
+                    title = 'Grzywna publiczna',
                     icon = 'money-bill',
                     type = 'client',
                     event = 'police:client:Kamuver',
                     shouldClose = true
                 },{
                     id = 'hapis',
-                    title = 'Hapise At',
+                    title = 'Wsadź do więzienia',
                     icon = 'user-lock',
                     type = 'command',
                     event = 'jail',
                     shouldClose = true
                 },{
                     id = 'escort',
-                    title = 'Oyuncuyu Taşı ',
+                    title = 'Wyprowadź gracza ',
                     icon = 'user-friends',
                     type = 'client',
                     event = 'police:client:EscortPlayer',
                     shouldClose = true
                 }, {
                     id = 'searchplayer',
-                    title = 'Ara',
+                    title = 'Przeszukaj',
                     icon = 'search',
                     type = 'client',
                     event = 'police:client:SearchPlayer',
@@ -1318,7 +1318,7 @@ Config.JobInteractions = {
             }
         }, {
             id = 'policeobjects',
-            title = 'Objeler',
+            title = 'Obiekty',
             icon = 'road',
             type = 'client',
             event = 'atomik:obje',
@@ -1338,7 +1338,7 @@ Config.JobInteractions = {
     ["popsdinner"] = {
         {
             id = 'cezakes',
-            title = 'Ceza Kes',
+            title = 'Wystaw mandat',
             icon = 'money-bill',
             type = 'client',
             event = 'police:client:BillPlayer',
@@ -1378,84 +1378,84 @@ Config.Commands = {
     ["top"] = {
         Func = function() ToggleClothing("Top") end,
         Sprite = "top",
-        Desc = "Üst Giyim Giy/Çıkar",
+        Desc = "Górna odzież Giy/Çıkar",
         Button = 1,
         Name = "Torso"
     },
     ["gloves"] = {
         Func = function() ToggleClothing("gloves") end,
         Sprite = "gloves",
-        Desc = "Eldivenler Tak/Çıkar",
+        Desc = "Rękawiczkiler Tak/Çıkar",
         Button = 2,
         Name = "Gloves"
     },
     ["visor"] = {
         Func = function() ToggleProps("visor") end,
         Sprite = "visor",
-        Desc = "Şapka Varyasyonunu Aç/Kapat",
+        Desc = "Czapka Varyasyonunu Aç/Kapat",
         Button = 3,
         Name = "Visor"
     },
     ["bag"] = {
         Func = function() ToggleClothing("Bag") end,
         Sprite = "bag",
-        Desc = "Çanta Aç/Kapat",
+        Desc = "Torba Aç/Kapat",
         Button = 8,
         Name = "Bag"
     },
     ["shoes"] = {
         Func = function() ToggleClothing("Shoes") end,
         Sprite = "shoes",
-        Desc = "Ayakkabı Giy/Çıkar",
+        Desc = "Buty Giy/Çıkar",
         Button = 5,
         Name = "Shoes"
     },
     ["vest"] = {
         Func = function() ToggleClothing("Vest") end,
         Sprite = "vest",
-        Desc = "Çelik Yelek Giy/Çıkar",
+        Desc = "Kamizelka kuloodporna Giy/Çıkar",
         Button = 14,
         Name = "Vest"
     },
     ["hair"] = {
         Func = function() ToggleClothing("hair") end,
         Sprite = "hair",
-        Desc = "Saç Stilinizi Değiştirin",
+        Desc = "Włosy Stilinizi Değiştirin",
         Button = 7,
         Name = "Hair"
     },
     ["hat"] = {
         Func = function() ToggleProps("Hat") end,
         Sprite = "hat",
-        Desc = "Şapka Tak/Çıkar",
+        Desc = "Czapka Tak/Çıkar",
         Button = 4,
         Name = "Hat"
     },
     ["glasses"] = {
         Func = function() ToggleProps("Glasses") end,
         Sprite = "glasses",
-        Desc = "Gözlük Giy/Çıkar",
+        Desc = "Okulary Giy/Çıkar",
         Button = 9,
         Name = "Glasses"
     },
     ["ear"] = {
         Func = function() ToggleProps("Ear") end,
         Sprite = "ear",
-        Desc = "Kulak Aksesuarı Giy/Çıkar",
+        Desc = "Ucho Aksesuarı Giy/Çıkar",
         Button = 10,
         Name = "Ear"
     },
     ["neck"] = {
         Func = function() ToggleClothing("Neck") end,
         Sprite = "neck",
-        Desc = "Boyun Aksesuarı Giy/Çıkar",
+        Desc = "Szyja Aksesuarı Giy/Çıkar",
         Button = 11,
         Name = "Neck"
     },
     ["watch"] = {
         Func = function() ToggleProps("Watch") end,
         Sprite = "watch",
-        Desc = "Saat Tak/Çıkar",
+        Desc = "Zegarek Tak/Çıkar",
         Button = 12,
         Name = "Watch",
         Rotation = 5.0
@@ -1470,7 +1470,7 @@ Config.Commands = {
     ["mask"] = {
         Func = function() ToggleClothing("Mask") end,
         Sprite = "mask",
-        Desc = "Maske Giy/Çıkar",
+        Desc = "Maska Giy/Çıkar",
         Button = 6,
         Name = "Mask"
     }
@@ -1482,7 +1482,7 @@ Config.ExtraCommands = {
     ["pants"] = {
         Func = function() ToggleClothing("Pants", true) end,
         Sprite = "pants",
-        Desc = "Pantolonu Giy/Çıkar",
+        Desc = "Spodnieu Giy/Çıkar",
         Name = "Pants",
         OffsetX = -0.04,
         OffsetY = 0.0
