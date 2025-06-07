@@ -625,16 +625,16 @@ window.addEventListener("message", function (event) {
       } else {
         $(".icon-cont[name=voice]")
           .parent()
-          .css("background", "rgba(255, 238, 0, 0.35)");
+          .css("background", "rgba(207, 0, 255, 0.35)");
         $(".icon-cont[name=voice]").css(
           "background",
-          "radial-gradient(rgba(255, 217, 0, 0), rgba(255, 251, 0, 0.5))"
+          "radial-gradient(rgba(207, 0, 255, 0), rgba(207, 0, 255, 0.5))"
         );
         $(".icon-cont[name=voice]")
           .children()
           .css(
             "background-image",
-            " radial-gradient(rgba(255, 208, 0, 0.5), rgba(255, 238, 0, 0.5))"
+            " radial-gradient(rgba(207, 0, 255, 0.5), rgba(207, 0, 255, 0.5))"
           );
       }
     } else {
