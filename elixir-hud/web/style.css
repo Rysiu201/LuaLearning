@@ -819,9 +819,6 @@ video {
 .w-1 {
   width: 0.25rem;
 }
-.w-1 {
-  width: 0.25rem;
-}
 .w-2 {
   width: 0.5rem;
 }
@@ -1168,37 +1165,6 @@ video {
   font-weight: 400;
   font-style: normal;
   font-display: block;
-}
-.statsIndicators-cont {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  bottom: 3rem;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-left: 0;
-  z-index: 1;
-}
-.statsIndicators-cont.left {
-  left: 0;
-  right: auto;
-  transform: none;
-  margin-left: calc(0.092592592vh * 15);
-  bottom: 3rem;
-}
-.statsIndicators-cont.center {
-  left: 50%;
-  right: auto;
-  transform: translateX(-50%);
-  margin-left: 0;
-  bottom: 3rem;
-}
-.statsIndicators-cont.right {
-  right: calc(0.092592592vh * 15);
-  left: auto;
-  transform: none;
-  margin-left: 0;
-  bottom: 3rem;
 }
 .statsIndicators-cont {
   display: flex;
@@ -6725,7 +6691,7 @@ svg.active .svg-elem-1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 3.5vh;
 }
 
 .orange {
@@ -7029,4 +6995,3 @@ svg.active .svg-elem-1 {
 #mic-icon {
   display: none;
 }
-
