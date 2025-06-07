@@ -401,6 +401,7 @@ function rpmUpdate(rpm) {
       $(this)
         .addClass("ring-mediumspringgreen bg-mediumspringgreen")
         .removeClass("bg-neutral-600 ring-neutral-600");
+      if (index <= 17 && index >= 14) {
       if (index <= 17 && index >= 12) {
         $(this).addClass("bg-red-500");
       }
@@ -408,6 +409,7 @@ function rpmUpdate(rpm) {
       $(this)
         .addClass("bg-neutral-600 ring-neutral-600")
         .removeClass("ring-mediumspringgreen bg-mediumspringgreen");
+      if (index <= 17 && index >= 14) {
       if (index <= 17 && index >= 12) {
         $(this).removeClass("bg-red-500");
       }
