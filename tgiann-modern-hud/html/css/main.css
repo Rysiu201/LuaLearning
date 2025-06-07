@@ -1,0 +1,187 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "TTNormsTGI";
+  /*  background: url("https://media.discordapp.net/attachments/650086762575691795/967345111065317417/screenshot_1.png") no-repeat center center fixed; 
+    background-size: cover; */
+}
+
+.mainBG {
+  display: none;
+}
+
+:root {
+  --box-shadow-color: 0px 1px 1px 0px rgba(50, 50, 50, 0.5);
+  --boder-radius-box: 3px;
+
+  --health: #31a372;
+  --armor: #3989ff;
+  --hunger: #d5993d;
+  --water: #4a79af;
+  --stamina: #5c90c0;
+  --addiction: #2e7d32;
+  --oxy: #800;
+  --stress: #800;
+  --buffbg: #ffd700;
+
+  --statusBG: rgba(17, 17, 17, 0.5);
+}
+
+@font-face {
+  font-family: "TTNormsTGI";
+  src: url("../fonts/ttnorms/TTNormsProMedium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "TTNormsRegularTGI";
+  src: url("../fonts/ttnorms/TTNormsProRegular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "pdown";
+  src: url("../fonts/pdown.ttf");
+}
+
+#circlehunger,
+#squarehunger,
+#normalhunger {
+  background: var(--hunger);
+  max-width: 100%;
+}
+
+#circlewater,
+#squarewater,
+#normalwater {
+  background: var(--water);
+  max-width: 100%;
+}
+
+#circlestamina,
+#squarestamina,
+#normalstamina {
+  background: var(--stamina);
+}
+
+#circleoxy,
+#squareoxy,
+#normaloxy {
+  background: var(--oxy);
+}
+
+#circleStress,
+#squareStress,
+#normalStress {
+  background: var(--stress);
+}
+
+#circleaddiction,
+#squareaddiction,
+#normaladdiction {
+  background: var(--addiction);
+}
+
+.circleStatusBar,
+.squareStatusBar,
+.normalStatusBar {
+  position: relative;
+  background: var(--statusBG);
+  width: 3vh;
+  height: 3vh;
+  border-radius: var(--boder-radius-box);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-90deg);
+  box-shadow: var(--box-shadow-color);
+}
+
+.circleStatusBar svg,
+.squareStatusBar svg,
+.normalStatusBar svg {
+  position: absolute;
+  color: #fff;
+  z-index: 1;
+  transform: rotate(90deg);
+  font-size: 1.3vh;
+}
+
+.circleStatusBarBg,
+.squareStatusBarBg,
+.normalStatusBarBg {
+  background: #30475e;
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  border-radius: var(--boder-radius-box);
+  left: 0;
+}
+
+.statusBarBuffBg {
+  background: var(--buffbg) !important;
+}
+
+.statusBarBuffBg2 svg {
+  color: #756300 !important;
+}
+
+/* Time */
+.time-hud {
+  position: absolute;
+  right: 0.8vw;
+  top: 0.7vw;
+  color: #ffffffb0;
+}
+
+.day {
+  text-align: right;
+  margin-bottom: 0.2vw;
+}
+
+.fa-calendar{
+  font-size: 0.7vw;
+  padding: 0.09vw;
+}
+
+.time {
+  text-align: right;
+  margin-bottom: 0.2vw;
+}
+
+.fa-clock{
+  font-size: 0.7vw;
+  padding: 0.08vw;
+}
+
+/* Money */
+.money-cash {
+  opacity: 0;
+  position: absolute;
+  right: 5vw;
+  top: 7vh;
+  font-family: "pdown";
+  font-weight: 400;
+  font-size: 29px;
+  padding: 4px;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+  margin-right: 6px;
+  margin-top: 6px;
+}
+
+.money-cash p {
+  padding: 5px 0;
+  margin: 0;
+}
+
+.munnie {
+  color: #277418;
+}
+
+#cash,
+#addCashValue {
+  color: white;
+}
+
+#addCash {
+  opacity: 0;
+}
