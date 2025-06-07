@@ -292,9 +292,9 @@ function refreshInputs() {
 function applyHudPosition(pos) {
   const cont = $(".statsIndicators-cont");
   cont.removeClass("left center right");
-  if (pos === "left") {
+  if (pos === "Lewo") {
     cont.addClass("left");
-  } else if (pos === "right") {
+  } else if (pos === "Prawo") {
     cont.addClass("right");
   } else {
     cont.addClass("center");
@@ -725,5 +725,4 @@ $(document).keyup(function (e) {
     $("._container_1hwi9_2").css("display", "none");
   }
 });
-
 
