@@ -80,6 +80,15 @@ $(document).ready(function () {
     }
   });
 
+  let storedPos = localStorage.getItem("hud_position");
+  if (storedPos) {
+    $(".np-text-box[name=hudposition]").val(storedPos);
+    applyHudPosition(storedPos);
+  } else {
+    localStorage.setItem("hud_position", "center");
+    applyHudPosition("center");
+  }
+
   $(".option").click(function () {
     let Description = $(this).html();
     $(this)
@@ -87,11 +96,12 @@ $(document).ready(function () {
       .parent()
       .children(".np-text-box")
       .prop("value", Description);
-    if (
-      $(this).parent().parent().children(".np-text-box").attr("trink") ==
-      "preference"
-    ) {
+    let trinkVal = $(this).parent().parent().children(".np-text-box").attr("trink");
+    if (trinkVal == "preference") {
       loadPreference();
+    } else if (trinkVal == "hudpos") {
+      localStorage.setItem("hud_position", Description);
+      applyHudPosition(Description);
     }
   });
 
@@ -277,6 +287,18 @@ function refreshInputs() {
       $(this).children("label").removeClass("enabled");
     }
   });
+}
+
+function applyHudPosition(pos) {
+  const cont = $(".statsIndicators-cont");
+  cont.removeClass("left center right");
+  if (pos === "left") {
+    cont.addClass("left");
+  } else if (pos === "right") {
+    cont.addClass("right");
+  } else {
+    cont.addClass("center");
+  }
 }
 
 // STATUS HUD
@@ -586,7 +608,6 @@ window.addEventListener("message", function (event) {
     }
   } else if (event.data.action == "talking") {
     if (event.data.talking) {
-      $("#mic-icon").css("display", "block");
       if (event.data.radioshit) {
         $(".icon-cont[name=radio]")
           .parent()
@@ -604,20 +625,19 @@ window.addEventListener("message", function (event) {
       } else {
         $(".icon-cont[name=voice]")
           .parent()
-          .css("background", "rgba(255, 238, 0, 0.35)");
+          .css("background", "rgba(207, 0, 255, 0.35)");
         $(".icon-cont[name=voice]").css(
           "background",
-          "radial-gradient(rgba(255, 217, 0, 0), rgba(255, 251, 0, 0.5))"
+          "radial-gradient(rgba(207, 0, 255, 0), rgba(207, 0, 255, 0.5))"
         );
         $(".icon-cont[name=voice]")
           .children()
           .css(
             "background-image",
-            " radial-gradient(rgba(255, 208, 0, 0.5), rgba(255, 238, 0, 0.5))"
+            " radial-gradient(rgba(207, 0, 255, 0.5), rgba(207, 0, 255, 0.5))"
           );
       }
     } else {
-      $("#mic-icon").css("display", "none");
       $(".icon-cont[name=voice]")
         .parent()
         .css("background", "rgba(255, 255, 255, 0.35)");
