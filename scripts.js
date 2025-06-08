@@ -12,7 +12,7 @@ window.addEventListener('message', function(event) {
 					<div class="d-flex justify-content-center flex-column align-items-center">
 						<span class="load"></span>
 						<br>
-						<div style="font-size: 40px; color: #fff;">Loading Data...</div>
+						<div style="font-size: 40px; color: #fff;">Ładowanie danych...</div>
 					</div>
 				`);
 				$("#menu").fadeIn();
@@ -40,19 +40,19 @@ window.addEventListener('message', function(event) {
 						<div class="col-md-2 d-flex flex-column" style="border-right: 1px solid rgba(62, 63, 75); width: 177px;">
 							<img src="logo.png" class="logo">
 							<hr>
-							<span class="sidebar-title">Personal</span>
+							<span class="sidebar-title">Osobiste</span>
 							<div id="sidebar"></div>
-							<p class="sidebar-item mt-auto logout"><i class="fas fa-sign-out-alt"></i></i> <span class="ms-1">Logout</span></p>
+							<p class="sidebar-item mt-auto logout"><i class="fas fa-sign-out-alt"></i></i> <span class="ms-1">Wyloguj</span></p>
 						</div>
 						<div class="col-md-10" style="width: 82%; display: flex; flex-direction: column;">
 							<div class="d-flex justify-content-between align-items-center">
-								<span class="selected-page" style="margin-left: 15px;"><span id="page-title">Overview</span></span>
+								<span class="selected-page" style="margin-left: 15px;"><span id="page-title">Podsumowanie</span></span>
 								<div>
 									<span class="username align-middle">
 										<span id="playerName"></span> <span id="avatar">${avatar}</span>
 									</span>
 									<div style="font-size: 14px; margin-top: -12px; font-weight: 500; position: absolute; right: 7.2%;">
-										<span>Wallet: <span id="wallet_money"></span> EUR</span>
+										<span>Portfel: <span id="wallet_money"></span> $</span>
 									</div>
 								</div>
 							</div>
@@ -84,20 +84,20 @@ window.addEventListener('message', function(event) {
 				table.splice(i, 1);
 			}
 
-			$('#page-title').html('Transactions');
+			$('#page-title').html('Transakcje');
 
 			if (event.data.isInSociety){
 				society = `<span class="sidebar-title mt-5">Society</span>
-						   <p class="sidebar-item mt-2" id="society_page" style="margin-bottom: 12px;"><i class="bi bi-grid-1x2-fill"></i> <span class="ms-1">Overview</span></p>
-						   <p class="sidebar-item" id="society_transactions" style="margin-bottom: 12px;"><i class="fas fa-exchange-alt"></i> <span class="ms-1">Transactions</span></p>`;
+						   <p class="sidebar-item mt-2" id="society_page" style="margin-bottom: 12px;"><i class="bi bi-grid-1x2-fill"></i> <span class="ms-1">Podsumowanie</span></p>
+						   <p class="sidebar-item" id="society_transactions" style="margin-bottom: 12px;"><i class="fas fa-exchange-alt"></i> <span class="ms-1">Transakcje</span></p>`;
 			} else {
 				society = '';
 			}
 
 			$('#sidebar').html(`
-				<p class="sidebar-item mt-2" id="overview_page" style="margin-bottom: 12px;"><i class="bi bi-grid-1x2-fill"></i> <span class="ms-1">Overview</span></p>
-				<p class="sidebar-item selected" id="transactions_page" style="margin-bottom: 12px;"><i class="fas fa-exchange-alt"></i> <span class="ms-1">Transactions</span></p>
-				<p class="sidebar-item mt-2" id="settings_page" style="margin-bottom: 12px;"><i class="fas fa-cog"></i> <span class="ms-1">Settings</span></p>
+				<p class="sidebar-item mt-2" id="overview_page" style="margin-bottom: 12px;"><i class="bi bi-grid-1x2-fill"></i> <span class="ms-1">Podsumowanie</span></p>
+				<p class="sidebar-item selected" id="transactions_page" style="margin-bottom: 12px;"><i class="fas fa-exchange-alt"></i> <span class="ms-1">Transakcje</span></p>
+				<p class="sidebar-item mt-2" id="settings_page" style="margin-bottom: 12px;"><i class="fas fa-cog"></i> <span class="ms-1">Ustawienia</span></p>
 				${society}
 			`);
 
@@ -109,38 +109,38 @@ window.addEventListener('message', function(event) {
 				numOfTransactions++
 				var db = event.data.db[i];
 
-				// Received
+				// Otrzymano
 				if (db.type == 'transfer' && db.receiver_identifier == event.data.identifier) {
 					icon = '<td class="align-middle"><span style="background-color: #1d1e24; padding: 10px 15px 10px 15px; border-radius: 10px;"><i class="bi bi-download"></i></span></td>';
 					data = `<td class="align-middle" style="font-weight: 500;">
-								From <span style="color: #1f5eff; font-weight: 600;">${db.sender_name}</span>
-								<div style="margin-top: -5px;">Received</div>
+								Od <span style="color: #1f5eff; font-weight: 600;">${db.sender_name}</span>
+								<div style="margin-top: -5px;">Otrzymano</div>
 							</td>`;
-					amount = `<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71; float: right;">+ ${db.value.toLocaleString()} EUR</span> </td>`;
-				// Sent
+					amount = `<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71; float: right;">+ ${db.value.toLocaleString()} $</span> </td>`;
+				// Wysłano
 				} else if (db.type == 'transfer' && db.sender_identifier == event.data.identifier) {
 					icon = '<td class="align-middle"><span style="background-color: #1d1e24; padding: 10px 15px 10px 15px; border-radius: 10px;"><i class="bi bi-upload"></i></span></td>';
 					data = `<td class="align-middle" style="font-weight: 500;">
-								To <span style="color: #1f5eff; font-weight: 600;">${db.receiver_name}</span>
-								<div style="margin-top: -5px;">Sent</div>
+								Do <span style="color: #1f5eff; font-weight: 600;">${db.receiver_name}</span>
+								<div style="margin-top: -5px;">Wysłano</div>
 							</td>`;
-					amount = `<td class="align-middle" style="font-weight: 500;"><span style="float: right;"> - ${db.value.toLocaleString()} EUR</span> </td>`;
-				// Deposited
+					amount = `<td class="align-middle" style="font-weight: 500;"><span style="float: right;"> - ${db.value.toLocaleString()} $</span> </td>`;
+				// Wpłacono
 				} else if (db.type == 'deposit') {
 					icon = '<td class="align-middle"><span style="background-color: #1d1e24; padding: 10px 15px 10px 15px; border-radius: 10px;"><i class="bi bi-download"></i></span></td>';
 					data = `<td class="align-middle" style="font-weight: 500;">
-								Into <span style="color: #1f5eff; font-weight: 600;">${db.receiver_name}</span>
-								<div style="margin-top: -5px;">Deposited</div>
+								Na <span style="color: #1f5eff; font-weight: 600;">${db.receiver_name}</span>
+								<div style="margin-top: -5px;">Wpłacono</div>
 							</td>`;
-					amount = `<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71; float: right;">+ ${db.value.toLocaleString()} EUR</span> </td>`;
-				// Withdrawn
+					amount = `<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71; float: right;">+ ${db.value.toLocaleString()} $</span> </td>`;
+				// Wypłacono
 				} else if (db.type == 'withdraw') {
 					icon = '<td class="align-middle"><span style="background-color: #1d1e24; padding: 10px 15px 10px 15px; border-radius: 10px;"><i class="bi bi-upload"></i></span></td>';
 					data = `<td class="align-middle" style="font-weight: 500;">
-								From <span style="color: #1f5eff; font-weight: 600;">${db.sender_name}</span>
-								<div style="margin-top: -5px;">Withdrawn</div>
+								Od <span style="color: #1f5eff; font-weight: 600;">${db.sender_name}</span>
+								<div style="margin-top: -5px;">Wypłacono</div>
 							</td>`;
-					amount = `<td class="align-middle" style="font-weight: 500;"><span style="float: right;"> - ${db.value.toLocaleString()} EUR</span> </td>`;
+					amount = `<td class="align-middle" style="font-weight: 500;"><span style="float: right;"> - ${db.value.toLocaleString()} $</span> </td>`;
 				}
 
 				row += `
@@ -168,24 +168,24 @@ window.addEventListener('message', function(event) {
 					<div class="col col-md-3">
 						<div class="card" style="background-color: #1f5eff; border-radius: 10px; color: #fff;">
 						  <div class="card-body text-center">
-						    <h6 class="card-title" style="font-weight: 600; font-size: 20px;">INCOME</h6>
-						    <p class="card-text" id="totalIncome" style="font-size: 20px;">${event.data.graph_values[7].toLocaleString()}€</p>
+						    <h6 class="card-title" style="font-weight: 600; font-size: 20px;">PRZYCHÓD</h6>
+						    <p class="card-text" id="totalIncome" style="font-size: 20px;">${event.data.graph_values[7].toLocaleString()}$</p>
 						  </div>
 						</div>
 					</div>
 					<div class="col col-md-3">
 						<div class="card" style="background-color: #1f5eff; border-radius: 10px; color: #fff;">
 						  <div class="card-body text-center">
-						    <h6 class="card-title" style="font-weight: 600; font-size: 20px;">OUTCOME</h6>
-						    <p class="card-text" id="unpaidInvoices" style="font-size: 20px;">${event.data.graph_values[8].toLocaleString()}€</p>
+						    <h6 class="card-title" style="font-weight: 600; font-size: 20px;">WYDATEK</h6>
+						    <p class="card-text" id="unpaidInvoices" style="font-size: 20px;">${event.data.graph_values[8].toLocaleString()}$</p>
 						  </div>
 						</div>
 					</div>
 					<div class="col col-md-3">
 						<div class="card" style="background-color: #1f5eff; border-radius: 10px; color: #fff;">
 						  <div class="card-body text-center">
-						    <h6 class="card-title" style="font-weight: 600; font-size: 20px;">EARNINGS</h6>
-						    <p class="card-text" id="awaitedIncome" style="font-size: 20px;">${event.data.graph_values[9].toLocaleString()}€</p>
+						    <h6 class="card-title" style="font-weight: 600; font-size: 20px;">ZYSKI</h6>
+						    <p class="card-text" id="awaitedIncome" style="font-size: 20px;">${event.data.graph_values[9].toLocaleString()}$</p>
 						  </div>
 						</div>
 					</div>
@@ -195,20 +195,20 @@ window.addEventListener('message', function(event) {
 						<tr>
 							<td class="align-middle"><span style="background-color: #1d1e24; padding: 5px 10px 5px 10px; border-radius: 10px;"><i class="bi bi-download"></i></span></td>
 							<td class="align-middle" style="font-weight: 500; font-size: 16px;">
-								To <span style="color: #1f5eff;">Arthur James</span>
-								<div style="margin-top: -5px;">Sent</div>
+								Do <span style="color: #1f5eff;">Arthur James</span>
+								<div style="margin-top: -5px;">Wysłano</div>
 							</td>
 							<td class="align-middle" style="font-weight: 500;">28 Aug 04:43</td>
-							<td class="align-middle" style="font-weight: 500;">- 732 500 EUR</td>
+							<td class="align-middle" style="font-weight: 500;">- 732 500 $</td>
 						</tr>
 						<tr>
 							<td class="align-middle"><span style="background-color: #1d1e24; padding: 5px 10px 5px 10px; border-radius: 10px;"><i class="bi bi-upload"></i></span></td>
 							<td class="align-middle" style="font-weight: 500; font-size: 16px;">
-								Into <span style="color: #1f5eff;">Bank Account</span>
-								<div style="margin-top: -5px;">Deposited</div>
+								Na <span style="color: #1f5eff;">Bank Account</span>
+								<div style="margin-top: -5px;">Wpłacono</div>
 							</td>
 							<td class="align-middle" style="font-weight: 500;">28 Aug 04:43</td>
-							<td class="align-middle" style="font-weight: 500; color: #2ecc71;">+ 57 000 EUR</td>
+							<td class="align-middle" style="font-weight: 500; color: #2ecc71;">+ 57 000 $</td>
 						</tr>
 					</tbody>
 				</table>
@@ -230,20 +230,20 @@ window.addEventListener('message', function(event) {
 				table.splice(i, 1);
 			}
 
-			$('#page-title').html('Transactions ['+event.data.societyInfo.society_name+']');
+			$('#page-title').html('Transakcje ['+event.data.societyInfo.society_name+']');
 
 			if (event.data.isInSociety){
 				society = `<span class="sidebar-title mt-5">Society</span>
-						   <p class="sidebar-item mt-2" id="society_page" style="margin-bottom: 12px;"><i class="bi bi-grid-1x2-fill"></i> <span class="ms-1">Overview</span></p>
-						   <p class="sidebar-item selected" id="society_transactions" style="margin-bottom: 12px;"><i class="fas fa-exchange-alt"></i> <span class="ms-1">Transactions</span></p>`;
+						   <p class="sidebar-item mt-2" id="society_page" style="margin-bottom: 12px;"><i class="bi bi-grid-1x2-fill"></i> <span class="ms-1">Podsumowanie</span></p>
+						   <p class="sidebar-item selected" id="society_transactions" style="margin-bottom: 12px;"><i class="fas fa-exchange-alt"></i> <span class="ms-1">Transakcje</span></p>`;
 			} else {
 				society = '';
 			}
 
 			$('#sidebar').html(`
-				<p class="sidebar-item mt-2" id="overview_page" style="margin-bottom: 12px;"><i class="bi bi-grid-1x2-fill"></i> <span class="ms-1">Overview</span></p>
-				<p class="sidebar-item" id="transactions_page" style="margin-bottom: 12px;"><i class="fas fa-exchange-alt"></i> <span class="ms-1">Transactions</span></p>
-				<p class="sidebar-item mt-2" id="settings_page" style="margin-bottom: 12px;"><i class="fas fa-cog"></i> <span class="ms-1">Settings</span></p>
+				<p class="sidebar-item mt-2" id="overview_page" style="margin-bottom: 12px;"><i class="bi bi-grid-1x2-fill"></i> <span class="ms-1">Podsumowanie</span></p>
+				<p class="sidebar-item" id="transactions_page" style="margin-bottom: 12px;"><i class="fas fa-exchange-alt"></i> <span class="ms-1">Transakcje</span></p>
+				<p class="sidebar-item mt-2" id="settings_page" style="margin-bottom: 12px;"><i class="fas fa-cog"></i> <span class="ms-1">Ustawienia</span></p>
 				${society}
 			`);
 
@@ -255,38 +255,38 @@ window.addEventListener('message', function(event) {
 				numOfTransactions++
 				var db = event.data.db[i];
 
-				// Received
+				// Otrzymano
 				if (db.type == 'transfer' && db.receiver_identifier == event.data.identifier) {
 					icon = '<td class="align-middle"><span style="background-color: #1d1e24; padding: 10px 15px 10px 15px; border-radius: 10px;"><i class="bi bi-download"></i></span></td>';
 					data = `<td class="align-middle" style="font-weight: 500;">
-								From <span style="color: #1f5eff; font-weight: 600;">${db.sender_name}</span>
-								<div style="margin-top: -5px;">Received</div>
+								Od <span style="color: #1f5eff; font-weight: 600;">${db.sender_name}</span>
+								<div style="margin-top: -5px;">Otrzymano</div>
 							</td>`;
-					amount = `<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71; float: right;">+ ${db.value.toLocaleString()} EUR</span> </td>`;
-				// Sent
+					amount = `<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71; float: right;">+ ${db.value.toLocaleString()} $</span> </td>`;
+				// Wysłano
 				} else if (db.type == 'transfer' && db.sender_identifier == event.data.identifier) {
 					icon = '<td class="align-middle"><span style="background-color: #1d1e24; padding: 10px 15px 10px 15px; border-radius: 10px;"><i class="bi bi-upload"></i></span></td>';
 					data = `<td class="align-middle" style="font-weight: 500;">
-								To <span style="color: #1f5eff; font-weight: 600;">${db.receiver_name}</span>
-								<div style="margin-top: -5px;">Sent</div>
+								Do <span style="color: #1f5eff; font-weight: 600;">${db.receiver_name}</span>
+								<div style="margin-top: -5px;">Wysłano</div>
 							</td>`;
-					amount = `<td class="align-middle" style="font-weight: 500;"><span style="float: right;"> - ${db.value.toLocaleString()} EUR</span> </td>`;
-				// Deposited
+					amount = `<td class="align-middle" style="font-weight: 500;"><span style="float: right;"> - ${db.value.toLocaleString()} $</span> </td>`;
+				// Wpłacono
 				} else if (db.type == 'deposit') {
 					icon = '<td class="align-middle"><span style="background-color: #1d1e24; padding: 10px 15px 10px 15px; border-radius: 10px;"><i class="bi bi-download"></i></span></td>';
 					data = `<td class="align-middle" style="font-weight: 500;">
-								Into <span style="color: #1f5eff; font-weight: 600;">${db.receiver_name}</span>
-								<div style="margin-top: -5px;">Deposited</div>
+								Na <span style="color: #1f5eff; font-weight: 600;">${db.receiver_name}</span>
+								<div style="margin-top: -5px;">Wpłacono</div>
 							</td>`;
-					amount = `<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71; float: right;">+ ${db.value.toLocaleString()} EUR</span> </td>`;
-				// Withdrawn
+					amount = `<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71; float: right;">+ ${db.value.toLocaleString()} $</span> </td>`;
+				// Wypłacono
 				} else if (db.type == 'withdraw') {
 					icon = '<td class="align-middle"><span style="background-color: #1d1e24; padding: 10px 15px 10px 15px; border-radius: 10px;"><i class="bi bi-upload"></i></span></td>';
 					data = `<td class="align-middle" style="font-weight: 500;">
-								From <span style="color: #1f5eff; font-weight: 600;">${db.sender_name}</span>
-								<div style="margin-top: -5px;">Withdrawn</div>
+								Od <span style="color: #1f5eff; font-weight: 600;">${db.sender_name}</span>
+								<div style="margin-top: -5px;">Wypłacono</div>
 							</td>`;
-					amount = `<td class="align-middle" style="font-weight: 500;"><span style="float: right;"> - ${db.value.toLocaleString()} EUR</span> </td>`;
+					amount = `<td class="align-middle" style="font-weight: 500;"><span style="float: right;"> - ${db.value.toLocaleString()} $</span> </td>`;
 				}
 
 				row += `
@@ -314,24 +314,24 @@ window.addEventListener('message', function(event) {
 					<div class="col col-md-3">
 						<div class="card" style="background-color: #1f5eff; border-radius: 10px; color: #fff;">
 						  <div class="card-body text-center">
-						    <h6 class="card-title" style="font-weight: 600; font-size: 20px;">INCOME</h6>
-						    <p class="card-text" id="totalIncome" style="font-size: 20px;">${event.data.graph_values[7].toLocaleString()}€</p>
+						    <h6 class="card-title" style="font-weight: 600; font-size: 20px;">PRZYCHÓD</h6>
+						    <p class="card-text" id="totalIncome" style="font-size: 20px;">${event.data.graph_values[7].toLocaleString()}$</p>
 						  </div>
 						</div>
 					</div>
 					<div class="col col-md-3">
 						<div class="card" style="background-color: #1f5eff; border-radius: 10px; color: #fff;">
 						  <div class="card-body text-center">
-						    <h6 class="card-title" style="font-weight: 600; font-size: 20px;">OUTCOME</h6>
-						    <p class="card-text" id="unpaidInvoices" style="font-size: 20px;">${event.data.graph_values[8].toLocaleString()}€</p>
+						    <h6 class="card-title" style="font-weight: 600; font-size: 20px;">WYDATEK</h6>
+						    <p class="card-text" id="unpaidInvoices" style="font-size: 20px;">${event.data.graph_values[8].toLocaleString()}$</p>
 						  </div>
 						</div>
 					</div>
 					<div class="col col-md-3">
 						<div class="card" style="background-color: #1f5eff; border-radius: 10px; color: #fff;">
 						  <div class="card-body text-center">
-						    <h6 class="card-title" style="font-weight: 600; font-size: 20px;">EARNINGS</h6>
-						    <p class="card-text" id="awaitedIncome" style="font-size: 20px;">${event.data.graph_values[9].toLocaleString()}€</p>
+						    <h6 class="card-title" style="font-weight: 600; font-size: 20px;">ZYSKI</h6>
+						    <p class="card-text" id="awaitedIncome" style="font-size: 20px;">${event.data.graph_values[9].toLocaleString()}$</p>
 						  </div>
 						</div>
 					</div>
@@ -341,20 +341,20 @@ window.addEventListener('message', function(event) {
 						<tr>
 							<td class="align-middle"><span style="background-color: #1d1e24; padding: 5px 10px 5px 10px; border-radius: 10px;"><i class="bi bi-download"></i></span></td>
 							<td class="align-middle" style="font-weight: 500; font-size: 16px;">
-								To <span style="color: #1f5eff;">Arthur James</span>
-								<div style="margin-top: -5px;">Sent</div>
+								Do <span style="color: #1f5eff;">Arthur James</span>
+								<div style="margin-top: -5px;">Wysłano</div>
 							</td>
 							<td class="align-middle" style="font-weight: 500;">28 Aug 04:43</td>
-							<td class="align-middle" style="font-weight: 500;">- 732 500 EUR</td>
+							<td class="align-middle" style="font-weight: 500;">- 732 500 $</td>
 						</tr>
 						<tr>
 							<td class="align-middle"><span style="background-color: #1d1e24; padding: 5px 10px 5px 10px; border-radius: 10px;"><i class="bi bi-upload"></i></span></td>
 							<td class="align-middle" style="font-weight: 500; font-size: 16px;">
-								Into <span style="color: #1f5eff;">Bank Account</span>
-								<div style="margin-top: -5px;">Deposited</div>
+								Na <span style="color: #1f5eff;">Bank Account</span>
+								<div style="margin-top: -5px;">Wpłacono</div>
 							</td>
 							<td class="align-middle" style="font-weight: 500;">28 Aug 04:43</td>
-							<td class="align-middle" style="font-weight: 500; color: #2ecc71;">+ 57 000 EUR</td>
+							<td class="align-middle" style="font-weight: 500; color: #2ecc71;">+ 57 000 $</td>
 						</tr>
 					</tbody>
 				</table>
@@ -392,14 +392,14 @@ window.addEventListener('message', function(event) {
 
 // Start Pages
 
-// Overview
+// Podsumowanie
 $(document).on('click', "#overview_page", function() {
 	$.post('https://okokBanking/action', JSON.stringify({
 		action: "overview_page",
 	}));
 });
 
-// Transactions
+// Transakcje
 $(document).on('click', "#transactions_page", function() {
 	$.post('https://okokBanking/action', JSON.stringify({
 		action: "transactions_page",
@@ -432,7 +432,7 @@ $(document).on('click', "#society_transactions", function() {
 	}));
 });
 
-// Settings
+// Ustawienia
 $(document).on('click', "#settings_page", function() {
 	$.post('https://okokBanking/action', JSON.stringify({
 		action: "settings_page",
@@ -582,21 +582,21 @@ $(document).on('click', ".close-atm", function() {
 })
 
 function checkIfEmpty() {
-    // Deposit
+    // Wpłać
     if (document.getElementById("deposit_value").value === "") {
         document.getElementById('depositMoney').disabled = true;
     } else { 
     document.getElementById('depositMoney').disabled = false;
     }
 
-    // Withdraw
+    // Wypłać
     if(document.getElementById("withdraw_value").value === "") {
         document.getElementById('withdrawMoney').disabled = true;
     } else { 
     document.getElementById('withdrawMoney').disabled = false;
     }
 
-    // Transfer
+    // Przelej
     if(document.getElementById("transfer_value").value === "" || document.getElementById("transfer_iban").value === "") {
         document.getElementById('transferMoney').disabled = true;
     } else { 
@@ -626,20 +626,20 @@ function overview_page_function(event) {
 		table.splice(i, 1);
 	}
 
-	$('#page-title').html('Overview');
+	$('#page-title').html('Podsumowanie');
 
 	if (event.data.isInSociety){
 		society = `<span class="sidebar-title mt-5">Society</span>
-				   <p class="sidebar-item mt-2" id="society_page" style="margin-bottom: 12px;"><i class="bi bi-grid-1x2-fill"></i> <span class="ms-1">Overview</span></p>
-				   <p class="sidebar-item" id="society_transactions" style="margin-bottom: 12px;"><i class="fas fa-exchange-alt"></i> <span class="ms-1">Transactions</span></p>`;
+				   <p class="sidebar-item mt-2" id="society_page" style="margin-bottom: 12px;"><i class="bi bi-grid-1x2-fill"></i> <span class="ms-1">Podsumowanie</span></p>
+				   <p class="sidebar-item" id="society_transactions" style="margin-bottom: 12px;"><i class="fas fa-exchange-alt"></i> <span class="ms-1">Transakcje</span></p>`;
 	} else {
 		society = '';
 	}
 
 	$('#sidebar').html(`
-		<p class="sidebar-item mt-2 selected" id="overview_page" style="margin-bottom: 12px;"><i class="bi bi-grid-1x2-fill"></i> <span class="ms-1">Overview</span></p>
-		<p class="sidebar-item" id="transactions_page" style="margin-bottom: 12px;"><i class="fas fa-exchange-alt"></i> <span class="ms-1">Transactions</span></p>
-		<p class="sidebar-item mt-2" id="settings_page" style="margin-bottom: 12px;"><i class="fas fa-cog"></i> <span class="ms-1">Settings</span></p>
+		<p class="sidebar-item mt-2 selected" id="overview_page" style="margin-bottom: 12px;"><i class="bi bi-grid-1x2-fill"></i> <span class="ms-1">Podsumowanie</span></p>
+		<p class="sidebar-item" id="transactions_page" style="margin-bottom: 12px;"><i class="fas fa-exchange-alt"></i> <span class="ms-1">Transakcje</span></p>
+		<p class="sidebar-item mt-2" id="settings_page" style="margin-bottom: 12px;"><i class="fas fa-cog"></i> <span class="ms-1">Ustawienia</span></p>
 		${society}
 	`);
 
@@ -649,7 +649,7 @@ function overview_page_function(event) {
 		<div class="col-md-7" style="border-right: 1px solid rgba(62, 63, 75);">
 			<div class="card text-center" style="background-color: transparent; border-radius: 10px; box-shadow: 0px 0px 5 0px rgba(0, 0, 0, 0.75);">
 				<div class="card-header" style="background-color: #292a31; border-top-right-radius: 10px; border-top-left-radius: 10px;">
-					<span style="color: #fff; font-size: 18px;"><i class="fas fa-chart-line"></i> Statistics</span>
+					<span style="color: #fff; font-size: 18px;"><i class="fas fa-chart-line"></i> Statystyki</span>
 				</div>
 				<div class="card-body" style="background-color: #1d1e24; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
 					<div>
@@ -661,7 +661,7 @@ function overview_page_function(event) {
 				<div class="col-md-12">
 					<div class="card h-100" style="background-color: transparent; border-radius: 10px; box-shadow: 0px 0px 5 0px rgba(0, 0, 0, 0.75); margin-top: 12px;">
 						<div class="card-header text-center" style="background-color: #292a31; border-top-right-radius: 10px; border-top-left-radius: 10px;">
-							<span style="color: #fff; font-size: 18px;"><span><i class="fas fa-exchange-alt"></i> Last Transactions</span> <span class="badge bg-primary viewall-badge" style="position: absolute; font-size: 14px; right: 9px; top: 10px;" id="view_all_transactions"><i class="fas fa-eye"></i> VIEW ALL</span></span>
+							<span style="color: #fff; font-size: 18px;"><span><i class="fas fa-exchange-alt"></i> Ostatnie transakcje</span> <span class="badge bg-primary viewall-badge" style="position: absolute; font-size: 14px; right: 9px; top: 10px;" id="view_all_transactions"><i class="fas fa-eye"></i> ZOBACZ WSZYSTKO</span></span>
 						</div>
 						<div class="card-body" style="background-color: #1d1e24; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; padding: 0.6rem 1rem;">
 							<table id="lastTransactionsTable">
@@ -669,34 +669,34 @@ function overview_page_function(event) {
 									<tr>
 										<td class="align-middle"><span style="background-color: #1d1e24; padding: 5px 10px 5px 10px; border-radius: 10px;"><i class="bi bi-download"></i></span></td>
 										<td class="align-middle" style="font-weight: 500; font-size: 16px;">
-											To <span style="color: #1f5eff;">Arthur James</span>
-											<div style="margin-top: -5px;">Sent</div>
+											Do <span style="color: #1f5eff;">Arthur James</span>
+											<div style="margin-top: -5px;">Wysłano</div>
 										</td>
-										<td class="align-middle" style="font-weight: 500;"><span> - 732 500 EUR</span> </td>
+										<td class="align-middle" style="font-weight: 500;"><span> - 732 500 $</span> </td>
 									</tr>
 									<tr>
 										<td class="align-middle"><span style="background-color: #1d1e24; padding: 5px 10px 5px 10px; border-radius: 10px;"><i class="bi bi-upload"></i></span></td>
 										<td class="align-middle" style="font-weight: 500; font-size: 16px;">
-											From <span style="color: #1f5eff;">Arthur James</span>
-											<div style="margin-top: -5px;">Received</div>
+											Od <span style="color: #1f5eff;">Arthur James</span>
+											<div style="margin-top: -5px;">Otrzymano</div>
 										</td>
-										<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71;">+ 12 750 EUR</span> </td>
+										<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71;">+ 12 750 $</span> </td>
 									</tr>
 									<tr>
 										<td class="align-middle"><span style="background-color: #1d1e24; padding: 5px 10px 5px 10px; border-radius: 10px;"><i class="bi bi-download"></i></span></td>
 										<td class="align-middle" style="font-weight: 500; font-size: 16px;">
-											From <span style="color: #1f5eff;">Bank Account</span>
-											<div style="margin-top: -5px;">Withdrawn</div>
+											Od <span style="color: #1f5eff;">Bank Account</span>
+											<div style="margin-top: -5px;">Wypłacono</div>
 										</td>
-										<td class="align-middle" style="font-weight: 500;"><span>- 7 000 EUR</span> </td>
+										<td class="align-middle" style="font-weight: 500;"><span>- 7 000 $</span> </td>
 									</tr>
 									<tr>
 										<td class="align-middle"><span style="background-color: #1d1e24; padding: 5px 10px 5px 10px; border-radius: 10px;"><i class="bi bi-upload"></i></span></td>
 										<td class="align-middle" style="font-weight: 500; font-size: 16px;">
-											Into <span style="color: #1f5eff;">Bank Account</span>
-											<div style="margin-top: -5px;">Deposited</div>
+											Na <span style="color: #1f5eff;">Bank Account</span>
+											<div style="margin-top: -5px;">Wpłacono</div>
 										</td>
-										<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71;">+ 57 000 EUR</span> </td>
+										<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71;">+ 57 000 $</span> </td>
 									</tr>
 								</tbody>
 							</table>
@@ -709,7 +709,7 @@ function overview_page_function(event) {
 			<div class="col-md-12">
 				<div class="card" style="background-color: transparent; border-radius: 10px; box-shadow: 0px 0px 5 0px rgba(0, 0, 0, 0.75);">
 					<div class="card-header text-center" style="background-color: #292a31; border-top-right-radius: 10px; border-top-left-radius: 10px;">
-						<span style="color: #fff; font-size: 18px;"><i class="bi bi-credit-card-fill"></i> Informations</span>
+						<span style="color: #fff; font-size: 18px;"><i class="bi bi-credit-card-fill"></i> Informacje</span>
 					</div>
 					<div class="card-body" style="background-color: #1d1e24; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; font-size: 16px;">
 						<div class="card creditcard-classic_card d-flex align-items-center" style="margin: 0 auto; margin-bottom: 16px;">
@@ -720,9 +720,9 @@ function overview_page_function(event) {
 										<span style="font-weight: 500; color: #fff; line-height: 1;">Status</span>
 									</div>
 									<div class="d-flex justify-content-between align-items-center">
-										<span style="color: #fff; font-size: 24px; color: #fff; line-height: 1; text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5);">ACTIVE</span>
+										<span style="color: #fff; font-size: 24px; color: #fff; line-height: 1; text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5);">AKTYWNA</span>
 										<div class="d-flex align-items-center" style="width: 25px; line-height: 1; margin-right: 34px;">
-											<span style="color: #fff; font-size: 8px; font-weight: 500; margin-right: 3px;">VALID THRU</span>
+											<span style="color: #fff; font-size: 8px; font-weight: 500; margin-right: 3px;">WAŻNA DO</span>
 											<span style="color: #fff; font-weight: 500; font-size: 16px;">08/25</span>
 										</div>
 									</div>
@@ -730,33 +730,33 @@ function overview_page_function(event) {
 							</div>
 						</div>
 						<hr>
-						<p class="card-text text-center" style="font-size: 20px;"><span style="color: #fff;">Balance:</span> <span id="playerBankMoney"></span> EUR</p>
+						<p class="card-text text-center" style="font-size: 20px;"><span style="color: #fff;">Saldo:</span> <span id="playerBankMoney"></span> $</p>
 						<p class="card-text text-center" style="font-size: 20px;"><span style="color: #fff;">IBAN:</span> <span id="playerIBAN">OK182716</span></p>
 					</div>
 				</div>
 				<!--<br>
 				<div class="card text-center" style="background-color: transparent; border-radius: 10px; box-shadow: 0px 0px 5 0px rgba(0, 0, 0, 0.75);">
 					<div class="card-header" style="background-color: #292a31; border-top-right-radius: 10px; border-top-left-radius: 10px;">
-						<span style="color: #fff; font-size: 18px;"><i class="bi bi-credit-card-fill"></i> Informations</span>
+						<span style="color: #fff; font-size: 18px;"><i class="bi bi-credit-card-fill"></i> Informacje</span>
 					</div>
 					<div class="card-body" style="background-color: #1d1e24; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; font-size: 16px;">
-						<p class="card-text"><span style="color: #fff;">Balance:</span> 1.500.000€</p>
+						<p class="card-text"><span style="color: #fff;">Saldo:</span> 1.500.000$</p>
 						<p class="card-text"><span style="color: #fff;">IBAN:</span> OK182716</p>
 					</div>
 				</div>-->
 				<div class="card text-center h-100" style="background-color: transparent; border-radius: 10px; box-shadow: 0px 0px 5 0px rgba(0, 0, 0, 0.75); margin-top: 12px;">
 					<div class="card-header" style="background-color: #292a31; border-top-right-radius: 10px; border-top-left-radius: 10px;">
-						<span style="color: #fff; font-size: 18px;"><i class="fas fa-list-ul"></i> Actions</span>
+						<span style="color: #fff; font-size: 18px;"><i class="fas fa-list-ul"></i> Akcje</span>
 					</div>
 					<div class="card-body" style="background-color: #1d1e24; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
 						<div class="d-flex justify-content-center">
-							<button type="button" id="depositMoneyModal" class="btn btn-blue flex-grow-1" style="border-radius: 10px; flex-basis: 100%;" data-bs-toggle="modal" data-bs-target="#depositModal"><i class="bi bi-upload"></i> Deposit</button>
+							<button type="button" id="depositMoneyModal" class="btn btn-blue flex-grow-1" style="border-radius: 10px; flex-basis: 100%;" data-bs-toggle="modal" data-bs-target="#depositModal"><i class="bi bi-upload"></i> Wpłać</button>
 						</div>
 						<div class="d-flex justify-content-center" style="margin-top: 7px;">
-							<button type="button" id="withdrawMoneyModal" class="btn btn-blue flex-grow-1" style="border-radius: 10px; flex-basis: 100%;" data-bs-toggle="modal" data-bs-target="#withdrawModal"><i class="bi bi-download"></i> Withdraw</button>
+							<button type="button" id="withdrawMoneyModal" class="btn btn-blue flex-grow-1" style="border-radius: 10px; flex-basis: 100%;" data-bs-toggle="modal" data-bs-target="#withdrawModal"><i class="bi bi-download"></i> Wypłać</button>
 						</div>
 						<div class="d-flex justify-content-center" style="margin-top: 7px;">
-							<button type="button" id="transferMoneyModal" class="btn btn-blue flex-grow-1" style="border-radius: 10px; flex-basis: 100%;" data-bs-toggle="modal" data-bs-target="#transferModal"><i class="fas fa-exchange-alt"></i> Transfer</button>
+							<button type="button" id="transferMoneyModal" class="btn btn-blue flex-grow-1" style="border-radius: 10px; flex-basis: 100%;" data-bs-toggle="modal" data-bs-target="#transferModal"><i class="fas fa-exchange-alt"></i> Przelej</button>
 						</div>
 					</div>
 				</div>
@@ -780,38 +780,38 @@ function overview_page_function(event) {
 
 		var db = event.data.db[i];
 
-		// Received
+		// Otrzymano
 		if (db.type == 'transfer' && db.receiver_identifier == event.data.identifier) {
 			icon = '<td class="align-middle"><span style="background-color: #1d1e24; padding: 5px 10px 5px 10px; border-radius: 10px;"><i class="bi bi-download"></i></span></td>';
 			data = `<td class="align-middle" style="font-weight: 500; font-size: 16px;">
-						From <span style="color: #1f5eff; font-weight: 600;">${db.sender_name}</span>
-						<div style="margin-top: -5px;">Received</div>
+						Od <span style="color: #1f5eff; font-weight: 600;">${db.sender_name}</span>
+						<div style="margin-top: -5px;">Otrzymano</div>
 					</td>`;
-			amount = `<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71; float: right;">+ ${db.value.toLocaleString()} EUR</span> </td>`;
-		// Sent
+			amount = `<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71; float: right;">+ ${db.value.toLocaleString()} $</span> </td>`;
+		// Wysłano
 		} else if (db.type == 'transfer' && db.sender_identifier == event.data.identifier) {
 			icon = '<td class="align-middle"><span style="background-color: #1d1e24; padding: 5px 10px 5px 10px; border-radius: 10px;"><i class="bi bi-upload"></i></span></td>';
 			data = `<td class="align-middle" style="font-weight: 500; font-size: 16px;">
-						To <span style="color: #1f5eff; font-weight: 600;">${db.receiver_name}</span>
-						<div style="margin-top: -5px;">Sent</div>
+						Do <span style="color: #1f5eff; font-weight: 600;">${db.receiver_name}</span>
+						<div style="margin-top: -5px;">Wysłano</div>
 					</td>`;
-			amount = `<td class="align-middle" style="font-weight: 500;"><span style="float: right;"> - ${db.value.toLocaleString()} EUR</span> </td>`;
-		// Deposited
+			amount = `<td class="align-middle" style="font-weight: 500;"><span style="float: right;"> - ${db.value.toLocaleString()} $</span> </td>`;
+		// Wpłacono
 		} else if (db.type == 'deposit') {
 			icon = '<td class="align-middle"><span style="background-color: #1d1e24; padding: 5px 10px 5px 10px; border-radius: 10px;"><i class="bi bi-download"></i></span></td>';
 			data = `<td class="align-middle" style="font-weight: 500; font-size: 16px;">
-						Into <span style="color: #1f5eff; font-weight: 600;">${db.receiver_name}</span>
-						<div style="margin-top: -5px;">Deposited</div>
+						Na <span style="color: #1f5eff; font-weight: 600;">${db.receiver_name}</span>
+						<div style="margin-top: -5px;">Wpłacono</div>
 					</td>`;
-			amount = `<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71; float: right;">+ ${db.value.toLocaleString()} EUR</span> </td>`;
-		// Withdrawn
+			amount = `<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71; float: right;">+ ${db.value.toLocaleString()} $</span> </td>`;
+		// Wypłacono
 		} else if (db.type == 'withdraw') {
 			icon = '<td class="align-middle"><span style="background-color: #1d1e24; padding: 5px 10px 5px 10px; border-radius: 10px;"><i class="bi bi-upload"></i></span></td>';
 			data = `<td class="align-middle" style="font-weight: 500; font-size: 16px;">
-						From <span style="color: #1f5eff; font-weight: 600;">${db.sender_name}</span>
-						<div style="margin-top: -5px;">Withdrawn</div>
+						Od <span style="color: #1f5eff; font-weight: 600;">${db.sender_name}</span>
+						<div style="margin-top: -5px;">Wypłacono</div>
 					</td>`;
-			amount = `<td class="align-middle" style="font-weight: 500;"><span style="float: right;"> - ${db.value.toLocaleString()} EUR</span> </td>`;
+			amount = `<td class="align-middle" style="font-weight: 500;"><span style="float: right;"> - ${db.value.toLocaleString()} $</span> </td>`;
 		}
 
 		row += `
@@ -912,16 +912,16 @@ function society_page_function(event) {
 
 	if (event.data.isInSociety){
 		society = `<span class="sidebar-title mt-5">Society</span>
-				   <p class="sidebar-item mt-2 selected" id="society_page" style="margin-bottom: 12px;"><i class="bi bi-grid-1x2-fill"></i> <span class="ms-1">Overview</span></p>
-				   <p class="sidebar-item" id="society_transactions" style="margin-bottom: 12px;"><i class="fas fa-exchange-alt"></i> <span class="ms-1">Transactions</span></p>`;
+				   <p class="sidebar-item mt-2 selected" id="society_page" style="margin-bottom: 12px;"><i class="bi bi-grid-1x2-fill"></i> <span class="ms-1">Podsumowanie</span></p>
+				   <p class="sidebar-item" id="society_transactions" style="margin-bottom: 12px;"><i class="fas fa-exchange-alt"></i> <span class="ms-1">Transakcje</span></p>`;
 	} else {
 		society = '';
 	}
 
 	$('#sidebar').html(`
-		<p class="sidebar-item mt-2" id="overview_page" style="margin-bottom: 12px;"><i class="bi bi-grid-1x2-fill"></i> <span class="ms-1">Overview</span></p>
-		<p class="sidebar-item" id="transactions_page" style="margin-bottom: 12px;"><i class="fas fa-exchange-alt"></i> <span class="ms-1">Transactions</span></p>
-		<p class="sidebar-item mt-2" id="settings_page" style="margin-bottom: 12px;"><i class="fas fa-cog"></i> <span class="ms-1">Settings</span></p>
+		<p class="sidebar-item mt-2" id="overview_page" style="margin-bottom: 12px;"><i class="bi bi-grid-1x2-fill"></i> <span class="ms-1">Podsumowanie</span></p>
+		<p class="sidebar-item" id="transactions_page" style="margin-bottom: 12px;"><i class="fas fa-exchange-alt"></i> <span class="ms-1">Transakcje</span></p>
+		<p class="sidebar-item mt-2" id="settings_page" style="margin-bottom: 12px;"><i class="fas fa-cog"></i> <span class="ms-1">Ustawienia</span></p>
 		${society}
 	`);
 
@@ -931,7 +931,7 @@ function society_page_function(event) {
 		<div class="col-md-7" style="border-right: 1px solid rgba(62, 63, 75);">
 			<div class="card text-center" style="background-color: transparent; border-radius: 10px; box-shadow: 0px 0px 5 0px rgba(0, 0, 0, 0.75);">
 				<div class="card-header" style="background-color: #292a31; border-top-right-radius: 10px; border-top-left-radius: 10px;">
-					<span style="color: #fff; font-size: 18px;"><i class="fas fa-chart-line"></i> Statistics</span>
+					<span style="color: #fff; font-size: 18px;"><i class="fas fa-chart-line"></i> Statystyki</span>
 				</div>
 				<div class="card-body" style="background-color: #1d1e24; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
 					<div>
@@ -943,7 +943,7 @@ function society_page_function(event) {
 				<div class="col-md-12">
 					<div class="card h-100" style="background-color: transparent; border-radius: 10px; box-shadow: 0px 0px 5 0px rgba(0, 0, 0, 0.75); margin-top: 12px;">
 						<div class="card-header text-center" style="background-color: #292a31; border-top-right-radius: 10px; border-top-left-radius: 10px;">
-							<span style="color: #fff; font-size: 18px;"><span><i class="fas fa-exchange-alt"></i> Last Transactions</span> <span class="badge bg-primary viewall-badge" style="position: absolute; font-size: 14px; right: 9px; top: 10px;" id="view_all_transactions_society"><i class="fas fa-eye"></i> VIEW ALL</span></span>
+							<span style="color: #fff; font-size: 18px;"><span><i class="fas fa-exchange-alt"></i> Ostatnie transakcje</span> <span class="badge bg-primary viewall-badge" style="position: absolute; font-size: 14px; right: 9px; top: 10px;" id="view_all_transactions_society"><i class="fas fa-eye"></i> ZOBACZ WSZYSTKO</span></span>
 						</div>
 						<div class="card-body" style="background-color: #1d1e24; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; padding: 0.6rem 1rem;">
 							<table id="lastTransactionsTable">
@@ -951,34 +951,34 @@ function society_page_function(event) {
 									<tr>
 										<td class="align-middle"><span style="background-color: #1d1e24; padding: 5px 10px 5px 10px; border-radius: 10px;"><i class="bi bi-download"></i></span></td>
 										<td class="align-middle" style="font-weight: 500; font-size: 16px;">
-											To <span style="color: #1f5eff;">Arthur James</span>
-											<div style="margin-top: -5px;">Sent</div>
+											Do <span style="color: #1f5eff;">Arthur James</span>
+											<div style="margin-top: -5px;">Wysłano</div>
 										</td>
-										<td class="align-middle" style="font-weight: 500;"><span> - 732 500 EUR</span> </td>
+										<td class="align-middle" style="font-weight: 500;"><span> - 732 500 $</span> </td>
 									</tr>
 									<tr>
 										<td class="align-middle"><span style="background-color: #1d1e24; padding: 5px 10px 5px 10px; border-radius: 10px;"><i class="bi bi-upload"></i></span></td>
 										<td class="align-middle" style="font-weight: 500; font-size: 16px;">
-											From <span style="color: #1f5eff;">Arthur James</span>
-											<div style="margin-top: -5px;">Received</div>
+											Od <span style="color: #1f5eff;">Arthur James</span>
+											<div style="margin-top: -5px;">Otrzymano</div>
 										</td>
-										<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71;">+ 12 750 EUR</span> </td>
+										<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71;">+ 12 750 $</span> </td>
 									</tr>
 									<tr>
 										<td class="align-middle"><span style="background-color: #1d1e24; padding: 5px 10px 5px 10px; border-radius: 10px;"><i class="bi bi-download"></i></span></td>
 										<td class="align-middle" style="font-weight: 500; font-size: 16px;">
-											From <span style="color: #1f5eff;">Bank Account</span>
-											<div style="margin-top: -5px;">Withdrawn</div>
+											Od <span style="color: #1f5eff;">Bank Account</span>
+											<div style="margin-top: -5px;">Wypłacono</div>
 										</td>
-										<td class="align-middle" style="font-weight: 500;"><span>- 7 000 EUR</span> </td>
+										<td class="align-middle" style="font-weight: 500;"><span>- 7 000 $</span> </td>
 									</tr>
 									<tr>
 										<td class="align-middle"><span style="background-color: #1d1e24; padding: 5px 10px 5px 10px; border-radius: 10px;"><i class="bi bi-upload"></i></span></td>
 										<td class="align-middle" style="font-weight: 500; font-size: 16px;">
-											Into <span style="color: #1f5eff;">Bank Account</span>
-											<div style="margin-top: -5px;">Deposited</div>
+											Na <span style="color: #1f5eff;">Bank Account</span>
+											<div style="margin-top: -5px;">Wpłacono</div>
 										</td>
-										<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71;">+ 57 000 EUR</span> </td>
+										<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71;">+ 57 000 $</span> </td>
 									</tr>
 								</tbody>
 							</table>
@@ -991,7 +991,7 @@ function society_page_function(event) {
 			<div class="col-md-12">
 				<div class="card" style="background-color: transparent; border-radius: 10px; box-shadow: 0px 0px 5 0px rgba(0, 0, 0, 0.75);">
 					<div class="card-header text-center" style="background-color: #292a31; border-top-right-radius: 10px; border-top-left-radius: 10px;">
-						<span style="color: #fff; font-size: 18px;"><i class="bi bi-credit-card-fill"></i> Informations</span>
+						<span style="color: #fff; font-size: 18px;"><i class="bi bi-credit-card-fill"></i> Informacje</span>
 					</div>
 					<div class="card-body" style="background-color: #1d1e24; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; font-size: 16px;">
 						<div class="card creditcard-classic_card d-flex align-items-center" style="margin: 0 auto; margin-bottom: 16px;">
@@ -1002,9 +1002,9 @@ function society_page_function(event) {
 										<span style="font-weight: 500; color: #fff; line-height: 1;">Status</span>
 									</div>
 									<div class="d-flex justify-content-between align-items-center">
-										<span style="color: #fff; font-size: 24px; color: #fff; line-height: 1; text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5);">ACTIVE</span>
+										<span style="color: #fff; font-size: 24px; color: #fff; line-height: 1; text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5);">AKTYWNA</span>
 										<div class="d-flex align-items-center" style="width: 25px; line-height: 1; margin-right: 34px;">
-											<span style="color: #fff; font-size: 8px; font-weight: 500; margin-right: 3px;">VALID THRU</span>
+											<span style="color: #fff; font-size: 8px; font-weight: 500; margin-right: 3px;">WAŻNA DO</span>
 											<span style="color: #fff; font-weight: 500; font-size: 16px;">08/25</span>
 										</div>
 									</div>
@@ -1012,33 +1012,33 @@ function society_page_function(event) {
 							</div>
 						</div>
 						<hr>
-						<p class="card-text text-center" style="font-size: 20px;"><span style="color: #fff;">Balance:</span> <span id="playerBankMoney"></span> EUR</p>
+						<p class="card-text text-center" style="font-size: 20px;"><span style="color: #fff;">Saldo:</span> <span id="playerBankMoney"></span> $</p>
 						<p class="card-text text-center" style="font-size: 20px;"><span style="color: #fff;">IBAN:</span> <span id="playerIBAN">OK182716</span></p>
 					</div>
 				</div>
 				<!--<br>
 				<div class="card text-center" style="background-color: transparent; border-radius: 10px; box-shadow: 0px 0px 5 0px rgba(0, 0, 0, 0.75);">
 					<div class="card-header" style="background-color: #292a31; border-top-right-radius: 10px; border-top-left-radius: 10px;">
-						<span style="color: #fff; font-size: 18px;"><i class="bi bi-credit-card-fill"></i> Informations</span>
+						<span style="color: #fff; font-size: 18px;"><i class="bi bi-credit-card-fill"></i> Informacje</span>
 					</div>
 					<div class="card-body" style="background-color: #1d1e24; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; font-size: 16px;">
-						<p class="card-text"><span style="color: #fff;">Balance:</span> 1.500.000€</p>
+						<p class="card-text"><span style="color: #fff;">Saldo:</span> 1.500.000$</p>
 						<p class="card-text"><span style="color: #fff;">IBAN:</span> OK182716</p>
 					</div>
 				</div>-->
 				<div class="card text-center h-100" style="background-color: transparent; border-radius: 10px; box-shadow: 0px 0px 5 0px rgba(0, 0, 0, 0.75); margin-top: 12px;">
 					<div class="card-header" style="background-color: #292a31; border-top-right-radius: 10px; border-top-left-radius: 10px;">
-						<span style="color: #fff; font-size: 18px;"><i class="fas fa-list-ul"></i> Actions</span>
+						<span style="color: #fff; font-size: 18px;"><i class="fas fa-list-ul"></i> Akcje</span>
 					</div>
 					<div class="card-body" style="background-color: #1d1e24; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
 						<div class="d-flex justify-content-center">
-							<button type="button" id="depositMoneyModal" class="btn btn-blue flex-grow-1" style="border-radius: 10px; flex-basis: 100%;" data-bs-toggle="modal" data-bs-target="#depositModal"><i class="bi bi-upload"></i> Deposit</button>
+							<button type="button" id="depositMoneyModal" class="btn btn-blue flex-grow-1" style="border-radius: 10px; flex-basis: 100%;" data-bs-toggle="modal" data-bs-target="#depositModal"><i class="bi bi-upload"></i> Wpłać</button>
 						</div>
 						<div class="d-flex justify-content-center" style="margin-top: 7px;">
-							<button type="button" id="withdrawMoneyModal" class="btn btn-blue flex-grow-1" style="border-radius: 10px; flex-basis: 100%;" data-bs-toggle="modal" data-bs-target="#withdrawModal"><i class="bi bi-download"></i> Withdraw</button>
+							<button type="button" id="withdrawMoneyModal" class="btn btn-blue flex-grow-1" style="border-radius: 10px; flex-basis: 100%;" data-bs-toggle="modal" data-bs-target="#withdrawModal"><i class="bi bi-download"></i> Wypłać</button>
 						</div>
 						<div class="d-flex justify-content-center" style="margin-top: 7px;">
-							<button type="button" id="transferMoneyModal" class="btn btn-blue flex-grow-1" style="border-radius: 10px; flex-basis: 100%;" data-bs-toggle="modal" data-bs-target="#transferModal"><i class="fas fa-exchange-alt"></i> Transfer</button>
+							<button type="button" id="transferMoneyModal" class="btn btn-blue flex-grow-1" style="border-radius: 10px; flex-basis: 100%;" data-bs-toggle="modal" data-bs-target="#transferModal"><i class="fas fa-exchange-alt"></i> Przelej</button>
 						</div>
 					</div>
 				</div>
@@ -1061,38 +1061,38 @@ function society_page_function(event) {
 
 		var db = event.data.db[i];
 
-		// Received
+		// Otrzymano
 		if (db.type == 'transfer' && db.receiver_identifier == event.data.societyInfo.society) {
 			icon = '<td class="align-middle"><span style="background-color: #1d1e24; padding: 5px 10px 5px 10px; border-radius: 10px;"><i class="bi bi-download"></i></span></td>';
 			data = `<td class="align-middle" style="font-weight: 500; font-size: 16px;">
-						From <span style="color: #1f5eff; font-weight: 600;">${db.sender_name}</span>
-						<div style="margin-top: -5px;">Received</div>
+						Od <span style="color: #1f5eff; font-weight: 600;">${db.sender_name}</span>
+						<div style="margin-top: -5px;">Otrzymano</div>
 					</td>`;
-			amount = `<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71; float: right;">+ ${db.value.toLocaleString()} EUR</span> </td>`;
-		// Sent
+			amount = `<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71; float: right;">+ ${db.value.toLocaleString()} $</span> </td>`;
+		// Wysłano
 		} else if (db.type == 'transfer' && db.sender_identifier == event.data.societyInfo.society) {
 			icon = '<td class="align-middle"><span style="background-color: #1d1e24; padding: 5px 10px 5px 10px; border-radius: 10px;"><i class="bi bi-upload"></i></span></td>';
 			data = `<td class="align-middle" style="font-weight: 500; font-size: 16px;">
-						To <span style="color: #1f5eff; font-weight: 600;">${db.receiver_name}</span>
-						<div style="margin-top: -5px;">Sent</div>
+						Do <span style="color: #1f5eff; font-weight: 600;">${db.receiver_name}</span>
+						<div style="margin-top: -5px;">Wysłano</div>
 					</td>`;
-			amount = `<td class="align-middle" style="font-weight: 500;"><span style="float: right;"> - ${db.value.toLocaleString()} EUR</span> </td>`;
-		// Deposited
+			amount = `<td class="align-middle" style="font-weight: 500;"><span style="float: right;"> - ${db.value.toLocaleString()} $</span> </td>`;
+		// Wpłacono
 		} else if (db.type == 'deposit') {
 			icon = '<td class="align-middle"><span style="background-color: #1d1e24; padding: 5px 10px 5px 10px; border-radius: 10px;"><i class="bi bi-download"></i></span></td>';
 			data = `<td class="align-middle" style="font-weight: 500; font-size: 16px;">
-						Into <span style="color: #1f5eff; font-weight: 600;">${db.receiver_name}</span>
-						<div style="margin-top: -5px;">Deposited</div>
+						Na <span style="color: #1f5eff; font-weight: 600;">${db.receiver_name}</span>
+						<div style="margin-top: -5px;">Wpłacono</div>
 					</td>`;
-			amount = `<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71; float: right;">+ ${db.value.toLocaleString()} EUR</span> </td>`;
-		// Withdrawn
+			amount = `<td class="align-middle" style="font-weight: 500;"><span style="color: #2ecc71; float: right;">+ ${db.value.toLocaleString()} $</span> </td>`;
+		// Wypłacono
 		} else if (db.type == 'withdraw') {
 			icon = '<td class="align-middle"><span style="background-color: #1d1e24; padding: 5px 10px 5px 10px; border-radius: 10px;"><i class="bi bi-upload"></i></span></td>';
 			data = `<td class="align-middle" style="font-weight: 500; font-size: 16px;">
-						From <span style="color: #1f5eff; font-weight: 600;">${db.sender_name}</span>
-						<div style="margin-top: -5px;">Withdrawn</div>
+						Od <span style="color: #1f5eff; font-weight: 600;">${db.sender_name}</span>
+						<div style="margin-top: -5px;">Wypłacono</div>
 					</td>`;
-			amount = `<td class="align-middle" style="font-weight: 500;"><span style="float: right;"> - ${db.value.toLocaleString()} EUR</span> </td>`;
+			amount = `<td class="align-middle" style="font-weight: 500;"><span style="float: right;"> - ${db.value.toLocaleString()} $</span> </td>`;
 		}
 
 		row += `
@@ -1189,20 +1189,20 @@ function settings_page_function(event) {
 		table.splice(i, 1);
 	}
 
-	$('#page-title').html('Settings');
+	$('#page-title').html('Ustawienia');
 
 	if (event.data.isInSociety){
 		society = `<span class="sidebar-title mt-5">Society</span>
-				   <p class="sidebar-item mt-2" id="society_page" style="margin-bottom: 12px;"><i class="bi bi-grid-1x2-fill"></i> <span class="ms-1">Overview</span></p>
-				   <p class="sidebar-item" id="society_transactions" style="margin-bottom: 12px;"><i class="fas fa-exchange-alt"></i> <span class="ms-1">Transactions</span></p>`;
+				   <p class="sidebar-item mt-2" id="society_page" style="margin-bottom: 12px;"><i class="bi bi-grid-1x2-fill"></i> <span class="ms-1">Podsumowanie</span></p>
+				   <p class="sidebar-item" id="society_transactions" style="margin-bottom: 12px;"><i class="fas fa-exchange-alt"></i> <span class="ms-1">Transakcje</span></p>`;
 	} else {
 		society = '';
 	}
 
 	$('#sidebar').html(`
-		<p class="sidebar-item mt-2" id="overview_page" style="margin-bottom: 12px;"><i class="bi bi-grid-1x2-fill"></i> <span class="ms-1">Overview</span></p>
-		<p class="sidebar-item" id="transactions_page" style="margin-bottom: 12px;"><i class="fas fa-exchange-alt"></i> <span class="ms-1">Transactions</span></p>
-		<p class="sidebar-item mt-2 selected" id="settings_page" style="margin-bottom: 12px;"><i class="fas fa-cog"></i> <span class="ms-1">Settings</span></p>
+		<p class="sidebar-item mt-2" id="overview_page" style="margin-bottom: 12px;"><i class="bi bi-grid-1x2-fill"></i> <span class="ms-1">Podsumowanie</span></p>
+		<p class="sidebar-item" id="transactions_page" style="margin-bottom: 12px;"><i class="fas fa-exchange-alt"></i> <span class="ms-1">Transakcje</span></p>
+		<p class="sidebar-item mt-2 selected" id="settings_page" style="margin-bottom: 12px;"><i class="fas fa-cog"></i> <span class="ms-1">Ustawienia</span></p>
 		${society}
 	`);
 
@@ -1213,7 +1213,7 @@ function settings_page_function(event) {
 			<div class="card d-flex flex-column flex-grow-1" style="background-color: transparent; border-radius: 10px; box-shadow: 0px 0px 5 0px rgba(0, 0, 0, 0.75);">
 				<div class="card-header text-center" style="background-color: #292a31; border-top-right-radius: 10px; border-top-left-radius: 10px;">
 					<span style="color: #fff; font-size: 18px;">
-						<span><i class="fas fa-address-card"></i> Account IBAN</span>
+						<span><i class="fas fa-address-card"></i> Numer IBAN</span>
 					</span>
 				</div>
 				<div class="card-body flex-grow-1" style="background-color: #1d1e24; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
@@ -1222,20 +1222,20 @@ function settings_page_function(event) {
 							<div class="col col-md-6 d-flex justify-content-center">
 								<div class="card w-100 h-100" style="background-color: #292a31; border-radius: 10px; color: #fff;">
 								  <div class="card-body text-center">
-								    <span style="font-size: 24px; color: #fff;">Change IBAN</span>
-									<input type="text" maxlength="${event.data.ibanCharNum}" id="new_iban" class="form-control text-center" placeholder="New IBAN" onkeyup="checkIfEmptySettings()" style="margin-top: 12px; width: 100%;">
-									<button type="button" id="change_iban" class="btn btn-blue" style="border-radius: 10px; flex-basis: 100%; margin-top: 12px; width: 100%;" disabled><i class="fas fa-paper-plane"></i> Submit</button>
+								    <span style="font-size: 24px; color: #fff;">Zmień IBAN</span>
+									<input type="text" maxlength="${event.data.ibanCharNum}" id="new_iban" class="form-control text-center" placeholder="Nowy IBAN" onkeyup="checkIfEmptySettings()" style="margin-top: 12px; width: 100%;">
+									<button type="button" id="change_iban" class="btn btn-blue" style="border-radius: 10px; flex-basis: 100%; margin-top: 12px; width: 100%;" disabled><i class="fas fa-paper-plane"></i> Zatwierdź</button>
 								  </div>
 								</div>
 							</div>
 							<div class="col col-md-6 d-flex align-items-center">
 								<div class="card w-100 h-100 d-flex justify-content-center" style="background-color: #1f5eff; border-radius: 10px; color: #fff;">
 								  <div class="card-body text-center" style="font-size: 18px;">
-								    <span>The IBAN has a change cost of ${event.data.ibanCost}€</span>
+								    <span>Zmiana IBAN kosztuje ${event.data.ibanCost}$</span>
 								    <hr style="color: #fff;">
-								    <span>The IBAN always have the prefix "${event.data.ibanPrefix}"</span>
+								    <span>IBAN zawsze ma prefiks "${event.data.ibanPrefix}"</span>
 								    <hr style="color: #fff;">
-									<span>The maximum number of characters is ${event.data.ibanCharNum}</span>
+									<span>Maksymalna liczba znaków to ${event.data.ibanCharNum}</span>
 								  </div>
 								</div>
 							</div>
@@ -1246,7 +1246,7 @@ function settings_page_function(event) {
 			<div class="card d-flex flex-column flex-grow-1" style="background-color: transparent; border-radius: 10px; box-shadow: 0px 0px 5 0px rgba(0, 0, 0, 0.75); margin-top: 12px;">
 				<div class="card-header text-center" style="background-color: #292a31; border-top-right-radius: 10px; border-top-left-radius: 10px;">
 					<span style="color: #fff; font-size: 18px;">
-						<span><i class="fas fa-key"></i> PIN Code</span>
+						<span><i class="fas fa-key"></i> Kod PIN</span>
 					</span>
 				</div>
 				<div class="card-body flex-grow-1" style="background-color: #1d1e24; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
@@ -1255,20 +1255,20 @@ function settings_page_function(event) {
 							<div class="col col-md-6 d-flex justify-content-center">
 								<div class="card w-100 h-100" style="background-color: #292a31; border-radius: 10px; color: #fff;">
 								  <div class="card-body text-center">
-								    <span style="font-size: 24px; color: #fff;">Change PIN</span>
-									<input type="password" maxlength="4" id="new_pin" class="form-control text-center" placeholder="New PIN" onkeyup="checkIfEmptySettings()" style="margin-top: 12px; width: 100%;">
-									<button type="button" id="change_pin" class="btn btn-blue" style="border-radius: 10px; flex-basis: 100%; margin-top: 12px; width: 100%;" disabled><i class="fas fa-paper-plane"></i> Submit</button>
+								    <span style="font-size: 24px; color: #fff;">Zmień PIN</span>
+									<input type="password" maxlength="4" id="new_pin" class="form-control text-center" placeholder="Nowy PIN" onkeyup="checkIfEmptySettings()" style="margin-top: 12px; width: 100%;">
+									<button type="button" id="change_pin" class="btn btn-blue" style="border-radius: 10px; flex-basis: 100%; margin-top: 12px; width: 100%;" disabled><i class="fas fa-paper-plane"></i> Zatwierdź</button>
 								  </div>
 								</div>
 							</div>
 							<div class="col col-md-6 d-flex align-items-center">
 								<div class="card w-100 h-100 d-flex justify-content-center" style="background-color: #1f5eff; border-radius: 10px; color: #fff;">
 								  <div class="card-body text-center" style="font-size: 18px;">
-								    <span>The PIN has a change cost of ${event.data.pinCost}€</span>
+								    <span>Zmiana PIN kosztuje ${event.data.pinCost}$</span>
 								    <hr style="color: #fff;">
-									<span>The maximum number of characters is ${event.data.pinCharNum}</span>
+									<span>Maksymalna liczba znaków to ${event.data.pinCharNum}</span>
 									<hr style="color: #fff;">
-									<span>You can only use numbers</span>
+									<span>Możesz używać tylko cyfr</span>
 								  </div>
 								</div>
 							</div>
@@ -1289,7 +1289,7 @@ function logout_page() {
 			<div class="d-flex justify-content-center flex-column align-items-center">
 				<span class="load"></span>
 				<br>
-				<div style="font-size: 40px; color: #fff;">Logging out...</div>
+				<div style="font-size: 40px; color: #fff;">Wylogowywanie...</div>
 			</div>
 		`);
 		$("#menu").fadeIn();
