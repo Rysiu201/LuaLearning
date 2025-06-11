@@ -37,14 +37,6 @@ body.mono {
   --addiction: var(--monochrome-color);
   --oxy: var(--monochrome-color);
   --stress: var(--monochrome-color);
-  --statusBG: rgba(17, 17, 17, 0.5);
-  --monochrome-color: #9400d3;
-}
-
-body.hud-left {
-}
-
-body.hud-right {
 }
 
 @font-face {

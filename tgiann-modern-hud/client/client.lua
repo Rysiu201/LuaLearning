@@ -61,19 +61,6 @@ RegisterNUICallback('emotechat', function(data)
     TriggerEvent("3dme-chat", data.onOff)
 end)
 
-RegisterNUICallback('setHudPosition', function(data, cb)
-    if data.pos == 'right' then
-        SetMinimapComponentPosition('minimap', 'R', 'B', -0.025, -0.03, 0.153, 0.30)
-        SetMinimapComponentPosition('minimap_mask', 'R', 'B', -0.135, 0.12, 0.093, 0.164)
-        SetMinimapComponentPosition('minimap_blur', 'R', 'B', -0.012, 0.022, 0.256, 0.337)
-    else
-        SetMinimapComponentPosition('minimap', 'L', 'B', 0.025, -0.03, 0.153, 0.30)
-        SetMinimapComponentPosition('minimap_mask', 'L', 'B', 0.135, 0.12, 0.093, 0.164)
-        SetMinimapComponentPosition('minimap_blur', 'L', 'B', 0.012, 0.022, 0.256, 0.337)
-    end
-    cb('ok')
-end)
-
 local miniMapUi = false
 function UIStuff()
     Citizen.CreateThread(function()
