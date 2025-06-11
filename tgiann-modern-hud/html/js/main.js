@@ -92,6 +92,23 @@ window.addEventListener("message", (event) => {
 
       break;
   }
+      $("#switchcircle").attr("checked", switchcircle);
+      $.post(
+        "https://tgiann-modern-hud/switchcircle",
+        JSON.stringify({ isCircle: switchcircle })
+      );
+
+      let hudPos = window.localStorage.getItem("hudPosition") || "left";
+      if (hudPos === "right") {
+        $("body").addClass("hud-right");
+        $("#hudPosition").val("right");
+      } else {
+        $("body").addClass("hud-left");
+        $("#hudPosition").val("left");
+      }
+
+      break;
+  }
   if (event.data.action == "hudmenu") {
     $(".hud-menu-container").css("display", "flex");
   }
@@ -284,6 +301,16 @@ window.addEventListener("message", (event) => {
     $(".microphoneMicrophone").css("color", "rgba(255, 255, 255, 0.4)");
   }
 });
+  else if (event.data.type == "vehSpeed") {
+    $(".kmh-number").html(event.data.speed)
+  }
+  else if (event.data.action == "talking") {
+    $(".microphoneMicrophone").css("color", "#9400D3");
+  }
+  else if (event.data.action == "Nottalking") {
+    $(".microphoneMicrophone").css("color", "rgba(255, 255, 255, 0.4)");
+  }
+});
 
 /**
  * @param {Number} speed
@@ -420,6 +447,24 @@ $(document).on("click", "#monochrome", function (e) {
   const on = e.currentTarget.checked;
   window.localStorage.setItem("monochrome", on);
   if (on) {
+    $("body").addClass("mono");
+  } else {
+    $("body").removeClass("mono");
+  }
+});
+
+$(document).on("change", "#hudPosition", function (e) {
+  const pos = e.currentTarget.value;
+  window.localStorage.setItem("hudPosition", pos);
+  if (pos === "right") {
+    $("body").removeClass("hud-left").addClass("hud-right");
+  } else {
+    $("body").removeClass("hud-right").addClass("hud-left");
+  }
+});
+
+$(document).on("click", "#monochrome", function (e) {
+  if (e.currentTarget.checked) {
     $("body").addClass("mono");
   } else {
     $("body").removeClass("mono");
