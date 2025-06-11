@@ -86,6 +86,7 @@ window.addEventListener("message", (event) => {
       $("body").addClass("layout" + layout);
       $("#hudLayout").val(layout);
       enableCustomLayout(layout === "5");
+      placeNormalBars(layout);
 
       break;
   }
@@ -456,6 +457,7 @@ $(document).on("change", "#hudLayout", function (e) {
     .removeClass("layout1 layout2 layout3 layout4 layout5")
     .addClass("layout" + layout);
   enableCustomLayout(layout === "5");
+  placeNormalBars(layout);
   if (layout === "5") {
     customMode = true;
     $("#customHint").css("display", "block");
@@ -472,6 +474,7 @@ $(document).on("change", "#hudLayout", function (e) {
     .removeClass("layout1 layout2 layout3 layout4 layout5")
     .addClass("layout" + layout);
   enableCustomLayout(layout === "5");
+  placeNormalBars(layout);
   if (layout === "5") {
     customMode = true;
     $("#customHint").css("display", "block");
@@ -488,6 +491,7 @@ $(document).on("change", "#hudLayout", function (e) {
     .removeClass("layout1 layout2 layout3 layout4 layout5")
     .addClass("layout" + layout);
   enableCustomLayout(layout === "5");
+  placeNormalBars(layout);
 });
 
 $(document).on("change", "#hudLayout", function (e) {
@@ -497,6 +501,7 @@ $(document).on("change", "#hudLayout", function (e) {
     .removeClass("layout1 layout2 layout3 layout4 layout5")
     .addClass("layout" + layout);
   enableCustomLayout(layout === "5");
+  placeNormalBars(layout);
 });
 
 $(document).on("change", "#hudLayout", function (e) {
@@ -506,6 +511,7 @@ $(document).on("change", "#hudLayout", function (e) {
     .removeClass("layout1 layout2 layout3 layout4 layout5")
     .addClass("layout" + layout);
   enableCustomLayout(layout === "5");
+  placeNormalBars(layout);
 });
 
 $(document).on("click", "#blackbar", function (e) {
@@ -628,4 +634,22 @@ function enableCustomLayout(enable) {
       disableDraggable(el);
     }
   });
+}
+
+function placeNormalBars(layout) {
+  const bars = $(".normalStatusHudTop");
+  const hudTop = $(".normalHudTop");
+  const statusHud = $(".normalStatusHud");
+
+  if (layout === "3") {
+    if (!statusHud.find(bars).length) {
+      statusHud.append(bars);
+    }
+    bars.css("margin-left", "0");
+  } else {
+    if (!hudTop.find(bars).length) {
+      bars.insertBefore(hudTop.find(".normalStreetNameCompass"));
+    }
+    bars.css("margin-left", "");
+  }
 }
