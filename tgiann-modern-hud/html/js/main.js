@@ -7,6 +7,7 @@ let updatedCashCount = 0;
 let IsCashHudOn = false;
 let cashHudTimeout = null;
 let mapType = "";
+let customMode = false;
 
 // window.onload = loaded
 
@@ -422,7 +423,13 @@ $(document).on("click", "#monochrome", function (e) {
   }
 });
 
+
 $(document).on("click", ".hud-menu-header-close", function (e) {
+  if (customMode) {
+    customMode = false;
+    $("#customHint").css("display", "none");
+    enableCustomLayout(false);
+  }
   $(".hud-menu-container").css("display", "none");
   $.post("https://tgiann-modern-hud/hudmenuclose");
 });
@@ -440,6 +447,22 @@ $(document).on("click", "#switchcircle", function (e) {
     "https://tgiann-modern-hud/switchcircle",
     JSON.stringify({ isCircle: e.currentTarget.checked })
   );
+});
+
+$(document).on("change", "#hudLayout", function (e) {
+  const layout = e.currentTarget.value;
+  window.localStorage.setItem("hudLayout", layout);
+  $("body")
+    .removeClass("layout1 layout2 layout3 layout4 layout5")
+    .addClass("layout" + layout);
+  enableCustomLayout(layout === "5");
+  if (layout === "5") {
+    customMode = true;
+    $("#customHint").css("display", "block");
+    $(".hud-menu-container").css("display", "none");
+  } else {
+    customMode = false;
+  }
 });
 
 $(document).on("change", "#hudLayout", function (e) {
@@ -486,6 +509,11 @@ $(document).on("click", "#blackbar", function (e) {
 
 $(document).keyup(function (e) {
   if (e.keyCode == 27) {
+    if (customMode) {
+      customMode = false;
+      $("#customHint").css("display", "none");
+      enableCustomLayout(false);
+    }
     $(".hud-menu-container").css("display", "none");
     $.post("https://tgiann-modern-hud/hudmenuclose");
   }
@@ -493,6 +521,11 @@ $(document).keyup(function (e) {
 
 $(document).mousedown(function (ev) {
   if (ev.which == 3) {
+    if (customMode) {
+      customMode = false;
+      $("#customHint").css("display", "none");
+      enableCustomLayout(false);
+    }
     $(".hud-menu-container").css("display", "none");
     $.post("https://tgiann-modern-hud/hudmenuclose");
   }

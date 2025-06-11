@@ -183,3 +183,17 @@ input:checked + .slider:before {
     height: 10vh;
     background: #000;
 }
+
+#customHint {
+    position: absolute;
+    top: 1vh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 0.5vh 1vh;
+    border-radius: 3px;
+    font-family: 'Roboto', sans-serif;
+    z-index: 10000;
+    display: none;
+}
