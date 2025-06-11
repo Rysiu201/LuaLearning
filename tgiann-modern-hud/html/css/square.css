@@ -50,12 +50,28 @@
 /* street name - compas */
 .squareStreetNameCompass {
     position: absolute;
-    bottom: 21vh;
+    bottom: 24vh;
     left: 2.6vh;
     display: flex;
+    align-items: center;
 }
 
-#squareCompass, #normalCompass {
+#squareCompass {
+    width: 3.5vh;
+    height: 3.5vh;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: var(--boder-radius-box);
+    border: 0.1vh solid rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+    font-size: 1.5vh;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1vh;
+}
+
+#normalCompass {
     width: 3vh;
     height: 3vh;
     background: rgba(0, 0, 0, 0.6);
@@ -76,7 +92,15 @@
     filter: drop-shadow(1px 1px 1px rgb(1 1 1));
 }
 
-#squareStreetNameBoxTop, #normalStreetNameBoxTop {
+#squareStreetNameBoxTop {
+    font-size: 1.4vh;
+    text-transform: uppercase;
+    font-feature-settings: 'liga' off;
+    color: #FFFFFF;
+    font-weight: 700;
+}
+
+#normalStreetNameBoxTop {
     font-size: 1.6vh;
     text-transform: uppercase;
     font-feature-settings: 'liga' off;
@@ -84,7 +108,16 @@
     font-weight: 700;
 }
 
-#squareStreetNameBoxBottom, #normalStreetNameBoxBottom {
+#squareStreetNameBoxBottom {
+    font-size: 1vh;
+    text-transform: uppercase;
+    font-feature-settings: 'liga' off;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 700;
+    padding-top: 0.5vh;
+}
+
+#normalStreetNameBoxBottom {
     font-size: 1.2vh;
     text-transform: uppercase;
     font-feature-settings: 'liga' off;
@@ -94,14 +127,15 @@
 }
 
 /* status */
-.squareStatusHud {
+
+.squareIconHud {
     display: flex;
     font-size: 1.4vh;
     position: absolute;
-    bottom: 26vh;
+    bottom: 21vh;
     left: 2.6vh;
     flex-direction: row;
-    gap: 1vh;
+    gap: 0.4vh;
 }
 
 .squareStatusHudTop, .squareStatusHudBottom {
@@ -121,7 +155,7 @@
 /* mic */
 .squareMicrophoneBox {
     position: relative;
-    margin-right: 1vh;
+    margin-right: 0.3vh;
     display: flex;
     background: rgba(0, 0, 0, 0.6);
     border-radius: var(--boder-radius-box);
