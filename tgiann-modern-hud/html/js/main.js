@@ -460,6 +460,15 @@ $(document).on("change", "#hudLayout", function (e) {
   enableCustomLayout(layout === "5");
 });
 
+$(document).on("change", "#hudLayout", function (e) {
+  const layout = e.currentTarget.value;
+  window.localStorage.setItem("hudLayout", layout);
+  $("body")
+    .removeClass("layout1 layout2 layout3 layout4 layout5")
+    .addClass("layout" + layout);
+  enableCustomLayout(layout === "5");
+});
+
 $(document).on("click", "#blackbar", function (e) {
   blackbar = e.currentTarget.checked;
   if (blackbar) {
@@ -515,6 +524,7 @@ function makeDraggable(elem) {
     document.onmouseup = function () {
       document.removeEventListener("mousemove", onMouseMove);
       document.onmouseup = null;
+      savePos(elem);
     };
   };
   elem.ondragstart = function () {
@@ -527,23 +537,46 @@ function disableDraggable(elem) {
   elem.onmousedown = null;
   elem.ondragstart = null;
   elem.style.cursor = "";
-  elem.style.position = "";
-  elem.style.left = "";
-  elem.style.top = "";
+}
+
+function savePos(elem) {
+  if (!elem || !elem.dataset.dragId) return;
+  localStorage.setItem(
+    "customPos_" + elem.dataset.dragId,
+    JSON.stringify({ left: elem.style.left, top: elem.style.top })
+  );
+}
+
+function loadPos(elem) {
+  if (!elem || !elem.dataset.dragId) return;
+  const pos = localStorage.getItem("customPos_" + elem.dataset.dragId);
+  if (pos) {
+    const { left, top } = JSON.parse(pos);
+    elem.style.position = "absolute";
+    elem.style.left = left;
+    elem.style.top = top;
+  }
 }
 
 function enableCustomLayout(enable) {
-  const elements = [
-    document.querySelector(".normalHudTop"),
-    document.querySelector(".normalStatusHud"),
-    document.querySelector(".circlemap"),
-    document.querySelector(".squaremap"),
-    document.querySelector(".money-cash"),
+  const selectors = [
+    [".normalHudTop", "normalHudTop"],
+    [".normalStatusHud", "normalStatusHud"],
+    [".circlemap", "circlemap"],
+    [".squaremap", "squaremap"],
+    [".money-cash", "moneyCash"],
   ];
 
-  if (enable) {
-    elements.forEach((el) => makeDraggable(el));
-  } else {
-    elements.forEach((el) => disableDraggable(el));
-  }
+  selectors.forEach(([sel, id]) => {
+    const el = document.querySelector(sel);
+    if (!el) return;
+    el.dataset.dragId = id;
+    if (enable) {
+      loadPos(el);
+      makeDraggable(el);
+    } else {
+      savePos(el);
+      disableDraggable(el);
+    }
+  });
 }
