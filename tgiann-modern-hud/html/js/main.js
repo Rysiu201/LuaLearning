@@ -263,7 +263,7 @@ window.addEventListener("message", (event) => {
     $(".kmh-number").html(event.data.speed)
   }
   else if (event.data.action == "talking") {
-    $(".microphoneMicrophone").css("color", "#fff");
+    $(".microphoneMicrophone").css("color", "#9400D3");
   }
   else if (event.data.action == "Nottalking") {
     $(".microphoneMicrophone").css("color", "rgba(255, 255, 255, 0.4)");
@@ -398,6 +398,14 @@ $(document).on("click", "#water", function (e) {
     } else {
       elem.fadeOut();
     }
+  }
+});
+
+$(document).on("click", "#monochrome", function (e) {
+  if (e.currentTarget.checked) {
+    $("body").addClass("mono");
+  } else {
+    $("body").removeClass("mono");
   }
 });
 
