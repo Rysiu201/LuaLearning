@@ -143,3 +143,23 @@
     background: #FFFFFF;
     width: 100%;
 }
+
+body.hud-right .squaremapoutline {
+    left: auto;
+    right: 2.6vh;
+}
+
+body.hud-right .squareHealthArmor {
+    left: auto;
+    right: 2.6vh;
+}
+
+body.hud-right .squareStreetNameCompass {
+    left: auto;
+    right: 2.6vh;
+}
+
+body.hud-right .squareStatusHud {
+    left: auto;
+    right: 2.6vh;
+}

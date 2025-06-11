@@ -64,3 +64,18 @@
   align-items: center;
   position: relative;
 }
+
+body.hud-right .normalStatusHud {
+  left: auto;
+  right: 2vh;
+}
+
+body.hud-right .normalHudTop {
+  left: auto;
+  right: 2vh;
+}
+
+body.hud-right .normalStreetNameCompass {
+  left: auto;
+  right: 2vh;
+}

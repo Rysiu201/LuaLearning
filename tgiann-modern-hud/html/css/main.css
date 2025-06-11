@@ -39,6 +39,12 @@ body.mono {
   --stress: var(--monochrome-color);
 }
 
+body.hud-left {
+}
+
+body.hud-right {
+}
+
 @font-face {
   font-family: "TTNormsTGI";
   src: url("../fonts/ttnorms/TTNormsProMedium.otf") format("opentype");
