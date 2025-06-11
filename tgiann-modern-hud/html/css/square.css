@@ -98,14 +98,13 @@
     position: absolute;
     bottom: 26vh;
     left: 2.6vh;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 1vh;
 }
 
 .squareStatusHudTop, .squareStatusHudBottom {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0 1vh;
-    margin-top: 1vh;
+    display: flex;
+    margin-top: 0;
 }
 
 .squareStatusBar {
