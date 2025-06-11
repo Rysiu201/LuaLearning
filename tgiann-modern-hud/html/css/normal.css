@@ -101,7 +101,7 @@ body.layout3 .normalStreetNameCompass {
 body.layout3 .normalStatusHudTop {
   position: static;
   margin-bottom: 0;
-  margin-left: 0.4vh;
+  margin-left: 0;
   display: flex;
   align-items: center;
 }
