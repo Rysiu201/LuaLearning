@@ -114,10 +114,12 @@ window.addEventListener("message", (event) => {
       $("#normalarmor").parent().fadeIn();
       $("#squarearmor").parent().fadeIn();
       $("#circlearmor").parent().fadeIn();
+      $(".squareHealthArmor").css("grid-template-columns", "repeat(2, 1fr)");
     } else {
       $("#normalarmor").parent().fadeOut();
       $("#squarearmor").parent().fadeOut();
       $("#circlearmor").parent().fadeOut();
+      $(".squareHealthArmor").css("grid-template-columns", "1fr");
     }
     if (!inVehicle) {
       let oxyVal = event.data.oxy * 2.5
