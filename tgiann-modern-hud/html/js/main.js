@@ -110,6 +110,17 @@ window.addEventListener("message", (event) => {
     $("#squarehealth").css("width", event.data.heal + "%")
     $("#normalarmor").css("width", event.data.zirh + "%")
     $("#squarearmor").css("width", event.data.zirh + "%")
+    if (event.data.zirh > 1) {
+      $("#normalarmor").parent().fadeIn();
+      $("#squarearmor").parent().fadeIn();
+      $("#circlearmor").parent().fadeIn();
+      $(".squareHealthArmor").css("grid-template-columns", "repeat(2, 1fr)");
+    } else {
+      $("#normalarmor").parent().fadeOut();
+      $("#squarearmor").parent().fadeOut();
+      $("#circlearmor").parent().fadeOut();
+      $(".squareHealthArmor").css("grid-template-columns", "1fr");
+    }
     if (!inVehicle) {
       let oxyVal = event.data.oxy * 2.5
       if (oxyVal > 100) { oxyVal = 100 }
