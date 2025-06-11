@@ -61,6 +61,7 @@ RegisterNUICallback('emotechat', function(data)
     TriggerEvent("3dme-chat", data.onOff)
 end)
 
+
 local miniMapUi = false
 function UIStuff()
     Citizen.CreateThread(function()

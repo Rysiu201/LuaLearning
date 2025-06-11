@@ -57,10 +57,11 @@
   display: flex;
   background: var(--statusBG);
   border-radius: var(--boder-radius-box);
-  margin-right: 1vh;
+  margin-right: 0.4vh;
   width: 4vh;
   height: 4vh;
   justify-content: center;
   align-items: center;
   position: relative;
 }
+
