@@ -11,18 +11,13 @@
 
 .normalHudTop {
   position: absolute;
-  bottom: 6vh;
+  bottom: 5.5vh;
   left: 2vh;
 }
 
 body.layout2 .normalHudTop,
 body.layout3 .normalHudTop {
-  bottom: 5vh;
-}
-
-body.layout2 .normalHudTop,
-body.layout3 .normalHudTop {
-  bottom: 5vh;
+  bottom: 5.5vh;
 }
 
 .normalStatusHudTop {
@@ -80,14 +75,6 @@ body.layout3 .normalHudTop {
   font-size: 1.6vh;
 }
 
-.normaleMicrophoneBox i {
-  font-size: 1.6vh;
-}
-
-.normaleMicrophoneBox i {
-  font-size: 1.6vh;
-}
-
 body.layout1 .normalStreetNameCompass {
   flex-direction: column;
   align-items: flex-start;
@@ -110,7 +97,7 @@ body.layout3 .normalStatusBarBig svg {
 
 body.layout3 .normalHudTop {
   position: absolute;
-  bottom: 5vh;
+  bottom: 5.5vh;
   left: 2vh;
 }
 
