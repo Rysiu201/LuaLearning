@@ -64,3 +64,31 @@
   align-items: center;
   position: relative;
 }
+
+body.layout1 .normalStreetNameCompass {
+  flex-direction: column;
+  align-items: flex-start;
+}
+body.layout1 .normaleMicrophoneBox {
+  order: 2;
+}
+body.layout1 #normalCompass,
+body.layout1 .normalStreetNameCompassRight {
+  order: 1;
+}
+
+body.layout3 .normalStatusHud .normalStatusBarBig {
+  width: 3vh !important;
+  transform: rotate(-90deg);
+}
+body.layout3 .normalStatusBarBig svg {
+  transform: rotate(90deg);
+}
+
+body.layout4 .normaleMicrophoneBox {
+  display: none;
+}
+body.layout4 #normalCompass {
+  width: 100%;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+}
