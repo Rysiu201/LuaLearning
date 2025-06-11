@@ -81,6 +81,11 @@ window.addEventListener("message", (event) => {
         $("#monochrome").prop("checked", true);
       }
 
+      let layout = window.localStorage.getItem("hudLayout") || "2";
+      $("body").addClass("layout" + layout);
+      $("#hudLayout").val(layout);
+      enableCustomLayout(layout === "5");
+
       break;
   }
   if (event.data.action == "hudmenu") {
@@ -522,6 +527,13 @@ $(document).on("click", "#switchcircle", function (e) {
   );
 });
 
+$(document).on("change", "#hudLayout", function (e) {
+  const layout = e.currentTarget.value;
+  window.localStorage.setItem("hudLayout", layout);
+  $("body").removeClass("layout1 layout2 layout3 layout4 layout5").addClass("layout" + layout);
+  enableCustomLayout(layout === "5");
+});
+
 $(document).on("click", "#blackbar", function (e) {
   blackbar = e.currentTarget.checked;
   if (blackbar) {
@@ -550,3 +562,37 @@ $(document).mousedown(function (ev) {
     $.post("https://tgiann-modern-hud/hudmenuclose");
   }
 });
+
+function makeDraggable(elem) {
+  elem.onmousedown = function (ev) {
+    ev.preventDefault();
+    const shiftX = ev.clientX - elem.getBoundingClientRect().left;
+    const shiftY = ev.clientY - elem.getBoundingClientRect().top;
+
+    function moveAt(pageX, pageY) {
+      elem.style.left = pageX - shiftX + "px";
+      elem.style.top = pageY - shiftY + "px";
+      elem.style.position = "absolute";
+    }
+
+    function onMouseMove(event) {
+      moveAt(event.pageX, event.pageY);
+    }
+
+    document.addEventListener("mousemove", onMouseMove);
+    document.onmouseup = function () {
+      document.removeEventListener("mousemove", onMouseMove);
+      document.onmouseup = null;
+    };
+  };
+  elem.ondragstart = function () {
+    return false;
+  };
+}
+
+function enableCustomLayout(enable) {
+  if (enable) {
+    makeDraggable(document.querySelector('.normalHudTop'));
+    makeDraggable(document.querySelector('.normalStatusHud'));
+  }
+}
