@@ -167,14 +167,17 @@ body.hud-right .circlemapoutline {
 body.hud-right .minimapBarCenter {
     left: auto;
     right: -1.5vh;
+    flex-direction: row-reverse;
 }
 
 body.hud-right .circleStreetNameBox {
     left: auto;
     right: 33vh;
+    flex-direction: row-reverse;
 }
 
 body.hud-right .circleStatusHud {
     left: auto;
     right: 31vh;
+    flex-direction: row-reverse;
 }

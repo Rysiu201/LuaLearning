@@ -69,6 +69,54 @@ window.addEventListener("message", (event) => {
       } else {
         switchcircle = true;
       }
+      $("#switchcircle").attr("checked", switchcircle);
+      $.post(
+        "https://tgiann-modern-hud/switchcircle",
+        JSON.stringify({ isCircle: switchcircle })
+      );
+
+      let hudPos = window.localStorage.getItem("hudPosition") || "left";
+      if (hudPos === "right") {
+        $("body").addClass("hud-right");
+        $("#hudPosition").val("right");
+        $.post("https://tgiann-modern-hud/setHudPosition", JSON.stringify({ pos: "right" }));
+      } else {
+        $("body").addClass("hud-left");
+        $("#hudPosition").val("left");
+        $.post("https://tgiann-modern-hud/setHudPosition", JSON.stringify({ pos: "left" }));
+      }
+
+      let mono = window.localStorage.getItem("monochrome") === "true";
+      if (mono) {
+        $("body").addClass("mono");
+        $("#monochrome").prop("checked", true);
+      }
+
+      break;
+  }
+  if (event.data.action == "hudmenu") {
+    $(".hud-menu-container").css("display", "flex");
+  }
+  else if (event.data.action == "bigMap") {
+    if (event.data.show) {
+      $(".mainBG").fadeIn();
+    } else {
+      $(".mainBG").fadeOut();
+    }
+  }
+  else if (event.data.action == "clockStreet") {
+    $("#" + "normal" + "StreetNameBoxTop").html((event.data.street).split("|")[0].toUpperCase())
+    $("#" + "normal" + "StreetNameBoxBottom").html(((event.data.street).split("|")[1].toUpperCase()).replace("[", "").replace("]", ""))
+    $("#" + "normal" + "Compass").html(event.data.compass)
+  }
+  else if (event.data.action == 'updateStatus') {
+    for (let i = 0; i < event.data.data.length; i++) {
+      const element = event.data.data[i];
+      var val = element.percent
+      var prop = element.name
+
+      if (prop == "heal" || prop == "zirh") {
+        $("#" + prop).css("width", val + "%")
 
       $("#switchcircle").attr("checked", switchcircle);
       $.post("https://tgiann-modern-hud/switchcircle", JSON.stringify({ isCircle: switchcircle }));
@@ -163,6 +211,48 @@ window.addEventListener("message", (event) => {
         $("#normal" + dot).css("background", color).show();
         $("#square" + dot).css("background", color).show();
       });
+    } else {
+      inVehicle = false
+      $("." + "squaremap").fadeOut(function () {
+        $(".normalHud").fadeIn();
+        $(".carHud").animate(
+          {
+            opacity: 0,
+          },
+          100
+        );
+      });
+    }
+  }
+  else if (event.data.action == "HungerUpdate") {
+    let Hunger = event.data.hunger;
+    $('#normalhunger').css('width', Hunger + '%');
+    $('#squarehunger').css('width', Hunger + '%');
+  }
+  else if (event.data.action == "ThirstUpdate") {
+    let Thirst = event.data.thirst;
+    $('#normalwater').css('width', Thirst + '%');
+    $('#squarewater').css('width', Thirst + '%');
+  }
+  else if (event.data.action == "CusalsetSpeedNumbers") {
+    SetSpeedValue(event.data.speed)
+  }
+  else if (event.data.action == "CusalsetFuel") {
+    SetFuel(event.data.fuel)
+  }
+  else if (event.data.action == "CusalsetCarIcon") {
+    SetCarIcon(event.data.iconName, event.data.iconColor)
+  }
+  else if (event.data.type == "vehSpeed") {
+    $(".kmh-number").html(event.data.speed)
+  }
+  else if (event.data.action == "talking") {
+    $(".microphoneMicrophone").css("color", "#9400d3");
+  }
+  else if (event.data.action == "Nottalking") {
+    $(".microphoneMicrophone").css("color", "rgba(255, 255, 255, 0.4)");
+  }
+});
 
       if (data.value === 0) {
         dots.forEach(dot => {
@@ -349,6 +439,28 @@ $(document).on("click", "#water", function (e) {
     } else {
       elem.fadeOut();
     }
+  }
+});
+
+$(document).on("click", "#monochrome", function (e) {
+  const on = e.currentTarget.checked;
+  window.localStorage.setItem("monochrome", on);
+  if (on) {
+    $("body").addClass("mono");
+  } else {
+    $("body").removeClass("mono");
+  }
+});
+
+$(document).on("change", "#hudPosition", function (e) {
+  const pos = e.currentTarget.value;
+  window.localStorage.setItem("hudPosition", pos);
+  if (pos === "right") {
+    $("body").removeClass("hud-left").addClass("hud-right");
+    $.post("https://tgiann-modern-hud/setHudPosition", JSON.stringify({ pos: "right" }));
+  } else {
+    $("body").removeClass("hud-right").addClass("hud-left");
+    $.post("https://tgiann-modern-hud/setHudPosition", JSON.stringify({ pos: "left" }));
   }
 });
 

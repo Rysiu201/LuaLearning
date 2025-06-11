@@ -157,9 +157,17 @@ body.hud-right .squareHealthArmor {
 body.hud-right .squareStreetNameCompass {
     left: auto;
     right: 2.6vh;
+    flex-direction: row-reverse;
 }
 
 body.hud-right .squareStatusHud {
     left: auto;
+    flex-direction: row-reverse;
+    right: 2.6vh;
+}
+body.hud-right .squareMicrophoneBox {
+    margin-right: 0;
+    margin-left: 1vh;
+}
     right: 2.6vh;
 }
