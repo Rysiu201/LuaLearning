@@ -75,6 +75,10 @@ body.layout3 .normalHudTop {
   font-size: 1.6vh;
 }
 
+.normaleMicrophoneBox i {
+  font-size: 1.6vh;
+}
+
 body.layout1 .normalStreetNameCompass {
   flex-direction: column;
   align-items: flex-start;
