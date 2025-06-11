@@ -84,6 +84,29 @@ window.addEventListener("message", (event) => {
         $("#hudPosition").val("left");
       }
 
+      let mono = window.localStorage.getItem("monochrome") === "true";
+      if (mono) {
+        $("body").addClass("mono");
+        $("#monochrome").prop("checked", true);
+      }
+
+      break;
+  }
+      $("#switchcircle").attr("checked", switchcircle);
+      $.post(
+        "https://tgiann-modern-hud/switchcircle",
+        JSON.stringify({ isCircle: switchcircle })
+      );
+
+      let hudPos = window.localStorage.getItem("hudPosition") || "left";
+      if (hudPos === "right") {
+        $("body").addClass("hud-right");
+        $("#hudPosition").val("right");
+      } else {
+        $("body").addClass("hud-left");
+        $("#hudPosition").val("left");
+      }
+
       break;
   }
   if (event.data.action == "hudmenu") {
@@ -272,6 +295,16 @@ window.addEventListener("message", (event) => {
     $(".kmh-number").html(event.data.speed)
   }
   else if (event.data.action == "talking") {
+    $(".microphoneMicrophone").css("color", "#9400d3");
+  }
+  else if (event.data.action == "Nottalking") {
+    $(".microphoneMicrophone").css("color", "rgba(255, 255, 255, 0.4)");
+  }
+});
+  else if (event.data.type == "vehSpeed") {
+    $(".kmh-number").html(event.data.speed)
+  }
+  else if (event.data.action == "talking") {
     $(".microphoneMicrophone").css("color", "#9400D3");
   }
   else if (event.data.action == "Nottalking") {
@@ -407,6 +440,26 @@ $(document).on("click", "#water", function (e) {
     } else {
       elem.fadeOut();
     }
+  }
+});
+
+$(document).on("click", "#monochrome", function (e) {
+  const on = e.currentTarget.checked;
+  window.localStorage.setItem("monochrome", on);
+  if (on) {
+    $("body").addClass("mono");
+  } else {
+    $("body").removeClass("mono");
+  }
+});
+
+$(document).on("change", "#hudPosition", function (e) {
+  const pos = e.currentTarget.value;
+  window.localStorage.setItem("hudPosition", pos);
+  if (pos === "right") {
+    $("body").removeClass("hud-left").addClass("hud-right");
+  } else {
+    $("body").removeClass("hud-right").addClass("hud-left");
   }
 });
 
