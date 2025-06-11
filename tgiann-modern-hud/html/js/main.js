@@ -422,7 +422,6 @@ $(document).on("click", "#monochrome", function (e) {
   }
 });
 
-
 $(document).on("click", ".hud-menu-header-close", function (e) {
   $(".hud-menu-container").css("display", "none");
   $.post("https://tgiann-modern-hud/hudmenuclose");
@@ -441,6 +440,24 @@ $(document).on("click", "#switchcircle", function (e) {
     "https://tgiann-modern-hud/switchcircle",
     JSON.stringify({ isCircle: e.currentTarget.checked })
   );
+});
+
+$(document).on("change", "#hudLayout", function (e) {
+  const layout = e.currentTarget.value;
+  window.localStorage.setItem("hudLayout", layout);
+  $("body")
+    .removeClass("layout1 layout2 layout3 layout4 layout5")
+    .addClass("layout" + layout);
+  enableCustomLayout(layout === "5");
+});
+
+$(document).on("change", "#hudLayout", function (e) {
+  const layout = e.currentTarget.value;
+  window.localStorage.setItem("hudLayout", layout);
+  $("body")
+    .removeClass("layout1 layout2 layout3 layout4 layout5")
+    .addClass("layout" + layout);
+  enableCustomLayout(layout === "5");
 });
 
 $(document).on("change", "#hudLayout", function (e) {
@@ -563,4 +580,3 @@ function enableCustomLayout(enable) {
     }
   });
 }
-
