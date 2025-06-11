@@ -160,7 +160,6 @@ input:checked + .slider:before {
     font-weight: 400;
 }
 
-
 /* black bar */
 .blackbar-container {
     position: absolute;
