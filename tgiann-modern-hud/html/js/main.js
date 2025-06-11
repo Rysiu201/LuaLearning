@@ -74,6 +74,7 @@ window.addEventListener("message", (event) => {
         "https://tgiann-modern-hud/switchcircle",
         JSON.stringify({ isCircle: switchcircle })
       );
+
       let mono = window.localStorage.getItem("monochrome") === "true";
       if (mono) {
         $("body").addClass("mono");
@@ -421,7 +422,6 @@ $(document).on("click", "#monochrome", function (e) {
   }
 });
 
-
 $(document).on("click", ".hud-menu-header-close", function (e) {
   $(".hud-menu-container").css("display", "none");
   $.post("https://tgiann-modern-hud/hudmenuclose");
@@ -440,6 +440,15 @@ $(document).on("click", "#switchcircle", function (e) {
     "https://tgiann-modern-hud/switchcircle",
     JSON.stringify({ isCircle: e.currentTarget.checked })
   );
+});
+
+$(document).on("change", "#hudLayout", function (e) {
+  const layout = e.currentTarget.value;
+  window.localStorage.setItem("hudLayout", layout);
+  $("body")
+    .removeClass("layout1 layout2 layout3 layout4 layout5")
+    .addClass("layout" + layout);
+  enableCustomLayout(layout === "5");
 });
 
 $(document).on("change", "#hudLayout", function (e) {
@@ -481,6 +490,13 @@ $(document).mousedown(function (ev) {
 });
 
 function makeDraggable(elem) {
+  if (!elem) return;
+  const rect = elem.getBoundingClientRect();
+  elem.style.position = "absolute";
+  elem.style.left = rect.left + "px";
+  elem.style.top = rect.top + "px";
+  elem.style.cursor = "move";
+
   elem.onmousedown = function (ev) {
     ev.preventDefault();
     const shiftX = ev.clientX - elem.getBoundingClientRect().left;
@@ -489,7 +505,6 @@ function makeDraggable(elem) {
     function moveAt(pageX, pageY) {
       elem.style.left = pageX - shiftX + "px";
       elem.style.top = pageY - shiftY + "px";
-      elem.style.position = "absolute";
     }
 
     function onMouseMove(event) {
@@ -507,9 +522,28 @@ function makeDraggable(elem) {
   };
 }
 
+function disableDraggable(elem) {
+  if (!elem) return;
+  elem.onmousedown = null;
+  elem.ondragstart = null;
+  elem.style.cursor = "";
+  elem.style.position = "";
+  elem.style.left = "";
+  elem.style.top = "";
+}
+
 function enableCustomLayout(enable) {
+  const elements = [
+    document.querySelector(".normalHudTop"),
+    document.querySelector(".normalStatusHud"),
+    document.querySelector(".circlemap"),
+    document.querySelector(".squaremap"),
+    document.querySelector(".money-cash"),
+  ];
+
   if (enable) {
-    makeDraggable(document.querySelector('.normalHudTop'));
-    makeDraggable(document.querySelector('.normalStatusHud'));
+    elements.forEach((el) => makeDraggable(el));
+  } else {
+    elements.forEach((el) => disableDraggable(el));
   }
 }
