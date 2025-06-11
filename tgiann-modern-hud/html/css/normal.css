@@ -57,10 +57,42 @@
   display: flex;
   background: var(--statusBG);
   border-radius: var(--boder-radius-box);
-  margin-right: 1vh;
+  margin-right: 0.4vh;
   width: 4vh;
   height: 4vh;
   justify-content: center;
   align-items: center;
   position: relative;
+}
+
+body.hud-right .normalStatusHud {
+  left: auto;
+  right: 2vh;
+  flex-direction: row-reverse;
+}
+
+body.hud-right .normalHudTop {
+  left: auto;
+  right: 2vh;
+  flex-direction: row-reverse;
+}
+
+body.hud-right .normalStreetNameCompass {
+  left: auto;
+  right: 2vh;
+  flex-direction: row-reverse;
+}
+
+body.hud-right .normalStatusHudTop {
+  flex-direction: row-reverse;
+}
+
+body.hud-right .normalStatusBar {
+  margin-right: 0;
+  margin-left: 0.4vh;
+}
+
+body.hud-right .normaleMicrophoneBox {
+  margin-right: 0;
+  margin-left: 0.4vh;
 }
