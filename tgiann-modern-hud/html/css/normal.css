@@ -58,11 +58,15 @@
   background: var(--statusBG);
   border-radius: var(--boder-radius-box);
   margin-right: 0.4vh;
-  width: 4vh;
-  height: 4vh;
+  width: 3vh;
+  height: 3vh;
   justify-content: center;
   align-items: center;
   position: relative;
+}
+
+.normaleMicrophoneBox i {
+  font-size: 1.6vh;
 }
 
 body.layout1 .normalStreetNameCompass {
