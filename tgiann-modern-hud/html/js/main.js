@@ -54,261 +54,170 @@ $(document).ready(function () {
 
 window.addEventListener("message", (event) => {
   const data = event.data;
+
   switch (data.action) {
     case "first":
       $(".normalHud").fadeIn();
       $(".mainBG").fadeIn(100);
 
-      //Map
       let switchcircle = window.localStorage.getItem("switchcircle");
-      if (switchcircle == null) {
+      if (switchcircle === null) {
         switchcircle = true;
         window.localStorage.setItem("switchcircle", switchcircle);
-      } else if (switchcircle == "false") {
+      } else if (switchcircle === "false") {
         switchcircle = false;
       } else {
         switchcircle = true;
       }
+
       $("#switchcircle").attr("checked", switchcircle);
-      $.post(
-        "https://tgiann-modern-hud/switchcircle",
-        JSON.stringify({ isCircle: switchcircle })
-      );
+      $.post("https://tgiann-modern-hud/switchcircle", JSON.stringify({ isCircle: switchcircle }));
 
       let hudPos = window.localStorage.getItem("hudPosition") || "left";
-      if (hudPos === "right") {
-        $("body").addClass("hud-right");
-        $("#hudPosition").val("right");
-      } else {
-        $("body").addClass("hud-left");
-        $("#hudPosition").val("left");
-      }
+      $("body").addClass(hudPos === "right" ? "hud-right" : "hud-left");
+      $("#hudPosition").val(hudPos);
 
       let mono = window.localStorage.getItem("monochrome") === "true";
       if (mono) {
         $("body").addClass("mono");
         $("#monochrome").prop("checked", true);
       }
+      break;
 
+    case "hudmenu":
+      $(".hud-menu-container").css("display", "flex");
+      break;
+
+    case "bigMap":
+      if (data.show) {
+        $(".mainBG").fadeIn();
+      } else {
+        $(".mainBG").fadeOut();
+      }
+      break;
+
+    case "clockStreet":
+      $("#normalStreetNameBoxTop").html(data.street.split("|")[0].toUpperCase());
+      $("#normalStreetNameBoxBottom").html(data.street.split("|")[1].toUpperCase().replace("[", "").replace("]", ""));
+      $("#normalCompass").html(data.compass);
+      break;
+
+    case "updateStatus":
+      data.data.forEach((element) => {
+        const val = element.percent;
+        const prop = element.name;
+        if (prop == "heal" || prop == "zirh") {
+          $("#" + prop).css("width", val + "%");
+        } else {
+          $("#" + prop).css("height", val + "%");
+        }
+      });
+      break;
+
+    case "tick":
+      $("#normalhealth, #squarehealth").css("width", data.heal + "%");
+      $("#normalarmor, #squarearmor").css("width", data.zirh + "%");
+
+      if (data.zirh > 1) {
+        $("#normalarmor, #squarearmor, #circlearmor").parent().fadeIn();
+        $(".squareHealthArmor").css("grid-template-columns", "repeat(2, 1fr)");
+      } else {
+        $("#normalarmor, #squarearmor, #circlearmor").parent().fadeOut();
+        $(".squareHealthArmor").css("grid-template-columns", "1fr");
+      }
+
+      if (!inVehicle) {
+        let oxyVal = data.oxy * 2.5;
+        oxyVal = Math.min(oxyVal, 100);
+
+        if (oxyVal < 100) {
+          $("#normaloxy").css("width", oxyVal + "%");
+          $("#normalStaminaBar").fadeOut();
+          $("#normalOxyBar").fadeIn();
+        } else {
+          $("#normalstamina").css("width", data.stamina + "%");
+          if (staminaBarOn) $("#normalStaminaBar").fadeIn();
+          $("#normalOxyBar").fadeOut();
+        }
+      }
+      break;
+
+    case "carHud":
+      $("#squareStreetNameBoxTop").html(data.street.split("|")[0].toUpperCase());
+      $("#squareStreetNameBoxBottom").html(data.street.split("|")[1].toUpperCase().replace("[", "").replace("]", ""));
+      $("#squareCompass").html(data.compass);
+
+      carHudMiniIconOnOff("engine", data.engine);
+      carHudMiniIconOnOff("light", data.light);
+      carHudMiniIconOnOff("belt", data.belt);
+      carHudMiniIconOnOff("cruise", data.cruise);
+
+      $("#beltColor path").css("fill", data.seatbeltmod ? "orange" : "white");
+      $("#engineColor path").css("fill", data.engineHealth < 500 ? "orange" : "white");
+      break;
+
+    case "pmavoice":
+      let dots = ["micdot1", "micdot2", "micdot3"];
+      dots.forEach((dot, i) => {
+        let color = (data.value > i) ? "#fff" : "rgba(255, 255, 255, 0.25)";
+        $("#normal" + dot).css("background", color).show();
+        $("#square" + dot).css("background", color).show();
+      });
+
+      if (data.value === 0) {
+        dots.forEach(dot => {
+          $("#normal" + dot).hide();
+          $("#square" + dot).hide();
+        });
+      }
+      break;
+
+    case "inVeh":
+      inVehicle = data.data;
+      if (inVehicle) {
+        $(".normalHud").fadeOut(() => {
+          $(".squaremap").fadeIn();
+          $(".carHud").animate({ opacity: 1 }, 100);
+        });
+      } else {
+        $(".squaremap").fadeOut(() => {
+          $(".normalHud").fadeIn();
+          $(".carHud").animate({ opacity: 0 }, 100);
+        });
+      }
+      break;
+
+    case "HungerUpdate":
+      $('#normalhunger, #squarehunger').css('width', data.hunger + '%');
+      break;
+
+    case "ThirstUpdate":
+      $('#normalwater, #squarewater').css('width', data.thirst + '%');
+      break;
+
+    case "CusalsetSpeedNumbers":
+      SetSpeedValue(data.speed);
+      break;
+
+    case "CusalsetFuel":
+      SetFuel(data.fuel);
+      break;
+
+    case "CusalsetCarIcon":
+      SetCarIcon(data.iconName, data.iconColor);
+      break;
+
+    case "talking":
+      $(".microphoneMicrophone").css("color", "#9400D3");
+      break;
+
+    case "Nottalking":
+      $(".microphoneMicrophone").css("color", "rgba(255, 255, 255, 0.4)");
       break;
   }
-      $("#switchcircle").attr("checked", switchcircle);
-      $.post(
-        "https://tgiann-modern-hud/switchcircle",
-        JSON.stringify({ isCircle: switchcircle })
-      );
 
-      let hudPos = window.localStorage.getItem("hudPosition") || "left";
-      if (hudPos === "right") {
-        $("body").addClass("hud-right");
-        $("#hudPosition").val("right");
-      } else {
-        $("body").addClass("hud-left");
-        $("#hudPosition").val("left");
-      }
-
-      break;
-  }
-  if (event.data.action == "hudmenu") {
-    $(".hud-menu-container").css("display", "flex");
-  }
-  else if (event.data.action == "bigMap") {
-    if (event.data.show) {
-      $(".mainBG").fadeIn();
-    } else {
-      $(".mainBG").fadeOut();
-    }
-  }
-  else if (event.data.action == "clockStreet") {
-    $("#" + "normal" + "StreetNameBoxTop").html((event.data.street).split("|")[0].toUpperCase())
-    $("#" + "normal" + "StreetNameBoxBottom").html(((event.data.street).split("|")[1].toUpperCase()).replace("[", "").replace("]", ""))
-    $("#" + "normal" + "Compass").html(event.data.compass)
-  }
-  else if (event.data.action == 'updateStatus') {
-    for (let i = 0; i < event.data.data.length; i++) {
-      const element = event.data.data[i];
-      var val = element.percent
-      var prop = element.name
-
-      if (prop == "heal" || prop == "zirh") {
-        $("#" + prop).css("width", val + "%")
-      } else {
-        $("#" + prop).css("height", val + "%")
-      }
-    }
-  }
-  else if (event.data.action == 'tick') {
-    $("#normalhealth").css("width", event.data.heal + "%")
-    $("#squarehealth").css("width", event.data.heal + "%")
-    $("#normalarmor").css("width", event.data.zirh + "%")
-    $("#squarearmor").css("width", event.data.zirh + "%")
-    if (event.data.zirh > 1) {
-      $("#normalarmor").parent().fadeIn();
-      $("#squarearmor").parent().fadeIn();
-      $("#circlearmor").parent().fadeIn();
-      $(".squareHealthArmor").css("grid-template-columns", "repeat(2, 1fr)");
-    } else {
-      $("#normalarmor").parent().fadeOut();
-      $("#squarearmor").parent().fadeOut();
-      $("#circlearmor").parent().fadeOut();
-      $(".squareHealthArmor").css("grid-template-columns", "1fr");
-    }
-    if (!inVehicle) {
-      let oxyVal = event.data.oxy * 2.5
-      if (oxyVal > 100) { oxyVal = 100 }
-      if (oxyVal < 100) {
-        $("#normaloxy").css("width", oxyVal + "%")
-        $("#normalStaminaBar").fadeOut()
-        $("#normalOxyBar").fadeIn()
-      } else {
-        $("#normalstamina").css("width", event.data.stamina + "%")
-        if (staminaBarOn) { $("#normalStaminaBar").fadeIn(); }
-        $("#normalOxyBar").fadeOut()
-      }
-    }
-  }
-  else if (event.data.action == "carHud") {
-    $("#" + "square" + "StreetNameBoxTop").html((event.data.street).split("|")[0].toUpperCase())
-    $("#" + "square" + "StreetNameBoxBottom").html(((event.data.street).split("|")[1].toUpperCase()).replace("[", "").replace("]", ""))
-    $("#" + "square" + "Compass").html(event.data.compass)
-
-    // carHudMiniIconOnOff("doors", event.data.doors)
-    carHudMiniIconOnOff("engine", event.data.engine)
-    carHudMiniIconOnOff("light", event.data.light)
-    carHudMiniIconOnOff("belt", event.data.belt)
-    // carHudMiniIconOnOff("trunk", event.data.trunk)
-    carHudMiniIconOnOff("cruise", event.data.cruise)
-    if (event.data.seatbeltmod) {
-      $("#beltColor path").css("fill", "orange")
-    } else {
-      $("#beltColor path").css("fill", "white")
-    }
-    if (event.data.engineHealth < 500) {
-      $("#engineColor path").css("fill", "orange")
-    } else {
-      $("#engineColor path").css("fill", "white")
-    }
-  }
-  else if (event.data.action == "pmavoice") {
-    if (event.data.value == 1) {
-      $("#" + "normal" + "micdot1").css("background", "#fff");
-      $("#" + "normal" + "micdot2").css(
-        "background",
-        "rgba(255, 255, 255, 0.25)"
-      );
-      $("#" + "normal" + "micdot3").css(
-        "background",
-        "rgba(255, 255, 255, 0.25)"
-      );
-      // Araç İçin
-      $("#" + "square" + "micdot1").css("background", "#fff");
-      $("#" + "square" + "micdot2").css(
-        "background",
-        "rgba(255, 255, 255, 0.25)"
-      );
-      $("#" + "square" + "micdot3").css(
-        "background",
-        "rgba(255, 255, 255, 0.25)"
-      );
-
-    } else if (event.data.value == 2) {
-      $("#" + "normal" + "micdot1").css("background", "#fff");
-      $("#" + "normal" + "micdot2").css("background", "#fff");
-      $("#" + "normal" + "micdot3").css(
-        "background",
-        "rgba(255, 255, 255, 0.25)"
-      );
-
-      // Araç İçin
-      $("#" + "square" + "micdot1").css("background", "#fff");
-      $("#" + "square" + "micdot2").css("background", "#fff");
-      $("#" + "square" + "micdot3").css(
-        "background",
-        "rgba(255, 255, 255, 0.25)"
-      );
-    } else if (event.data.value == 3) {
-      $("#" + "normal" + "micdot1").css("background", "#fff");
-      $("#" + "normal" + "micdot2").css("background", "#fff");
-      $("#" + "normal" + "micdot3").css("background", "#fff");
-
-      // Araç İçin
-      $("#" + "square" + "micdot1").css("background", "#fff");
-      $("#" + "square" + "micdot2").css("background", "#fff");
-      $("#" + "square" + "micdot3").css("background", "#fff");
-    } else {
-      $("#" + "normal" + "micdot1").css("display", "none");
-      $("#" + "normal" + "micdot2").css("display", "none");
-      $("#" + "normal" + "micdot3").css("display", "none");
-
-      // Araç İçin
-      $("#" + "square" + "micdot1").css("display", "none");
-      $("#" + "square" + "micdot2").css("display", "none");
-      $("#" + "square" + "micdot3").css("display", "none");
-    }
-  }
-  else if (event.data.action == "inVeh") {
-    if (event.data.data) {
-      inVehicle = true
-      $(".normalHud").fadeOut(function () {
-        $("." + "squaremap").fadeIn();
-        $(".carHud").animate(
-          {
-            opacity: 1,
-          },
-          100
-        );
-
-      });
-    } else {
-      inVehicle = false
-      $("." + "squaremap").fadeOut(function () {
-        $(".normalHud").fadeIn();
-        $(".carHud").animate(
-          {
-            opacity: 0,
-          },
-          100
-        );
-      });
-    }
-  }
-  else if (event.data.action == "HungerUpdate") {
-    let Hunger = event.data.hunger;
-    $('#normalhunger').css('width', Hunger + '%');
-    $('#squarehunger').css('width', Hunger + '%');
-  }
-  else if (event.data.action == "ThirstUpdate") {
-    let Thirst = event.data.thirst;
-    $('#normalwater').css('width', Thirst + '%');
-    $('#squarewater').css('width', Thirst + '%');
-  }
-  else if (event.data.action == "CusalsetSpeedNumbers") {
-    SetSpeedValue(event.data.speed)
-  }
-  else if (event.data.action == "CusalsetFuel") {
-    SetFuel(event.data.fuel)
-  }
-  else if (event.data.action == "CusalsetCarIcon") {
-    SetCarIcon(event.data.iconName, event.data.iconColor)
-  }
-  else if (event.data.type == "vehSpeed") {
-    $(".kmh-number").html(event.data.speed)
-  }
-  else if (event.data.action == "talking") {
-    $(".microphoneMicrophone").css("color", "#9400d3");
-  }
-  else if (event.data.action == "Nottalking") {
-    $(".microphoneMicrophone").css("color", "rgba(255, 255, 255, 0.4)");
-  }
-});
-  else if (event.data.type == "vehSpeed") {
-    $(".kmh-number").html(event.data.speed)
-  }
-  else if (event.data.action == "talking") {
-    $(".microphoneMicrophone").css("color", "#9400D3");
-  }
-  else if (event.data.action == "Nottalking") {
-    $(".microphoneMicrophone").css("color", "rgba(255, 255, 255, 0.4)");
+  if (data.type === "vehSpeed") {
+    $(".kmh-number").html(data.speed);
   }
 });
 
@@ -529,4 +438,3 @@ $(document).mousedown(function (ev) {
     $.post("https://tgiann-modern-hud/hudmenuclose");
   }
 });
-
