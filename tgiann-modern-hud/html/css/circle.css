@@ -158,3 +158,23 @@
     bottom: 4vh;
     left: 31vh;
 }
+
+body.hud-right .circlemapoutline {
+    left: auto;
+    right: 7.3vh;
+}
+
+body.hud-right .minimapBarCenter {
+    left: auto;
+    right: -1.5vh;
+}
+
+body.hud-right .circleStreetNameBox {
+    left: auto;
+    right: 33vh;
+}
+
+body.hud-right .circleStatusHud {
+    left: auto;
+    right: 31vh;
+}

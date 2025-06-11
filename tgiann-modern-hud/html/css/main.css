@@ -25,6 +25,18 @@ body {
   --buffbg: #ffd700;
 
   --statusBG: rgba(17, 17, 17, 0.5);
+  --monochrome-color: #9400d3;
+}
+
+body.mono {
+  --health: var(--monochrome-color);
+  --armor: var(--monochrome-color);
+  --hunger: var(--monochrome-color);
+  --water: var(--monochrome-color);
+  --stamina: var(--monochrome-color);
+  --addiction: var(--monochrome-color);
+  --oxy: var(--monochrome-color);
+  --stress: var(--monochrome-color);
 }
 
 @font-face {
