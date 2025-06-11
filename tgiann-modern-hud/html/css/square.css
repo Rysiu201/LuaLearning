@@ -56,11 +56,13 @@
 }
 
 #squareCompass, #normalCompass {
-    width: 4vh;
+    width: 3vh;
+    height: 3vh;
     background: rgba(0, 0, 0, 0.6);
     border-radius: var(--boder-radius-box);
+    border: 0.1vh solid rgba(255, 255, 255, 0.2);
     color: #FFFFFF;
-    font-size: 1.5vh;
+    font-size: 1.3vh;
     font-weight: 700;
     display: flex;
     justify-content: center;
@@ -123,10 +125,15 @@
     display: flex;
     background: rgba(0, 0, 0, 0.6);
     border-radius: var(--boder-radius-box);
-    width: 4vh;
-    height: 4vh;
+    border: 0.1vh solid rgba(255, 255, 255, 0.2);
+    width: 3vh;
+    height: 3vh;
     justify-content: center;
     align-items: center;
+}
+
+.squareMicrophoneBox i {
+    font-size: 1.6vh;
 }
 
 .microphoneMiniCircles {

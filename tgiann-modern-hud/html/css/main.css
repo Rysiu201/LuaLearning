@@ -100,6 +100,7 @@ body.mono {
   width: 3vh;
   height: 3vh;
   border-radius: var(--boder-radius-box);
+  border: 0.1vh solid rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
