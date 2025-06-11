@@ -20,6 +20,11 @@ body.layout3 .normalHudTop {
   bottom: 5vh;
 }
 
+body.layout2 .normalHudTop,
+body.layout3 .normalHudTop {
+  bottom: 5vh;
+}
+
 .normalStatusHudTop {
   margin-bottom: 1vh;
   display: flex;
@@ -69,6 +74,14 @@ body.layout3 .normalHudTop {
   justify-content: center;
   align-items: center;
   position: relative;
+}
+
+.normaleMicrophoneBox i {
+  font-size: 1.6vh;
+}
+
+.normaleMicrophoneBox i {
+  font-size: 1.6vh;
 }
 
 .normaleMicrophoneBox i {
