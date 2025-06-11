@@ -85,6 +85,11 @@ body.layout3 .normalStatusBarBig svg {
   transform: rotate(90deg);
 }
 
+body.layout3 .normalHudTop {
+  bottom: 2vh;
+  left: calc(2vh + 7vh);
+}
+
 body.layout4 .normaleMicrophoneBox {
   display: none;
 }
