@@ -75,6 +75,15 @@ window.addEventListener("message", (event) => {
         JSON.stringify({ isCircle: switchcircle })
       );
 
+      let hudPos = window.localStorage.getItem("hudPosition") || "left";
+      if (hudPos === "right") {
+        $("body").addClass("hud-right");
+        $("#hudPosition").val("right");
+      } else {
+        $("body").addClass("hud-left");
+        $("#hudPosition").val("left");
+      }
+
       break;
   }
   if (event.data.action == "hudmenu") {
@@ -406,6 +415,16 @@ $(document).on("click", "#monochrome", function (e) {
     $("body").addClass("mono");
   } else {
     $("body").removeClass("mono");
+  }
+});
+
+$(document).on("change", "#hudPosition", function (e) {
+  const pos = e.currentTarget.value;
+  window.localStorage.setItem("hudPosition", pos);
+  if (pos === "right") {
+    $("body").removeClass("hud-left").addClass("hud-right");
+  } else {
+    $("body").removeClass("hud-right").addClass("hud-left");
   }
 });
 
