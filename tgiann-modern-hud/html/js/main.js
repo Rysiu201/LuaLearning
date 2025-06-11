@@ -74,7 +74,6 @@ window.addEventListener("message", (event) => {
         "https://tgiann-modern-hud/switchcircle",
         JSON.stringify({ isCircle: switchcircle })
       );
-
       let mono = window.localStorage.getItem("monochrome") === "true";
       if (mono) {
         $("body").addClass("mono");
@@ -514,4 +513,3 @@ function enableCustomLayout(enable) {
     makeDraggable(document.querySelector('.normalStatusHud'));
   }
 }
-
