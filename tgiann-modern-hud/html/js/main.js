@@ -380,7 +380,7 @@ function setCurrency(price) {
   });
 }
 
-$(document).on("click", "#stamina-checkbox", function (e) {
+$(document).on("change", "#stamina-checkbox", function (e) {
   staminaBarOn = e.currentTarget.checked;
   for (let x = 0; x < huds.length; x++) {
     const elem = $("#" + huds[x] + "StaminaBar");
@@ -392,7 +392,7 @@ $(document).on("click", "#stamina-checkbox", function (e) {
   }
 });
 
-$(document).on("click", "#hunger", function (e) {
+$(document).on("change", "#hunger", function (e) {
   for (let x = 0; x < huds.length; x++) {
     const elem = $("#" + huds[x] + "HungerBar");
     if (e.currentTarget.checked) {
@@ -403,7 +403,7 @@ $(document).on("click", "#hunger", function (e) {
   }
 });
 
-$(document).on("click", "#water", function (e) {
+$(document).on("change", "#water", function (e) {
   for (let x = 0; x < huds.length; x++) {
     const elem = $("#" + huds[x] + "WaterBar");
     if (e.currentTarget.checked) {
@@ -414,7 +414,7 @@ $(document).on("click", "#water", function (e) {
   }
 });
 
-$(document).on("click", "#monochrome", function (e) {
+$(document).on("change", "#monochrome", function (e) {
   const on = e.currentTarget.checked;
   window.localStorage.setItem("monochrome", on);
   if (on) {
@@ -514,7 +514,7 @@ $(document).on("change", "#hudLayout", function (e) {
   placeNormalBars(layout);
 });
 
-$(document).on("click", "#blackbar", function (e) {
+$(document).on("change", "#blackbar", function (e) {
   blackbar = e.currentTarget.checked;
   if (blackbar) {
     $(".mainBG").fadeOut();
