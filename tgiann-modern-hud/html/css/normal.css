@@ -89,10 +89,10 @@ body.layout1 .normalStreetNameCompassRight {
 
 body.layout3 .normalStatusHud .normalStatusBarBig {
   width: 3vh !important;
-  transform: rotate(-90deg);
+  transform: rotate(90deg);
 }
 body.layout3 .normalStatusBarBig svg {
-  transform: rotate(90deg);
+  transform: rotate(-90deg);
 }
 
 body.layout3 .normalHudTop {
