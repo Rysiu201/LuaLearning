@@ -40,20 +40,22 @@ local function EjectFromVehicle()
     end
 end
 
-local function ToggleSeatbelt()
+local function ToggleSeatbelt(playSound)
     if not IsPedInAnyVehicle(PlayerPedId(), false) or IsPauseMenuActive() then return end
     local class = GetVehicleClass(GetVehiclePedIsUsing(PlayerPedId()))
     if class == 8 or class == 13 or class == 14 then return end
     seatbeltOn = not seatbeltOn
     SeatBeltLoop()
     TriggerEvent("tgiann-hud:client:UpdateSeatbelt", seatbeltOn)
-    --TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 5.0, seatbeltOn and "carbuckle" or "carunbuckle", 0.25)
+    if playSound ~= false then
+        TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 5.0, seatbeltOn and "carbuckle" or "carunbuckle", 0.25)
+    end
 end
 
 local function ToggleHarness()
     harnessOn = not harnessOn
     if not harnessOn then return end
-    ToggleSeatbelt()
+    ToggleSeatbelt(true)
 end
 
 local function ResetHandBrake()
@@ -278,5 +280,5 @@ RegisterCommand('toggleseatbelt', function()
     if not IsPedInAnyVehicle(PlayerPedId(), false) or IsPauseMenuActive() then return end
     local class = GetVehicleClass(GetVehiclePedIsUsing(PlayerPedId()))
     if class == 8 or class == 13 or class == 14 then return end
-    ToggleSeatbelt()
+    ToggleSeatbelt(true)
 end, false)
