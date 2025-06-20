@@ -1,11 +1,16 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local tekerPatlak, sikiKemer, cruiseIsOn, seatbelt, vehIsMovingFwd, alarmset, engineRunning = false, false, false, false, false, false, false
-local curSpeed, prevSpeed, kemerSayi, cruiseSpeed, speedLimit = 0.0, 0.0, 0, 999.0, 80.0
+local curSpeed, prevSpeed, cruiseSpeed, speedLimit = 0.0, 0.0, 999.0, 80.0
 local prevVelocity = {x = 0.0, y = 0.0, z = 0.0}
 local compassOn = true
 local vehAcc = false
 local inVehSetState = false
 local clock = ""
+
+-- Aktualizacja stanu pasa z modułu seatbelt
+RegisterNetEvent('tgiann-hud:client:UpdateSeatbelt', function(state)
+    seatbelt = state
+end)
 local zoneNames = {
     AIRP = "Międzynarodowe Lotnisko Los Santos",
     ALAMO = "Jezioro Alamo",
@@ -463,27 +468,8 @@ local VehicleNormalMaxSpeed = false
 local lastsikiKemer = false
 
 Citizen.CreateThread(function()
-    RegisterKeyMapping('+seatbelt', 'Pojazd (Pas bezpieczeństwa)', 'keyboard', 'b')
     RegisterKeyMapping('+cruise', 'Pojazd (Tempomat)', 'keyboard', 'y')
 end)
-
-RegisterCommand("-seatbelt", function()
-    kemerSayi = 0
-end, false)
-
-RegisterCommand("+seatbelt", function()
-    if inVehicle then
-        seatbelt = not seatbelt
-        kemerSayi = kemerSayi + 1
-        if seatbelt then
-            QBCore.Functions.Notify("Pas zapięty", "success")
-            PlaySoundFrontend(-1, "Faster_Click", "RESPAWN_ONLINE_SOUNDSET", 1)
-        else
-            QBCore.Functions.Notify("Pas odpięty", "error")
-            PlaySoundFrontend(-1, "Faster_Click", "RESPAWN_ONLINE_SOUNDSET", 1)
-        end
-    end
-end, false)
 
 RegisterCommand("+cruise", function()
     if driverSeat and engineRunning then
