@@ -114,6 +114,12 @@ body.layout3 .normalStatusBar {
   transform: rotate(-90deg);
 }
 
+body.layout2 .circleStatusBar,
+body.layout2 .squareStatusBar,
+body.layout2 .normalStatusBar {
+  transform: rotate(-90deg);
+}
+
 .circleStatusBar svg,
 .squareStatusBar svg,
 .normalStatusBar svg {
@@ -127,6 +133,12 @@ body.layout3 .normalStatusBar {
 body.layout3 .circleStatusBar svg,
 body.layout3 .squareStatusBar svg,
 body.layout3 .normalStatusBar svg {
+  transform: rotate(90deg);
+}
+
+body.layout2 .circleStatusBar svg,
+body.layout2 .squareStatusBar svg,
+body.layout2 .normalStatusBar svg {
   transform: rotate(90deg);
 }
 
