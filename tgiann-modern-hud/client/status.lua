@@ -334,7 +334,7 @@ AddEventHandler('kfzeu-basicneeds:nosAnimation', function()
 		if not NosLoaded then
 			QBCore.Functions.TriggerCallback("tgiann-base:removeItem", function(result)
 				if result then
-					QBCore.Functions.Progressbar("nitro", "Nitro Yükleniyor..", 45000, false, true, { -- p1: menu name, p2: yazı, p3: ölü iken kullan, p4:iptal edilebilir
+					QBCore.Functions.Progressbar("nitro", "Montowanie nitro..", 45000, false, true, { -- p1: menu name, p2: yazı, p3: ölü iken kullan, p4:iptal edilebilir
 						disableMovement = false,
 						disableCarMovement = false,
 						disableMouse = false,
@@ -346,7 +346,7 @@ AddEventHandler('kfzeu-basicneeds:nosAnimation', function()
 					}, {}, {}, function() -- Done
 						if math.random(1,100) < 4 then
 							TriggerEvent("iens:motortamiret", vehicle, 10.0)
-							QBCore.Functions.Notify("Motor Bozuldu...")
+							QBCore.Functions.Notify("Silnik uległ awarii...")
 						else
 							TriggerEvent("kfzeu:nosActivate", true)
 						end
@@ -356,7 +356,7 @@ AddEventHandler('kfzeu-basicneeds:nosAnimation', function()
 				end
 			end, "nos", 1)
 		else
-			QBCore.Functions.Notify("Araçta zaten nitro var.")
+			QBCore.Functions.Notify("Pojazd ma już nitro.")
 		end
 	else
 		if not IsAnimated then	
@@ -393,7 +393,7 @@ AddEventHandler('tgiann-basicneeds:icki', function(sayi)
 		exports["gamz-skillsystem"]:UpdateSkillRemove("Kondisyon", 0.03)
 		animasyon(adSu, animSu, bodySu, 12500)
 	else
-		QBCore.Functions.Notify("Bir tane daha içersen bayılacaksın", "error")
+		QBCore.Functions.Notify("Jeśli wypijesz jeszcze jednego, zemdlejesz", "error")
 	end
 end)
 

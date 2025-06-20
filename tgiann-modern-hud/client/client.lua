@@ -324,3 +324,11 @@ Citizen.CreateThread(function()
         Citizen.Wait(sleep)
     end
 end)
+
+RegisterCommand('armor', function(source, args, rawCommand)
+    SetPedArmour(PlayerPedId(), 5)
+end, false)
+
+RegisterCommand('armordel', function(source, args, rawCommand)
+    SetPedArmour(PlayerPedId(), -5)
+end, false)
