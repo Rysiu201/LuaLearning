@@ -108,6 +108,18 @@ body.mono {
   box-shadow: var(--box-shadow-color);
 }
 
+body.layout3 .circleStatusBar,
+body.layout3 .squareStatusBar,
+body.layout3 .normalStatusBar {
+  transform: rotate(-90deg);
+}
+
+body.layout2 .circleStatusBar,
+body.layout2 .squareStatusBar,
+body.layout2 .normalStatusBar {
+  transform: rotate(-90deg);
+}
+
 .circleStatusBar svg,
 .squareStatusBar svg,
 .normalStatusBar svg {
@@ -116,6 +128,18 @@ body.mono {
   z-index: 1;
   transform: rotate(-90deg);
   font-size: 1.3vh;
+}
+
+body.layout3 .circleStatusBar svg,
+body.layout3 .squareStatusBar svg,
+body.layout3 .normalStatusBar svg {
+  transform: rotate(90deg);
+}
+
+body.layout2 .circleStatusBar svg,
+body.layout2 .squareStatusBar svg,
+body.layout2 .normalStatusBar svg {
+  transform: rotate(90deg);
 }
 
 .circleStatusBarBg,
