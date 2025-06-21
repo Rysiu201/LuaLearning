@@ -509,7 +509,7 @@ RegisterInput("cruise", "Cruise Control", "keyboard", Config.vehicle.keys.cruise
 end)
 
 
--- Seatbelt handled by tgiann-modern-hud script
+-- Seatbelt state updated from seatbelt.lua
 
 RegisterNetEvent('tgiann-hud:client:UpdateSeatbelt', function(state)
     seatbeltIsOn = state
