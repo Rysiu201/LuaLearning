@@ -508,17 +508,11 @@ RegisterInput("cruise", "Cruise Control", "keyboard", Config.vehicle.keys.cruise
 	end
 end)
 
-RegisterInput("seatbelt", "Pas bezpieczeństwa", "keyboard", "b", function()
-	local player = PlayerPedId()
-	local vehicle = GetVehiclePedIsIn(player, false)
-	local vehicleClass = GetVehicleClass(vehicle)
-	if not (IsPedInAnyVehicle(player, false) and GetIsVehicleEngineRunning(vehicle)) then
-		return
-	end
-	if has_value(vehiclesCars, vehicleClass) ~= true and (vehicleClass == 8 or vehicleClass == 13 or vehicleClass == 14) then
-		return 
-	end
-	seatbeltIsOn = not seatbeltIsOn
+
+-- Seatbelt state updated from seatbelt.lua
+
+RegisterNetEvent('hud:client:UpdateSeatbelt', function(state)
+    seatbeltIsOn = state
 end)
 
 RegisterInput("leftindicator", "Left Indicator", "keyboard", Config.vehicle.keys.signalLeft, function()
