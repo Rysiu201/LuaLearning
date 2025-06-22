@@ -20,11 +20,14 @@ local tick = 0
 local damagedone = false
 local modifierDensity = true
 local lastVehicle = nil
+local lastToggleTime = 0
+local toggleCooldown = 500 -- w milisekundach
 local veloc
 
 -- Functions
 
 local function EjectFromVehicle()
+    print("Ejecting player from vehicle")
     local ped = PlayerPedId()
     local veh = GetVehiclePedIsIn(ped,false)
     local coords = GetOffsetFromEntityInWorldCoords(veh, 1.0, 0.0, 1.0)
@@ -40,19 +43,32 @@ local function EjectFromVehicle()
     end
 end
 
+local function EjectOtherPlayerFromVehicle()
+    print("Ejecting OTHER player from vehicle")
+    local ped = PlayerPedId()
+    local position = GetEntityCoords(ped)
+    SetEntityCoords(ped, position.x, position.y, position.z - 0.47, true, true, true)
+    SetEntityVelocity(ped, veloc.x*2.5,veloc.y*2.5,veloc.z*2.5)
+    Citizen.Wait(1)
+    SetPedToRagdoll(ped, 5511, 5511, 0, 0, 0, 0)
+    Citizen.Wait(1000)
+    if math.random(1, 3) == 1 then SetEntityHealth(ped, 0) end
+    local ejectspeed = math.ceil(GetEntitySpeed(ped))
+    if GetEntityHealth(ped) - ejectspeed > 0 then
+        SetEntityHealth(ped, GetEntityHealth(ped) - ejectspeed)
+    elseif GetEntityHealth(ped) ~= 0 then
+        SetEntityHealth(ped, 0)
+    end
+end
+
 local function ToggleSeatbelt(playSound)
     if not IsPedInAnyVehicle(PlayerPedId(), false) or IsPauseMenuActive() then return end
     local class = GetVehicleClass(GetVehiclePedIsUsing(PlayerPedId()))
     if class == 8 or class == 13 or class == 14 then return end
     seatbeltOn = not seatbeltOn
     SeatBeltLoop()
+    print(seatbeltOn)
     TriggerEvent("hud:client:UpdateSeatbelt", seatbeltOn)
-end
-
-local function ToggleHarness()
-    harnessOn = not harnessOn
-    if not harnessOn then return end
-    ToggleSeatbelt(true)
 end
 
 local function ResetHandBrake()
@@ -62,21 +78,20 @@ end
 
 function SeatBeltLoop()
     CreateThread(function()
-        while true do
-            sleep = 0
-            if seatbeltOn or harnessOn then
-                DisableControlAction(0, 75, true)
-                DisableControlAction(27, 75, true)
-            end
-            if not IsPedInAnyVehicle(PlayerPedId(), false) then
-                seatbeltOn = false
-                harnessOn = false
-                TriggerEvent("hud:client:UpdateSeatbelt", seatbeltOn)
-                break
-            end
-            if not seatbeltOn and not harnessOn then break end
-            Wait(sleep)
+        local ped = PlayerPedId()
+        
+        -- Czekaj na kolejną klatkę zanim zablokujesz controls
+        Wait(0)
+
+        while IsPedInAnyVehicle(ped, false) and (seatbeltOn or harnessOn) do
+            DisableControlAction(0, 75, true) -- exit vehicle
+            DisableControlAction(27, 75, true)
+            Wait(0)
         end
+
+        seatbeltOn = false
+        harnessOn = false
+        TriggerEvent("hud:client:UpdateSeatbelt", seatbeltOn)
     end)
 end
 
@@ -122,17 +137,32 @@ RegisterNetEvent('QBCore:Client:EnteredVehicle', function()
                         if not seatbeltOn and not IsThisModelABike(currentVehicle) then
                             if math.random(math.ceil(lastFrameVehiclespeed)) > 60 then
                                 if not harnessOn then
+                                    local seatPlayerId = {}
+                                    for i=1, GetVehicleModelNumberOfSeats(GetEntityModel(vehicle)) do
+                                        if i ~= 1 then
+                                            if not IsVehicleSeatFree(vehicle, i-2) then 
+                                                local otherPlayerId = GetPedInVehicleSeat(vehicle, i-2) 
+                                                local playerHandle = NetworkGetPlayerIndexFromPed(otherPlayerId)
+                                                local playerServerId = GetPlayerServerId(playerHandle)
+                                                table.insert(seatPlayerId, playerServerId)
+                                            end
+                                        end
+                                    end
                                     EjectFromVehicle()
+                                    if #seatPlayerId > 0 then
+                                        TriggerServerEvent("seatbelt:eject-other-player-car-client", seatPlayerId)
+                                    end
                                 else
                                     harnessHp = harnessHp - 1
                                     TriggerServerEvent('seatbelt:DoHarnessDamage', harnessHp, harnessData)
                                 end
                             end
                         elseif (seatbeltOn or harnessOn) and not IsThisModelABike(currentVehicle) then
-                            if lastFrameVehiclespeed > 150 then
+                            if lastFrameVehiclespeed > 160 then
                                 if math.random(math.ceil(lastFrameVehiclespeed)) > 150 then
                                     if not harnessOn then
-                                        EjectFromVehicle()
+                                        harnessHp = harnessHp - 1
+                                        TriggerServerEvent('seatbelt:DoHarnessDamage', harnessHp, harnessData)
                                     else
                                         harnessHp = harnessHp - 1
                                         TriggerServerEvent('seatbelt:DoHarnessDamage', harnessHp, harnessData)
@@ -144,17 +174,32 @@ RegisterNetEvent('QBCore:Client:EnteredVehicle', function()
                         if not seatbeltOn and not IsThisModelABike(currentVehicle) then
                             if math.random(math.ceil(lastFrameVehiclespeed)) > 60 then
                                 if not harnessOn then
+                                    local seatPlayerId = {}
+                                    for i=1, GetVehicleModelNumberOfSeats(GetEntityModel(vehicle)) do
+                                        if i ~= 1 then
+                                            if not IsVehicleSeatFree(vehicle, i-2) then 
+                                                local otherPlayerId = GetPedInVehicleSeat(vehicle, i-2) 
+                                                local playerHandle = NetworkGetPlayerIndexFromPed(otherPlayerId)
+                                                local playerServerId = GetPlayerServerId(playerHandle)
+                                                table.insert(seatPlayerId, playerServerId)
+                                            end
+                                        end
+                                    end
                                     EjectFromVehicle()
+                                    if #seatPlayerId > 0 then
+                                        TriggerServerEvent("seatbelt:eject-other-player-car-client", seatPlayerId)
+                                    end
                                 else
                                     harnessHp = harnessHp - 1
                                     TriggerServerEvent('seatbelt:DoHarnessDamage', harnessHp, harnessData)
                                 end
                             end
                         elseif (seatbeltOn or harnessOn) and not IsThisModelABike(currentVehicle) then
-                            if lastFrameVehiclespeed > 120 then
+                            if lastFrameVehiclespeed > 160 then
                                 if math.random(math.ceil(lastFrameVehiclespeed)) > 200 then
                                     if not harnessOn then
-                                        EjectFromVehicle()
+                                        harnessHp = harnessHp - 1
+                                        TriggerServerEvent('seatbelt:DoHarnessDamage', harnessHp, harnessData)
                                     else
                                         harnessHp = harnessHp - 1
                                         TriggerServerEvent('seatbelt:DoHarnessDamage', harnessHp, harnessData)
@@ -228,58 +273,26 @@ RegisterNetEvent('QBCore:Client:EnteredVehicle', function()
     end
 end)
 
--- Events
 
-RegisterNetEvent('seatbelt:client:UseHarness', function(ItemData) -- On Item Use (registered server side)
-    local ped = PlayerPedId()
-    local inveh = IsPedInAnyVehicle(ped, false)
-    local class = GetVehicleClass(GetVehiclePedIsUsing(ped))
-    if inveh and class ~= 8 and class ~= 13 and class ~= 14 then
-        if not harnessOn then
-            LocalPlayer.state:set("inv_busy", true, true)
-            QBCore.Functions.Progressbar("harness_equip", Lang:t('seatbelt.use_harness_progress'), 5000, false, true, {
-                disableMovement = false,
-                disableCarMovement = false,
-                disableMouse = false,
-                disableCombat = true,
-            }, {}, {}, {}, function()
-                LocalPlayer.state:set("inv_busy", false, true)
-                ToggleHarness()
-                TriggerServerEvent('equip:harness', ItemData)
-            end)
-            harnessHp = ItemData.info.uses
-            harnessData = ItemData
-            TriggerEvent('hud:client:UpdateHarness', harnessHp)
-        else
-            LocalPlayer.state:set("inv_busy", true, true)
-            QBCore.Functions.Progressbar("harness_equip", Lang:t('seatbelt.remove_harness_progress'), 5000, false, true, {
-                disableMovement = false,
-                disableCarMovement = false,
-                disableMouse = false,
-                disableCombat = true,
-            }, {}, {}, {}, function()
-                LocalPlayer.state:set("inv_busy", false, true)
-                ToggleHarness()
-            end)
-        end
-    else
-        QBCore.Functions.Notify(Lang:t('seatbelt.no_car'), 'error')
-    end
+
+RegisterNetEvent("seatbelt:eject-other-player-car-client")
+AddEventHandler("seatbelt:eject-other-player-car-client", function()
+    EjectOtherPlayerFromVehicle()
 end)
 
 -- Register Key
 
-Citizen.CreateThread(function()
-    RegisterKeyMapping('seatbelt', 'Pojazd (Pas bezpieczeństwa)', 'keyboard', 'b')
-end)
+RegisterCommand('+seatbelt', function()
+    local now = GetGameTimer()
+    if now - lastToggleTime < toggleCooldown then return end
+    lastToggleTime = now
 
-RegisterCommand('seatbelt', function()
     if not IsPedInAnyVehicle(PlayerPedId(), false) or IsPauseMenuActive() then return end
     local class = GetVehicleClass(GetVehiclePedIsUsing(PlayerPedId()))
     if class == 8 or class == 13 or class == 14 then return end
     ToggleSeatbelt(true)
 end, false)
 
-RegisterCommand('toggleseatbelt', function()
-    ExecuteCommand('seatbelt')
-end, false)
+RegisterCommand('-seatbelt', function() end, false)
+
+RegisterKeyMapping('+seatbelt', 'Pojazd (Pas bezpieczeństwa)', 'keyboard', 'b')

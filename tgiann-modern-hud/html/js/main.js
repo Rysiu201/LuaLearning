@@ -159,11 +159,6 @@ window.addEventListener("message", (event) => {
     carHudMiniIconOnOff("belt", event.data.belt)
     // carHudMiniIconOnOff("trunk", event.data.trunk)
     carHudMiniIconOnOff("cruise", event.data.cruise)
-    if (event.data.seatbeltmod) {
-      $("#beltColor path").css("fill", "orange")
-    } else {
-      $("#beltColor path").css("fill", "white")
-    }
     if (event.data.engineHealth < 500) {
       $("#engineColor path").css("fill", "orange")
     } else {
