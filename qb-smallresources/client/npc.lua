@@ -1,6 +1,6 @@
 Citizen.CreateThread(function()
 	while true do
-		Citizen.Wait(0)
+		Citizen.Wait(500)
 
 		DisableControlAction(1, 140, true)
         if not IsPlayerTargettingAnything(PlayerId()) then
