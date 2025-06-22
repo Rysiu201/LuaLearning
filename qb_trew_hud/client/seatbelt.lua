@@ -273,16 +273,16 @@ end)
 -- Register Key
 
 Citizen.CreateThread(function()
-    RegisterKeyMapping('seatbelt', 'Pojazd (Pas bezpieczeństwa)', 'keyboard', 'b')
+    RegisterKeyMapping('toggleseatbelt', 'Pojazd (Pas bezpieczeństwa)', 'keyboard', 'b')
 end)
 
-RegisterCommand('seatbelt', function()
+RegisterCommand('toggleseatbelt', function()
     if not IsPedInAnyVehicle(PlayerPedId(), false) or IsPauseMenuActive() then return end
     local class = GetVehicleClass(GetVehiclePedIsUsing(PlayerPedId()))
     if class == 8 or class == 13 or class == 14 then return end
     ToggleSeatbelt(true)
 end, false)
 
-RegisterCommand('toggleseatbelt', function()
-    ExecuteCommand('seatbelt')
+RegisterCommand('seatbelt', function()
+    ExecuteCommand('toggleseatbelt')
 end, false)
