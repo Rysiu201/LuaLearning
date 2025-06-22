@@ -23,7 +23,10 @@ files {
 --discord.gg/avance
 --discord.gg/avance
 client_scripts {
-	'client/*.lua',
+        'client/carhud.lua',
+        'client/client.lua',
+        'client/money.lua',
+        'client/status.lua',
 }
 --discord.gg/avance
 --discord.gg/avance

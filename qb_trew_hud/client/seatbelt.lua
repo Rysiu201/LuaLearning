@@ -282,3 +282,7 @@ RegisterCommand('toggleseatbelt', function()
     if class == 8 or class == 13 or class == 14 then return end
     ToggleSeatbelt(true)
 end, false)
+
+RegisterCommand('seatbelt', function()
+    ExecuteCommand('toggleseatbelt')
+end, false)
