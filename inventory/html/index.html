@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="inventory-container">
+        <div id="pockets" class="grid"></div>
+        <div id="equipment">
+            <div id="player-figure">
+                <div class="slot" data-slot="backpack"><span>BACKPACK</span></div>
+                <div class="slot" data-slot="bodyarmour"><span>BODY ARMOUR</span></div>
+                <div class="slot" data-slot="phone"><span>PHONE</span></div>
+                <div class="slot" data-slot="parachute"><span>PARACHUTE</span></div>
+                <div class="slot" data-slot="weapon1"><span>WEAPON 1</span></div>
+                <div class="slot" data-slot="weapon2"><span>WEAPON 2</span></div>
+                <div class="slot" data-slot="hotkey1"><span>HOTKEY 1</span></div>
+                <div class="slot" data-slot="hotkey2"><span>HOTKEY 2</span></div>
+                <div class="slot" data-slot="hotkey3"><span>HOTKEY 3</span></div>
+            </div>
+        </div>
+    </div>
+    <template id="item-template">
+        <div class="item" draggable="true" data-id="">
+            <img src="" alt="">
+            <span class="label"></span>
+        </div>
+    </template>
+    <script src="app.js"></script>
+</body>
+</html>
