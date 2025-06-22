@@ -274,8 +274,6 @@ end)
 
 Citizen.CreateThread(function()
     RegisterKeyMapping('seatbelt', 'Pojazd (Pas bezpieczeństwa)', 'keyboard', 'b')
-    -- keep old mapping for players that previously used toggleseatbelt
-    RegisterKeyMapping('toggleseatbelt', 'Pojazd (Pas bezpieczeństwa)', 'keyboard', 'b')
 end)
 
 RegisterCommand('seatbelt', function()
