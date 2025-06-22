@@ -24,8 +24,6 @@ Citizen.CreateThread(function()
             vehicleClass = GetVehicleClass(vehicle)
             inVehicle = not IsVehicleModel(vehicle, `wheelchair`) and vehicleClass ~= 13 and not IsVehicleModel(vehicle, `windsurf`)
             vehicleClass = GetVehicleClass(vehicle)
-            driverSeat = GetPedInVehicleSeat(vehicle, -1) == playerPed
-            Fuel = GetVehicleFuelLevel(vehicle)
         end
         SendNUIMessage({
             action = 'tick',

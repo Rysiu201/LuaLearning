@@ -6,6 +6,8 @@ local compassOn = true
 local vehAcc = false
 local inVehSetState = false
 local clock = ""
+local lastBurst = 0
+local lastHardBurst = 0
 
 local zoneNames = {
     AIRP = "Międzynarodowe Lotnisko Los Santos",
@@ -202,14 +204,6 @@ Citizen.CreateThread(function()
                         if not cruiseIsOn then
                             local maxSpeed = GetVehicleHandlingFloat(vehicle, "CHandlingData", "fInitialDriveMaxFlatVel")
                             SetEntityMaxSpeed(vehicle, maxSpeed*0.7)
-                        end
-                    end
-
-                    if Fuel < 20 then
-                        TriggerEvent("CarFuelAlarm")
-                    else
-                        if Fuel < 10 then
-                            TriggerEvent("CarFuelAlarm")
                         end
                     end
                 end
@@ -435,11 +429,20 @@ Citizen.CreateThread(function()
                 time = 1
                 engineRunning = GetIsVehicleEngineRunning(vehicle)
                 prevSpeed = curSpeed
-                curSpeed =  GetEntitySpeed(vehicle)
+                curSpeed = GetEntitySpeed(vehicle)
                 vehIsMovingFwd = GetEntitySpeedVector(vehicle, true).y > 1.0
                 vehAcc = (prevSpeed - curSpeed) / GetFrameTime() > 981
-                if vehIsMovingFwd and prevSpeed*3.6 > 1500 and vehAcc then
-                    tyreBrustSet(math.random(1, 2) == 1 and true or false)
+
+                -- Zmieniono ten fragment:
+                if vehIsMovingFwd and prevSpeed * 2.236936 > 85.0 and vehAcc then
+                    if GetGameTimer() - lastHardBurst > 10000 then -- 10s cooldown
+                        if math.random(1, 6) == 1 then
+                            print('Przebijanie')
+                            tyreBrustSet(true)
+                            lastHardBurst = GetGameTimer()
+                            print(lastHardBurst)
+                        end
+                    end
                 else
                     prevVelocity = GetEntityVelocity(vehicle)
                 end
@@ -477,26 +480,16 @@ Citizen.CreateThread(function()
 
                     if vehicleClass ~= 13 and vehicleClass ~= 8 and vehicleClass ~= 14 then
                         if vehIsMovingFwd and vehAcc then
-                            if prevSpeed*3.6 > 140.0 then
-                                --TriggerEvent("iens:motortamiret", vehicle, 10.0)
-                                tyreBrustSet(math.random(1, 2) == 1 and true or false)
-                                --[[local seatPlayerId = {}
-                                for i=1, GetVehicleModelNumberOfSeats(GetEntityModel(vehicle)) do
-                                    if i ~= 1 then
-                                        if not IsVehicleSeatFree(vehicle, i-2) then 
-                                            local otherPlayerId = GetPedInVehicleSeat(vehicle, i-2) 
-                                            local playerHandle = NetworkGetPlayerIndexFromPed(otherPlayerId)
-                                            local playerServerId = GetPlayerServerId(playerHandle)
-                                            table.insert(seatPlayerId, playerServerId)
-                                        end
-                                    end
+                            local kmh = prevSpeed * 2.236936
+                            if kmh > 75.0 and GetGameTimer() - lastBurst > 10000 then -- 10s cooldown
+                                if math.random(1, 6) == 1 then -- 10% szans
+                                    tyreBrustSet(true)
+                                    lastBurst = GetGameTimer()
                                 end
-                                
-                                if #seatPlayerId > 0 then
-                                    TriggerServerEvent("tgiann-hud:car:eject-other-player-car", seatPlayerId, prevVelocity)
-                                end--]]
-                                -- ejectPlayer()
                             end
+                            -- Możesz tu odkomentować jeśli chcesz:
+                            -- TriggerEvent(...)
+                            -- ejectPlayer()
                         end
                     end
 
@@ -526,24 +519,36 @@ end)
 
 function tyreBrustSet(engine)
     local lastVehicle = GetPlayersLastVehicle(playerPed)
-    local RastgeleTeker = (math.random(1,4))
-    if RastgeleTeker == 1 then
-        SetVehicleTyreBurst(lastVehicle, 0, 1, 100.0)
-    elseif RastgeleTeker == 2 then
-        SetVehicleTyreBurst(lastVehicle, 0, 1, 100.0)
-        SetVehicleTyreBurst(lastVehicle, 4, 1, 100.0)
-    elseif RastgeleTeker == 3 then
-        SetVehicleTyreBurst(lastVehicle, 0, 1, 100.0)
-        SetVehicleTyreBurst(lastVehicle, 1, 1, 100.0)
-        SetVehicleTyreBurst(lastVehicle, 4, 1, 100.0)
-    elseif RastgeleTeker == 4 then
-        SetVehicleTyreBurst(lastVehicle, 0, 1, 100.0)
-        SetVehicleTyreBurst(lastVehicle, 1, 1, 100.0)
-        SetVehicleTyreBurst(lastVehicle, 4, 1, 100.0)
-        SetVehicleTyreBurst(lastVehicle, 5, 1, 100.0)
+    local rand = math.random(1, 100)
+    local burstCount = 0
+
+    if rand <= 80 then -- 80% szans na 1 oponę
+        local tyre = math.random(0, 5)
+        SetVehicleTyreBurst(lastVehicle, tyre, true, 100.0)
+        burstCount = 1
+    elseif rand <= 90 then -- 15% na 2 opony
+        SetVehicleTyreBurst(lastVehicle, 0, true, 100.0)
+        SetVehicleTyreBurst(lastVehicle, 4, true, 100.0)
+        burstCount = 2
+    elseif rand <= 95 then -- 4% na 3 opony
+        SetVehicleTyreBurst(lastVehicle, 0, true, 100.0)
+        SetVehicleTyreBurst(lastVehicle, 1, true, 100.0)
+        SetVehicleTyreBurst(lastVehicle, 4, true, 100.0)
+        burstCount = 3
+    elseif rand <= 96 then -- 1% szans na 4 opony
+        SetVehicleTyreBurst(lastVehicle, 0, true, 100.0)
+        SetVehicleTyreBurst(lastVehicle, 1, true, 100.0)
+        SetVehicleTyreBurst(lastVehicle, 4, true, 100.0)
+        SetVehicleTyreBurst(lastVehicle, 5, true, 100.0)
+        burstCount = 4
     end
-    if engine then TriggerEvent("iens:motortamiret", lastVehicle, 10.0) end
+
+    -- Wyłącz silnik tylko jeśli coś zostało przebite
+    if burstCount > 0 and engine then
+        TriggerEvent("iens:motortamiret", lastVehicle, 10.0)
+    end
 end
+
 
 --[[function ejectPlayer()
     local position = GetEntityCoords(playerPed)
