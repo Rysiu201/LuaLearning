@@ -47,9 +47,6 @@ local function ToggleSeatbelt(playSound)
     seatbeltOn = not seatbeltOn
     SeatBeltLoop()
     TriggerEvent("tgiann-hud:client:UpdateSeatbelt", seatbeltOn)
-    if playSound ~= false then
-        TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 5.0, seatbeltOn and "carbuckle" or "carunbuckle", 0.25)
-    end
 end
 
 local function ToggleHarness()
@@ -273,12 +270,16 @@ end)
 -- Register Key
 
 Citizen.CreateThread(function()
-    RegisterKeyMapping('toggleseatbelt', 'Pojazd (Pas bezpieczeństwa)', 'keyboard', 'b')
+    RegisterKeyMapping('seatbelt', 'Pojazd (Pas bezpieczeństwa)', 'keyboard', 'b')
 end)
 
-RegisterCommand('toggleseatbelt', function()
+RegisterCommand('seatbelt', function()
     if not IsPedInAnyVehicle(PlayerPedId(), false) or IsPauseMenuActive() then return end
     local class = GetVehicleClass(GetVehiclePedIsUsing(PlayerPedId()))
     if class == 8 or class == 13 or class == 14 then return end
     ToggleSeatbelt(true)
+end, false)
+
+RegisterCommand('toggleseatbelt', function()
+    ExecuteCommand('seatbelt')
 end, false)
