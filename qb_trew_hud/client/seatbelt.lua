@@ -46,7 +46,7 @@ local function ToggleSeatbelt(playSound)
     if class == 8 or class == 13 or class == 14 then return end
     seatbeltOn = not seatbeltOn
     SeatBeltLoop()
-    TriggerEvent("tgiann-hud:client:UpdateSeatbelt", seatbeltOn)
+    TriggerEvent("hud:client:UpdateSeatbelt", seatbeltOn)
 end
 
 local function ToggleHarness()
@@ -71,7 +71,7 @@ function SeatBeltLoop()
             if not IsPedInAnyVehicle(PlayerPedId(), false) then
                 seatbeltOn = false
                 harnessOn = false
-                TriggerEvent("tgiann-hud:client:UpdateSeatbelt", seatbeltOn)
+                TriggerEvent("hud:client:UpdateSeatbelt", seatbeltOn)
                 break
             end
             if not seatbeltOn and not harnessOn then break end

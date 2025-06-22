@@ -511,7 +511,7 @@ end)
 
 -- Seatbelt state updated from seatbelt.lua
 
-RegisterNetEvent('tgiann-hud:client:UpdateSeatbelt', function(state)
+RegisterNetEvent('hud:client:UpdateSeatbelt', function(state)
     seatbeltIsOn = state
 end)
 
