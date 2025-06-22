@@ -1,5 +1,5 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-local tekerPatlak, sikiKemer, cruiseIsOn, seatbelt, vehIsMovingFwd, alarmset, engineRunning = false, false, false, false, false, false, false
+local tekerPatlak, sikiKemer, cruiseIsOn, vehIsMovingFwd, alarmset, engineRunning = false, false, false, false, false, false
 local curSpeed, prevSpeed, cruiseSpeed, speedLimit = 0.0, 0.0, 999.0, 80.0
 local prevVelocity = {x = 0.0, y = 0.0, z = 0.0}
 local compassOn = true
@@ -7,10 +7,6 @@ local vehAcc = false
 local inVehSetState = false
 local clock = ""
 
--- Aktualizacja stanu pasa z modułu seatbelt
-RegisterNetEvent('tgiann-hud:client:UpdateSeatbelt', function(state)
-    seatbelt = state
-end)
 local zoneNames = {
     AIRP = "Międzynarodowe Lotnisko Los Santos",
     ALAMO = "Jezioro Alamo",
@@ -115,34 +111,6 @@ AddEventHandler("tgiann-hud:hizsabitle", function(args)
         end
     end
 end)
-
-RegisterNetEvent("inventory:client:remove-item")
-AddEventHandler("inventory:client:remove-item", function(item)
-    if item == "kemer" then
-        if sikiKemer then 
-            if seatbelt then
-                QBCore.Functions.Progressbar("seatbelt", "Zdejmowanie pasa bezpieczeństwa", 4000, false, false, { 
-                    disableMovement = true,
-                    disableCarMovement = false,
-                    disableMouse = false,
-                    disableCombat = true,
-                }, {}, {}, {}, function() -- Done
-                    QBCore.Functions.Notify("Pas został zdjęty", "error")
-                    PlaySoundFrontend(-1, "Faster_Click", "RESPAWN_ONLINE_SOUNDSET", 1)
-                    TriggerEvent('InteractSound_CL:PlayOnOne', 'cikar', 0.5)
-                    seatbelt = false
-                    sikiKemer = false
-                end, function() -- Cancel
-                end)
-            end
-        end
-    end
-end)
-
-Citizen.CreateThread(function()
-    while true do
-        local time = 1000
-        if inVehicle then 
             time = 50
             SendNUIMessage({
                 action = "CusalsetSpeedo",
@@ -295,19 +263,6 @@ Citizen.CreateThread(function()
                         })
                     end 
 
-                    if seatbelt then
-                        SendNUIMessage({
-                            action = "CusalsetCarIcon",
-                            iconName = "seatbelt",
-                            iconColor = "rgba(0, 255, 0, 0.5)",
-                        })
-                    else
-                        SendNUIMessage({
-                            action = "CusalsetCarIcon",
-                            iconName = "seatbelt",
-                            iconColor = "rgba(155, 155, 155, 0.5)",
-                        })
-                    end 
 
                     if lightsOn then
                         SendNUIMessage({
@@ -327,7 +282,7 @@ Citizen.CreateThread(function()
                         action = "carHud",
                         street = street,
                         compass = degreesToIntercardinalDirection(),
-                        belt = vehicleClass == 8 and "close" or seatbelt,
+                        belt = vehicleClass == 8 and "close" or false,
                         time = clock,
                         engine = true,
                         yukseklik = (GetVehicleClass(vehicle) == 15 or GetVehicleClass(vehicle) == 16) and GetEntityHeightAboveGround(vehicle) or false,
@@ -381,19 +336,6 @@ Citizen.CreateThread(function()
                         })
                     end 
 
-                    if seatbelt then
-                        SendNUIMessage({
-                            action = "CusalsetCarIcon",
-                            iconName = "seatbelt",
-                            iconColor = "rgba(0, 255, 0, 0.5)",
-                        })
-                    else
-                        SendNUIMessage({
-                            action = "CusalsetCarIcon",
-                            iconName = "seatbelt",
-                            iconColor = "rgba(155, 155, 155, 0.5)",
-                        })
-                    end 
 
                     if lightsOn then
                         SendNUIMessage({
@@ -413,7 +355,7 @@ Citizen.CreateThread(function()
                         action = "carHud",
                         street = street,
                         compass = degreesToIntercardinalDirection(),
-                        belt = vehicleClass == 8 and "close" or seatbelt,
+                        belt = vehicleClass == 8 and "close" or false,
                         time = clock,
                         engine = true,
                         yukseklik = (GetVehicleClass(vehicle) == 15 or GetVehicleClass(vehicle) == 16) and GetEntityHeightAboveGround(vehicle) or false,
@@ -450,15 +392,6 @@ AddEventHandler("tgiann-hud:car:eject-other-player-car-client", function(velocit
     ejectPlayer()
 end)
 
--- Secondary thread to update strings
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(4000)
-        if inVehicle and vehIsMovingFwd and not seatbelt and driverSeat and engineRunning and vehicleClass ~= 13 and vehicleClass ~= 8 and vehicleClass ~= 21 and vehicleClass ~= 14 and vehicleClass ~= 16 and vehicleClass ~= 15 then
-            TriggerEvent('InteractSound_CL:PlayOnOne', 'alarm', 0.5)
-        end
-    end
-end)
 
 -- CODE --
 local zone = "Unknown";
@@ -494,20 +427,6 @@ Citizen.CreateThread(function()
                 prevSpeed = curSpeed
                 curSpeed =  GetEntitySpeed(vehicle)
                 vehIsMovingFwd = GetEntitySpeedVector(vehicle, true).y > 1.0
-                if seatbelt then 
-                    DisableControlAction(0, 75) 
-                else 
-                    EnableControlAction(0, 75) 
-                end  -- Sıkı Kemer Engel
-                vehAcc = (prevSpeed - curSpeed) / GetFrameTime() > 981
-                if not seatbelt then
-                    if vehIsMovingFwd and prevSpeed*3.6 > 800 and vehAcc then
-                        ejectPlayer()
-                        tyreBrustSet(math.random(1, 2) == 1 and true or false)
-                    else
-                        prevVelocity = GetEntityVelocity(vehicle)
-                    end
-                end
 
                 if not GetPedConfigFlag(playerPed, 184, 1) then SetPedConfigFlag(playerPed, 184, true) end
                 if GetIsTaskActive(playerPed, 165) then
@@ -580,7 +499,6 @@ Citizen.CreateThread(function()
                 inVehicle = false
                 cruiseIsOn = false
                 vehAcc = false
-                seatbelt = false
                 prevSpeed = 0
                 vehIsMovingFwd = false
                 curSpeed = 0
