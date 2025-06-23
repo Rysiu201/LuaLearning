@@ -23,7 +23,7 @@ Config.RandomCopsNotScenario = false -- Blokada policjantów poza scenariuszami
 Config.RandomCopsOnScenario = false -- Blokada policjantów w scenariuszach
 
 -- Discord Rich Presence (Podstawowa)
-Config.appid ='1378890591945097356' -- Application ID z discord developer portal
+Config.appid ='' -- Application ID z discord developer portal
 Config.logo = 'logo' -- Nazwa dużej ikony
 Config.logotext = 'Aether RP 💖' -- Tekst po najechaniu myszką
 Config.maxPlayers = 7
