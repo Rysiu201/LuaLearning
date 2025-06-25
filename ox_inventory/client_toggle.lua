@@ -1,0 +1,15 @@
+RegisterCommand('toggleinv', function()
+    local focus = not IsNuiFocused()
+    SetNuiFocus(focus, focus)
+    SetNuiFocusKeepInput(focus)
+    SendNUIMessage({ action = focus and 'open' or 'close' })
+end, false)
+
+RegisterKeyMapping('toggleinv', 'Toggle Inventory', 'keyboard', 'F2')
+
+RegisterNUICallback('close', function(_, cb)
+    SetNuiFocus(false, false)
+    SetNuiFocusKeepInput(false)
+    SendNUIMessage({ action = 'close' })
+    cb('ok')
+end)

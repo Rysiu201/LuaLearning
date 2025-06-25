@@ -28,7 +28,10 @@ server_scripts {
     'init.lua'
 }
 
-client_script 'init.lua'
+client_scripts {
+    'init.lua',
+    'client_toggle.lua'
+}
 
 ui_page 'html/index.html'
 

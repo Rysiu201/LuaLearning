@@ -1,7 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
   const pocketGrid = document.getElementById('pocket-grid');
   const equipSlots = document.querySelectorAll('.equip-grid .slot');
+  const wrapper = document.getElementById('inventory');
   let draggedSlot = null;
+  let inventoryOpen = false;
+  let tabPreview = false;
 
   // generate pocket item slots
   const pocketCount = 20;
@@ -16,6 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
     icon.className = 'icon';
     slot.appendChild(icon);
 
+    const details = document.createElement('div');
+    details.className = 'details';
+    details.innerHTML = '<span class="name">Item</span><span class="weight">0kg</span><span class="rarity">C</span>';
+    slot.appendChild(details);
+
     pocketGrid.appendChild(slot);
     enableDragAndDrop(slot);
     enableDrop(slot);
@@ -24,6 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
   equipSlots.forEach(slot => {
     slot.dataset.item = '';
     slot.draggable = true;
+    const details = document.createElement('div');
+    details.className = 'details';
+    details.innerHTML = '<span class="name">Item</span><span class="weight">0kg</span><span class="rarity">C</span>';
+    slot.appendChild(details);
     enableDragAndDrop(slot);
     enableDrop(slot);
   });
@@ -63,4 +75,40 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  function openInventory() {
+    wrapper.classList.remove('hidden');
+    inventoryOpen = true;
+  }
+
+  function closeInventory() {
+    wrapper.classList.add('hidden');
+    document.body.classList.remove('hotkeys-only');
+    inventoryOpen = false;
+  }
+
+  window.addEventListener('message', (e) => {
+    if (e.data.action === 'open') openInventory();
+    if (e.data.action === 'close') closeInventory();
+  });
+
+  document.addEventListener('keydown', e => {
+    if ((e.code === 'Escape' || e.code === 'F2') && inventoryOpen) {
+      fetch('https://' + GetParentResourceName() + '/close', { method: 'POST' });
+    }
+
+    if (e.code === 'Tab' && !tabPreview) {
+      tabPreview = true;
+      document.body.classList.add('hotkeys-only');
+      wrapper.classList.remove('hidden');
+    }
+  });
+
+  document.addEventListener('keyup', e => {
+    if (e.code === 'Tab' && tabPreview) {
+      tabPreview = false;
+      document.body.classList.remove('hotkeys-only');
+      if (!inventoryOpen) wrapper.classList.add('hidden');
+    }
+  });
 });
