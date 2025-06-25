@@ -1,7 +1,9 @@
 :root {
-  --slot-size: clamp(4rem, 6vw, 5rem);
-  --hotkey-size: clamp(3rem, 5vw, 4rem);
-  --character-width: clamp(15rem, 40vw, 22rem);
+  /* base slot dimensions */
+  --slot-size: 10vh;
+  --hotkey-size: 12vh;
+  --character-width: 30vh;
+  --character-height: 50vh;
 }
 body {
   margin: 0;
@@ -61,15 +63,15 @@ body {
   flex-wrap: wrap;
 }
 
-.pockets,
-.equipment {
+.pockets {
   background: rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 1rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
   padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.5rem;
 }
 
 .section-title {
@@ -81,7 +83,7 @@ body {
   display: grid;
   grid-template-columns: repeat(5, var(--slot-size));
   grid-template-rows: repeat(5, var(--slot-size));
-  gap: 10px;
+  gap: 0.5vh;
 }
 
 .item-slot,
@@ -92,11 +94,11 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.25);
-  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
   position: relative;
-  transition: background 0.2s;
+  transition: box-shadow 0.2s;
 }
 
 .icon {
@@ -126,8 +128,8 @@ body {
 
 .hotkeys {
   background: rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 1rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
   padding: 1rem;
   width: 100%;
   display: flex;
@@ -136,7 +138,7 @@ body {
 
 .hotkey-grid {
   display: flex;
-  gap: 10px;
+  gap: 0.5vh;
   justify-content: center;
 }
 
@@ -147,9 +149,9 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.25);
-  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
   position: relative;
 }
 
@@ -177,6 +179,7 @@ body {
 .character-layout {
   position: relative;
   width: var(--character-width);
+  height: var(--character-height);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -184,8 +187,8 @@ body {
 
 .character-layout .character-grid {
   width: 100%;
-  aspect-ratio: 1 / 1;
-  background-image: url('../img/character_grid.png');
+  height: 100%;
+  background-image: url('img/character_grid.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -196,11 +199,18 @@ body {
 
 .character-layout .slot {
   position: absolute;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.25);
-  border-radius: 0.5rem;
+  width: var(--slot-size);
+  height: var(--slot-size);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   z-index: 1;
+  transition: box-shadow 0.2s;
 }
 
 .character-layout .backpack { top: 15%; left: calc(-1 * var(--slot-size) - 1rem); }
@@ -214,17 +224,25 @@ body {
   margin-top: 1.5rem;
 }
 
-.item-slot, .hotkey-grid .slot, .character-layout .slot {
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.25);
-  border-radius: 0.5rem;
-  transition: background 0.2s;
+.item-slot,
+.hotkey-grid .slot,
+.character-layout .slot {
+  width: var(--slot-size);
+  height: var(--slot-size);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  transition: box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .item-slot:hover,
 .hotkey-grid .slot:hover,
 .character-layout .slot:hover {
-  background: rgba(255,255,255,0.2);
+  box-shadow: 0 0 6px rgba(255,255,255,0.4);
 }
 
 body.hotkeys-only .pockets,
