@@ -47,4 +47,5 @@ files {
     'modules/**/client.lua',
     'modules/bridge/**/client.lua',
     'data/*.lua',
+    'img/character_grid.png',
 }
