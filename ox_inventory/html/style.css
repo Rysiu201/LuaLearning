@@ -1,6 +1,7 @@
 :root {
   --slot-size: clamp(4rem, 6vw, 5rem);
   --hotkey-size: clamp(3rem, 5vw, 4rem);
+  --character-width: clamp(15rem, 40vw, 22rem);
 }
 body {
   margin: 0;
@@ -87,6 +88,7 @@ body {
   border: 1px solid rgba(255,255,255,0.25);
   border-radius: 0.5rem;
   position: relative;
+  transition: background 0.2s;
 }
 
 .icon {
@@ -119,11 +121,15 @@ body {
   border: 1px solid rgba(255,255,255,0.2);
   border-radius: 1rem;
   padding: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .hotkey-grid {
   display: flex;
   gap: 10px;
+  justify-content: center;
 }
 
 .hotkey-grid .slot {
@@ -163,13 +169,18 @@ body {
 .character-layout {
   position: relative;
   width: var(--character-width);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.character-layout img {
+.character-layout .character-bg {
   width: 100%;
   height: auto;
   pointer-events: none;
   display: block;
+  position: relative;
+  z-index: 0;
 }
 
 .character-layout .slot {
@@ -178,21 +189,29 @@ body {
   border: 1px solid rgba(255,255,255,0.25);
   border-radius: 0.5rem;
   color: #fff;
+  z-index: 1;
 }
 
-.character-layout .backpack { top: 5%; left: -110%; }
-.character-layout .body-armour { top: 25%; left: -110%; }
-.character-layout .phone { top: 45%; left: -110%; }
-.character-layout .parachute { top: 5%; right: -110%; }
-.character-layout .weapon1 { top: 25%; right: -110%; }
-.character-layout .weapon2 { top: 45%; right: -110%; }
+.character-layout .backpack { top: 15%; left: calc(-1 * var(--slot-size) - 1rem); }
+.character-layout .body-armour { top: 35%; left: calc(-1 * var(--slot-size) - 1rem); }
+.character-layout .phone { top: 55%; left: calc(-1 * var(--slot-size) - 1rem); }
+.character-layout .parachute { top: 75%; left: calc(-1 * var(--slot-size) - 1rem); }
+.character-layout .weapon1 { top: 30%; right: calc(-1 * var(--slot-size) - 1rem); }
+.character-layout .weapon2 { top: 55%; right: calc(-1 * var(--slot-size) - 1rem); }
 
 .hotkeys {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 .item-slot, .hotkey-grid .slot, .character-layout .slot {
   background: rgba(255,255,255,0.1);
   border: 1px solid rgba(255,255,255,0.25);
   border-radius: 0.5rem;
+  transition: background 0.2s;
+}
+
+.item-slot:hover,
+.hotkey-grid .slot:hover,
+.character-layout .slot:hover {
+  background: rgba(255,255,255,0.2);
 }
