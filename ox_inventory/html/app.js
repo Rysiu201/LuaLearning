@@ -1,10 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const pocketGrid = document.getElementById('pocket-grid');
-<<<<<<< jcrbyf-codex/redesign-nui-layout-for-ox_inventory
   const equipSlots = document.querySelectorAll('.equip-grid .slot');
-=======
-  const figureSlots = document.querySelectorAll('.figure .slot');
->>>>>>> main
   let draggedSlot = null;
 
   // generate pocket item slots
@@ -25,11 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     enableDrop(slot);
   }
 
-<<<<<<< jcrbyf-codex/redesign-nui-layout-for-ox_inventory
   equipSlots.forEach(slot => {
-=======
-  figureSlots.forEach(slot => {
->>>>>>> main
     slot.dataset.item = '';
     slot.draggable = true;
     enableDragAndDrop(slot);
