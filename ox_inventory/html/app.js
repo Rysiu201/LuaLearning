@@ -132,4 +132,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+        fetch(`https://${GetParentResourceName()}/closeInventory`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: '{}'
+        });
+    }
+});
+
 });

@@ -6,6 +6,7 @@ require 'modules.interface.client'
 local Utils = require 'modules.utils.client'
 local Weapon = require 'modules.weapon.client'
 local currentWeapon
+local inventoryOpen = false
 
 exports('getCurrentWeapon', function()
 	return currentWeapon
@@ -1884,4 +1885,22 @@ lib.callback.register('ox_inventory:getVehicleData', function(netid)
 	if entity then
 		return GetEntityModel(entity), GetVehicleClass(entity)
 	end
+end)
+
+RegisterCommand('toggleInventory', function()
+    inventoryOpen = not inventoryOpen
+    SetNuiFocus(inventoryOpen, inventoryOpen)
+    SendNUIMessage({
+        action = inventoryOpen and 'showInventory' or 'hideInventory'
+    })
+end)
+
+RegisterKeyMapping('toggleInventory', 'Open Inventory', 'keyboard', 'F2')
+
+-- ESC zamyka inventory (jeśli otwarte)
+RegisterNUICallback('closeInventory', function(_, cb)
+    inventoryOpen = false
+    SetNuiFocus(false, false)
+    SendNUIMessage({ action = 'hideInventory' })
+    cb({})
 end)
