@@ -4,9 +4,10 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: sans-serif;
   background: transparent;
   color: #fff;
+  text-shadow: 0 0 3px rgba(0,0,0,0.6);
 }
 
 .inventory-wrapper.hidden {
@@ -18,11 +19,13 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.55);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
+  padding: 2vh;
+  box-sizing: border-box;
 }
 .top-bar {
   display: flex;
@@ -31,25 +34,26 @@ body {
   padding: 0.5rem 1rem;
   background: rgba(0,0,0,0.35);
   border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   font-size: 0.9rem;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  box-shadow: 0 0 12px rgba(255,255,255,0.05);
   margin-bottom: 1rem;
 }
 .inventory-container {
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
+  width: 90vw;
+  max-width: 70rem;
+  margin: auto;
   box-sizing: border-box;
   padding: 1rem;
-  gap: 1rem;
+  gap: 2rem;
   justify-content: center;
-  max-width: 1000px;
 }
 .pockets,
 .equipment {
   flex: 1 1 45%;
-  max-width: 50%;
+  max-width: 45%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,8 +61,8 @@ body {
   border: 1px solid rgba(255,255,255,0.15);
   padding: 1rem;
   box-sizing: border-box;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  border-radius: 1rem;
+  box-shadow: 0 0 12px rgba(255,255,255,0.05);
   backdrop-filter: blur(2px);
 }
 .section-title {
@@ -73,10 +77,12 @@ body {
   width: 100%;
   background: rgba(0,0,0,0.35);
   padding: 0.5rem;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 12px rgba(255,255,255,0.05);
 }
 .equip-grid {
   display: grid;
+  position: relative;
   grid-template-columns: repeat(3, var(--slot-size));
   grid-template-areas:
     "backpack backpack backpack"
@@ -88,8 +94,27 @@ body {
   width: 100%;
   background: rgba(0,0,0,0.35);
   padding: 0.5rem;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 12px rgba(255,255,255,0.05);
   justify-content: center;
+}
+.equip-grid::before,
+.equip-grid::after {
+  content: '';
+  position: absolute;
+  background: rgba(255,255,255,0.05);
+}
+.equip-grid::before {
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 0.05rem;
+}
+.equip-grid::after {
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 0.05rem;
 }
 .hotkeys {
   flex: 1 1 100%;
@@ -100,8 +125,8 @@ body {
   border: 1px solid rgba(255,255,255,0.15);
   padding: 1rem;
   box-sizing: border-box;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  border-radius: 1rem;
+  box-shadow: 0 0 12px rgba(255,255,255,0.05);
   backdrop-filter: blur(2px);
 }
 .hotkey-grid {
@@ -111,7 +136,8 @@ body {
   width: 100%;
   background: rgba(0,0,0,0.35);
   padding: 0.5rem;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 12px rgba(255,255,255,0.05);
   justify-content: center;
 }
 .equip-grid .backpack { grid-area: backpack; }
@@ -124,7 +150,8 @@ body {
 .equip-grid .slot {
   width: var(--slot-size);
   height: var(--slot-size);
-  border: 1px solid rgba(255,255,255,0.15);
+  aspect-ratio: 1 / 1;
+  border: 1px dashed rgba(255,255,255,0.2);
   background: rgba(0,0,0,0.35);
   display: flex;
   flex-direction: column;
@@ -139,7 +166,7 @@ body {
 .item-slot:hover,
 .equip-grid .slot:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 12px rgba(255,255,255,0.2);
+  box-shadow: 0 0 15px rgba(255,255,255,0.4);
 }
 .item-slot::after,
 .equip-grid .slot::after {
@@ -178,6 +205,8 @@ body {
 
 .details .rarity {
   padding-left: 0.25rem;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 .dragging {
   opacity: 0.5;
@@ -194,3 +223,19 @@ body {
 .item-rare { background-color: rgba(0, 112, 221, 0.2); }
 .item-epic { background-color: rgba(163, 53, 238, 0.2); }
 .item-mythic { background-color: rgba(232, 118, 0, 0.2); }
+
+/* rarity outline colours */
+.rare {
+  outline: 2px solid #0070dd;
+  outline-offset: -2px;
+}
+
+.epic {
+  outline: 2px solid #a335ee;
+  outline-offset: -2px;
+}
+
+.mythic {
+  outline: 2px solid #e87600;
+  outline-offset: -2px;
+}
