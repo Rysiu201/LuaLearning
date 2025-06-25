@@ -1,7 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
   const pocketGrid = document.getElementById('pocket-grid');
   const equipSlots = document.querySelectorAll('.equip-grid .slot');
-  const wrapper = document.getElementById('inventory');
+  const wrapper = document.getElementById('inventory-ui');
+  const pockets = document.querySelector('.pockets');
+  const equipment = document.querySelector('.equipment');
+  const hotkeys = document.querySelector('.hotkeys');
   let draggedSlot = null;
   let inventoryOpen = false;
   let tabPreview = false;
@@ -76,20 +79,44 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function openInventory() {
+  function showInventory() {
     wrapper.classList.remove('hidden');
+    pockets.style.display = '';
+    equipment.style.display = '';
+    hotkeys.style.display = '';
+    document.body.classList.remove('hotkeys-only');
     inventoryOpen = true;
   }
 
-  function closeInventory() {
+  function hideInventory() {
     wrapper.classList.add('hidden');
     document.body.classList.remove('hotkeys-only');
     inventoryOpen = false;
   }
 
+  function showHotbarOnly() {
+    wrapper.classList.remove('hidden');
+    pockets.style.display = 'none';
+    equipment.style.display = 'none';
+    hotkeys.style.display = '';
+    document.body.classList.add('hotkeys-only');
+    tabPreview = true;
+  }
+
+  function hideHotbarOnly() {
+    pockets.style.display = '';
+    equipment.style.display = '';
+    hotkeys.style.display = '';
+    document.body.classList.remove('hotkeys-only');
+    tabPreview = false;
+    if (!inventoryOpen) wrapper.classList.add('hidden');
+  }
+
   window.addEventListener('message', (e) => {
-    if (e.data.action === 'open') openInventory();
-    if (e.data.action === 'close') closeInventory();
+    if (e.data.action === 'showInventory') showInventory();
+    if (e.data.action === 'hideInventory') hideInventory();
+    if (e.data.action === 'showHotbarOnly') showHotbarOnly();
+    if (e.data.action === 'hideHotbarOnly') hideHotbarOnly();
   });
 
   document.addEventListener('keydown', e => {
@@ -98,17 +125,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (e.code === 'Tab' && !tabPreview) {
-      tabPreview = true;
-      document.body.classList.add('hotkeys-only');
-      wrapper.classList.remove('hidden');
+      showHotbarOnly();
     }
   });
 
   document.addEventListener('keyup', e => {
     if (e.code === 'Tab' && tabPreview) {
-      tabPreview = false;
-      document.body.classList.remove('hotkeys-only');
-      if (!inventoryOpen) wrapper.classList.add('hidden');
+      hideHotbarOnly();
     }
   });
 });

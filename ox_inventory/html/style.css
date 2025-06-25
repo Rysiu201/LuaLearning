@@ -81,10 +81,32 @@ body {
     "backpack backpack backpack"
     "body-armour . phone"
     "parachute parachute parachute"
-    "weapon1 . weapon2"
-    "hotkey1 hotkey2 hotkey3";
+    "weapon1 . weapon2";
   gap: 0.75rem;
   row-gap: 1rem;
+  width: 100%;
+  background: rgba(0,0,0,0.35);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  justify-content: center;
+}
+.hotkeys {
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 1rem;
+  box-sizing: border-box;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  backdrop-filter: blur(2px);
+}
+.hotkey-grid {
+  display: grid;
+  grid-template-columns: repeat(3, var(--slot-size));
+  gap: 0.75rem;
   width: 100%;
   background: rgba(0,0,0,0.35);
   padding: 0.5rem;
@@ -97,9 +119,6 @@ body {
 .equip-grid .parachute { grid-area: parachute; }
 .equip-grid .weapon1 { grid-area: weapon1; }
 .equip-grid .weapon2 { grid-area: weapon2; }
-.equip-grid .hotkey1 { grid-area: hotkey1; }
-.equip-grid .hotkey2 { grid-area: hotkey2; }
-.equip-grid .hotkey3 { grid-area: hotkey3; }
 .item-slot,
 .equip-grid .slot {
   width: var(--slot-size);
@@ -164,7 +183,7 @@ body {
 }
 
 .hotkeys-only .pockets,
-.hotkeys-only .equip-grid .slot:not(.hotkey1):not(.hotkey2):not(.hotkey3),
+.hotkeys-only .equipment,
 .hotkeys-only .section-title,
 .hotkeys-only .top-bar {
   display: none;
