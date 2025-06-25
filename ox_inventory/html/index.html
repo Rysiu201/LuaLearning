@@ -9,60 +9,56 @@
 <body>
   <div id="inventory-ui" class="inventory-wrapper hidden">
   <div class="top-bar">
-    <span id="player-name">PLAYER</span>
-    <span id="weight-info">0 / 100</span>
     <span id="toggle-info">F2 - Close</span>
   </div>
   <div class="inventory-container">
-    <div class="main-sections">
-      <div id="pockets" class="pockets" style="display:none;">
-        <h2 class="section-title">Pockets</h2>
-        <div class="pocket-grid" id="pocket-grid"></div>
-      </div>
-      <div id="equipment" class="equipment" style="display:none;">
-        <h2 class="section-title">Equipment</h2>
-        <div class="equip-grid">
-          <div class="slot backpack" data-slot="backpack" data-item="" data-info="">
-            <div class="icon"></div>
-            <span class="label">BACKPACK</span>
-          </div>
-          <div class="slot body-armour" data-slot="body_armour" data-item="" data-info="">
-            <div class="icon"></div>
-            <span class="label">BODY ARMOUR</span>
-          </div>
-          <div class="slot phone" data-slot="phone" data-item="" data-info="">
-            <div class="icon"></div>
-            <span class="label">PHONE</span>
-          </div>
-          <div class="slot parachute" data-slot="parachute" data-item="" data-info="">
-            <div class="icon"></div>
-            <span class="label">PARACHUTE</span>
-          </div>
-          <div class="slot weapon1" data-slot="weapon1" data-item="" data-info="">
-            <div class="icon"></div>
-            <span class="label">WEAPON 1</span>
-          </div>
-          <div class="slot weapon2" data-slot="weapon2" data-item="" data-info="">
-            <div class="icon"></div>
-            <span class="label">WEAPON 2</span>
-          </div>
-        </div>
-      </div>
+        <div id="pockets" class="pockets" style="display:none;">
+      <h2 class="section-title">Pockets</h2>
+      <div class="pocket-grid" id="pocket-grid"></div>
     </div>
-    <div id="hotkeys" class="hotkeys" style="display:none;">
-      <h2 class="section-title">Hotkeys</h2>
-      <div class="hotkey-grid">
-        <div class="slot hotkey1" data-slot="hotkey1" data-item="" data-info="">
+    <div class="center-panel">
+      <div id="equipment" class="character-layout" style="display:none;">
+        <img src="img/character_grid.png" alt="Character">
+        <div class="slot backpack" data-slot="backpack" data-item="" data-info="">
           <div class="icon"></div>
-          <span class="label">HOTKEY 1</span>
+          <span class="label">BACKPACK</span>
         </div>
-        <div class="slot hotkey2" data-slot="hotkey2" data-item="" data-info="">
+        <div class="slot body-armour" data-slot="body_armour" data-item="" data-info="">
           <div class="icon"></div>
-          <span class="label">HOTKEY 2</span>
+          <span class="label">BODY ARMOUR</span>
         </div>
-        <div class="slot hotkey3" data-slot="hotkey3" data-item="" data-info="">
+        <div class="slot phone" data-slot="phone" data-item="" data-info="">
           <div class="icon"></div>
-          <span class="label">HOTKEY 3</span>
+          <span class="label">PHONE</span>
+        </div>
+        <div class="slot parachute" data-slot="parachute" data-item="" data-info="">
+          <div class="icon"></div>
+          <span class="label">PARACHUTE</span>
+        </div>
+        <div class="slot weapon1" data-slot="weapon1" data-item="" data-info="">
+          <div class="icon"></div>
+          <span class="label">WEAPON 1</span>
+        </div>
+        <div class="slot weapon2" data-slot="weapon2" data-item="" data-info="">
+          <div class="icon"></div>
+          <span class="label">WEAPON 2</span>
+        </div>
+      </div>
+      <div id="hotkeys" class="hotkeys" style="display:none;">
+        <h2 class="section-title">Hotkeys</h2>
+        <div class="hotkey-grid">
+          <div class="slot hotkey1" data-slot="hotkey1" data-item="" data-info="">
+            <div class="icon"></div>
+            <span class="label">HOTKEY 1</span>
+          </div>
+          <div class="slot hotkey2" data-slot="hotkey2" data-item="" data-info="">
+            <div class="icon"></div>
+            <<span class="label">HOTKEY 2</span>
+          </div>
+          <div class="slot hotkey3" data-slot="hotkey3" data-item="" data-info="">
+            <div class="icon"></div>
+            <span class="label">HOTKEY 3</span>
+          </div>
         </div>
       </div>
     </div>
