@@ -1,13 +1,66 @@
+let wrapper, pockets, equipment, hotkeys;
+let inventoryOpen = false;
+let tabPreview = false;
+let draggedSlot = null;
+
+function showInventory() {
+  if (!wrapper) return;
+  wrapper.classList.remove('hidden');
+  wrapper.style.display = '';
+  pockets.style.display = '';
+  equipment.style.display = '';
+  hotkeys.style.display = '';
+  document.body.classList.remove('hotkeys-only');
+  inventoryOpen = true;
+}
+
+function hideInventory() {
+  if (!wrapper) return;
+  wrapper.classList.add('hidden');
+  wrapper.style.display = 'none';
+  document.body.classList.remove('hotkeys-only');
+  inventoryOpen = false;
+}
+
+function showHotbarOnly() {
+  if (!wrapper) return;
+  wrapper.classList.remove('hidden');
+  wrapper.style.display = '';
+  pockets.style.display = 'none';
+  equipment.style.display = 'none';
+  hotkeys.style.display = '';
+  document.body.classList.add('hotkeys-only');
+  tabPreview = true;
+}
+
+function hideHotbarOnly() {
+  if (!wrapper) return;
+  pockets.style.display = '';
+  equipment.style.display = '';
+  hotkeys.style.display = '';
+  document.body.classList.remove('hotkeys-only');
+  tabPreview = false;
+  if (!inventoryOpen) {
+    wrapper.classList.add('hidden');
+    wrapper.style.display = 'none';
+  }
+}
+
+window.addEventListener('message', (e) => {
+  const action = e.data.action;
+  if (action === 'showInventory') showInventory();
+  if (action === 'hideInventory') hideInventory();
+  if (action === 'showHotbarOnly') showHotbarOnly();
+  if (action === 'hideHotbarOnly') hideHotbarOnly();
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   const pocketGrid = document.getElementById('pocket-grid');
   const equipSlots = document.querySelectorAll('.equip-grid .slot');
-  const wrapper = document.getElementById('inventory-ui');
-  const pockets = document.querySelector('.pockets');
-  const equipment = document.querySelector('.equipment');
-  const hotkeys = document.querySelector('.hotkeys');
-  let draggedSlot = null;
-  let inventoryOpen = false;
-  let tabPreview = false;
+  wrapper = document.getElementById('inventory-ui');
+  pockets = document.getElementById('pockets');
+  equipment = document.getElementById('equipment');
+  hotkeys = document.getElementById('hotkeys');
 
   // generate pocket item slots
   const pocketCount = 20;
@@ -78,45 +131,5 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-
-  function showInventory() {
-    wrapper.classList.remove('hidden');
-    pockets.style.display = '';
-    equipment.style.display = '';
-    hotkeys.style.display = '';
-    document.body.classList.remove('hotkeys-only');
-    inventoryOpen = true;
-  }
-
-  function hideInventory() {
-    wrapper.classList.add('hidden');
-    document.body.classList.remove('hotkeys-only');
-    inventoryOpen = false;
-  }
-
-  function showHotbarOnly() {
-    wrapper.classList.remove('hidden');
-    pockets.style.display = 'none';
-    equipment.style.display = 'none';
-    hotkeys.style.display = '';
-    document.body.classList.add('hotkeys-only');
-    tabPreview = true;
-  }
-
-  function hideHotbarOnly() {
-    pockets.style.display = '';
-    equipment.style.display = '';
-    hotkeys.style.display = '';
-    document.body.classList.remove('hotkeys-only');
-    tabPreview = false;
-    if (!inventoryOpen) wrapper.classList.add('hidden');
-  }
-
-  window.addEventListener('message', (e) => {
-    if (e.data.action === 'showInventory') showInventory();
-    if (e.data.action === 'hideInventory') hideInventory();
-    if (e.data.action === 'showHotbarOnly') showHotbarOnly();
-    if (e.data.action === 'hideHotbarOnly') hideHotbarOnly();
-  });
 
 });
