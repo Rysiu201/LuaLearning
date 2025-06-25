@@ -1,5 +1,6 @@
 :root {
-  --slot-size: clamp(3rem, 6vw, 5rem);
+  --slot-size: clamp(4rem, 6vw, 5rem);
+  --hotkey-size: clamp(3rem, 5vw, 4rem);
 }
 body {
   margin: 0;
@@ -7,235 +8,146 @@ body {
   font-family: sans-serif;
   background: transparent;
   color: #fff;
-  text-shadow: 0 0 3px rgba(0,0,0,0.6);
 }
 
 .inventory-wrapper.hidden {
   display: none;
 }
 .inventory-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2vh;
   box-sizing: border-box;
+  padding: 2vh;
 }
+
 .top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  background: rgba(0,0,0,0.35);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 1rem;
-  font-size: 0.9rem;
-  box-shadow: 0 0 12px rgba(255,255,255,0.05);
   margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  font-size: 0.9rem;
 }
+
 .inventory-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
   width: 90vw;
   max-width: 70rem;
-  margin: auto;
-  box-sizing: border-box;
-  padding: 1rem;
-  gap: 2rem;
-  justify-content: center;
 }
+
+.main-sections {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
 .pockets,
 .equipment {
-  flex: 1 1 45%;
-  max-width: 45%;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 1rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255,255,255,0.15);
-  padding: 1rem;
-  box-sizing: border-box;
-  border-radius: 1rem;
-  box-shadow: 0 0 12px rgba(255,255,255,0.05);
-  backdrop-filter: blur(2px);
 }
+
 .section-title {
   margin: 0 0 1rem 0;
-  font-size: 1.2rem;
-  font-weight: 500;
+  text-align: center;
 }
+
 .pocket-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--slot-size), 1fr));
-  gap: 0.5rem;
-  width: 100%;
-  background: rgba(0,0,0,0.35);
-  padding: 0.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 12px rgba(255,255,255,0.05);
+  grid-template-columns: repeat(4, var(--slot-size));
+  grid-template-rows: repeat(4, var(--slot-size));
+  gap: 10px;
 }
-.equip-grid {
-  display: grid;
-  position: relative;
-  grid-template-columns: repeat(3, var(--slot-size));
-  grid-template-areas:
-    "backpack backpack backpack"
-    "body-armour . phone"
-    "parachute parachute parachute"
-    "weapon1 . weapon2";
-  gap: 0.75rem;
-  row-gap: 1rem;
-  width: 100%;
-  background: rgba(0,0,0,0.35);
-  padding: 0.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 12px rgba(255,255,255,0.05);
-  justify-content: center;
-}
-.equip-grid::before,
-.equip-grid::after {
-  content: '';
-  position: absolute;
-  background: rgba(255,255,255,0.05);
-}
-.equip-grid::before {
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 0.05rem;
-}
-.equip-grid::after {
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 0.05rem;
-}
-.hotkeys {
-  flex: 1 1 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255,255,255,0.15);
-  padding: 1rem;
-  box-sizing: border-box;
-  border-radius: 1rem;
-  box-shadow: 0 0 12px rgba(255,255,255,0.05);
-  backdrop-filter: blur(2px);
-}
-.hotkey-grid {
-  display: grid;
-  grid-template-columns: repeat(3, var(--slot-size));
-  gap: 0.75rem;
-  width: 100%;
-  background: rgba(0,0,0,0.35);
-  padding: 0.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 12px rgba(255,255,255,0.05);
-  justify-content: center;
-}
-.equip-grid .backpack { grid-area: backpack; }
-.equip-grid .body-armour { grid-area: body-armour; }
-.equip-grid .phone { grid-area: phone; }
-.equip-grid .parachute { grid-area: parachute; }
-.equip-grid .weapon1 { grid-area: weapon1; }
-.equip-grid .weapon2 { grid-area: weapon2; }
+
 .item-slot,
 .equip-grid .slot {
   width: var(--slot-size);
   height: var(--slot-size);
-  aspect-ratio: 1 / 1;
-  border: 1px dashed rgba(255,255,255,0.2);
-  background: rgba(0,0,0,0.35);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative;
-  box-sizing: border-box;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.2);
   border-radius: 0.5rem;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  position: relative;
 }
-.item-slot:hover,
-.equip-grid .slot:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(255,255,255,0.4);
-}
-.item-slot::after,
-.equip-grid .slot::after {
-  content: attr(data-info);
-  position: absolute;
-  bottom: 0.1rem;
-  right: 0.1rem;
-  font-size: 0.55rem;
-  background: rgba(0,0,0,0.6);
-  padding: 0 0.2rem;
-  border-radius: 0.25rem;
-  pointer-events: none;
-}
+
 .icon {
   width: 70%;
   height: 70%;
-  border: 1px dashed rgba(255,255,255,0.3);
   background: rgba(255,255,255,0.1);
+  border: 1px dashed rgba(255,255,255,0.3);
   margin-bottom: 0.2rem;
-  box-sizing: border-box;
 }
-.label {
-  pointer-events: none;
+
+.details, .label {
   font-size: 0.6rem;
   text-align: center;
-}
-
-.details {
   width: 100%;
-  font-size: 0.55rem;
   display: flex;
   justify-content: space-between;
-  padding: 0 0.2rem;
   box-sizing: border-box;
+  padding: 0 0.2rem;
 }
 
-.details .rarity {
-  padding-left: 0.25rem;
-  text-transform: uppercase;
-  font-weight: 600;
-}
-.dragging {
-  opacity: 0.5;
+.equip-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
 }
 
-.hotkeys-only .pockets,
-.hotkeys-only .equipment,
-.hotkeys-only .section-title,
-.hotkeys-only .top-bar {
-  display: none;
-}
-/* Optional rarity colouring */
-.item-common { background-color: rgba(255, 255, 255, 0.1); }
-.item-rare { background-color: rgba(0, 112, 221, 0.2); }
-.item-epic { background-color: rgba(163, 53, 238, 0.2); }
-.item-mythic { background-color: rgba(232, 118, 0, 0.2); }
-
-/* rarity outline colours */
-.rare {
-  outline: 2px solid #0070dd;
-  outline-offset: -2px;
+.hotkeys {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 1rem;
+  padding: 1rem;
 }
 
-.epic {
-  outline: 2px solid #a335ee;
-  outline-offset: -2px;
+.hotkey-grid {
+  display: flex;
+  gap: 10px;
 }
 
-.mythic {
-  outline: 2px solid #e87600;
-  outline-offset: -2px;
+.hotkey-grid .slot {
+  width: var(--hotkey-size);
+  height: var(--hotkey-size);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 0.5rem;
+  position: relative;
+}
+
+.hotkey-grid .slot .icon {
+  width: 70%;
+  height: 70%;
+  background: rgba(255,255,255,0.1);
+  border: 1px dashed rgba(255,255,255,0.3);
+  margin-bottom: 0.2rem;
+}
+
+.hotkey-grid .slot .label {
+  font-size: 0.6rem;
+  text-align: center;
 }
