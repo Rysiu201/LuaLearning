@@ -45,6 +45,14 @@ body {
   max-width: 70rem;
 }
 
+.inventory-main {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
 .main-sections {
   width: 100%;
   display: flex;
@@ -71,8 +79,8 @@ body {
 
 .pocket-grid {
   display: grid;
-  grid-template-columns: repeat(4, var(--slot-size));
-  grid-template-rows: repeat(4, var(--slot-size));
+  grid-template-columns: repeat(5, var(--slot-size));
+  grid-template-rows: repeat(5, var(--slot-size));
   gap: 10px;
 }
 
@@ -214,4 +222,13 @@ body {
 .hotkey-grid .slot:hover,
 .character-layout .slot:hover {
   background: rgba(255,255,255,0.2);
+}
+
+body.hotkeys-only .pockets,
+body.hotkeys-only .character-layout {
+  display: none !important;
+}
+
+body.hotkeys-only .hotkeys {
+  display: flex !important;
 }

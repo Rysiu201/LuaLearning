@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
   hotkeys = document.getElementById('hotkeys');
 
   // generate pocket item slots
-  const pocketCount = 16;
+  const pocketCount = 25;
   for (let i = 0; i < pocketCount; i++) {
     const slot = document.createElement('div');
     slot.className = 'item-slot';
