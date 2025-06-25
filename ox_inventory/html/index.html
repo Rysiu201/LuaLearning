@@ -7,13 +7,19 @@
   <script src="app.js" defer></script>
 </head>
 <body>
+  <div class="top-bar">
+    <span id="player-name">PLAYER</span>
+    <span id="weight-info">0 / 100</span>
+    <span id="toggle-info">F2 - Close</span>
+  </div>
   <div class="inventory-container">
     <div class="pockets">
       <h2 class="section-title">Pockets</h2>
       <div class="pocket-grid" id="pocket-grid"></div>
     </div>
     <div class="equipment">
-      <div class="figure" id="figure">
+      <h2 class="section-title">Equipment</h2>
+      <div class="equip-grid">
         <div class="slot backpack" data-slot="backpack" data-item="">
           <div class="icon"></div>
           <span class="label">BACKPACK</span>
