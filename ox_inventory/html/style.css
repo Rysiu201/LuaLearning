@@ -185,7 +185,7 @@ body {
 .character-layout .character-grid {
   width: 100%;
   aspect-ratio: 1 / 1;
-  background-image: url('img/character_grid.png');
+  background-image: url('../img/character_grid.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
