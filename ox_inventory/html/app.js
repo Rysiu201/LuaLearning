@@ -119,19 +119,4 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.data.action === 'hideHotbarOnly') hideHotbarOnly();
   });
 
-  document.addEventListener('keydown', e => {
-    if ((e.code === 'Escape' || e.code === 'F2') && inventoryOpen) {
-      fetch('https://' + GetParentResourceName() + '/close', { method: 'POST' });
-    }
-
-    if (e.code === 'Tab' && !tabPreview) {
-      showHotbarOnly();
-    }
-  });
-
-  document.addEventListener('keyup', e => {
-    if (e.code === 'Tab' && tabPreview) {
-      hideHotbarOnly();
-    }
-  });
 });
