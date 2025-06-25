@@ -56,7 +56,7 @@ window.addEventListener('message', (e) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   const pocketGrid = document.getElementById('pocket-grid');
-  const equipSlots = document.querySelectorAll('.equip-grid .slot');
+  const equipSlots = document.querySelectorAll('.character-layout .slot');
   wrapper = document.getElementById('inventory-ui');
   pockets = document.getElementById('pockets');
   equipment = document.getElementById('equipment');
