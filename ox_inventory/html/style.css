@@ -182,11 +182,14 @@ body {
   align-items: center;
 }
 
-.character-layout .character-bg {
+.character-layout .character-grid {
   width: 100%;
-  height: auto;
+  aspect-ratio: 1 / 1;
+  background-image: url('img/character_grid.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   pointer-events: none;
-  display: block;
   position: relative;
   z-index: 0;
 }
