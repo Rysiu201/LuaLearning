@@ -121,8 +121,12 @@ button:active {
   justify-content: center;
   align-items: center;
   height: 100%;
-
   gap: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
 }
 
 .pockets-section {
@@ -149,6 +153,21 @@ button:active {
   width: $gridSize;
   height: calc(6 * ($gridSize + 0.22vh));
   background-color: $secondaryColor;
+  background-image: repeating-linear-gradient(
+      0deg,
+      rgba(0, 255, 0, 0.2) 0px,
+      rgba(0, 255, 0, 0.2) 1px,
+      transparent 1px,
+      transparent 20px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 255, 0, 0.2) 0px,
+      rgba(0, 255, 0, 0.2) 1px,
+      transparent 1px,
+      transparent 20px
+    );
+  background-size: 20px 20px;
 }
 
 .inventory-control {
@@ -311,7 +330,8 @@ button:active {
   background-color: $secondaryColor;
   background-repeat: no-repeat;
   background-position: center;
-  border-radius: 2.5%;
+  border-radius: 8px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
   image-rendering: -webkit-optimize-contrast;
   position: relative;
   background-size: 7vh;
@@ -323,18 +343,28 @@ button:active {
 
 .rarity-common {
   border-color: grey;
+  --rarity-color: grey;
 }
 .rarity-uncommon {
   border-color: white;
+  --rarity-color: white;
 }
 .rarity-rare {
   border-color: #3498db;
+  --rarity-color: #3498db;
 }
 .rarity-epic {
   border-color: purple;
+  --rarity-color: purple;
 }
 .rarity-legendary {
   border-color: gold;
+  --rarity-color: gold;
+}
+
+.slot-rarity-text {
+  text-transform: uppercase;
+  color: var(--rarity-color, white);
 }
 
 .slot-overlay {
