@@ -125,6 +125,32 @@ button:active {
   gap: 20px;
 }
 
+.pockets-section {
+  .inventory-grid-container {
+    grid-template-columns: repeat(4, $gridSize);
+    height: calc(3 * (#{$gridSize + 0.22vh}) + 3 * #{$gridGap});
+    overflow-y: auto;
+  }
+}
+
+.equipment-container {
+  display: flex;
+  align-items: center;
+  gap: $gridGap;
+}
+
+.equipment-column {
+  display: flex;
+  flex-direction: column;
+  gap: $gridGap;
+}
+
+.equipment-character {
+  width: $gridSize;
+  height: calc(6 * ($gridSize + 0.22vh));
+  background-color: $secondaryColor;
+}
+
 .inventory-control {
   display: flex;
 
@@ -293,6 +319,42 @@ button:active {
   border-color: rgba(0, 0, 0, 0.2);
   border-style: inset;
   border-width: 1px;
+}
+
+.rarity-common {
+  border-color: grey;
+}
+.rarity-uncommon {
+  border-color: white;
+}
+.rarity-rare {
+  border-color: #3498db;
+}
+.rarity-epic {
+  border-color: purple;
+}
+.rarity-legendary {
+  border-color: gold;
+}
+
+.slot-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+  padding: 2px;
+  font-size: 12px;
+}
+.slot-overlay-top,
+.slot-overlay-bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .inventory-slot-label-box {
