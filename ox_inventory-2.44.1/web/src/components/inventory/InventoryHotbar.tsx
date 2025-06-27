@@ -4,13 +4,19 @@ import useNuiEvent from '../../hooks/useNuiEvent';
 import { Items } from '../../store/items';
 import WeightBar from '../utils/WeightBar';
 import { useAppSelector } from '../../store';
-import { selectLeftInventory } from '../../store/inventory';
+import { selectLeftInventory, selectRightInventory } from '../../store/inventory';
 import { SlotWithItem } from '../../typings';
 import SlideUp from '../utils/transitions/SlideUp';
 
 const InventoryHotbar: React.FC = () => {
   const [hotbarVisible, setHotbarVisible] = useState(false);
-  const items = useAppSelector(selectLeftInventory).items.slice(0, 5);
+  const leftItems = useAppSelector(selectLeftInventory).items.slice(0, 3);
+  const rightItems = useAppSelector(selectRightInventory).items;
+  const equipment = [
+    rightItems.find((i) => i.slot === 5) || { slot: 5 },
+    rightItems.find((i) => i.slot === 6) || { slot: 6 },
+  ];
+  const items = [...equipment, ...leftItems];
 
   //stupid fix for timeout
   const [handle, setHandle] = useState<NodeJS.Timeout>();
@@ -27,18 +33,18 @@ const InventoryHotbar: React.FC = () => {
   return (
     <SlideUp in={hotbarVisible}>
       <div className="hotbar-container">
-        {items.map((item) => (
+        {items.map((item, idx) => (
           <div
             className="hotbar-item-slot"
             style={{
               backgroundImage: `url(${item?.name ? getItemUrl(item as SlotWithItem) : 'none'}`,
             }}
-            key={`hotbar-${item.slot}`}
+            key={`hotbar-${idx}`}
           >
             {isSlotWithItem(item) && (
               <div className="item-slot-wrapper">
                 <div className="hotbar-slot-header-wrapper">
-                  <div className="inventory-slot-number">{item.slot}</div>
+                  <div className="inventory-slot-number">{idx + 1}</div>
                   <div className="item-slot-info-wrapper">
                     <p>
                       {item.weight > 0

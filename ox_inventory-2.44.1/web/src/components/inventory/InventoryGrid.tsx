@@ -9,9 +9,11 @@ import { useIntersection } from '../../hooks/useIntersection';
 const PAGE_SIZE = 30;
 
 const InventoryGrid: React.FC<{ inventory: Inventory }> = ({ inventory }) => {
+  const maxWeight = inventory.type === 'player' ? 100000 : inventory.maxWeight;
+  const label = inventory.type === 'player' ? 'Pockets' : inventory.label;
   const weight = useMemo(
-    () => (inventory.maxWeight !== undefined ? Math.floor(getTotalWeight(inventory.items) * 1000) / 1000 : 0),
-    [inventory.maxWeight, inventory.items]
+    () => Math.floor(getTotalWeight(inventory.items) * 1000) / 1000,
+    [inventory.items]
   );
   const [page, setPage] = useState(0);
   const containerRef = useRef(null);
@@ -25,19 +27,29 @@ const InventoryGrid: React.FC<{ inventory: Inventory }> = ({ inventory }) => {
   }, [entry]);
   return (
     <>
-      <div className="inventory-grid-wrapper" style={{ pointerEvents: isBusy ? 'none' : 'auto' }}>
+      <div
+        className={`inventory-grid-wrapper ${
+          inventory.type === 'player' ? 'pockets-section' : ''
+        }`}
+        style={{ pointerEvents: isBusy ? 'none' : 'auto' }}
+      >
         <div>
           <div className="inventory-grid-header-wrapper">
-            <p>{inventory.label}</p>
-            {inventory.maxWeight && (
+            <p>{label}</p>
+            {maxWeight && (
               <p>
-                {weight / 1000}/{inventory.maxWeight / 1000}kg
+                {weight / 1000}/{maxWeight / 1000}kg
               </p>
             )}
           </div>
-          <WeightBar percent={inventory.maxWeight ? (weight / inventory.maxWeight) * 100 : 0} />
+          <WeightBar percent={maxWeight ? (weight / maxWeight) * 100 : 0} />
         </div>
-        <div className="inventory-grid-container" ref={containerRef}>
+        <div
+          className={`inventory-grid-container ${
+            inventory.type === 'player' ? 'pockets-grid' : ''
+          }`}
+          ref={containerRef}
+        >
           <>
             {inventory.items.slice(0, (page + 1) * PAGE_SIZE).map((item, index) => (
               <InventorySlot
