@@ -267,6 +267,7 @@ function client.openInventory(inv, data)
     SetInterval(client.interval, 100)
     SetNuiFocus(true, true)
     SetNuiFocusKeepInput(true)
+    DisplayRadar(false)
     closeTrunk()
 
     if client.screenblur then TriggerScreenblurFadeIn(0) end
@@ -879,8 +880,9 @@ function client.closeInventory(server)
 
 	if invOpen then
 		invOpen = nil
-		SetNuiFocus(false, false)
-		SetNuiFocusKeepInput(false)
+                SetNuiFocus(false, false)
+                SetNuiFocusKeepInput(false)
+                DisplayRadar(true)
 		TriggerScreenblurFadeOut(0)
 		closeTrunk()
 		SendNUIMessage({ action = 'closeInventory' })
