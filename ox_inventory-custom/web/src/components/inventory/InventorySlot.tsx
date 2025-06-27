@@ -118,6 +118,7 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
   };
 
   const refs = useMergeRefs([connectRef, ref]);
+  const quality = (item as SlotWithItem)?.metadata?.quality as string | undefined;
 
   return (
     <div
@@ -156,20 +157,8 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
             }
           >
             {inventoryType === 'player' && item.slot <= 5 && <div className="inventory-slot-number">{item.slot}</div>}
-            <div className="item-slot-info-wrapper">
-              <p>
-                {item.weight > 0
-                  ? item.weight >= 1000
-                    ? `${(item.weight / 1000).toLocaleString('en-us', {
-                        minimumFractionDigits: 2,
-                      })}kg `
-                    : `${item.weight.toLocaleString('en-us', {
-                        minimumFractionDigits: 0,
-                      })}g `
-                  : ''}
-              </p>
-              <span>{item.count ? item.count.toLocaleString('en-us') + `x` : ''}</span>
-            </div>
+            <span className="item-quality">{quality}</span>
+            <span className="item-count">{item.count ? item.count.toLocaleString('en-us') + `x` : ''}</span>
           </div>
           <div
             className="item-image"
@@ -218,6 +207,13 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
             <div className="inventory-slot-label-box">
               <div className="inventory-slot-label-text">
                 {item.metadata?.label ? item.metadata.label : Items[item.name]?.label || item.name}
+              </div>
+              <div className="inventory-slot-weight">
+                {item.weight > 0
+                  ? item.weight >= 1000
+                    ? `${(item.weight / 1000).toLocaleString('en-us', { minimumFractionDigits: 2 })}kg`
+                    : `${item.weight.toLocaleString('en-us', { minimumFractionDigits: 0 })}g`
+                  : ''}
               </div>
             </div>
           </div>
