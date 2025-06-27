@@ -31,13 +31,17 @@ $bg_ARMOUR: rgba(96, 125, 139, 0.3); // Blue Grey
       #22232c 60%,
       #15151a 90%);
   color: $textColor;
-  text-align: center;
   min-height: 1vh;
   border-bottom-left-radius: $secondRadius;
   border-bottom-right-radius: $secondRadius;
   border-top-color: rgba(0, 0, 0, 0.2);
   border-top-style: inset;
   border-top-width: 0.1px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 3px;
 }
 
 .inventory-slot-label-text {
@@ -70,6 +74,21 @@ $bg_ARMOUR: rgba(96, 125, 139, 0.3); // Blue Grey
   text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.6);
   -webkit-box-shadow: 1px 2px 15px 2px rgba(0, 0, 0, 0.54);
   box-shadow: 1px 2px 15px 2px rgba(0, 0, 0, 0.54);
+}
+
+.item-quality {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.item-count {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: $primary;
+}
+
+.inventory-slot-weight {
+  font-size: 0.7rem;
 }
 
 @media only screen and (min-height: 2160px) {
