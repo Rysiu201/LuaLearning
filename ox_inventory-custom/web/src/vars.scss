@@ -7,11 +7,12 @@ $secondaryColorHighlight: #33343F;
 $secondaryColorLight: rgba(0, 0, 0, 0.5);
 $secondaryColorDark: rgba(12, 12, 12, 0.8);
 
-$gridCols: 5;
-$gridRows: 5;
+$gridCols: 4;
+$gridRows: 6;
+$gridRowsVisible: 3;
 $gridSize: 10.2vh;
 $gridGap: 8px;
-$containerSize: calc(#{$gridRows} * #{$gridSize + 0.22vh} + #{$gridRows} * #{$gridGap});
+$containerSize: calc(#{$gridRowsVisible} * #{$gridSize + 0.22vh} + #{$gridRowsVisible} * #{$gridGap});
 
 $mainRadius: 6px;
 $secondRadius: 5px;

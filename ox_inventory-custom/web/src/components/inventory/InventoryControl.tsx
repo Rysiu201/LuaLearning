@@ -7,15 +7,11 @@ import { onUse } from '../../dnd/onUse';
 import { onGive } from '../../dnd/onGive';
 import { fetchNui } from '../../utils/fetchNui';
 import { Locale } from '../../store/locale';
-import UsefulControls from './UsefulControls';
-import ServerInfos from './ServerInfos';
 
 const InventoryControl: React.FC = () => {
   const itemAmount = useAppSelector(selectItemAmount);
   const dispatch = useAppDispatch();
 
-  const [infoVisible, setInfoVisible] = useState(false);
-  const [serverVisible, setServerVisible] = useState(false);
 
   const [, use] = useDrop<DragSource, void, any>(() => ({
     accept: 'SLOT',
@@ -39,11 +35,8 @@ const InventoryControl: React.FC = () => {
 
   return (
     <>
-      <UsefulControls infoVisible={infoVisible} setInfoVisible={setInfoVisible} />
-      <ServerInfos serverVisible={serverVisible} setServerVisible={setServerVisible} />
       <div className="inventory-control">
         <div className="inventory-control-wrapper">
-          <img className="InventoryLogo" src="https://cdn.frvgs.com/assets/custom/InventoryLogo.svg" />
           <div className="inventory-control-input-WR">
             <input
               className="inventory-control-input"
@@ -69,16 +62,6 @@ const InventoryControl: React.FC = () => {
             </div>
           </button>
           <div className="inventory-control-separator"></div>
-          <button className="inventory-control-button" onClick={() => setInfoVisible(true)}>
-            <div className="inventory-control-buttonTxt">
-              {Locale.ui_info || 'Infos'}
-            </div>
-          </button>
-          <button className="inventory-control-button" onClick={() => setServerVisible(true)}>
-            <div className="inventory-control-buttonTxt">
-              {Locale.ui_info || 'Server'}
-            </div>
-          </button>
         </div>
       </div>
     </>
