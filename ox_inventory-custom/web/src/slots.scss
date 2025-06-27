@@ -1,0 +1,419 @@
+@import './vars';
+
+$bg_CLOTHING: rgba(233, 30, 99, 0.3); // Pinkish Red
+$bg_ACCESORIES: rgba(63, 81, 181, 0.3); // Indigo
+$bg_MEDIC: rgba(76, 175, 80, 0.3); // Green
+$bg_MONEY: rgba(255, 193, 7, 0.3); // Amber
+$bg_FOOD: rgba(255, 152, 0, 0.3); // Orange
+$bg_BOTTLES: rgba(3, 169, 244, 0.3); // Light Blue
+$bg_DRINKS: rgba(0, 188, 212, 0.3); // Cyan
+$bg_MATERIALS: rgba(139, 195, 74, 0.3); // Light Green
+$bg_ELECTRONICS: rgba(156, 39, 176, 0.3); // Purple
+$bg_OTHERS: rgba(255, 87, 34, 0.3); // Deep Orange
+$bg_DRUGS: rgba(244, 67, 54, 0.3); // Red
+$bg_ARMOUR: rgba(96, 125, 139, 0.3); // Blue Grey
+
+.item-image {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  pointer-events: none;
+}
+
+.inventory-slot-label-box {
+  background: radial-gradient(circle at center,
+      #2f2f37 10%,
+      #26262d 30%,
+      #22232c 60%,
+      #15151a 90%);
+  color: $textColor;
+  text-align: center;
+  min-height: 1vh;
+  border-bottom-left-radius: $secondRadius;
+  border-bottom-right-radius: $secondRadius;
+  border-top-color: rgba(0, 0, 0, 0.2);
+  border-top-style: inset;
+  border-top-width: 0.1px;
+}
+
+.inventory-slot-label-text {
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0.2vh 0.3vh;
+  font-weight: 400;
+  font-family: $mainFont;
+  font-size: 1.1vh;
+  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.6);
+}
+
+.inventory-slot-number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $mainColor;
+  color: $textColor;
+  height: 1.2vh;
+  min-width: 1.2vh;
+  border-right: 0.1px solid #22232c;
+  border-bottom: 0.1px solid #22232c;
+  border-top-left-radius: $secondRadius;
+  border-bottom-right-radius: secondRadius;
+  padding: 0.3vh;
+  font-size: 1.2vh;
+  font-family: $mainFont;
+  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 1px 2px 15px 2px rgba(0, 0, 0, 0.54);
+  box-shadow: 1px 2px 15px 2px rgba(0, 0, 0, 0.54);
+}
+
+@media only screen and (min-height: 2160px) {
+  .inventory-slot-number {
+    border-top-left-radius: $secondRadius4K;
+    border-bottom-right-radius: $secondRadius4K;
+  }
+}
+
+// inventory slots
+.inventory-slot {
+  background-color: rgba(12, 12, 12, 0.4);
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: $mainRadius;
+  image-rendering: -webkit-optimize-contrast;
+  position: relative;
+  background-size: cover;
+  color: #c1c2c5;
+  border: 0.1px solid #2d2f3a;
+  background-image: url('https://cdn.frvgs.com/assets/custom/default.png');
+
+  &:hover {
+    transform: scale(1.03);
+    background-color: $primaryBG;
+    cursor: pointer;
+    border: 0.1px solid $primary;
+    box-shadow: 0px 0px 6px 0px rgba(154, 72, 208, 0.7);
+    transition: all 0.3s ease,
+  }
+
+  // CLOTHING
+  &.inventory-slot-chemise {
+    background-color: $bg_CLOTHING
+  }
+
+  &.inventory-slot-hoodie {
+    background-color: $bg_CLOTHING
+  }
+
+  &.inventory-slot-hoodie2 {
+    background-color: $bg_CLOTHING
+  }
+
+  &.inventory-slot-hoodie3 {
+    background-color: $bg_CLOTHING
+  }
+
+  &.inventory-slot-pants1 {
+    background-color: $bg_CLOTHING
+  }
+
+  &.inventory-slot-pants2 {
+    background-color: $bg_CLOTHING
+  }
+
+  &.inventory-slot-pants3 {
+    background-color: $bg_CLOTHING
+  }
+
+  &.inventory-slot-shoes2 {
+    background-color: $bg_CLOTHING
+  }
+
+  &.inventory-slot-sneakers {
+    background-color: $bg_CLOTHING
+  }
+
+  &.inventory-slot-jeans {
+    background-color: $bg_CLOTHING
+  }
+
+  // ACCESORIES
+  &.inventory-slot-bracelet {
+    background-color: $bg_ACCESORIES
+  }
+
+  &.inventory-slot-bracelet2 {
+    background-color: $bg_ACCESORIES
+  }
+
+  &.inventory-slot-necklace1 {
+    background-color: $bg_ACCESORIES
+  }
+
+  &.inventory-slot-watch {
+    background-color: $bg_ACCESORIES
+  }
+
+  // MEDIC
+  &.inventory-slot-bandage {
+    background-color: $bg_MEDIC
+  }
+
+  &.inventory-slot-medikit {
+    background-color: $bg_MEDIC
+  }
+
+  &.inventory-slot-medikit2 {
+    background-color: $bg_MEDIC
+  }
+
+  // MONEY
+  &.inventory-slot-money {
+    background-color: $bg_MONEY
+  }
+
+  &.inventory-slot-black_money {
+    background-color: $bg_MONEY
+  }
+
+  &.inventory-slot-coin {
+    background-color: $bg_MONEY
+  }
+
+  &.inventory-slot-card_bank {
+    background-color: $bg_MONEY
+  }
+
+  // FOOD
+  &.inventory-slot-baguette {
+    background-color: $bg_FOOD
+  }
+
+  &.inventory-slot-bread {
+    background-color: $bg_FOOD
+  }
+
+  &.inventory-slot-croissants {
+    background-color: $bg_FOOD
+  }
+
+  &.inventory-slot-burger {
+    background-color: $bg_FOOD
+  }
+
+  &.inventory-slot-burger_chicken {
+    background-color: $bg_FOOD
+  }
+
+  &.inventory-slot-mustard {
+    background-color: $bg_FOOD
+  }
+
+  &.inventory-slot-ketchup {
+    background-color: $bg_FOOD
+  }
+
+  &.inventory-slot-mayo {
+    background-color: $bg_FOOD
+  }
+
+  &.inventory-slot-donut {
+    background-color: $bg_FOOD
+  }
+
+  &.inventory-slot-fries {
+    background-color: $bg_FOOD
+  }
+
+  &.inventory-slot-pizza_slice {
+    background-color: $bg_FOOD
+  }
+
+  &.inventory-slot-pizza {
+    background-color: $bg_FOOD
+  }
+
+  &.inventory-slot-chips {
+    background-color: $bg_FOOD
+  }
+
+  &.inventory-slot-tomato {
+    background-color: $bg_FOOD
+  }
+
+  // BOTLLES
+  &.inventory-slot-bottle_black {
+    background-color: $bg_BOTTLES
+  }
+
+  &.inventory-slot-bottle_gold {
+    background-color: $bg_BOTTLES
+  }
+
+  &.inventory-slot-bottle_empty {
+    background-color: $bg_BOTTLES
+  }
+
+  &.inventory-slot-bottle_silver {
+    background-color: $bg_BOTTLES
+  }
+
+  // DRINKS
+  &.inventory-slot-potion {
+    background-color: $bg_DRINKS
+  }
+
+  &.inventory-slot-water {
+    background-color: $bg_DRINKS
+  }
+
+  &.inventory-slot-water2 {
+    background-color: $bg_DRINKS
+  }
+
+  &.inventory-slot-milk {
+    background-color: $bg_DRINKS
+  }
+
+  &.inventory-slot-beer {
+    background-color: $bg_DRINKS
+  }
+
+  &.inventory-slot-beer2 {
+    background-color: $bg_DRINKS
+  }
+
+  &.inventory-slot-cola {
+    background-color: $bg_DRINKS
+  }
+
+  &.inventory-slot-sprunk {
+    background-color: $bg_DRINKS
+  }
+
+  &.inventory-slot-juice_orange {
+    background-color: $bg_DRINKS
+  }
+
+  &.inventory-slot-juice_lemon {
+    background-color: $bg_DRINKS
+  }
+
+  &.inventory-slot-juice_tea {
+    background-color: $bg_DRINKS
+  }
+
+  // MATERIALS
+  &.inventory-slot-gold {
+    background-color: $bg_MATERIALS
+  }
+
+  &.inventory-slot-iron {
+    background-color: $bg_MATERIALS
+  }
+
+  &.inventory-slot-gem {
+    background-color: $bg_MATERIALS
+  }
+
+  &.inventory-slot-diamond {
+    background-color: $bg_MATERIALS
+  }
+
+  &.inventory-slot-stone {
+    background-color: $bg_MATERIALS
+  }
+
+  &.inventory-slot-wood {
+    background-color: $bg_MATERIALS
+  }
+
+  // ELECTRONICS
+  &.inventory-slot-phone {
+    background-color: $bg_ELECTRONICS
+  }
+
+  &.inventory-slot-usb_black {
+    background-color: $bg_ELECTRONICS
+  }
+
+  &.inventory-slot-tablet {
+    background-color: $bg_ELECTRONICS
+  }
+
+  &.inventory-slot-pc_gaming {
+    background-color: $bg_ELECTRONICS
+  }
+
+  &.inventory-slot-pc_laptop {
+    background-color: $bg_ELECTRONICS
+  }
+
+  &.inventory-slot-radio {
+    background-color: $bg_ELECTRONICS
+  }
+
+  &.inventory-slot-boombox {
+    background-color: $bg_ELECTRONICS
+  }
+
+  &.inventory-slot-radiobox {
+    background-color: $bg_ELECTRONICS
+  }
+
+  // OTHERS
+  &.inventory-slot-lockpick {
+    background-color: $bg_OTHERS
+  }
+
+  &.inventory-slot-carkey {
+    background-color: $bg_OTHERS
+  }
+
+  &.inventory-slot-key {
+    background-color: $bg_OTHERS
+  }
+
+  &.inventory-slot-paperbag {
+    background-color: $bg_OTHERS
+  }
+
+  &.inventory-slot-notepad {
+    background-color: $bg_OTHERS
+  }
+
+  &.inventory-slot-garbage {
+    background-color: $bg_OTHERS
+  }
+
+  // DRUGS
+  &.inventory-slot-coca {
+    background-color: $bg_DRUGS
+  }
+
+  &.inventory-slot-weed {
+    background-color: $bg_DRUGS
+  }
+
+  // ARMOUR
+  &.inventory-slot-armour {
+    background-color: $bg_ARMOUR
+  }
+
+  &.inventory-slot-armour2 {
+    background-color: $bg_ARMOUR
+  }
+
+  &.inventory-slot-armour3 {
+    background-color: $bg_ARMOUR
+  }
+
+  &.inventory-slot-cosmo {
+    background-color: $bg_ARMOUR
+  }
+}

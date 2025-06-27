@@ -1,0 +1,326 @@
+$mainColor: #22232c;
+$textColor: #c1c2c5;
+$mainFont: "Goldman", sans-serif;
+
+$secondaryColor: rgba(12, 12, 12, 0.4);
+$secondaryColorHighlight: #33343F;
+$secondaryColorLight: rgba(0, 0, 0, 0.5);
+$secondaryColorDark: rgba(12, 12, 12, 0.8);
+
+$gridCols: 5;
+$gridRows: 5;
+$gridSize: 10.2vh;
+$gridGap: 8px;
+$containerSize: calc(#{$gridRows} * #{$gridSize + 0.22vh} + #{$gridRows} * #{$gridGap});
+
+$mainRadius: 6px;
+$secondRadius: 5px;
+
+/*--------4K--------*/
+$gridGap4K: 6px;
+$mainRadius4K: 12px;
+$secondRadius4K: 10px;
+
+
+/*--------Colors Preset--------*/
+$mainGradient: linear-gradient(to right, #9A48D0, #B66DDF, #E0AAF2, #B66DDF, #9A48D0, #9A48D0);
+$mainBorder: 0.1px solid #9A48D0;
+$primary: #9A48D0;
+$mainBorder4K: 0.2px solid #9A48D0;
+
+
+/* Neon Pulse */
+$mainGradient: linear-gradient(to right, #B64589, #DC0073, #FF00F0, #8B34A4, #7036A7, #B64589);
+$mainBorder: 0.1px solid #B64589;
+$primary: #B64589;
+$mainBorder4K: 0.2px solid #B64589;
+
+/* Cyber Glow */
+$mainGradient: linear-gradient(to right, #00FFA6, #00F3FF, #A400FF, #FF00DB, #FF005B, #00FFA6);
+$mainBorder: 0.1px solid #00FFA6;
+$primary: #00FFA6;
+$mainBorder4K: 0.2px solid #00FFA6;
+
+/* Galactic Radiance */
+$mainGradient: linear-gradient(to right, #7700FF, #D60EFF, #FF00B6, #FF6400, #FFD500, #7700FF);
+$mainBorder: 0.1px solid #7700FF;
+$primary: #7700FF;
+$mainBorder4K: 0.2px solid #7700FF;
+
+/* Violet Veil */
+$mainGradient: linear-gradient(to right, #5B00FF, #8C00FF, #C200FF, #ED00FF, #FF00C8, #5B00FF);
+$mainBorder: 0.1px solid #5B00FF;
+$primary: #5B00FF;
+$mainBorder4K: 0.2px solid #5B00FF;
+
+/* Luminescent Dive */
+$mainGradient: linear-gradient(to right, #00C5FF, #8D00FF, #E500FF, #FF0081, #FF0013, #00C5FF);
+$mainBorder: 0.1px solid #00C5FF;
+$primary: #00C5FF;
+$mainBorder4K: 0.2px solid #00C5FF;
+
+/* Spectral Shift */
+$mainGradient: linear-gradient(to right, #FF007D, #9D00FF, #3A00FF, #007CFF, #00FF95, #FF007D);
+$mainBorder: 0.1px solid #FF007D;
+$primary: #FF007D;
+$mainBorder4K: 0.2px solid #FF007D;
+
+/* Deep Space */
+$mainGradient: linear-gradient(to right, #5D26C1, #A17FE0, #59C173, #5D26C1, #A17FE0, #5D26C1);
+$mainBorder: 0.1px solid #5D26C1;
+$primary: #5D26C1;
+$mainBorder4K: 0.2px solid #5D26C1;
+
+/* Violet Visions */
+$mainGradient: linear-gradient(to right, #9A48D0, #B66DDF, #E0AAF2, #B66DDF, #9A48D0, #9A48D0);
+$mainBorder: 0.1px solid #9A48D0;
+$primary: #9A48D0;
+$mainBorder4K: 0.2px solid #9A48D0;
+
+/* Lilac Luster */
+$mainGradient: linear-gradient(to right, #AC32E4, #7918F2, #4801FF, #6B0FD9, #AC32E4, #AC32E4);
+$mainBorder: 0.1px solid #AC32E4;
+$primary: #AC32E4;
+$mainBorder4K: 0.2px solid #AC32E4;
+
+/* Astral Aura */
+$mainGradient: linear-gradient(to right, #4B0082, #7B68EE, #9400D3, #9932CC, #BA55D3, #4B0082);
+$mainBorder: 0.1px solid #4B0082;
+$primary: #4B0082;
+$mainBorder4K: 0.2px solid #4B0082;
+
+/* Cosmic Dream */
+$mainGradient: linear-gradient(to right, #4A148C, #7C4DFF, #9575CD, #673AB7, #D1C4E9, #4A148C);
+$mainBorder: 0.1px solid #4A148C;
+$primary: #4A148C;
+$mainBorder4K: 0.2px solid #4A148C;
+
+/* Purple Haze */
+$mainGradient: linear-gradient(to right, #673AB7, #BA68C8, #AB47BC, #9C27B0, #8E24AA, #673AB7);
+$mainBorder: 0.1px solid #673AB7;
+$primary: #673AB7;
+$mainBorder4K: 0.2px solid #673AB7;
+
+/* Mystic Midnight */
+$mainGradient: linear-gradient(to right, #220033, #3C0065, #530097, #6A00CC, #530097, #220033);
+$mainBorder: 0.1px solid #220033;
+$primary: #220033;
+$mainBorder4K: 0.2px solid #220033;
+
+/* Galactic Shade */
+$mainGradient: linear-gradient(to right, #1A004D, #38008D, #4D00CC, #38008D, #1A004D, #1A004D);
+$mainBorder: 0.1px solid #1A004D;
+$primary: #1A004D;
+$mainBorder4K: 0.2px solid #1A004D;
+
+/* Nightshade Nebula */
+$mainGradient: linear-gradient(to right, #140026, #30004C, #4D0073, #30004C, #140026, #140026);
+$mainBorder: 0.1px solid #140026;
+$primary: #140026;
+$mainBorder4K: 0.2px solid #140026;
+
+/* Starry Velvet */
+$mainGradient: linear-gradient(to right, #0D0019, #260033, #3C004C, #260033, #0D0019, #0D0019);
+$mainBorder: 0.1px solid #0D0019;
+$primary: #0D0019;
+$mainBorder4K: 0.2px solid #0D0019;
+
+/* Eclipse Essence */
+$mainGradient: linear-gradient(to right, #00000E, #11001C, #2C0038, #11001C, #00000E, #00000E);
+$mainBorder: 0.1px solid #00000E;
+$primary: #00000E;
+$mainBorder4K: 0.2px solid #00000E;
+
+/* Phantom Purple */
+$mainGradient: linear-gradient(to right, #0A0014, #1D0026, #310039, #1D0026, #0A0014, #0A0014);
+$mainBorder: 0.1px solid #0A0014;
+$primary: #0A0014;
+$mainBorder4K: 0.2px solid #0A0014;
+
+/* 1. Peach Pallet */
+$mainGradient: linear-gradient(to right, #FFDAB9, #FFB6C1, #FFA07A, #FFB6C1, #FFDAB9, #FFDAB9);
+$mainBorder: 0.1px solid #FFDAB9;
+$primary: #FFDAB9;
+$mainBorder4K: 0.2px solid #FFDAB9;
+
+/* 2. Aquamarine Flow */
+$mainGradient: linear-gradient(to right, #7FFFD4, #40E0D0, #20B2AA, #48D1CC, #66CDAA, #7FFFD4);
+$mainBorder: 0.1px solid #7FFFD4;
+$primary: #7FFFD4;
+$mainBorder4K: 0.2px solid #7FFFD4;
+
+/* 3. Lavender Dream */
+$mainGradient: linear-gradient(to right, #E6E6FA, #9370DB, #8A2BE2, #9400D3, #9932CC, #E6E6FA);
+$mainBorder: 0.1px solid #E6E6FA;
+$primary: #E6E6FA;
+$mainBorder4K: 0.2px solid #E6E6FA;
+
+/* 4. Sunset Spectrum */
+$mainGradient: linear-gradient(to right, #FF4500, #FF6347, #FF7F50, #FF8C00, #FFA500, #FF4500);
+$mainBorder: 0.1px solid #FF4500;
+$primary: #FF4500;
+$mainBorder4K: 0.2px solid #FF4500;
+
+/* 5. Emerald Essence */
+$mainGradient: linear-gradient(to right, #50C878, #20B2AA, #00FA9A, #3CB371, #48D1CC, #50C878);
+$mainBorder: 0.1px solid #50C878;
+$primary: #50C878;
+$mainBorder4K: 0.2px solid #50C878;
+
+/* 6. Rose Reverie */
+$mainGradient: linear-gradient(to right, #FFC0CB, #FF69B4, #FF1493, #FFB6C1, #FF69B4, #FFC0CB);
+$mainBorder: 0.1px solid #FFC0CB;
+$primary: #FFC0CB;
+$mainBorder4K: 0.2px solid #FFC0CB;
+
+/* 7. Blue Lagoon */
+$mainGradient: linear-gradient(to right, #5F9EA0, #20B2AA, #48D1CC, #40E0D0, #4682B4, #5F9EA0);
+$mainBorder: 0.1px solid #5F9EA0;
+$primary: #5F9EA0;
+$mainBorder4K: 0.2px solid #5F9EA0;
+
+/* 8. Golden Glaze */
+$mainGradient: linear-gradient(to right, #FFD700, #FFA500, #FF8C00, #FF6347, #FFA07A, #FFD700);
+$mainBorder: 0.1px solid #FFD700;
+$primary: #FFD700;
+$mainBorder4K: 0.2px solid #FFD700;
+
+/* 9. Mauve Mirage */
+$mainGradient: linear-gradient(to right, #E0B0FF, #9370DB, #8A2BE2, #9400D3, #9932CC, #E0B0FF);
+$mainBorder: 0.1px solid #E0B0FF;
+$primary: #E0B0FF;
+$mainBorder4K: 0.2px solid #E0B0FF;
+
+/* 10. Crimson Cascade */
+$mainGradient: linear-gradient(to right, #DC143C, #FF4500, #FF6347, #FF7F50, #FF8C00, #DC143C);
+$mainBorder: 0.1px solid #DC143C;
+$primary: #DC143C;
+$mainBorder4K: 0.2px solid #DC143C;
+
+/* 11. Azure Arc */
+$mainGradient: linear-gradient(to right, #007FFF, #1E90FF, #00BFFF, #87CEEB, #B0E0E6, #007FFF);
+$mainBorder: 0.1px solid #007FFF;
+$primary: #007FFF;
+$mainBorder4K: 0.2px solid #007FFF;
+
+/* 12. Tropical Twist */
+$mainGradient: linear-gradient(to right, #32CD32, #ADFF2F, #7FFF00, #7CFC00, #32CD32, #32CD32);
+$mainBorder: 0.1px solid #32CD32;
+$primary: #32CD32;
+$mainBorder4K: 0.2px solid #32CD32;
+
+/* 13. Violet Verve */
+$mainGradient: linear-gradient(to right, #9400D3, #8A2BE2, #9370DB, #9932CC, #BA55D3, #9400D3);
+$mainBorder: 0.1px solid #9400D3;
+$primary: #9400D3;
+$mainBorder4K: 0.2px solid #9400D3;
+
+/* 14. Amber Aura */
+$mainGradient: linear-gradient(to right, #FFBF00, #FFA500, #FF8C00, #FF6347, #FF7F50, #FFBF00);
+$mainBorder: 0.1px solid #FFBF00;
+$primary: #FFBF00;
+$mainBorder4K: 0.2px solid #FFBF00;
+
+/* 15. Jade Journey */
+$mainGradient: linear-gradient(to right, #00A86B, #3CB371, #00FA9A, #20B2AA, #48D1CC, #00A86B);
+$mainBorder: 0.1px solid #00A86B;
+$primary: #00A86B;
+$mainBorder4K: 0.2px solid #00A86B;
+
+/* 16. Ruby Ripple */
+$mainGradient: linear-gradient(to right, #E0115F, #FF1493, #FF4500, #FF6347, #FF4500, #E0115F);
+$mainBorder: 0.1px solid #E0115F;
+$primary: #E0115F;
+$mainBorder4K: 0.2px solid #E0115F;
+
+/* 17. Sapphire Swirl */
+$mainGradient: linear-gradient(to right, #0F52BA, #4682B4, #1E90FF, #00BFFF, #87CEEB, #0F52BA);
+$mainBorder: 0.1px solid #0F52BA;
+$primary: #0F52BA;
+$mainBorder4K: 0.2px solid #0F52BA;
+
+/* 18. Opal Orbit */
+$mainGradient: linear-gradient(to right, #A8C3BC, #7FFFD4, #20B2AA, #48D1CC, #66CDAA, #A8C3BC);
+$mainBorder: 0.1px solid #A8C3BC;
+$primary: #A8C3BC;
+$mainBorder4K: 0.2px solid #A8C3BC;
+
+/* 19. Topaz Transition */
+$mainGradient: linear-gradient(to right, #FFC125, #FFA500, #FF8C00, #FF6347, #FF4500, #FFC125);
+$mainBorder: 0.1px solid #FFC125;
+$primary: #FFC125;
+$mainBorder4K: 0.2px solid #FFC125;
+
+/* 20. Peridot Pulse */
+$mainGradient: linear-gradient(to right, #ABE338, #ADFF2F, #7FFF00, #7CFC00, #00FA9A, #ABE338);
+$mainBorder: 0.1px solid #ABE338;
+$primary: #ABE338;
+$mainBorder4K: 0.2px solid #ABE338;
+
+/* 21. Coral Curve */
+$mainGradient: linear-gradient(to right, #FF6B6B, #FF6347, #FF4500, #FF6347, #FF6B6B, #FF6B6B);
+$mainBorder: 0.1px solid #FF6B6B;
+$primary: #FF6B6B;
+$mainBorder4K: 0.2px solid #FF6B6B;
+
+/* 22. Garnet Glide */
+$mainGradient: linear-gradient(to right, #8B0000, #FF4500, #FF6347, #FF8C00, #FFA07A, #8B0000);
+$mainBorder: 0.1px solid #8B0000;
+$primary: #8B0000;
+$mainBorder4K: 0.2px solid #8B0000;
+
+/* 23. Amethyst Arc */
+$mainGradient: linear-gradient(to right, #8A2BE2, #9370DB, #9400D3, #9932CC, #BA55D3, #8A2BE2);
+$mainBorder: 0.1px solid #8A2BE2;
+$primary: #8A2BE2;
+$mainBorder4K: 0.2px solid #8A2BE2;
+
+/* 24. Onyx Overlay */
+$mainGradient: linear-gradient(to right, #36454F, #5F9EA0, #4682B4, #1E90FF, #00BFFF, #36454F);
+$mainBorder: 0.1px solid #36454F;
+$primary: #36454F;
+$mainBorder4K: 0.2px solid #36454F;
+
+/* 25. Malachite Motion */
+$mainGradient: linear-gradient(to right, #0A7E8C, #20B2AA, #40E0D0, #48D1CC, #00CED1, #0A7E8C);
+$mainBorder: 0.1px solid #0A7E8C;
+$primary: #0A7E8C;
+$mainBorder4K: 0.2px solid #0A7E8C;
+
+/* 26. Quartz Quest */
+$mainGradient: linear-gradient(to right, #51484F, #8B0000, #8A2BE2, #9400D3, #9932CC, #51484F);
+$mainBorder: 0.1px solid #51484F;
+$primary: #51484F;
+$mainBorder4K: 0.2px solid #51484F;
+
+/* 27. Rhodolite Rhythm */
+$mainGradient: linear-gradient(to right, #DE3163, #FF4500, #FF6347, #FF8C00, #FF4500, #DE3163);
+$mainBorder: 0.1px solid #DE3163;
+$primary: #DE3163;
+$mainBorder4K: 0.2px solid #DE3163;
+
+/* 28. Spinel Spin */
+$mainGradient: linear-gradient(to right, #8E4585, #8A2BE2, #9400D3, #9932CC, #8A2BE2, #8E4585);
+$mainBorder: 0.1px solid #8E4585;
+$primary: #8E4585;
+$mainBorder4K: 0.2px solid #8E4585;
+
+/* 29. Moonstone Muse */
+$mainGradient: linear-gradient(to right, #C0C0C0, #B0E0E6, #4682B4, #1E90FF, #87CEEB, #C0C0C0);
+$mainBorder: 0.1px solid #C0C0C0;
+$primary: #C0C0C0;
+$mainBorder4K: 0.2px solid #C0C0C0;
+
+/* 30. Pearl Pulse */
+$mainGradient: linear-gradient(to right, #EAE0C8, #FFDAB9, #FFA07A, #FFB6C1, #FFE4B5, #EAE0C8);
+$mainBorder: 0.1px solid #EAE0C8;
+$primary: #B66DDF;
+$mainBorder4K: 0.2px solid #EAE0C8;
+
+
+/*--------Color Change Here--------*/
+$mainGradient: linear-gradient(to right, #9A48D0, #B66DDF, #E0AAF2, #B66DDF, #9A48D0, #9A48D0);
+$mainBorder: 0.1px solid #9A48D0;
+$primary: #9A48D0;
+$primaryBG: rgba(154, 72, 208, 0.3);
+$mainBorder4K: 0.2px solid #9A48D0;
