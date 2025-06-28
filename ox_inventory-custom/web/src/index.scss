@@ -128,11 +128,23 @@ button:active {
   z-index: 9999;
 }
 
+.pockets-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
 .pockets-title {
   color: #fff;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
-  margin: 0 0 10px 0;
+}
+
+.pockets-weight {
+  color: #fff;
+  font-size: 14px;
+  opacity: 0.8;
 }
 
 .right-inventory {
@@ -222,24 +234,30 @@ button:active {
   top: 50%;
   transform: translateY(-50%) perspective(1000px) rotateY(-10deg);
   transform-origin: right center;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
   background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.4);
   padding: 5px;
 
   .inventory-grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 90px;
+    gap: 8px;
+    padding: 16px;
     overflow-y: auto;
+    max-height: 340px;
   }
 
   .inventory-grid-container::-webkit-scrollbar {
-    display: block;
     width: 6px;
   }
 
   .inventory-grid-container::-webkit-scrollbar-thumb {
-    background-color: $primary;
+    background-color: #888;
+    border-radius: 6px;
   }
 }
 
@@ -753,14 +771,29 @@ button:active {
     right: 10%;
     transform: translateY(-50%) perspective(1000px) rotateY(-10deg);
     transform-origin: right center;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
     background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(6px);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.4);
 
     .inventory-grid-container::-webkit-scrollbar {
       width: 8px;
+    }
+
+    .inventory-grid-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 90px;
+      gap: 8px;
+      padding: 16px;
+      overflow-y: auto;
+      max-height: 340px;
+    }
+
+    .inventory-grid-container::-webkit-scrollbar-thumb {
+      background-color: #888;
+      border-radius: 6px;
     }
   }
 
