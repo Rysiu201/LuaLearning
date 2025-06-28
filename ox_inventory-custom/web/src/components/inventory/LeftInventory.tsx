@@ -6,7 +6,7 @@ const LeftInventory: React.FC = () => {
   const leftInventory = useAppSelector(selectLeftInventory);
 
   return (
-    <div className="right-inventory">
+    <div className="left-inventory">
       <InventoryGrid inventory={leftInventory} />
     </div>
   );

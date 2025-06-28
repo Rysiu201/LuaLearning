@@ -137,7 +137,7 @@ button:active {
 
 .right-inventory {
   position: absolute;
-  left: 10%;
+  left: 4%;
   top: 50%;
   transform: translateY(-50%) perspective(1000px) rotateY(10deg);
   transform-origin: left center;
@@ -164,10 +164,15 @@ button:active {
 
 .left-inventory {
   position: absolute;
-  left: 2vw;
+  right: 10%;
   top: 50%;
-  transform: translateY(-50%) rotateY(8deg);
-  border: $mainBorder;
+  transform: translateY(-50%) perspective(1000px) rotateY(-10deg);
+  transform-origin: right center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
   padding: 5px;
 
   .inventory-grid-container {
@@ -643,7 +648,7 @@ button:active {
   }
 
   .right-inventory {
-    left: 10%;
+    left: 4%;
     transform: translateY(-50%) perspective(1000px) rotateY(10deg);
     transform-origin: left center;
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -658,9 +663,14 @@ button:active {
   }
 
   .left-inventory {
-    left: 4vw;
-    transform: translateY(-50%) rotateY(8deg);
-    border: $mainBorder4K;
+    right: 10%;
+    transform: translateY(-50%) perspective(1000px) rotateY(-10deg);
+    transform-origin: right center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 
     .inventory-grid-container::-webkit-scrollbar {
       width: 8px;
