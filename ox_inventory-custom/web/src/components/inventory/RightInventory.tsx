@@ -7,6 +7,7 @@ const RightInventory: React.FC = () => {
 
   return (
     <div className="left-inventory">
+      <h2 className="pockets-title">Pockets</h2>
       <InventoryGrid inventory={rightInventory} />
     </div>
   );
