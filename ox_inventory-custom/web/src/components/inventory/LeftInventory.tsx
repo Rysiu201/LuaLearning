@@ -15,6 +15,14 @@ const LeftInventory: React.FC = () => {
     [leftInventory.maxWeight, leftInventory.items]
   );
 
+  const fillPercentage = useMemo(
+    () =>
+      leftInventory.maxWeight
+        ? (weight / leftInventory.maxWeight) * 100
+        : 0,
+    [weight, leftInventory.maxWeight]
+  );
+
   return (
     <div className="left-inventory">
       <div className="pockets-header">
@@ -32,7 +40,13 @@ const LeftInventory: React.FC = () => {
           </span>
         )}
       </div>
-      <InventoryGrid inventory={leftInventory} />
+      <div className="weight-bar">
+        <div
+          className="weight-fill"
+          style={{ width: `${fillPercentage}%` }}
+        ></div>
+      </div>
+      <InventoryGrid inventory={leftInventory} hideHeader />
     </div>
   );
 };
