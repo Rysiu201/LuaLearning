@@ -132,19 +132,20 @@ button:active {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 8px 16px;
+  color: white;
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .pockets-title {
   color: #fff;
-  font-size: 16px;
-  font-weight: bold;
 }
 
 .pockets-weight {
   color: #fff;
-  font-size: 14px;
-  opacity: 0.8;
 }
 
 .right-inventory {
@@ -228,36 +229,52 @@ button:active {
   }
 }
 
+
 .left-inventory {
   position: absolute;
   right: 10%;
   top: 50%;
   transform: translateY(-50%) perspective(1000px) rotateY(-10deg);
   transform-origin: right center;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.4);
-  padding: 5px;
+  padding: 16px;
+  width: fit-content;
+  max-width: 420px;
 
   .inventory-grid-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: 90px;
-    gap: 8px;
-    padding: 16px;
+    gap: 12px;
+    padding: 0 8px;
     overflow-y: auto;
     max-height: 340px;
   }
 
   .inventory-grid-container::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
   }
 
   .inventory-grid-container::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+  }
+
+  .weight-bar {
+    height: 6px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    margin-top: 6px;
+  }
+
+  .weight-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #50fa7b, #f1fa8c);
+    border-radius: 4px;
   }
 }
 
@@ -771,29 +788,45 @@ button:active {
     right: 10%;
     transform: translateY(-50%) perspective(1000px) rotateY(-10deg);
     transform-origin: right center;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
     box-shadow: 0 0 16px rgba(0, 0, 0, 0.4);
+    padding: 16px;
+    width: fit-content;
+    max-width: 420px;
 
     .inventory-grid-container::-webkit-scrollbar {
-      width: 8px;
+      width: 4px;
     }
 
     .inventory-grid-container {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: 90px;
-      gap: 8px;
-      padding: 16px;
+      gap: 12px;
+      padding: 0 8px;
       overflow-y: auto;
       max-height: 340px;
     }
 
     .inventory-grid-container::-webkit-scrollbar-thumb {
-      background-color: #888;
-      border-radius: 6px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+    }
+
+    .weight-bar {
+      height: 6px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      margin-top: 6px;
+    }
+
+    .weight-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #50fa7b, #f1fa8c);
+      border-radius: 4px;
     }
   }
 
