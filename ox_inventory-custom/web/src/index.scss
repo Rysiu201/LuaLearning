@@ -149,6 +149,28 @@ button:active {
   }
 }
 
+.left-inventory {
+  position: absolute;
+  left: 2vw;
+  top: 50%;
+  transform: translateY(-50%) rotateY(8deg);
+  border: $mainBorder;
+  padding: 5px;
+
+  .inventory-grid-container {
+    overflow-y: auto;
+  }
+
+  .inventory-grid-container::-webkit-scrollbar {
+    display: block;
+    width: 6px;
+  }
+
+  .inventory-grid-container::-webkit-scrollbar-thumb {
+    background-color: $primary;
+  }
+}
+
 .inventory-control {
   display: flex;
 
@@ -609,6 +631,16 @@ button:active {
   .right-inventory {
     right: 4vw;
     transform: translateY(-50%) rotateY(-8deg);
+    border: $mainBorder4K;
+
+    .inventory-grid-container::-webkit-scrollbar {
+      width: 8px;
+    }
+  }
+
+  .left-inventory {
+    left: 4vw;
+    transform: translateY(-50%) rotateY(8deg);
     border: $mainBorder4K;
 
     .inventory-grid-container::-webkit-scrollbar {
