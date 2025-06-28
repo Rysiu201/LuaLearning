@@ -193,6 +193,27 @@ button:active {
     color: rgba(255, 255, 255, 0.6);
     font-size: 0.7rem;
   }
+
+  .hotkey-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .hotkey-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .equipment-icon {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    pointer-events: none;
+  }
 }
 
 .left-inventory {
