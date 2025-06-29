@@ -147,7 +147,7 @@ button:active {
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(6px);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-  min-width: calc(#{$gridSize * 3} + 72px);
+  min-width: calc(#{$gridSize * 5} + 72px);
   padding: 10px;
   
   .inventory-grid-container {
@@ -173,11 +173,11 @@ button:active {
   .equipment-slot {
     width: $gridSize;
     height: $gridSize;
-    margin: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 2px;
+    border: 1px solid rgba(246, 244, 244, 0.1);
     border-radius: 6px;
     background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(3px);
     position: relative;
     display: flex;
     align-items: center;
@@ -186,13 +186,13 @@ button:active {
     }
 
   .equipment-placeholder {
-    width: $gridSize * 1.2;
+    width: $gridSize * 2.0;
     height: $gridSize * 5;
     margin: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px dashed rgba(255, 255, 255, 0.15);
+    border: 1px dashed rgba(250, 249, 249, 0.15);
     color: rgba(255, 255, 255, 0.6);
     font-size: 0.7rem;
     img.character-grid {
