@@ -3,6 +3,12 @@ import InventorySlot from './InventorySlot';
 import { useAppSelector } from '../../store';
 import { selectEquipmentInventory } from '../../store/inventory';
 import { isSlotWithItem } from '../../helpers';
+import bagIcon from '../../../images/garbage.png?url';
+import characterGrid from '../../../images/character_grid.png?url';
+import parachuteIcon from '../../../images/parachute.png?url';
+import armourIcon from '../../../images/armour.png?url';
+import weaponIcon from '../../../images/WEAPON_PISTOL.png?url';
+import phoneIcon from '../../../images/phone.png?url';
 
 const EquipmentInventory: React.FC = () => {
   const player = useAppSelector(selectEquipmentInventory);
@@ -17,7 +23,7 @@ const EquipmentInventory: React.FC = () => {
           <span>BACKPACK</span>
           <div className="equipment-slot">
             {!isSlotWithItem(getItem(6)) && (
-              <img src="/images/garbage.png" alt="Backpack" className="equipment-icon" />
+              <img src={bagIcon} alt="Backpack" className="equipment-icon" />
             )}
             <InventorySlot
               item={getItem(6)}
@@ -30,14 +36,14 @@ const EquipmentInventory: React.FC = () => {
         </div>
 
         <div className="equipment-placeholder" style={{ gridColumn: 2, gridRow: '1 / span 3' }}>
-          <img src="/images/character_grid.png" alt="Player Model" className="character-grid" />
+          <img src={characterGrid} alt="Player Model" className="character-grid" />
         </div>
 
         <div className="slot-wrapper right-shift" style={{ gridColumn: 3, gridRow: 1 }}>
           <span>PARACHUTE</span>
           <div className="equipment-slot">
             {!isSlotWithItem(getItem(9)) && (
-              <img src="/images/parachute.png" alt="Parachute" className="equipment-icon" />
+              <img src={parachuteIcon} alt="Parachute" className="equipment-icon" />
             )}
             <InventorySlot
               item={getItem(9)}
@@ -53,7 +59,7 @@ const EquipmentInventory: React.FC = () => {
           <span>ARMOUR</span>
           <div className="equipment-slot">
             {!isSlotWithItem(getItem(7)) && (
-              <img src="/images/armour.png" alt="Body Armour" className="equipment-icon" />
+              <img src={armourIcon} alt="Body Armour" className="equipment-icon" />
             )}
             <InventorySlot
               item={getItem(7)}
@@ -69,7 +75,7 @@ const EquipmentInventory: React.FC = () => {
           <span>WEAPON 1</span>
           <div className="equipment-slot">
             {!isSlotWithItem(getItem(1)) && (
-              <img src="/images/WEAPON_PISTOL.png" alt="Weapon Slot 1" className="equipment-icon" />
+              <img src={weaponIcon} alt="Weapon Slot 1" className="equipment-icon" />
             )}
             <InventorySlot
               item={getItem(1)}
@@ -85,7 +91,7 @@ const EquipmentInventory: React.FC = () => {
           <span>PHONE</span>
           <div className="equipment-slot">
             {!isSlotWithItem(getItem(8)) && (
-              <img src="/images/phone.png" alt="Phone" className="equipment-icon" />
+              <img src={phoneIcon} alt="Phone" className="equipment-icon" />
             )}
             <InventorySlot
               item={getItem(8)}
@@ -101,7 +107,7 @@ const EquipmentInventory: React.FC = () => {
           <span>WEAPON 2</span>
           <div className="equipment-slot">
             {!isSlotWithItem(getItem(2)) && (
-              <img src="/images/WEAPON_PISTOL.png" alt="Weapon Slot 2" className="equipment-icon" />
+              <img src={weaponIcon} alt="Weapon Slot 2" className="equipment-icon" />
             )}
             <InventorySlot
               item={getItem(2)}
@@ -120,7 +126,7 @@ const EquipmentInventory: React.FC = () => {
             <span>HOTKEY SLOT {slot}</span>
             <div className="equipment-slot">
               {!isSlotWithItem(getItem(slot)) && (
-                <img src="/images/WEAPON_PISTOL.png" alt={`Hotkey Slot ${slot}`} className="equipment-icon" />
+                <img src={bagIcon} alt={`Hotkey Slot ${slot}`} className="equipment-icon" />
               )}
               <InventorySlot
                 item={getItem(slot)}
