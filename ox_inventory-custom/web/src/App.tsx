@@ -47,16 +47,21 @@ debugData([
             metadata: { description: 'Generic item description' },
           },
           { slot: 5, name: 'water', weight: 100, count: 1 },
-          {
-            slot: 6,
-            name: 'backwoods',
-            weight: 100,
-            count: 1,
-            metadata: {
-              label: 'Russian Cream',
-              imageurl: 'https://i.imgur.com/2xHhTTz.png',
-            },
+        {
+          slot: 6,
+          name: 'backwoods',
+          weight: 100,
+          count: 1,
+          metadata: {
+            label: 'Russian Cream',
+            imageurl: 'https://i.imgur.com/2xHhTTz.png',
           },
+        },
+        { slot: 7, name: 'WEAPON_PISTOL', weight: 1000, count: 1, metadata: { quality: 'Legendary' } },
+        { slot: 8, name: 'phone', weight: 500, count: 1, metadata: { quality: 'Common' } },
+        { slot: 9, name: 'armour', weight: 800, count: 1, metadata: { quality: 'Rare' } },
+        { slot: 10, name: 'paperbag', weight: 200, count: 1, metadata: { quality: 'Uncommon' } },
+        { slot: 11, name: 'parachute', weight: 600, count: 1, metadata: { quality: 'Epic' } },
         ],
       },
       rightInventory: {
