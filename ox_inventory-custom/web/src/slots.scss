@@ -108,6 +108,7 @@ $bg_ARMOUR: rgba(96, 125, 139, 0.3); // Blue Grey
   border-radius: $mainRadius;
   image-rendering: -webkit-optimize-contrast;
   position: relative;
+  z-index: 1;
   background-size: cover;
   color: #c1c2c5;
   border: 0.1px solid #2d2f3a;
