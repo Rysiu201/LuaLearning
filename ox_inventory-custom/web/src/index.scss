@@ -235,8 +235,8 @@ button:active {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 75%;
-    height: 75%;
+    width: 55%;
+    height: 55%;
     object-fit: contain;
     opacity: 0.5;
     pointer-events: none;
@@ -772,7 +772,7 @@ button:active {
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px dashed rgba(255, 255, 255, 0.15);
+      border: 1px dashed rgba(122, 11, 150, 0.15);
       color: rgba(255, 255, 255, 0.6);
       font-size: 0.7rem;
     }
