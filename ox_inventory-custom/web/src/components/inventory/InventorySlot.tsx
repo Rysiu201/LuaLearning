@@ -33,7 +33,11 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
   const timerRef = useRef<number | null>(null);
 
   const canDrag = useCallback(() => {
-    return canPurchaseItem(item, { type: inventoryType, groups: inventoryGroups }) && canCraftItem(item, inventoryType);
+    return (
+      isSlotWithItem(item) &&
+      canPurchaseItem(item, { type: inventoryType, groups: inventoryGroups }) &&
+      canCraftItem(item, inventoryType)
+    );
   }, [item, inventoryType, inventoryGroups]);
 
   const [{ isDragging }, drag] = useDrag<DragSource, void, { isDragging: boolean }>(
