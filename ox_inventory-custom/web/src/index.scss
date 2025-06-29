@@ -133,6 +133,7 @@ button:active {
   font-size: 18px;
   font-weight: bold;
   margin: 0 0 10px 0;
+  text-align: center;
 }
 
 .equipment-inventory {
@@ -176,11 +177,12 @@ button:active {
     border-radius: 6px;
     background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(4px);
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-  }
+    }
 
   .equipment-placeholder {
     width: 120px;
@@ -206,13 +208,32 @@ button:active {
     flex-direction: column;
     align-items: center;
     gap: 4px;
+    span {
+      font-size: 0.65rem;
+    }
+  }
+
+  .slot-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    span {
+      font-size: 0.65rem;
+    }
   }
 
   .equipment-icon {
-    width: 60px;
-    height: 60px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    height: 75%;
     object-fit: contain;
+    opacity: 0.5;
     pointer-events: none;
+    z-index: 0;
   }
 }
 
@@ -730,6 +751,7 @@ button:active {
       border-radius: 6px;
       background: rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(4px);
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
