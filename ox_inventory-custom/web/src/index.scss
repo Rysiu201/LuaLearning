@@ -135,7 +135,7 @@ button:active {
   margin: 0 0 10px 0;
 }
 
-.right-inventory {
+.equipment-inventory {
   position: absolute;
   left: 4%;
   top: 50%;
@@ -701,7 +701,7 @@ button:active {
     z-index: 9999;
   }
 
-  .right-inventory {
+  .equipment-inventory {
     left: 4%;
     transform: translateY(-50%) perspective(1000px) rotateY(10deg);
     transform-origin: left center;
