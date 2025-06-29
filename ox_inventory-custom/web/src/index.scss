@@ -185,8 +185,8 @@ button:active {
     }
 
   .equipment-placeholder {
-    width: 120px;
-    height: 280px;
+    width: $gridSize;
+    height: $gridSize * 3;
     margin: 12px;
     display: flex;
     align-items: center;
@@ -772,8 +772,8 @@ button:active {
     }
 
     .equipment-placeholder {
-      width: 120px;
-      height: 280px;
+      width: $gridSize;
+      height: $gridSize * 3;
       margin: 12px;
       display: flex;
       align-items: center;
