@@ -7,7 +7,12 @@ import { useAppSelector } from '../../store';
 
 const PAGE_SIZE = 24;
 
-const InventoryGrid: React.FC<{ inventory: Inventory }> = ({ inventory }) => {
+interface InventoryGridProps {
+  inventory: Inventory;
+  showSlotNumbers?: boolean;
+}
+
+const InventoryGrid: React.FC<InventoryGridProps> = ({ inventory, showSlotNumbers = true }) => {
   const weight = useMemo(
     () => (inventory.maxWeight !== undefined ? Math.floor(getTotalWeight(inventory.items) * 1000) / 1000 : 0),
     [inventory.maxWeight, inventory.items]
@@ -35,6 +40,7 @@ const InventoryGrid: React.FC<{ inventory: Inventory }> = ({ inventory }) => {
               inventoryType={inventory.type}
               inventoryGroups={inventory.groups}
               inventoryId={inventory.id}
+              showHotkeyNumber={showSlotNumbers && item.slot <= 5}
             />
           ))}
         </div>
