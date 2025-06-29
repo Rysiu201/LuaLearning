@@ -123,10 +123,11 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
   };
 
   const refs = useMergeRefs([connectRef, ref]);
-  const quality =
-  (item as SlotWithItem)?.metadata?.quality ??
-  Items[item.name]?.rarity ??
-  undefined;
+  let quality: string | undefined = (item as SlotWithItem)?.metadata?.quality;
+
+  if (!quality && 'name' in item && item.name) {
+    quality = Items[item.name]?.rarity;
+  }
 
   return (
     <div
