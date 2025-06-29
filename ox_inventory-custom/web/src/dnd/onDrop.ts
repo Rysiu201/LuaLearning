@@ -12,7 +12,7 @@ const allowedInSlot = (slot: number, name: string) => {
   if (slot >= 3 && slot <= 5) return !isWeapon(name);
   if (slot === 6) return name === 'paperbag';
   if (slot === 7) return name === 'armour';
-  if (slot === 8) return name.toLowerCase().includes('phone');
+  if (slot === 8) return name === 'PHONE';
   if (slot === 9) return name === 'parachute';
   return true;
 };
