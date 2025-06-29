@@ -147,7 +147,7 @@ button:active {
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(6px);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-  padding: 5px;
+  padding: 10px;
   
   .inventory-grid-container {
     overflow-y: auto;
@@ -186,7 +186,7 @@ button:active {
 
   .equipment-placeholder {
     width: $gridSize;
-    height: $gridSize * 3;
+    height: $gridSize * 5;
     margin: 12px;
     display: flex;
     align-items: center;
@@ -261,7 +261,7 @@ button:active {
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(6px);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-  padding: 5px;
+  padding: 10px;
 
   .inventory-grid-container {
     overflow-y: auto;
@@ -773,7 +773,7 @@ button:active {
 
     .equipment-placeholder {
       width: $gridSize;
-      height: $gridSize * 3;
+      height: $gridSize * 5;
       margin: 12px;
       display: flex;
       align-items: center;
