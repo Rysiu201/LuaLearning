@@ -6,11 +6,11 @@ import weaponIcon from '../../../images/WEAPON_PISTOL.png?url';
 import bagIcon from '../../../images/garbage.png?url';
 import InventorySlot from './InventorySlot';
 import { useAppSelector } from '../../store';
-import { selectLeftInventory } from '../../store/inventory';
+import { selectEquipmentInventory } from '../../store/inventory';
 import { isSlotWithItem } from '../../helpers';
 
 const RightInventory: React.FC = () => {
-  const player = useAppSelector(selectLeftInventory);
+  const player = useAppSelector(selectEquipmentInventory);
   const groups = player.groups;
   const getItem = (slot: number) => player.items[slot - 1] || { slot };
 
@@ -27,6 +27,7 @@ const RightInventory: React.FC = () => {
             inventoryId={player.id}
             inventoryType={player.type}
             inventoryGroups={groups}
+            showHotkeyNumber={false}
           />
         </div>
         <div className="equipment-placeholder" style={{ gridColumn: 2, gridRow: '1 / span 3' }}>
@@ -41,6 +42,7 @@ const RightInventory: React.FC = () => {
             inventoryId={player.id}
             inventoryType={player.type}
             inventoryGroups={groups}
+            showHotkeyNumber={false}
           />
         </div>
         <div className="equipment-slot" style={{ gridColumn: 1, gridRow: 2 }}>
@@ -52,6 +54,7 @@ const RightInventory: React.FC = () => {
             inventoryId={player.id}
             inventoryType={player.type}
             inventoryGroups={groups}
+            showHotkeyNumber={false}
           />
         </div>
         <div className="equipment-slot" style={{ gridColumn: 3, gridRow: 2 }}>
@@ -63,6 +66,7 @@ const RightInventory: React.FC = () => {
             inventoryId={player.id}
             inventoryType={player.type}
             inventoryGroups={groups}
+            showHotkeyNumber
           />
         </div>
         <div className="equipment-slot" style={{ gridColumn: 1, gridRow: 3 }}>
@@ -74,6 +78,7 @@ const RightInventory: React.FC = () => {
             inventoryId={player.id}
             inventoryType={player.type}
             inventoryGroups={groups}
+            showHotkeyNumber={false}
           />
         </div>
         <div className="equipment-slot" style={{ gridColumn: 3, gridRow: 3 }}>
@@ -85,6 +90,7 @@ const RightInventory: React.FC = () => {
             inventoryId={player.id}
             inventoryType={player.type}
             inventoryGroups={groups}
+            showHotkeyNumber
           />
         </div>
       </div>
@@ -95,12 +101,13 @@ const RightInventory: React.FC = () => {
             {!isSlotWithItem(getItem(3)) && (
               <img src={weaponIcon} alt="Hotkey Slot 3" className="equipment-icon" />
             )}
-            <InventorySlot
-              item={getItem(3)}
-              inventoryId={player.id}
-              inventoryType={player.type}
-              inventoryGroups={groups}
-            />
+          <InventorySlot
+            item={getItem(3)}
+            inventoryId={player.id}
+            inventoryType={player.type}
+            inventoryGroups={groups}
+            showHotkeyNumber
+          />
           </div>
         </div>
         <div className="hotkey-slot">
@@ -109,12 +116,13 @@ const RightInventory: React.FC = () => {
             {!isSlotWithItem(getItem(4)) && (
               <img src={weaponIcon} alt="Hotkey Slot 4" className="equipment-icon" />
             )}
-            <InventorySlot
-              item={getItem(4)}
-              inventoryId={player.id}
-              inventoryType={player.type}
-              inventoryGroups={groups}
-            />
+          <InventorySlot
+            item={getItem(4)}
+            inventoryId={player.id}
+            inventoryType={player.type}
+            inventoryGroups={groups}
+            showHotkeyNumber
+          />
           </div>
         </div>
         <div className="hotkey-slot">
@@ -123,12 +131,13 @@ const RightInventory: React.FC = () => {
             {!isSlotWithItem(getItem(5)) && (
               <img src={weaponIcon} alt="Hotkey Slot 5" className="equipment-icon" />
             )}
-            <InventorySlot
-              item={getItem(5)}
-              inventoryId={player.id}
-              inventoryType={player.type}
-              inventoryGroups={groups}
-            />
+          <InventorySlot
+            item={getItem(5)}
+            inventoryId={player.id}
+            inventoryType={player.type}
+            inventoryGroups={groups}
+            showHotkeyNumber
+          />
           </div>
         </div>
       </div>
