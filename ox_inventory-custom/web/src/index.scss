@@ -186,7 +186,7 @@ button:active {
     }
 
   .equipment-placeholder {
-    width: $gridSize;
+    width: $gridSize * 1.2;
     height: $gridSize * 5;
     margin: 12px;
     display: flex;
@@ -235,6 +235,10 @@ button:active {
     flex-direction: column;
     align-items: center;
     gap: 4px;
+  }
+
+  .slot-wrapper.right-shift {
+    margin-left: 10%;
   }
 
   .equipment-icon {
@@ -773,8 +777,12 @@ button:active {
       text-align: center;
     }
 
+    .slot-wrapper.right-shift {
+      margin-left: 10%;
+    }
+
     .equipment-placeholder {
-      width: $gridSize;
+      width: $gridSize * 1.2;
       height: $gridSize * 5;
       margin: 12px;
       display: flex;

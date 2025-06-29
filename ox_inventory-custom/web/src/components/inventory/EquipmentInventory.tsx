@@ -37,7 +37,7 @@ const EquipmentInventory: React.FC = () => {
         <div className="equipment-placeholder" style={{ gridColumn: 2, gridRow: '1 / span 3' }}>
           <img src={characterGrid} alt="Player Model" className="character-grid" />
         </div>
-        <div className="slot-wrapper" style={{ gridColumn: 3, gridRow: 1 }}>
+        <div className="slot-wrapper right-shift" style={{ gridColumn: 3, gridRow: 1 }}>
           <span>PARACHUTE</span>
           <div className="equipment-slot">
             {!isSlotWithItem(getItem(9)) && (
@@ -67,7 +67,7 @@ const EquipmentInventory: React.FC = () => {
             />
           </div>
         </div>
-        <div className="slot-wrapper" style={{ gridColumn: 3, gridRow: 2 }}>
+        <div className="slot-wrapper right-shift" style={{ gridColumn: 3, gridRow: 2 }}>
           <span>WEAPON 1</span>
           <div className="equipment-slot">
             {!isSlotWithItem(getItem(1)) && (
@@ -97,7 +97,7 @@ const EquipmentInventory: React.FC = () => {
             />
           </div>
         </div>
-        <div className="slot-wrapper" style={{ gridColumn: 3, gridRow: 3 }}>
+        <div className="slot-wrapper right-shift" style={{ gridColumn: 3, gridRow: 3 }}>
           <span>WEAPON 2</span>
           <div className="equipment-slot">
             {!isSlotWithItem(getItem(2)) && (
