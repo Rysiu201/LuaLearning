@@ -147,6 +147,7 @@ button:active {
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(6px);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  min-width: calc(#{$gridSize * 3} + 72px);
   padding: 10px;
   
   .inventory-grid-container {
@@ -744,6 +745,7 @@ button:active {
     background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(6px);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    min-width: calc(#{$gridSize * 3} + 72px);
 
     .inventory-grid-container::-webkit-scrollbar {
       width: 8px;
