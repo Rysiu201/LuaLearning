@@ -142,7 +142,7 @@ button:active {
   top: 50%;
   transform: translateY(-50%) perspective(1000px) rotateY(10deg);
   transform-origin: left center;
-  background: rgba(24, 24, 24, 0.25);
+  background: rgba(24, 24, 24, 0.1);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
@@ -177,7 +177,7 @@ button:active {
     margin: 2px;
     border: 1px solid rgba(246, 244, 244, 0.1);
     border-radius: 6px;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(3px);
     position: relative;
     display: flex;
@@ -261,7 +261,7 @@ button:active {
   top: 50%;
   transform: translateY(-50%) perspective(1000px) rotateY(-10deg);
   transform-origin: right center;
-  background: rgba(24, 24, 24, 0.25);
+  background: rgba(24, 24, 24, 0.1);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
@@ -506,13 +506,13 @@ button:active {
   width: 200px;
   min-width: 200px;
   padding: 10px;
-  background: rgba(24, 24, 24, 0.25);
+  background: rgba(24, 24, 24, 0.1);
   backdrop-filter: blur(12px);
   color: $textColor;
   font-family: $mainFont;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 
   p {
     font-size: 0.8rem;
@@ -746,7 +746,7 @@ button:active {
     transform-origin: left center;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
-    background: rgba(188, 16, 16, 0);
+    background: rgba(188, 16, 16, 0.1);
     backdrop-filter: blur(6px);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
     min-width: calc(#{$gridSize * 3} + 72px);
@@ -768,7 +768,7 @@ button:active {
       margin: 12px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 6px;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.1);
       backdrop-filter: blur(4px);
       position: relative;
       display: flex;
@@ -806,7 +806,7 @@ button:active {
     transform-origin: right center;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(6px);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 
@@ -837,7 +837,7 @@ button:active {
   min-width: 50vw;
   min-height: 50vh;
 
-  background: rgba(24, 24, 24, 0.25);
+  background: rgba(24, 24, 24, 0.1);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
