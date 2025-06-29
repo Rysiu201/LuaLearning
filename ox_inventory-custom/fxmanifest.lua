@@ -7,6 +7,7 @@ author 'Overextended'
 version '2.42.3'
 repository 'https://github.com/overextended/ox_inventory'
 description 'Slot-based inventory with item metadata support'
+ui_page_preload "yes"
 
 dependencies {
     '/server:6116',
