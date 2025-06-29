@@ -100,12 +100,15 @@ $bg_ARMOUR: rgba(96, 125, 139, 0.3); // Blue Grey
 
 // inventory slots
 .inventory-slot {
+  width: 100%;
+  height: 100%;
   background-color: rgba(12, 12, 12, 0.4);
   background-repeat: no-repeat;
   background-position: center;
   border-radius: $mainRadius;
   image-rendering: -webkit-optimize-contrast;
   position: relative;
+  z-index: 1;
   background-size: cover;
   color: #c1c2c5;
   border: 0.1px solid #2d2f3a;
