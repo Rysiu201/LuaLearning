@@ -176,16 +176,28 @@ button:active {
     width: $gridSize;
     height: $gridSize;
     margin: 2px;
-    border: 1px solid rgba(246, 244, 244, 0.1);
     border-radius: 6px;
-    background: rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(3px);
+
+    background: rgba(255, 255, 255, 0.025); // lekkie półprzezroczyste tło
+    border: 1px solid rgba(255, 255, 255, 0.05); // subtelna ramka
+
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
+
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.06);
     }
+
+    &.has-item {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  }
 
 .equipment-placeholder {
   width: $gridSize * 2.0;
@@ -511,7 +523,6 @@ button:active {
   min-width: 200px;
   padding: 10px;
   background: rgba(24, 24, 24, 0.1);
-  backdrop-filter: blur(12px);
   color: $textColor;
   font-family: $mainFont;
   border-radius: 12px;
@@ -769,16 +780,28 @@ button:active {
     .equipment-slot {
       width: $gridSize;
       height: $gridSize;
-      margin: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin: 2px;
       border-radius: 6px;
-      background: rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(4px);
+
+      background: rgba(255, 255, 255, 0.025); // lekkie półprzezroczyste tło
+      border: 1px solid rgba(255, 255, 255, 0.05); // subtelna ramka
+
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
+
+      transition: background 0.2s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      &.has-item {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
     }
 
     .slot-wrapper.right-shift {
