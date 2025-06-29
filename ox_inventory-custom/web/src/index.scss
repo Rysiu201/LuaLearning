@@ -142,13 +142,14 @@ button:active {
   top: 50%;
   transform: translateY(-50%) perspective(1000px) rotateY(10deg);
   transform-origin: left center;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  background: rgba(24, 24, 24, 0.25);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
+  border-radius: 18px;
   min-width: calc(#{$gridSize * 5} + 72px);
   padding: 10px;
+}
   
   .inventory-grid-container {
     overflow-y: auto;
@@ -188,7 +189,7 @@ button:active {
   .equipment-placeholder {
     width: $gridSize * 2.0;
     height: $gridSize * 5;
-    margin: 12px;
+    margin: 88px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -253,7 +254,6 @@ button:active {
     pointer-events: none;
     z-index: 0;
   }
-}
 
 .left-inventory {
   position: absolute;
@@ -261,12 +261,13 @@ button:active {
   top: 50%;
   transform: translateY(-50%) perspective(1000px) rotateY(-10deg);
   transform-origin: right center;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  background: rgba(24, 24, 24, 0.25);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
+  border-radius: 18px;
   padding: 10px;
+}
 
   .inventory-grid-container {
     overflow-y: auto;
@@ -280,7 +281,6 @@ button:active {
   .inventory-grid-container::-webkit-scrollbar-thumb {
     background-color: $primary;
   }
-}
 
 .inventory-control {
   display: flex;
@@ -502,17 +502,17 @@ button:active {
 .tooltip-wrapper {
   pointer-events: none;
   display: flex;
-  background-color: $mainColor;
-  width: 200px;
-  padding: 8px;
   flex-direction: column;
+  width: 200px;
   min-width: 200px;
+  padding: 10px;
+  background: rgba(24, 24, 24, 0.25);
+  backdrop-filter: blur(12px);
   color: $textColor;
   font-family: $mainFont;
-  border-radius: $mainRadius;
-  border-color: rgba(0, 0, 0, 0.2);
-  border-style: inset;
-  border-width: 1px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
 
   p {
     font-size: 0.8rem;
@@ -746,7 +746,7 @@ button:active {
     transform-origin: left center;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(188, 16, 16, 0);
     backdrop-filter: blur(6px);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
     min-width: calc(#{$gridSize * 3} + 72px);
@@ -824,23 +824,28 @@ button:active {
   }
 
   // info panel
-  .useful-controls-dialog {
-    background-color: $mainColor;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: $textColor;
-    min-width: 50vw;
-    min-height: 50vh;
-    display: flex;
-    flex-direction: column;
-    padding: 6px;
-    border-radius: $mainRadius4K;
-    background: $mainGradient;
-    animation: rainbow 22s infinite linear alternate;
-    gap: 22px;
-  }
+.useful-controls-dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 22px;
+
+  min-width: 50vw;
+  min-height: 50vh;
+
+  background: rgba(24, 24, 24, 0.25);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
+  border-radius: 18px;
+
+  color: $textColor;
+  font-family: $mainFont;
+}
 
   .useful-controls-dialog-WR {
     background: #121212;
