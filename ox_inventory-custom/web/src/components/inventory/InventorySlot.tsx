@@ -126,7 +126,7 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
   let quality: string | undefined = (item as SlotWithItem)?.metadata?.quality;
 
   if (!quality && 'name' in item && item.name) {
-    quality = Items[item.name]?.rarity;
+    quality = Items[item.name]?.metadata?.quality;
   }
 
   return (
@@ -166,7 +166,7 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
             }
           >
             {showHotkeyNumber && <div className="inventory-slot-number">{item.slot}</div>}
-            <span className="item-quality">{quality}</span>
+            <span className={`item-quality quality-${quality?.toLowerCase()}`}>{quality}</span>
             <span className="item-count">{item.count ? item.count.toLocaleString('en-us') + `x` : ''}</span>
           </div>
           <div
