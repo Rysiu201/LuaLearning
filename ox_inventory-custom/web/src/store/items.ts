@@ -1,5 +1,24 @@
 import { ItemData } from '../typings/item';
 
+export interface ItemData {
+  name: string;
+  label: string;
+  stack: boolean;
+  usable: boolean;
+  close: boolean;
+  count: number;
+  description?: string;
+  buttons?: string[];
+  ammoName?: string;
+  image?: string;
+  weight?: number;
+  rarity?: 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary';
+  metadata?: {
+    quality?: 'Common' | 'Uncommon' | 'Rare' | 'Epic' | 'Legendary';
+    [key: string]: any;
+  };
+}
+
 export const Items: {
   [key: string]: ItemData | undefined;
 } = {
