@@ -331,16 +331,24 @@ function Items.Metadata(inv, item, metadata, count)
 		metadata = response
 	end
 
-	if metadata.imageurl and Utils.IsValidImageUrl then
-		if Utils.IsValidImageUrl(metadata.imageurl) then
-			Utils.DiscordEmbed('Valid image URL', ('Created item "%s" (%s) with valid url in "%s".\n%s\nid: %s\nowner: %s'):format(metadata.label or item.label, item.name, inv.label, metadata.imageurl, inv.id, inv.owner, metadata.imageurl), metadata.imageurl, 65280)
-		else
-			Utils.DiscordEmbed('Invalid image URL', ('Created item "%s" (%s) with invalid url in "%s".\n%s\nid: %s\nowner: %s'):format(metadata.label or item.label, item.name, inv.label, metadata.imageurl, inv.id, inv.owner, metadata.imageurl), metadata.imageurl, 16711680)
-			metadata.imageurl = nil
-		end
-	end
+        if metadata.imageurl and Utils.IsValidImageUrl then
+                if Utils.IsValidImageUrl(metadata.imageurl) then
+                        Utils.DiscordEmbed('Valid image URL', ('Created item "%s" (%s) with valid url in "%s".\n%s\nid: %s\nowner: %s'):format(metadata.label or item.label, item.name, inv.label, metadata.imageurl, inv.id, inv.owner, metadata.imageurl), metadata.imageurl, 65280)
+                else
+                        Utils.DiscordEmbed('Invalid image URL', ('Created item "%s" (%s) with invalid url in "%s".\n%s\nid: %s\nowner: %s'):format(metadata.label or item.label, item.name, inv.label, metadata.imageurl, inv.id, inv.owner, metadata.imageurl), metadata.imageurl, 16711680)
+                        metadata.imageurl = nil
+                end
+        end
 
-	return metadata, count
+        if item.metadata then
+                for k, v in pairs(item.metadata) do
+                        if metadata[k] == nil then
+                                metadata[k] = v
+                        end
+                end
+        end
+
+        return metadata, count
 end
 
 ---@param metadata table<string, any>
@@ -365,8 +373,8 @@ function Items.CheckMetadata(metadata, item, name, ostime)
 		metadata = setItemDurability(item, metadata)
 	end
 
-	if item.weapon then
-		if metadata.components then
+        if item.weapon then
+                if metadata.components then
 			if table.type(metadata.components) == 'array' then
 				for i = #metadata.components, 1, -1 do
 					if not ItemList[metadata.components[i]] then
@@ -392,12 +400,20 @@ function Items.CheckMetadata(metadata, item, name, ostime)
 			metadata.serial = nil
 		end
 
-		if metadata.specialAmmo and type(metadata.specialAmmo) ~= 'string' then
-			metadata.specialAmmo = nil
-		end
-	end
+                if metadata.specialAmmo and type(metadata.specialAmmo) ~= 'string' then
+                        metadata.specialAmmo = nil
+                end
+        end
 
-	return metadata
+        if item.metadata then
+                for k, v in pairs(item.metadata) do
+                        if metadata[k] == nil then
+                                metadata[k] = v
+                        end
+                end
+        end
+
+        return metadata
 end
 
 ---Update item durability, and call `Inventory.RemoveItem` if it was removed from decay.
