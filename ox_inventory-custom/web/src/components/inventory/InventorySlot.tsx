@@ -127,9 +127,8 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
 
   if (!quality && 'name' in item && item.name) {
     quality = Items[item.name]?.metadata?.quality;
+    console.log('>> QUALITY', quality, 'FROM', Items[item.name]);
   }
-
-  console.log('>> QUALITY', quality, 'FROM', Items[item.name]);
 
   return (
     <div
