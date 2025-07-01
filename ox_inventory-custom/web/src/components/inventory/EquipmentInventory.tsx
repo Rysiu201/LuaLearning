@@ -3,12 +3,14 @@ import InventorySlot from './InventorySlot';
 import { useAppSelector } from '../../store';
 import { selectEquipmentInventory } from '../../store/inventory';
 import { isSlotWithItem } from '../../helpers';
-import bagIcon from '../../../images/garbage.png?url';
+import backpackIcon from '../../../images/backpack-inventory.png?url';
 import characterGrid from '../../../images/character_grid.png?url';
-import parachuteIcon from '../../../images/parachute.png?url';
-import armourIcon from '../../../images/armour.png?url';
-import weaponIcon from '../../../images/WEAPON_PISTOL.png?url';
-import phoneIcon from '../../../images/phone.png?url';
+import parachuteIcon from '../../../images/parachute-inventory.png?url';
+import armourIcon from '../../../images/armour-inventory.png?url';
+import weaponIcon from '../../../images/pistol-inventory.png?url';
+import riffleIcon from '../../../images/ak-47-inventory.png?url';
+import phoneIcon from '../../../images/smartphone-inventory.png?url';
+import hotkeyIcon from '../../../images/inventory-inventory.png?url';
 
 const EquipmentInventory: React.FC = () => {
   const player = useAppSelector(selectEquipmentInventory);
@@ -23,7 +25,7 @@ const EquipmentInventory: React.FC = () => {
           <span>BACKPACK</span>
           <div className="equipment-slot">
             {!isSlotWithItem(getItem(6)) && (
-              <img src={bagIcon} alt="Backpack" className="equipment-icon" />
+              <img src={backpackIcon} alt="Backpack" className="equipment-icon" />
             )}
             <InventorySlot
               item={getItem(6)}
@@ -107,7 +109,7 @@ const EquipmentInventory: React.FC = () => {
           <span>WEAPON 2</span>
           <div className="equipment-slot">
             {!isSlotWithItem(getItem(2)) && (
-              <img src={weaponIcon} alt="Weapon Slot 2" className="equipment-icon" />
+              <img src={riffleIcon} alt="Weapon Slot 2" className="equipment-icon" />
             )}
             <InventorySlot
               item={getItem(2)}
@@ -126,7 +128,7 @@ const EquipmentInventory: React.FC = () => {
             <span>HOTKEY SLOT {slot}</span>
             <div className="equipment-slot">
               {!isSlotWithItem(getItem(slot)) && (
-                <img src={bagIcon} alt={`Hotkey Slot ${slot}`} className="equipment-icon" />
+                <img src={hotkeyIcon} alt={`Hotkey Slot ${slot}`} className="equipment-icon" />
               )}
               <InventorySlot
                 item={getItem(slot)}
