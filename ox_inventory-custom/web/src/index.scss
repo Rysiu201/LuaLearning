@@ -420,11 +420,12 @@ button:active {
   gap: calc($gridGap * 2);
 }
 
+
 .inventory-grid-header-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: -25px;
+  margin-bottom: 5px;
   margin-left: 10px;
   margin-right: 10px;
   padding-left: 10px;
@@ -972,7 +973,7 @@ button:active {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: -50px;
+    margin-bottom: 10px;
     margin-left: 20px;
     margin-right: 20px;
     padding-left: 20px;

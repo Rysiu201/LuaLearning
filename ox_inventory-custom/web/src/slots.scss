@@ -15,10 +15,10 @@ $bg_ARMOUR: rgba(96, 125, 139, 0.3); // Blue Grey
 
 // rarity backgrounds
 $bg_COMMON: rgba(255, 255, 255, 0.1); // gray
-$bg_UNCOMMON: rgba(76, 175, 80, 0.3); // green
-$bg_RARE: rgba(63, 81, 181, 0.3); // blue
-$bg_EPIC: rgba(156, 39, 176, 0.3); // purple
-$bg_LEGENDARY: rgba(255, 193, 7, 0.3); // gold
+$bg_UNCOMMON: rgba(76, 175, 80, 0.2); // green
+$bg_RARE: rgba(63, 81, 181, 0.2); // blue
+$bg_EPIC: rgba(156, 39, 176, 0.2); // purple
+$bg_LEGENDARY: rgba(255, 193, 7, 0.2); // gold
 
 .item-image {
   position: relative;
@@ -83,6 +83,7 @@ $bg_LEGENDARY: rgba(255, 193, 7, 0.3); // gold
   box-shadow: 1px 2px 15px 2px rgba(0, 0, 0, 0.54);
 }
 
+
 .item-quality {
   font-size: 0.7rem;
   font-weight: 600;
@@ -91,7 +92,7 @@ $bg_LEGENDARY: rgba(255, 193, 7, 0.3); // gold
 .item-count {
   font-size: 0.7rem;
   font-weight: 600;
-  color: $primary;
+  color: white;
 }
 
 .inventory-slot-weight {
@@ -109,7 +110,8 @@ $bg_LEGENDARY: rgba(255, 193, 7, 0.3); // gold
 .inventory-slot {
   width: 100%;
   height: 100%;
-  background-color: rgba(12, 12, 12, 0.4);
+  background-color: rgba(12, 12, 12, 0.2);
+  backdrop-filter: blur(4px);
   background-repeat: no-repeat;
   background-position: center;
   border-radius: $mainRadius;
@@ -132,22 +134,37 @@ $bg_LEGENDARY: rgba(255, 193, 7, 0.3); // gold
 
   &.rarity-common {
     background-color: $bg_COMMON;
+    .item-quality {
+      color: #ffffff;
+    }
   }
 
   &.rarity-uncommon {
     background-color: $bg_UNCOMMON;
+    .item-quality {
+      color: #4caf50;
+    }
   }
 
   &.rarity-rare {
     background-color: $bg_RARE;
+    .item-quality {
+      color: #3f51b5;
+    }
   }
 
   &.rarity-epic {
     background-color: $bg_EPIC;
+    .item-quality {
+      color: #9c27b0;
+    }
   }
 
   &.rarity-legendary {
     background-color: $bg_LEGENDARY;
+    .item-quality {
+      color: #ffc107;
+    }
   }
 
   // CLOTHING
