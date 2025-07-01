@@ -433,6 +433,10 @@ button:active {
   p {
     font-size: 1rem;
   }
+
+  .weight-icon {
+    padding-right: 4px;
+  }
 }
 
 .inventory-grid-container {
@@ -644,18 +648,19 @@ button:active {
   padding-right: 7px;
 }
 
+
 .weight-bar-WR {
   border-radius: $mainRadius;
   padding: 1px;
   background: $mainGradient;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   animation: rainbow 22s infinite linear alternate;
 }
 
 .weight-bar {
   background: rgba(0, 0, 0, 0.8);
   border: 1px inset rgba(0, 0, 0, 0.1);
-  height: 3vh;
+  height: 1vh;
   border-radius: $secondRadius;
   overflow: hidden;
 }
@@ -976,6 +981,10 @@ button:active {
     p {
       font-size: 2rem;
     }
+
+    .weight-icon {
+      padding-right: 8px;
+    }
   }
 
   .inventory-grid-container {
@@ -1130,7 +1139,7 @@ button:active {
 
   .weight-bar {
     border: 1px inset rgba(0, 0, 0, 0.1);
-    height: 3vh;
+    height: 1vh;
     border-radius: $secondRadius4K;
   }
 

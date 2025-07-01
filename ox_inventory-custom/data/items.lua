@@ -68,14 +68,15 @@ return {
 		label = 'Dirty Money',
 	},
 
-	['burger'] = {
-		label = 'Burger',
-		weight = 220,
-		client = {
-			status = { hunger = 200000 },
-			anim = 'eating',
-			prop = 'burger',
-			usetime = 2500,
+        ['burger'] = {
+                label = 'Burger',
+                weight = 220,
+                metadata = { quality = 'Common' },
+                client = {
+                        status = { hunger = 200000 },
+                        anim = 'eating',
+                        prop = 'burger',
+                        usetime = 2500,
 			notification = 'You ate a delicious burger'
 		},
 	},
@@ -175,12 +176,13 @@ return {
 		}
 	},
 
-	['water'] = {
-		label = 'Water',
-		weight = 500,
-		client = {
-			status = { thirst = 200000 },
-			anim = { dict = 'mp_player_intdrink', clip = 'loop_bottle' },
+        ['water'] = {
+                label = 'Water',
+                weight = 500,
+                metadata = { quality = 'Common' },
+                client = {
+                        status = { thirst = 200000 },
+                        anim = { dict = 'mp_player_intdrink', clip = 'loop_bottle' },
 			prop = { model = `prop_ld_flow_bottle`, pos = vec3(0.03, 0.03, 0.02), rot = vec3(0.0, 0.0, -1.5) },
 			usetime = 2500,
 			cancel = true,
@@ -195,15 +197,16 @@ return {
 		allowArmed = true
 	},
 
-	['armour'] = {
-		label = 'Bulletproof Vest',
-		weight = 3000,
-		stack = false,
-		client = {
-			anim = { dict = 'clothingshirt', clip = 'try_shirt_positive_d' },
-			usetime = 3500
-		}
-	},
+        ['armour'] = {
+                label = 'Bulletproof Vest',
+                weight = 3000,
+                metadata = { quality = 'Rare' },
+                stack = false,
+                client = {
+                        anim = { dict = 'clothingshirt', clip = 'try_shirt_positive_d' },
+                        usetime = 3500
+                }
+        },
 
 	['clothing'] = {
 		label = 'Clothing',
@@ -334,14 +337,15 @@ return {
 		}
 	},
 
-	["diamond_ring"] = {
-		label = "Diamond Ring",
-		weight = 200,
-		stack = true,
-		close = false,
-		description = "",
-		client = {
-			image = "diamond_ring.png",
+        ["diamond_ring"] = {
+                label = "Diamond Ring",
+                weight = 200,
+                metadata = { quality = 'Legendary' },
+                stack = true,
+                close = false,
+                description = "",
+                client = {
+                        image = "diamond_ring.png",
 		}
 	},
 
