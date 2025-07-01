@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { fetchNui } from '../../utils/fetchNui';
 import {
   FloatingFocusManager,
   FloatingOverlay,
@@ -27,17 +28,23 @@ const SplitDialog: React.FC<Props> = ({ visible, onClose, item }) => {
 
   const update = (n: number) => setQty(Math.min(max, Math.max(1, n)));
 
+  const confirm = () => {
+    if (!item) return;
+    fetchNui('splitItem', { slot: item.slot, count: qty });
+    onClose();
+  };
+
   return (
     <>
       {isMounted && (
         <FloatingPortal>
-          <FloatingOverlay lockScroll className="useful-controls-dialog-overlay" data-open={visible} style={styles}>
+          <FloatingOverlay lockScroll className="split-dialog-overlay" data-open={visible} style={styles}>
             <FloatingFocusManager context={context}>
-              <div ref={refs.setFloating} {...getFloatingProps()} className="useful-controls-dialog" style={styles}>
-                <div className="useful-controls-dialog-WR">
-                  <div className="useful-controls-dialog-title">
+              <div ref={refs.setFloating} {...getFloatingProps()} className="split-dialog" style={styles}>
+                <div className="split-dialog-WR">
+                  <div className="split-dialog-title">
                     <p>SPLIT</p>
-                    <div className="useful-controls-dialog-close" onClick={onClose}>
+                    <div className="split-dialog-close" onClick={onClose}>
                       ×
                     </div>
                   </div>
@@ -52,6 +59,7 @@ const SplitDialog: React.FC<Props> = ({ visible, onClose, item }) => {
                     </div>
                     <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
                       <button onClick={onClose}>{Locale.ui_cancel || 'Cancel'}</button>
+                      <button onClick={confirm}>{Locale.ui_confirm || 'Confirm'}</button>
                     </div>
                   </div>
                 </div>
