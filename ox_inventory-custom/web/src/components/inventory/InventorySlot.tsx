@@ -123,11 +123,11 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
   };
 
   const refs = useMergeRefs([connectRef, ref]);
-  let quality: string | undefined = (item as SlotWithItem)?.metadata?.quality;
+  let quality: string | undefined = isSlotWithItem(item) ? item.metadata?.quality : undefined;
 
-  if (!quality && 'name' in item && item.name) {
-    quality = Items[item.name]?.metadata?.quality;
-    console.log('>> QUALITY', quality, 'FROM', Items[item.name]);
+  if (!quality) {
+    console.warn(`Brak quality dla itemu ${item.name}, ustawiam domyślnie "Common"`, item);
+    quality = 'Common';
   }
 
   return (
