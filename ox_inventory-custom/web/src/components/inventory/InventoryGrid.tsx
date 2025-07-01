@@ -26,6 +26,7 @@ const InventoryGrid: React.FC<InventoryGridProps> = ({ inventory, showSlotNumber
             <p>{inventory.label}</p>
             {inventory.maxWeight && (
               <p>
+                <span className="weight-icon">⚖</span>
                 {weight / 1000}/{inventory.maxWeight / 1000}kg
               </p>
             )}
