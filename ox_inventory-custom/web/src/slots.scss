@@ -95,6 +95,52 @@ $bg_LEGENDARY: rgba(255, 193, 7, 0.2); // gold
   }
 }
 
+  .item-count {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 0.6rem;
+    font-weight: 500;
+    padding: 2px 4px;
+    border-radius: 3px;
+    color: white;
+    z-index: 2;
+  }
+
+/* Rarity label */
+  .item-quality {
+    display: inline-block;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    padding: 2px 6px;
+    font-size: 0.6rem;
+    font-weight: 800;
+    color: white;
+    z-index: 3;
+    text-transform: capitalize;
+  }
+
+  .quality-common {
+    color: #90a4ae;
+  }
+
+  .quality-uncommon {
+    color: #66bb6a;
+  }
+
+  .quality-rare {
+    color: #42a5f5;
+  }
+
+  .quality-epic {
+    color: #ab47bc;
+  }
+
+  .quality-legendary {
+    color: #ffa000;
+  }
+
 // inventory slots
 .inventory-slot {
   width: 100%;
@@ -122,82 +168,22 @@ $bg_LEGENDARY: rgba(255, 193, 7, 0.2); // gold
 
   &.rarity-common {
     background-color: $bg_COMMON;
-    .item-quality {
-      color: #ffffff;
-    }
   }
 
   &.rarity-uncommon {
     background-color: $bg_UNCOMMON;
-    .item-quality {
-      color: #4caf50;
-    }
   }
 
   &.rarity-rare {
     background-color: $bg_RARE;
-    .item-quality {
-      color: #1737e8;
-    }
   }
 
   &.rarity-epic {
     background-color: $bg_EPIC;
-    .item-quality {
-      color: #e65ffe;
-    }
   }
 
   &.rarity-legendary {
     background-color: $bg_LEGENDARY;
-    .item-quality {
-      color: #ffc107;
-    }
-  }
-
-  .item-count {
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    font-size: 0.6rem;
-    font-weight: 500;
-    padding: 2px 4px;
-    border-radius: 3px;
-    color: white;
-    z-index: 2;
-  }
-
-/* Rarity label */
-  .item-quality {
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    padding: 2px 6px;
-    font-size: 0.6rem;
-    font-weight: 800;
-    color: white;
-    z-index: 2;
-    text-transform: capitalize;
-  }
-
-  .quality-common {
-    color: #90a4ae;
-  }
-
-  .quality-uncommon {
-    color: #66bb6a;
-  }
-
-  .quality-rare {
-    color: #42a5f5;
-  }
-
-  .quality-epic {
-    color: #ab47bc;
-  }
-
-  .quality-legendary {
-    color: #ffa000;
   }
 
   // CLOTHING
