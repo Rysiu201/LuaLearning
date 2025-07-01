@@ -134,7 +134,7 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
       ref={refs}
       onContextMenu={handleContext}
       onClick={handleClick}
-      className={`inventory-slot ${item?.name ? `inventory-slot-${item.name.toLowerCase()}` : ''}`}
+      className={`inventory-slot ${quality ? `rarity-${quality.toLowerCase()}` : ''}`}
       style={{
         filter:
           !canPurchaseItem(item, { type: inventoryType, groups: inventoryGroups }) || !canCraftItem(item, inventoryType)
