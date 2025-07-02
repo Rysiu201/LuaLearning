@@ -20,6 +20,12 @@ $bg_RARE: rgba(23, 49, 201, 0.2); // blue
 $bg_EPIC: rgba(127, 15, 147, 0.2); // purple
 $bg_LEGENDARY: rgba(255, 193, 7, 0.2); // gold
 
+$bg_COMMON_border: rgba(255, 255, 255, 0.5); // gray
+$bg_UNCOMMON_border: rgba(76, 175, 80); // green
+$bg_RARE_border: rgba(10, 44, 233); // blue
+$bg_EPIC_border: rgb(195, 26, 225); // purple
+$bg_LEGENDARY_border: rgba(255, 193, 7, 0.5); // gold
+
 .item-image {
   position: relative;
   z-index: 0;
@@ -154,7 +160,7 @@ $bg_LEGENDARY: rgba(255, 193, 7, 0.2); // gold
   z-index: 1;
   background-size: cover;
   color: #c1c2c5;
-  border: 0.1px solid #2d2f3a;
+  border: 0.5px solid #f1f1f258;
   background-image: url('https://cdn.frvgs.com/assets/custom/default.png');
 
   &:hover {
@@ -168,22 +174,27 @@ $bg_LEGENDARY: rgba(255, 193, 7, 0.2); // gold
 
   &.rarity-common {
     background-color: $bg_COMMON;
+    border: 0.9px solid $bg_COMMON_border;
   }
 
   &.rarity-uncommon {
     background-color: $bg_UNCOMMON;
+    border: 0.9px solid $bg_UNCOMMON_border;
   }
 
   &.rarity-rare {
     background-color: $bg_RARE;
+    border: 0.9px solid $bg_RARE_border;
   }
 
   &.rarity-epic {
     background-color: $bg_EPIC;
+    border: 0.9px solid $bg_EPIC_border;
   }
 
   &.rarity-legendary {
     background-color: $bg_LEGENDARY;
+    border: 0.9px solid $bg_LEGENDARY_border;
   }
 
   // CLOTHING
