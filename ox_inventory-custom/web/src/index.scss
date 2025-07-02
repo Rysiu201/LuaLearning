@@ -564,6 +564,14 @@ button:active {
   }
 }
 
+.split-dialog input[type='number'] {
+  text-align: center;
+}
+
+.split-dialog input[type='range'] {
+  width: 80%;
+}
+
 // Dialog is used fro useful controls window
 // inventory grids
 .inventory-grid-wrapper {
@@ -1438,6 +1446,14 @@ button:active {
       background-color: $secondaryColorHighlight;
       cursor: pointer;
     }
+  }
+
+  .split-dialog input[type='number'] {
+    text-align: center;
+  }
+
+  .split-dialog input[type='range'] {
+    width: 80%;
   }
 
   .PanelClose {

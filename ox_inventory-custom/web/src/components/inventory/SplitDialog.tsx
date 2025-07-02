@@ -22,7 +22,7 @@ const SplitDialog: React.FC<Props> = ({ visible, onClose, item }) => {
   const max = item?.count ? Math.max(1, item.count - 1) : 1;
   const [qty, setQty] = useState(1);
   const { refs, context } = useFloating({ open: visible, onOpenChange: onClose });
-  const dismiss = useDismiss(context, { outsidePressEvent: 'mousedown' });
+  const dismiss = useDismiss(context, { outsidePressEvent: 'pointerdown' });
   const { isMounted, styles } = useTransitionStyles(context);
   const { getFloatingProps } = useInteractions([dismiss]);
 
@@ -40,7 +40,12 @@ const SplitDialog: React.FC<Props> = ({ visible, onClose, item }) => {
         <FloatingPortal>
           <FloatingOverlay lockScroll className="split-dialog-overlay" data-open={visible} style={styles}>
             <FloatingFocusManager context={context}>
-              <div ref={refs.setFloating} {...getFloatingProps()} className="split-dialog" style={styles}>
+              <div
+                ref={refs.setFloating}
+                {...getFloatingProps({ onMouseDown: (e) => e.stopPropagation() })}
+                className="split-dialog"
+                style={styles}
+              >
                 <div className="split-dialog-WR">
                   <div className="split-dialog-title">
                     <p>SPLIT</p>
@@ -50,8 +55,22 @@ const SplitDialog: React.FC<Props> = ({ visible, onClose, item }) => {
                   </div>
                   <div className="useful-controls-content-wrapper">
                     <p>Item Quantity</p>
-                    <input type="number" min={1} max={max} value={qty} onChange={(e) => update(Number(e.target.value))} />
-                    <input type="range" min={1} max={max} value={qty} onChange={(e) => update(Number(e.target.value))} />
+                    <input
+                      type="number"
+                      min={1}
+                      max={max}
+                      value={qty}
+                      onChange={(e) => update(Number(e.target.value))}
+                      style={{ textAlign: 'center' }}
+                    />
+                    <input
+                      type="range"
+                      min={1}
+                      max={max}
+                      value={qty}
+                      onChange={(e) => update(Number(e.target.value))}
+                      style={{ width: '80%' }}
+                    />
                     <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
                       <button onClick={() => update(Math.floor(max / 2))}>1/2</button>
                       <button onClick={() => update(Math.floor(max / 3))}>1/3</button>
@@ -59,7 +78,7 @@ const SplitDialog: React.FC<Props> = ({ visible, onClose, item }) => {
                     </div>
                     <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
                       <button onClick={onClose}>{Locale.ui_cancel || 'Cancel'}</button>
-                      <button onClick={confirm}>{Locale.ui_confirm || 'Confirm'}</button>
+                      <button onClick={confirm}>{'Split'}</button>
                     </div>
                   </div>
                 </div>
