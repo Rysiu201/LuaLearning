@@ -1,0 +1,26 @@
+.shopping-cart {
+  margin-top: 10px;
+  background: rgba(0,0,0,0.6);
+  padding: 8px;
+  border-radius: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+.cart-table th, .cart-table td {
+  border-bottom: 1px solid #555;
+  padding: 4px;
+  text-align: center;
+}
+.cart-summary {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+.cart-summary button {
+  margin-left: 4px;
+}
