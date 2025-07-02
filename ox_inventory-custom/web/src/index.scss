@@ -132,22 +132,25 @@ button:active {
 
 .inventory-tabs {
   position: absolute;
-  top: 40px;
-  left: 40px;
+  top: 100px;
+  left: 120px;
   display: flex;
   gap: 10px;
   z-index: 10000;
+  transform: perspective(1000px) rotateY(10deg);
+  transform-origin: left center;
 
   .tab-btn {
-    padding: 6px 12px;
+    padding: 8px 14px;
     border-radius: $mainRadius;
     background: rgba(24, 24, 24, 0.3);
-    border: 0.1px solid #2d2f3a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: #fff;
     font-family: $mainFont;
     font-size: 0.9rem;
     cursor: pointer;
     user-select: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 
     &.active,
     &:hover {
@@ -850,22 +853,25 @@ button:active {
 
   .inventory-tabs {
     position: absolute;
-    top: 80px;
-    left: 80px;
+    top: 160px;
+    left: 200px;
     display: flex;
     gap: 10px;
     z-index: 10000;
+    transform: perspective(1000px) rotateY(10deg);
+    transform-origin: left center;
 
     .tab-btn {
-      padding: 10px 18px;
+      padding: 14px 24px;
       border-radius: $mainRadius4K;
       background: rgba(24, 24, 24, 0.3);
-      border: 0.1px solid #2d2f3a;
+      border: 1px solid rgba(255, 255, 255, 0.15);
       color: #fff;
       font-family: $mainFont;
       font-size: 1.2rem;
       cursor: pointer;
       user-select: none;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 
       &.active,
       &:hover {
