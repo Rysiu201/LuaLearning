@@ -5,18 +5,6 @@ import { DragSource, DropTarget, InventoryType, SlotWithItem } from '../typings'
 import { moveSlots, stackSlots, swapSlots } from '../store/inventory';
 import { Items } from '../store/items';
 
-const isWeapon = (name: string) => name.toUpperCase().startsWith('WEAPON_');
-
-const allowedInSlot = (slot: number, name: string) => {
-  if (slot === 1 || slot === 2) return isWeapon(name);
-  if (slot >= 3 && slot <= 5) return !isWeapon(name);
-  if (slot === 6) return name === 'paperbag';
-  if (slot === 7) return name === 'armour';
-  if (slot === 8) return name.toLowerCase().includes('phone');
-  if (slot === 9) return name === 'parachute';
-  return true;
-};
-
 export const onDrop = (source: DragSource, target?: DropTarget) => {
   const { inventory: state } = store.getState();
 
@@ -44,13 +32,6 @@ export const onDrop = (source: DragSource, target?: DropTarget) => {
     : findAvailableSlot(sourceSlot, sourceData, targetInventory.items);
 
   if (targetSlot === undefined) return console.error('Target slot undefined!');
-
-  if (
-    targetInventory.type === InventoryType.PLAYER &&
-    !allowedInSlot(targetSlot.slot, sourceSlot.name)
-  ) {
-    return console.log(`Item ${sourceSlot.name} cannot go in slot ${targetSlot.slot}`);
-  }
 
   // If dropping on container slot when opened
   if (targetSlot.metadata?.container !== undefined && state.rightInventory.id === targetSlot.metadata.container)

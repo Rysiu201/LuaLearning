@@ -7,6 +7,7 @@ author 'Overextended'
 version '2.42.3'
 repository 'https://github.com/overextended/ox_inventory'
 description 'Slot-based inventory with item metadata support'
+ui_page_preload "yes"
 
 dependencies {
     '/server:6116',
@@ -39,6 +40,7 @@ files {
     'web/build/index.html',
     'web/build/assets/*.js',
     'web/build/assets/*.css',
+    'web/build/assets/*.png',
     'web/images/*.png',
     'modules/**/shared.lua',
     'modules/**/client.lua',

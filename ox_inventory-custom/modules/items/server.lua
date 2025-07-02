@@ -51,8 +51,6 @@ local Inventory
 CreateThread(function()
 	Inventory = require 'modules.inventory.server'
 
-    if not lib then return end
-
 	if shared.framework == 'esx' then
 		local success, items = pcall(MySQL.query.await, 'SELECT * FROM items')
 
@@ -110,6 +108,109 @@ CreateThread(function()
 			end
 
 			shared.info('Database contains', #items, 'items.')
+		end
+
+		Wait(500)
+
+	elseif shared.framework == 'qb' then
+		local QBCore = exports['qb-core']:GetCoreObject()
+		local items = QBCore.Shared.Items
+
+		if items and table.type(items) ~= 'empty' then
+			local dump = {}
+			local count = 0
+			local ignoreList = {
+				"weapon_",
+				"pistol_",
+				"pistol50_",
+				"revolver_",
+				"smg_",
+				"combatpdw_",
+				"shotgun_",
+				"rifle_",
+				"carbine_",
+				"gusenberg_",
+				"sniper_",
+				"snipermax_",
+				"tint_",
+				"_ammo"
+			}
+
+			local function checkIgnoredNames(name)
+				for i = 1, #ignoreList do
+					if string.find(name, ignoreList[i]) then
+						return true
+					end
+				end
+				return false
+			end
+
+			for k, item in pairs(items) do
+				-- Explain why this wouldn't be table to me, because numerous people have been getting "attempted to index number" here
+				if type(item) == 'table' then
+					-- Some people don't assign the name property, but it seemingly always matches the index anyway.
+					if not item.name then item.name = k end
+
+					if not ItemList[item.name] and not checkIgnoredNames(item.name) then
+						item.close = item.shouldClose == nil and true or item.shouldClose
+						item.stack = not item.unique and true
+						item.description = item.description
+						item.weight = item.weight or 0
+						dump[k] = item
+						count += 1
+					end
+				end
+			end
+
+			if table.type(dump) ~= 'empty' then
+				local file = {string.strtrim(LoadResourceFile(shared.resource, 'data/items.lua'))}
+				file[1] = file[1]:gsub('}$', '')
+
+				---@todo separate into functions for reusability, properly handle nil values
+				local itemFormat = [[
+
+	[%q] = {
+		label = %q,
+		weight = %s,
+		stack = %s,
+		close = %s,
+		description = %q,
+		client = {
+			status = {
+				hunger = %s,
+				thirst = %s,
+				stress = %s
+			},
+			image = %q,
+		}
+	},
+]]
+
+				local fileSize = #file
+
+				for _, item in pairs(dump) do
+					if not ItemList[item.name] then
+						fileSize += 1
+
+						---@todo cry
+						local itemStr = itemFormat:format(item.name, item.label, item.weight, item.stack, item.close, item.description or 'nil', item.hunger or 'nil', item.thirst or 'nil', item.stress or 'nil', item.image or 'nil')
+						-- temporary solution for nil values
+						itemStr = itemStr:gsub('[%s]-[%w]+ = "?nil"?,?', '')
+						-- temporary solution for empty status table
+						itemStr = itemStr:gsub('[%s]-[%w]+ = %{[%s]+%},?', '')
+						-- temporary solution for empty client table
+						itemStr = itemStr:gsub('[%s]-[%w]+ = %{[%s]+%},?', '')
+						file[fileSize] = itemStr
+						ItemList[item.name] = item
+					end
+				end
+
+				file[fileSize+1] = '}'
+
+				SaveResourceFile(shared.resource, 'data/items.lua', table.concat(file), -1)
+				shared.info(count, 'items have been copied from the QBCore.Shared.Items.')
+				shared.info('You should restart the resource to load the new items.')
+			end
 		end
 
 		Wait(500)
@@ -230,16 +331,24 @@ function Items.Metadata(inv, item, metadata, count)
 		metadata = response
 	end
 
-	if metadata.imageurl and Utils.IsValidImageUrl then
-		if Utils.IsValidImageUrl(metadata.imageurl) then
-			Utils.DiscordEmbed('Valid image URL', ('Created item "%s" (%s) with valid url in "%s".\n%s\nid: %s\nowner: %s'):format(metadata.label or item.label, item.name, inv.label, metadata.imageurl, inv.id, inv.owner, metadata.imageurl), metadata.imageurl, 65280)
-		else
-			Utils.DiscordEmbed('Invalid image URL', ('Created item "%s" (%s) with invalid url in "%s".\n%s\nid: %s\nowner: %s'):format(metadata.label or item.label, item.name, inv.label, metadata.imageurl, inv.id, inv.owner, metadata.imageurl), metadata.imageurl, 16711680)
-			metadata.imageurl = nil
-		end
-	end
+        if metadata.imageurl and Utils.IsValidImageUrl then
+                if Utils.IsValidImageUrl(metadata.imageurl) then
+                        Utils.DiscordEmbed('Valid image URL', ('Created item "%s" (%s) with valid url in "%s".\n%s\nid: %s\nowner: %s'):format(metadata.label or item.label, item.name, inv.label, metadata.imageurl, inv.id, inv.owner, metadata.imageurl), metadata.imageurl, 65280)
+                else
+                        Utils.DiscordEmbed('Invalid image URL', ('Created item "%s" (%s) with invalid url in "%s".\n%s\nid: %s\nowner: %s'):format(metadata.label or item.label, item.name, inv.label, metadata.imageurl, inv.id, inv.owner, metadata.imageurl), metadata.imageurl, 16711680)
+                        metadata.imageurl = nil
+                end
+        end
 
-	return metadata, count
+        if item.metadata then
+                for k, v in pairs(item.metadata) do
+                        if metadata[k] == nil then
+                                metadata[k] = v
+                        end
+                end
+        end
+
+        return metadata, count
 end
 
 ---@param metadata table<string, any>
@@ -264,8 +373,8 @@ function Items.CheckMetadata(metadata, item, name, ostime)
 		metadata = setItemDurability(item, metadata)
 	end
 
-	if item.weapon then
-		if metadata.components then
+        if item.weapon then
+                if metadata.components then
 			if table.type(metadata.components) == 'array' then
 				for i = #metadata.components, 1, -1 do
 					if not ItemList[metadata.components[i]] then
@@ -291,12 +400,20 @@ function Items.CheckMetadata(metadata, item, name, ostime)
 			metadata.serial = nil
 		end
 
-		if metadata.specialAmmo and type(metadata.specialAmmo) ~= 'string' then
-			metadata.specialAmmo = nil
-		end
-	end
+                if metadata.specialAmmo and type(metadata.specialAmmo) ~= 'string' then
+                        metadata.specialAmmo = nil
+                end
+        end
 
-	return metadata
+        if item.metadata then
+                for k, v in pairs(item.metadata) do
+                        if metadata[k] == nil then
+                                metadata[k] = v
+                        end
+                end
+        end
+
+        return metadata
 end
 
 ---Update item durability, and call `Inventory.RemoveItem` if it was removed from decay.

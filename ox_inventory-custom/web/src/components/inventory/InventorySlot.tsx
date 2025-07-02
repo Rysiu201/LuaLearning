@@ -1,15 +1,18 @@
 import React, { useCallback, useRef } from 'react';
 import { DragSource, Inventory, InventoryType, Slot, SlotWithItem } from '../../typings';
 import { useDrag, useDragDropManager, useDrop } from 'react-dnd';
-import { useAppDispatch } from '../../store';
+import { useAppDispatch, useAppSelector } from '../../store';
 import WeightBar from '../utils/WeightBar';
 import { onDrop } from '../../dnd/onDrop';
+import { onDrop as onGroundDrop } from '../../dnd/onGround';
 import { onBuy } from '../../dnd/onBuy';
 import { Items } from '../../store/items';
-import { canCraftItem, canPurchaseItem, getItemUrl, isSlotWithItem } from '../../helpers';
+import { canCraftItem, canPurchaseItem, getItemUrl, isSlotWithItem, findAvailableSlot } from '../../helpers';
 import { onUse } from '../../dnd/onUse';
 import { Locale } from '../../store/locale';
 import { onCraft } from '../../dnd/onCraft';
+import { validateMove } from '../../thunks/validateItems';
+import { selectLeftInventory } from '../../store/inventory';
 import useNuiEvent from '../../hooks/useNuiEvent';
 import { ItemsPayload } from '../../reducers/refreshSlots';
 import { closeTooltip, openTooltip } from '../../store/tooltip';
@@ -21,18 +24,35 @@ interface SlotProps {
   inventoryType: Inventory['type'];
   inventoryGroups: Inventory['groups'];
   item: Slot;
+  showHotkeyNumber?: boolean;
 }
 
 const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> = (
-  { item, inventoryId, inventoryType, inventoryGroups },
+  { item, inventoryId, inventoryType, inventoryGroups, showHotkeyNumber },
   ref
 ) => {
   const manager = useDragDropManager();
   const dispatch = useAppDispatch();
+  const leftInventory = useAppSelector(selectLeftInventory);
   const timerRef = useRef<number | null>(null);
 
+  const allowedInSlot = (slot: number, name: string) => {
+    const isWeapon = name.toUpperCase().startsWith('WEAPON_');
+    if (slot === 1 || slot === 2) return isWeapon;
+    if (slot >= 3 && slot <= 5) return !isWeapon;
+    if (slot === 6) return name === 'paperbag';
+    if (slot === 7) return name === 'armour';
+    if (slot === 8) return name.toLowerCase().includes('phone');
+    if (slot === 9) return name === 'parachute';
+    return true;
+  };
+
   const canDrag = useCallback(() => {
-    return canPurchaseItem(item, { type: inventoryType, groups: inventoryGroups }) && canCraftItem(item, inventoryType);
+    return (
+      isSlotWithItem(item) &&
+      canPurchaseItem(item, { type: inventoryType, groups: inventoryGroups }) &&
+      canCraftItem(item, inventoryType)
+    );
   }, [item, inventoryType, inventoryGroups]);
 
   const [{ isDragging }, drag] = useDrag<DragSource, void, { isDragging: boolean }>(
@@ -73,7 +93,11 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
             onCraft(source, { inventory: inventoryType, item: { slot: item.slot } });
             break;
           default:
-            onDrop(source, { inventory: inventoryType, item: { slot: item.slot } });
+            if (inventoryType === 'newdrop' || inventoryType === 'drop') {
+              onGroundDrop(source, { inventory: inventoryType, item: { slot: item.slot } });
+            } else {
+              onDrop(source, { inventory: inventoryType, item: { slot: item.slot } });
+            }
             break;
         }
       },
@@ -111,21 +135,62 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
     dispatch(closeTooltip());
     if (timerRef.current) clearTimeout(timerRef.current);
     if (event.ctrlKey && isSlotWithItem(item) && inventoryType !== 'shop' && inventoryType !== 'crafting') {
-      onDrop({ item: item, inventory: inventoryType });
+      if (inventoryType === 'newdrop' || inventoryType === 'drop') {
+        onGroundDrop({ item: item, inventory: inventoryType });
+      } else {
+        onDrop({ item: item, inventory: inventoryType });
+      }
     } else if (event.altKey && isSlotWithItem(item) && inventoryType === 'player') {
       onUse(item);
+    } else if (event.shiftKey && isSlotWithItem(item) && inventoryType === 'player') {
+      if (item.slot <= 9) {
+        const target = findAvailableSlot(item as SlotWithItem, Items[item.name]!, leftInventory.items.slice(9));
+        if (!target) return;
+        dispatch(
+          validateMove({
+            fromSlot: item.slot,
+            fromType: 'player',
+            toSlot: target.slot + 9,
+            toType: 'player',
+            count: item.count,
+          })
+        );
+      } else {
+        for (let i = 1; i <= 9; i++) {
+          if (allowedInSlot(i, item.name)) {
+            const dest = leftInventory.items[i - 1];
+            if (!isSlotWithItem(dest)) {
+              dispatch(
+                validateMove({
+                  fromSlot: item.slot,
+                  fromType: 'player',
+                  toSlot: i,
+                  toType: 'player',
+                  count: item.count,
+                })
+              );
+              break;
+            }
+          }
+        }
+      }
     }
   };
 
   const refs = useMergeRefs([connectRef, ref]);
-  const quality = (item as SlotWithItem)?.metadata?.quality as string | undefined;
+  let quality: string | undefined = isSlotWithItem(item) ? item.metadata?.quality : undefined;
+
+  if (!quality) {
+    console.warn(`Brak quality dla itemu ${item.name}, ustawiam domyślnie "Common"`, item);
+    quality = 'Common';
+  }
 
   return (
     <div
       ref={refs}
       onContextMenu={handleContext}
       onClick={handleClick}
-      className={`inventory-slot ${item?.name ? `inventory-slot-${item.name.toLowerCase()}` : ''}`}
+      className={`inventory-slot ${quality ? `rarity-${quality.toLowerCase()}` : ''}`}
       style={{
         filter:
           !canPurchaseItem(item, { type: inventoryType, groups: inventoryGroups }) || !canCraftItem(item, inventoryType)
@@ -151,13 +216,9 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
             }
           }}
         >
-          <div
-            className={
-              inventoryType === 'player' && item.slot <= 5 ? 'item-hotslot-header-wrapper' : 'item-slot-header-wrapper'
-            }
-          >
-            {inventoryType === 'player' && item.slot <= 5 && <div className="inventory-slot-number">{item.slot}</div>}
-            <span className="item-quality">{quality}</span>
+          <div className={showHotkeyNumber ? 'item-hotslot-header-wrapper' : 'item-slot-header-wrapper'}>
+            {showHotkeyNumber && <div className="inventory-slot-number">{item.slot}</div>}
+            <span className={`item-quality quality-${quality?.toLowerCase()}`}>{quality}</span>
             <span className="item-count">{item.count ? item.count.toLocaleString('en-us') + `x` : ''}</span>
           </div>
           <div

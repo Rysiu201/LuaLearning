@@ -5,8 +5,10 @@ import { useAppDispatch, useAppSelector } from '../../store';
 import { refreshSlots, setAdditionalMetadata, setupInventory } from '../../store/inventory';
 import { useExitListener } from '../../hooks/useExitListener';
 import type { Inventory as InventoryProps } from '../../typings';
-import RightInventory from './RightInventory';
+import EquipmentInventory from './EquipmentInventory';
+import GroundInventory from './GroundInventory';
 import LeftInventory from './LeftInventory';
+import InventoryTabs from './InventoryTabs';
 import Tooltip from '../utils/Tooltip';
 import { closeTooltip } from '../../store/tooltip';
 import InventoryContext from './InventoryContext';
@@ -71,6 +73,19 @@ const Inventory: React.FC = () => {
   useNuiEvent('displayMetadata', (data: Array<{ metadata: string; value: string }>) => {
     dispatch(setAdditionalMetadata(data));
   });
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key.toLowerCase() === 'e') setShowEquipment(true);
+      if (e.key.toLowerCase() === 'q') setShowEquipment(false);
+    };
+
+    if (inventoryVisible) {
+      window.addEventListener('keyup', handler);
+    }
+
+    return () => window.removeEventListener('keyup', handler);
+  }, [inventoryVisible]);
 
   return (
     <>

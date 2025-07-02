@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { fetchNui } from '../../utils/fetchNui';
 import {
   FloatingFocusManager,
   FloatingOverlay,
@@ -24,6 +25,12 @@ const SplitDialog: React.FC<Props> = ({ visible, onClose, item }) => {
 
   const update = (n: number) => setQty(Math.min(max, Math.max(1, n)));
 
+  const confirm = () => {
+    if (!item) return;
+    fetchNui('splitItem', { slot: item.slot, count: qty });
+    onClose();
+  };
+
   return (
     <>
       {isMounted && (
@@ -42,7 +49,7 @@ const SplitDialog: React.FC<Props> = ({ visible, onClose, item }) => {
                 <div className="useful-controls-dialog-WR">
                   <div className="useful-controls-dialog-title">
                     <p>SPLIT</p>
-                    <div className="useful-controls-dialog-close" onClick={onClose}>
+                    <div className="split-dialog-close" onClick={onClose}>
                       ×
                     </div>
                   </div>
@@ -77,6 +84,7 @@ const SplitDialog: React.FC<Props> = ({ visible, onClose, item }) => {
                         Split
                       </button>
                       <button onClick={onClose}>{Locale.ui_cancel || 'Cancel'}</button>
+                      <button onClick={confirm}>{Locale.ui_confirm || 'Confirm'}</button>
                     </div>
                   </div>
                 </div>
