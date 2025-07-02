@@ -1085,18 +1085,23 @@ exports('SetMaxWeight', Inventory.SetMaxWeight)
 ---@param cb? fun(success?: boolean, response: string|SlotWithItem|nil)
 ---@return boolean? success, string|SlotWithItem|nil response
 function Inventory.AddItem(inv, item, count, metadata, slot, cb)
-	if type(item) ~= 'table' then item = Items(item) end
+        if type(item) ~= 'table' then item = Items(item) end
 
-	if not item then return false, 'invalid_item' end
+        if not item then return false, 'invalid_item' end
 
-	inv = Inventory(inv) --[[@as OxInventory]]
+        inv = Inventory(inv) --[[@as OxInventory]]
 
 	if not inv?.slots then return false, 'invalid_inventory' end
 
-	local toSlot, slotMetadata, slotCount
-	local success, response = false
-	count = math.floor(count + 0.5)
-	metadata = assertMetadata(metadata)
+        local toSlot, slotMetadata, slotCount
+        local success, response = false
+        count = math.floor(count + 0.5)
+        metadata = assertMetadata(metadata)
+
+        local slotWeight = Inventory.SlotWeight(item, {count = count, metadata = metadata})
+        if inv.weight + slotWeight > inv.maxWeight then
+                return false, 'cannot_carry'
+        end
 
 	if slot then
 		local slotData = inv.items[slot]
@@ -1111,12 +1116,17 @@ function Inventory.AddItem(inv, item, count, metadata, slot, cb)
 		local items = inv.items
 		slotMetadata, slotCount = Items.Metadata(inv.id, item, metadata and table.clone(metadata) or {}, count)
 
-		for i = 1, inv.slots do
-			local slotData = items[i]
+                local startSlot = 1
+                if inv.type == 'player' and not slot then
+                        startSlot = 10
+                end
 
-			if item.stack and slotData ~= nil and slotData.name == item.name and table.matches(slotData.metadata, slotMetadata) then
-				toSlot = i
-				break
+                for i = startSlot, inv.slots do
+                        local slotData = items[i]
+
+                        if item.stack and slotData ~= nil and slotData.name == item.name and table.matches(slotData.metadata, slotMetadata) and (not item.maxStack or slotData.count < item.maxStack) then
+                                toSlot = i
+                                break
 			elseif not item.stack and not slotData then
 				if not toSlot then toSlot = {} end
 
@@ -1141,8 +1151,25 @@ function Inventory.AddItem(inv, item, count, metadata, slot, cb)
 	local invokingResource = server.loglevel > 1 and GetInvokingResource()
 	local toSlotType = type(toSlot)
 
-	if toSlotType == 'number' then
-		Inventory.SetSlot(inv, item, slotCount, slotMetadata, toSlot)
+        if toSlotType == 'number' then
+                if item.maxStack then
+                        local current = inv.items[toSlot] and inv.items[toSlot].count or 0
+                        if current + slotCount > item.maxStack then
+                                local add = item.maxStack - current
+                                if add > 0 then
+                                        Inventory.SetSlot(inv, item, add, slotMetadata, toSlot)
+                                        local s, r = Inventory.AddItem(inv, item, slotCount - add, metadata)
+                                        success = s
+                                        response = r
+                                else
+                                        return false, 'inventory_full'
+                                end
+                        else
+                                Inventory.SetSlot(inv, item, slotCount, slotMetadata, toSlot)
+                        end
+                else
+                        Inventory.SetSlot(inv, item, slotCount, slotMetadata, toSlot)
+                end
 
 		if inv.player and server.syncInventory then
 			server.syncInventory(inv)

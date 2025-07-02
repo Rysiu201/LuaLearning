@@ -1,15 +1,17 @@
 import React, { useCallback, useRef } from 'react';
 import { DragSource, Inventory, InventoryType, Slot, SlotWithItem } from '../../typings';
 import { useDrag, useDragDropManager, useDrop } from 'react-dnd';
-import { useAppDispatch } from '../../store';
+import { useAppDispatch, useAppSelector } from '../../store';
 import WeightBar from '../utils/WeightBar';
 import { onDrop } from '../../dnd/onDrop';
 import { onBuy } from '../../dnd/onBuy';
 import { Items } from '../../store/items';
-import { canCraftItem, canPurchaseItem, getItemUrl, isSlotWithItem } from '../../helpers';
+import { canCraftItem, canPurchaseItem, getItemUrl, isSlotWithItem, findAvailableSlot } from '../../helpers';
 import { onUse } from '../../dnd/onUse';
 import { Locale } from '../../store/locale';
 import { onCraft } from '../../dnd/onCraft';
+import { validateMove } from '../../thunks/validateItems';
+import { selectLeftInventory } from '../../store/inventory';
 import useNuiEvent from '../../hooks/useNuiEvent';
 import { ItemsPayload } from '../../reducers/refreshSlots';
 import { closeTooltip, openTooltip } from '../../store/tooltip';
@@ -30,7 +32,19 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
 ) => {
   const manager = useDragDropManager();
   const dispatch = useAppDispatch();
+  const leftInventory = useAppSelector(selectLeftInventory);
   const timerRef = useRef<number | null>(null);
+
+  const allowedInSlot = (slot: number, name: string) => {
+    const isWeapon = name.toUpperCase().startsWith('WEAPON_');
+    if (slot === 1 || slot === 2) return isWeapon;
+    if (slot >= 3 && slot <= 5) return !isWeapon;
+    if (slot === 6) return name === 'paperbag';
+    if (slot === 7) return name === 'armour';
+    if (slot === 8) return name.toLowerCase().includes('phone');
+    if (slot === 9) return name === 'parachute';
+    return true;
+  };
 
   const canDrag = useCallback(() => {
     return (
@@ -119,6 +133,38 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
       onDrop({ item: item, inventory: inventoryType });
     } else if (event.altKey && isSlotWithItem(item) && inventoryType === 'player') {
       onUse(item);
+    } else if (event.shiftKey && isSlotWithItem(item) && inventoryType === 'player') {
+      if (item.slot <= 9) {
+        const target = findAvailableSlot(item as SlotWithItem, Items[item.name]!, leftInventory.items.slice(9));
+        if (!target) return;
+        dispatch(
+          validateMove({
+            fromSlot: item.slot,
+            fromType: 'player',
+            toSlot: target.slot + 9,
+            toType: 'player',
+            count: item.count,
+          })
+        );
+      } else {
+        for (let i = 1; i <= 9; i++) {
+          if (allowedInSlot(i, item.name)) {
+            const dest = leftInventory.items[i - 1];
+            if (!isSlotWithItem(dest)) {
+              dispatch(
+                validateMove({
+                  fromSlot: item.slot,
+                  fromType: 'player',
+                  toSlot: i,
+                  toType: 'player',
+                  count: item.count,
+                })
+              );
+              break;
+            }
+          }
+        }
+      }
     }
   };
 
@@ -161,11 +207,7 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
             }
           }}
         >
-          <div
-            className={
-              showHotkeyNumber ? 'item-hotslot-header-wrapper' : 'item-slot-header-wrapper'
-            }
-          >
+          <div className={showHotkeyNumber ? 'item-hotslot-header-wrapper' : 'item-slot-header-wrapper'}>
             {showHotkeyNumber && <div className="inventory-slot-number">{item.slot}</div>}
             <span className={`item-quality quality-${quality?.toLowerCase()}`}>{quality}</span>
             <span className="item-count">{item.count ? item.count.toLocaleString('en-us') + `x` : ''}</span>
