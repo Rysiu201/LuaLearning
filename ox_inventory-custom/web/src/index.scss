@@ -138,26 +138,18 @@ button:active {
 .key-wrapper {
   display: inline-flex;
   align-items: center;
-  border: 2px solid #444;
-  border-radius: 6px;
   padding: 4px 8px;
-  background-color: #1a1a1a;
   margin-right: 10px;
   font-family: Arial, sans-serif;
-
-  &.green {
-    border-color: #4caf50;
-    background-color: #2e4;
-  }
 }
 
 .key-box {
   background-color: #222;
   border: 2px solid #888;
   border-radius: 4px;
-  padding: 2px 6px;
-  font-weight: bold;
-  margin: 0 4px;
+  padding: 2px 4px;
+  font-weight: 2;
+  margin: 0px;
   color: white;
 }
 
@@ -263,7 +255,6 @@ button:active {
   &:hover {
     background: rgba(255, 255, 255, 0.06);
   }
-}
 
   &.has-item {
     background: rgba(255, 255, 255, 0.04);
