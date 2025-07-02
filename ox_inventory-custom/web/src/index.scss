@@ -141,21 +141,25 @@ button:active {
   transform-origin: left center;
 
   .tab-btn {
+    display: flex;
     padding: 8px 14px;
     border-radius: $mainRadius;
     background: rgba(24, 24, 24, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 0.5px solid rgba(247, 247, 247, 0.600);
     color: #fff;
     font-family: $mainFont;
     font-size: 0.9rem;
     cursor: pointer;
     user-select: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transform: perspective(1000px) rotateY(10deg);
+    transform-origin: left center;
 
     &.active,
     &:hover {
       background: $primaryBG;
       border-color: $primary;
+      border: 0.5px solid rgba(247, 247, 247, 0.400);
     }
   }
 }
