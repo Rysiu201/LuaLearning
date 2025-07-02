@@ -13,6 +13,13 @@ $bg_OTHERS: rgba(255, 87, 34, 0.3); // Deep Orange
 $bg_DRUGS: rgba(244, 67, 54, 0.3); // Red
 $bg_ARMOUR: rgba(96, 125, 139, 0.3); // Blue Grey
 
+// rarity backgrounds
+$bg_COMMON: rgba(255, 255, 255, 0.1); // gray
+$bg_UNCOMMON: rgba(76, 175, 80, 0.2); // green
+$bg_RARE: rgba(23, 49, 201, 0.2); // blue
+$bg_EPIC: rgba(127, 15, 147, 0.2); // purple
+$bg_LEGENDARY: rgba(255, 193, 7, 0.2); // gold
+
 .item-image {
   position: relative;
   z-index: 0;
@@ -52,39 +59,29 @@ $bg_ARMOUR: rgba(96, 125, 139, 0.3); // Blue Grey
   padding: 0.2vh 0.3vh;
   font-weight: 400;
   font-family: $mainFont;
-  font-size: 1.1vh;
+  font-size: 0.75vh;
   text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.6);
+}
+
+.item-slot-header-wrapper,
+.item-hotslot-header-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2px;
 }
 
 .inventory-slot-number {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: $mainColor;
-  color: $textColor;
-  height: 1.2vh;
-  min-width: 1.2vh;
-  border-right: 0.1px solid #22232c;
-  border-bottom: 0.1px solid #22232c;
-  border-top-left-radius: $secondRadius;
-  border-bottom-right-radius: secondRadius;
-  padding: 0.3vh;
-  font-size: 1.2vh;
-  font-family: $mainFont;
-  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.6);
-  -webkit-box-shadow: 1px 2px 15px 2px rgba(0, 0, 0, 0.54);
-  box-shadow: 1px 2px 15px 2px rgba(0, 0, 0, 0.54);
-}
-
-.item-quality {
+  position: absolute;
+  top: 0vh;
+  left: -10%;
   font-size: 0.7rem;
-  font-weight: 600;
-}
-
-.item-count {
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: $primary;
+  font-weight: bold;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2px 5px;
+  border-radius: 4px;
 }
 
 .inventory-slot-weight {
@@ -98,14 +95,63 @@ $bg_ARMOUR: rgba(96, 125, 139, 0.3); // Blue Grey
   }
 }
 
+  .item-count {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 0.6rem;
+    font-weight: 500;
+    padding: 2px 4px;
+    border-radius: 3px;
+    color: white;
+    z-index: 2;
+  }
+
+/* Rarity label */
+  .item-quality {
+    display: inline-block;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    padding: 2px 6px;
+    font-size: 0.6rem;
+    font-weight: 800;
+    color: white;
+    z-index: 3;
+    text-transform: capitalize;
+  }
+
+  .quality-common {
+    color: #90a4ae;
+  }
+
+  .quality-uncommon {
+    color: #66bb6a;
+  }
+
+  .quality-rare {
+    color: #42a5f5;
+  }
+
+  .quality-epic {
+    color: #ab47bc;
+  }
+
+  .quality-legendary {
+    color: #ffa000;
+  }
+
 // inventory slots
 .inventory-slot {
-  background-color: rgba(12, 12, 12, 0.4);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(12, 12, 12, 0.1);
   background-repeat: no-repeat;
   background-position: center;
   border-radius: $mainRadius;
   image-rendering: -webkit-optimize-contrast;
   position: relative;
+  z-index: 1;
   background-size: cover;
   color: #c1c2c5;
   border: 0.1px solid #2d2f3a;
@@ -118,6 +164,26 @@ $bg_ARMOUR: rgba(96, 125, 139, 0.3); // Blue Grey
     border: 0.1px solid $primary;
     box-shadow: 0px 0px 6px 0px rgba(154, 72, 208, 0.7);
     transition: all 0.3s ease,
+  }
+
+  &.rarity-common {
+    background-color: $bg_COMMON;
+  }
+
+  &.rarity-uncommon {
+    background-color: $bg_UNCOMMON;
+  }
+
+  &.rarity-rare {
+    background-color: $bg_RARE;
+  }
+
+  &.rarity-epic {
+    background-color: $bg_EPIC;
+  }
+
+  &.rarity-legendary {
+    background-color: $bg_LEGENDARY;
   }
 
   // CLOTHING

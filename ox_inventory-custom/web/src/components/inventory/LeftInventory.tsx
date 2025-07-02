@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import { getTotalWeight } from '../../helpers';
 
 const LeftInventory: React.FC = () => {
-  const leftInventory = useAppSelector(selectLeftInventory);
+  const leftInventory = useAppSelector(selectPocketsInventory);
 
   const weight = useMemo(
     () => (leftInventory.maxWeight !== undefined ? Math.floor(getTotalWeight(leftInventory.items) * 1000) / 1000 : 0),

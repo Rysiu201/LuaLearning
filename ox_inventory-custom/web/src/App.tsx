@@ -25,38 +25,18 @@ debugData([
         maxWeight: 5000,
         items: [
           {
-            slot: 1,
-            name: 'iron',
-            weight: 3000,
-            metadata: {
-              description: `name: Svetozar Miletic  \n Gender: Male`,
-              ammo: 3,
-              mustard: '60%',
-              ketchup: '30%',
-              mayo: '10%',
-            },
-            count: 5,
-          },
-          { slot: 2, name: 'powersaw', weight: 0, count: 1, metadata: { durability: 75 } },
-          { slot: 3, name: 'copper', weight: 100, count: 12, metadata: { type: 'Mythic' } },
-          {
             slot: 4,
             name: 'water',
             weight: 100,
-            count: 1,
+            count: 5,
             metadata: { description: 'Generic item description' },
           },
           { slot: 5, name: 'water', weight: 100, count: 1 },
-          {
-            slot: 6,
-            name: 'backwoods',
-            weight: 100,
-            count: 1,
-            metadata: {
-              label: 'Russian Cream',
-              imageurl: 'https://i.imgur.com/2xHhTTz.png',
-            },
-          },
+        { slot: 7, name: 'WEAPON_PISTOL', weight: 1000, count: 1, metadata: { quality: 'Legendary' } },
+        { slot: 8, name: 'phone', weight: 500, count: 1, metadata: { quality: 'Common' } },
+        { slot: 9, name: 'armour', weight: 800, count: 1, metadata: { quality: 'Rare' } },
+        { slot: 10, name: 'paperbag', weight: 200, count: 1, metadata: { quality: 'Uncommon' } },
+        { slot: 11, name: 'parachute', weight: 600, count: 1, metadata: { quality: 'Epic' } },
         ],
       },
       rightInventory: {
@@ -68,7 +48,7 @@ debugData([
         maxWeight: 5000,
         items: [
           {
-            slot: 1,
+            slot: 15,
             name: 'lockpick',
             weight: 500,
             price: 300,

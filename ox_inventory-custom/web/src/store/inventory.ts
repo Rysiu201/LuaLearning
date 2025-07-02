@@ -97,8 +97,17 @@ export const {
   setContainerWeight,
 } = inventorySlice.actions;
 export const selectLeftInventory = (state: RootState) => state.inventory.leftInventory;
+export const selectPocketsInventory = (state: RootState) => ({
+  ...state.inventory.leftInventory,
+  items: state.inventory.leftInventory.items.slice(9),
+});
+export const selectEquipmentInventory = (state: RootState) => ({
+  ...state.inventory.leftInventory,
+  items: state.inventory.leftInventory.items.slice(0, 9),
+});
 export const selectRightInventory = (state: RootState) => state.inventory.rightInventory;
 export const selectItemAmount = (state: RootState) => state.inventory.itemAmount;
 export const selectIsBusy = (state: RootState) => state.inventory.isBusy;
+export const selectShiftPressed = (state: RootState) => state.inventory.shiftPressed;
 
 export default inventorySlice.reducer;

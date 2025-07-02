@@ -37,6 +37,7 @@ const InventoryGrid: React.FC<{ inventory: Inventory; hideHeader?: boolean }> = 
               inventoryType={inventory.type}
               inventoryGroups={inventory.groups}
               inventoryId={inventory.id}
+              showHotkeyNumber={showSlotNumbers && item.slot <= 5}
             />
           ))}
         </div>

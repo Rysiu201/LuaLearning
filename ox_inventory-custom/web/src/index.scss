@@ -11,6 +11,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
   background: none !important;
+  background-color: transparent !important;
   overflow: hidden !important;
   user-select: none;
 }
@@ -173,7 +174,7 @@ button:active {
   color: #fff;
 }
 
-.right-inventory {
+.equipment-inventory {
   position: absolute;
   left: 4%;
   top: 50%;
@@ -207,30 +208,52 @@ button:active {
   }
 
   .equipment-slot {
-    width: 80px;
-    height: 80px;
-    margin: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: $gridSize;
+    height: $gridSize;
+    margin: 2px;
     border-radius: 6px;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(4px);
+
+    background: rgba(255, 255, 255, 0.025); // lekkie półprzezroczyste tło
+    border: 1px solid rgba(255, 255, 255, 0.05); // subtelna ramka
+
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
+
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    &.has-item {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
   }
 
-  .equipment-placeholder {
-    width: 120px;
-    height: 280px;
-    margin: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px dashed rgba(255, 255, 255, 0.15);
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.7rem;
+.equipment-placeholder {
+  width: $gridSize * 2.0;
+  height: $gridSize * 5;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: none;
+
+  img.character-grid {
+    position: absolute;
+    width: 100%;
+    height: 90%;
+    object-fit: cover;         // zamiast contain
+    object-position: center;
+    opacity: 0.85;
+    pointer-events: none;
   }
+}
 
   .hotkey-row {
     display: flex;
@@ -244,15 +267,44 @@ button:active {
     flex-direction: column;
     align-items: center;
     gap: 4px;
+    span {
+      font-size: 0.65rem;
+    }
+  }
+
+  .slot-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    span {
+      font-size: 0.65rem;
+    }
+  }
+
+  .slot-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .slot-wrapper.right-shift {
+    margin-left: 10%;
   }
 
   .equipment-icon {
-    width: 60px;
-    height: 60px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 55%;
+    height: 55%;
     object-fit: contain;
+    opacity: 0.5;
     pointer-events: none;
+    z-index: 0;
   }
-}
 
 .left-inventory {
   position: absolute;
@@ -309,7 +361,6 @@ button:active {
     background: linear-gradient(to right, #4caf50, #8bc34a);
     border-radius: 4px;
   }
-}
 
 .inventory-control {
   display: flex;
@@ -425,6 +476,64 @@ button:active {
   color: grey !important;
 }
 
+// split dialog styling
+.split-dialog {
+  background-color: $mainColor;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: $textColor;
+  min-width: 15vw;
+  min-height: 20vh;
+  display: flex;
+  flex-direction: column;
+  padding: 3px;
+  border-radius: $mainRadius;
+  background: $mainGradient;
+  animation: rainbow 22s infinite linear alternate;
+  gap: 16px;
+}
+
+.split-dialog-WR {
+  background: #121212;
+  min-height: 20vh;
+  padding: 1vh;
+  border-radius: $secondRadius;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.split-dialog-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.split-dialog-title {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  margin-left: 0.3rem;
+}
+
+.split-dialog-close {
+  width: 25px;
+  height: 25px;
+  padding: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: $mainRadius;
+  fill: $textColor;
+
+  &:hover {
+    background-color: $secondaryColorHighlight;
+    cursor: pointer;
+  }
+}
+
 // Dialog is used fro useful controls window
 // inventory grids
 .inventory-grid-wrapper {
@@ -433,11 +542,12 @@ button:active {
   gap: calc($gridGap * 2);
 }
 
+
 .inventory-grid-header-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: -25px;
+  margin-bottom: 5px;
   margin-left: 10px;
   margin-right: 10px;
   padding-left: 10px;
@@ -445,6 +555,10 @@ button:active {
 
   p {
     font-size: 1rem;
+  }
+
+  .weight-icon {
+    padding-right: 4px;
   }
 }
 
@@ -531,17 +645,16 @@ button:active {
 .tooltip-wrapper {
   pointer-events: none;
   display: flex;
-  background-color: $mainColor;
-  width: 200px;
-  padding: 8px;
   flex-direction: column;
+  width: 200px;
   min-width: 200px;
+  padding: 10px;
+  background: rgba(24, 24, 24, 0.1);
   color: $textColor;
   font-family: $mainFont;
-  border-radius: $mainRadius;
-  border-color: rgba(0, 0, 0, 0.2);
-  border-style: inset;
-  border-width: 1px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 
   p {
     font-size: 0.8rem;
@@ -658,18 +771,19 @@ button:active {
   padding-right: 7px;
 }
 
+
 .weight-bar-WR {
   border-radius: $mainRadius;
   padding: 1px;
   background: $mainGradient;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   animation: rainbow 22s infinite linear alternate;
 }
 
 .weight-bar {
   background: rgba(0, 0, 0, 0.8);
   border: 1px inset rgba(0, 0, 0, 0.1);
-  height: 3vh;
+  height: 1vh;
   border-radius: $secondRadius;
   overflow: hidden;
 }
@@ -787,9 +901,10 @@ button:active {
     transform-origin: left center;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(188, 16, 16, 0.1);
     backdrop-filter: blur(6px);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    min-width: calc(#{$gridSize * 3} + 72px);
 
     .inventory-grid-container::-webkit-scrollbar {
       width: 8px;
@@ -803,29 +918,52 @@ button:active {
     }
 
     .equipment-slot {
-      width: 80px;
-      height: 80px;
-      margin: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      width: $gridSize;
+      height: $gridSize;
+      margin: 2px;
       border-radius: 6px;
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(4px);
+
+      background: rgba(255, 255, 255, 0.025); // lekkie półprzezroczyste tło
+      border: 1px solid rgba(255, 255, 255, 0.05); // subtelna ramka
+
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
+
+      transition: background 0.2s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      &.has-item {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+    }
+
+    .slot-wrapper.right-shift {
+      margin-left: 10%;
     }
 
     .equipment-placeholder {
-      width: 120px;
-      height: 280px;
+      width: $gridSize * 2.0;
+      height: $gridSize * 5;
       margin: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px dashed rgba(255, 255, 255, 0.15);
+      border: 1px dashed rgba(122, 11, 150, 0.15);
       color: rgba(255, 255, 255, 0.6);
       font-size: 0.7rem;
+      img.character-grid {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: bottom;
+      }
     }
   }
 
@@ -893,23 +1031,28 @@ button:active {
   }
 
   // info panel
-  .useful-controls-dialog {
-    background-color: $mainColor;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: $textColor;
-    min-width: 50vw;
-    min-height: 50vh;
-    display: flex;
-    flex-direction: column;
-    padding: 6px;
-    border-radius: $mainRadius4K;
-    background: $mainGradient;
-    animation: rainbow 22s infinite linear alternate;
-    gap: 22px;
-  }
+.useful-controls-dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 22px;
+
+  min-width: 50vw;
+  min-height: 50vh;
+
+  background: rgba(24, 24, 24, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
+  border-radius: 18px;
+
+  color: $textColor;
+  font-family: $mainFont;
+}
 
   .useful-controls-dialog-WR {
     background: #121212;
@@ -1004,7 +1147,7 @@ button:active {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: -50px;
+    margin-bottom: 10px;
     margin-left: 20px;
     margin-right: 20px;
     padding-left: 20px;
@@ -1012,6 +1155,10 @@ button:active {
 
     p {
       font-size: 2rem;
+    }
+
+    .weight-icon {
+      padding-right: 8px;
     }
   }
 
@@ -1167,7 +1314,7 @@ button:active {
 
   .weight-bar {
     border: 1px inset rgba(0, 0, 0, 0.1);
-    height: 3vh;
+    height: 1vh;
     border-radius: $secondRadius4K;
   }
 
@@ -1175,6 +1322,66 @@ button:active {
     background: rgba(0, 0, 0, 0.8);
     height: 3px;
     overflow: hidden;
+  }
+
+  // split dialog styling
+  .split-dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 22px;
+
+    min-width: 20vw;
+    min-height: 20vh;
+
+    background: rgba(24, 24, 24, 0.1);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
+    border-radius: 18px;
+
+    color: $textColor;
+    font-family: $mainFont;
+  }
+
+  .split-dialog-WR {
+    background: #121212;
+    min-height: 20vh;
+    padding: 1vh;
+    border-radius: $secondRadius;
+  }
+
+  .split-dialog-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .split-dialog-title {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 2.2rem;
+    margin-left: 0.3rem;
+  }
+
+  .split-dialog-close {
+    width: 50px;
+    height: 50px;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: $mainRadius4K;
+    fill: $textColor;
+
+    &:hover {
+      background-color: $secondaryColorHighlight;
+      cursor: pointer;
+    }
   }
 
   .PanelClose {
