@@ -191,7 +191,6 @@ button:active {
     transform: perspective(1000px) rotateY(10deg);
     transform-origin: left center;
 
-
     &.active,
     &:hover {
       background: $primaryBG;
@@ -264,6 +263,7 @@ button:active {
   &:hover {
     background: rgba(255, 255, 255, 0.06);
   }
+}
 
   &.has-item {
     background: rgba(255, 255, 255, 0.04);
@@ -975,7 +975,6 @@ button:active {
       cursor: pointer;
       user-select: none;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-
 
       &.active,
       &:hover {
