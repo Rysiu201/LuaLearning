@@ -94,6 +94,10 @@ input[type='number']::-webkit-outer-spin-button {
   }
 }
 
+.context-menu-overlay {
+  z-index: 11000;
+}
+
 .tooltip-description {
   padding-top: 5px;
 }
@@ -155,6 +159,36 @@ button:active {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     transform: perspective(1000px) rotateY(10deg);
     transform-origin: left center;
+
+    &.key-wrapper {
+      border: 2px solid #444;
+      background-color: #1a1a1a;
+      border-radius: 6px;
+      padding: 4px 8px;
+      margin-right: 10px;
+      font-family: Arial, sans-serif;
+      align-items: center;
+
+      &.green {
+        border-color: #4caf50;
+        background-color: #2e4;
+      }
+
+      .key-box {
+        background-color: #222;
+        border: 2px solid #888;
+        border-radius: 4px;
+        padding: 2px 6px;
+        font-weight: bold;
+        margin: 0 4px;
+        color: white;
+      }
+
+      .key-label {
+        color: white;
+        font-size: 14px;
+      }
+    }
 
     &.active,
     &:hover {
@@ -917,6 +951,36 @@ button:active {
       cursor: pointer;
       user-select: none;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+
+      &.key-wrapper {
+        border: 2px solid #444;
+        background-color: #1a1a1a;
+        border-radius: 6px;
+        padding: 4px 8px;
+        margin-right: 10px;
+        font-family: Arial, sans-serif;
+        align-items: center;
+
+        &.green {
+          border-color: #4caf50;
+          background-color: #2e4;
+        }
+
+        .key-box {
+          background-color: #222;
+          border: 2px solid #888;
+          border-radius: 4px;
+          padding: 2px 6px;
+          font-weight: bold;
+          margin: 0 4px;
+          color: white;
+        }
+
+        .key-label {
+          color: white;
+          font-size: 14px;
+        }
+      }
 
       &.active,
       &:hover {
