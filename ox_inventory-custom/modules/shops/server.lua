@@ -145,10 +145,10 @@ lib.callback.register('ox_inventory:openShop', function(source, data)
 			return
 		end
 
-		---@diagnostic disable-next-line: assign-type-mismatch
-		left:openInventory(left)
-		left.currentShop = shop.id
-	end
+                ---@diagnostic disable-next-line: assign-type-mismatch
+                left:openInventory(shop)
+                left.currentShop = shop.id
+        end
 
 	return { label = left.label, type = left.type, slots = left.slots, weight = left.weight, maxWeight = left.maxWeight }, shop
 end)
