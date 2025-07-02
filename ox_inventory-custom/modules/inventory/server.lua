@@ -1378,6 +1378,54 @@ end
 exports('RemoveItem', Inventory.RemoveItem)
 
 ---@param inv inventory
+---@param slot number
+---@param count number
+---@return boolean success
+---@return table|nil items
+function Inventory.SplitItem(inv, slot, count)
+    inv = Inventory(inv)
+
+    if not inv then return false end
+
+    local slotData = inv.items[slot]
+    if not slotData or count <= 0 or slotData.count <= count then
+        return false
+    end
+
+    local item = Items(slotData.name)
+    if not item then return false end
+
+    local metadata = table.clone(slotData.metadata)
+
+    -- reduce count from original slot
+    Inventory.SetSlot(inv, item, -count, metadata, slot)
+
+    local empty
+    for i = 1, inv.slots do
+        if not inv.items[i] then
+            empty = i
+            break
+        end
+    end
+
+    if not empty then return false end
+
+    Inventory.SetSlot(inv, item, count, metadata, empty)
+
+    if inv.player and server.syncInventory then
+        server.syncInventory(inv)
+    end
+
+    inv:syncSlotsWithClients({
+        { item = inv.items[slot] or { slot = slot }, inventory = inv.id },
+        { item = inv.items[empty], inventory = inv.id }
+    }, true)
+
+    return true, { inv.items[slot], inv.items[empty] }
+end
+exports('SplitItem', Inventory.SplitItem)
+
+---@param inv inventory
 ---@param item table | string
 ---@param count number
 ---@param metadata? table | string
@@ -2584,7 +2632,7 @@ lib.callback.register('ox_inventory:removeAmmoFromWeapon', function(source, slot
 
 	local item = Items(slotData.name)
 
-	if not item or not item.ammoname then return end
+        if not item or not item.ammoname then return end
 
 	if Inventory.AddItem(inventory, item.ammoname, slotData.metadata.ammo, { type = slotData.metadata.specialAmmo or nil }) then
 		slotData.metadata.ammo = 0
@@ -2598,6 +2646,11 @@ lib.callback.register('ox_inventory:removeAmmoFromWeapon', function(source, slot
 
 		return true
 	end
+end)
+
+lib.callback.register('ox_inventory:splitItem', function(source, slot, count)
+    local success = Inventory.SplitItem(source, slot, count)
+    return success
 end)
 
 local function checkStashProperties(properties)

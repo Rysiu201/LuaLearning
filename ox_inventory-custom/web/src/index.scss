@@ -420,7 +420,7 @@ button:active {
   left: 50%;
   transform: translate(-50%, -50%);
   color: $textColor;
-  min-width: 20vw;
+  min-width: 15vw;
   min-height: 20vh;
   display: flex;
   flex-direction: column;
@@ -436,6 +436,9 @@ button:active {
   min-height: 20vh;
   padding: 1vh;
   border-radius: $secondRadius;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .split-dialog-overlay {

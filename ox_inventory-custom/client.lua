@@ -1746,8 +1746,13 @@ RegisterNUICallback('giveItem', function(data, cb)
 end)
 
 RegisterNUICallback('useButton', function(data, cb)
-	useButton(data.id, data.slot)
-	cb(1)
+        useButton(data.id, data.slot)
+        cb(1)
+end)
+
+RegisterNUICallback('splitItem', function(data, cb)
+        local ok = lib.callback.await('ox_inventory:splitItem', false, data.slot, data.count)
+        cb(ok and 1 or 0)
 end)
 
 RegisterNUICallback('exit', function(_, cb)
