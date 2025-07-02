@@ -129,6 +129,30 @@ button:active {
   z-index: 9999;
 }
 
+.inventory-tabs {
+  position: fixed;
+  top: 2%;
+  right: 2%;
+  display: flex;
+  gap: 8px;
+  z-index: 10000;
+}
+
+.inventory-tabs .tab-btn {
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #fff;
+}
+
+.inventory-tabs .tab-btn.active {
+  background: rgba(255, 255, 255, 0.15);
+}
+
 .pockets-header {
   display: flex;
   justify-content: space-between;
@@ -743,6 +767,18 @@ button:active {
   .inventory-wrapper {
     gap: 40px;
     z-index: 9999;
+  }
+
+  .inventory-tabs {
+    top: 2%;
+    right: 2%;
+    gap: 12px;
+  }
+
+  .inventory-tabs .tab-btn {
+    font-size: 1.6rem;
+    padding: 10px 16px;
+    border-radius: $mainRadius4K;
   }
 
   .right-inventory {
