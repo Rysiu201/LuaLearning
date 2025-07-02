@@ -4,16 +4,21 @@ import parachuteIcon from '../../../images/parachute.png?url';
 import phoneIcon from '../../../images/phone.png?url';
 import weaponIcon from '../../../images/WEAPON_PISTOL.png?url';
 import bagIcon from '../../../images/garbage.png?url';
-import characterGrid from '../../../images/character_grid.png?url';
-import InventorySlot from './InventorySlot';
+import InventoryGrid from './InventoryGrid';
 import { useAppSelector } from '../../store';
-import { selectEquipmentInventory } from '../../store/inventory';
-import { isSlotWithItem } from '../../helpers';
+import { selectRightInventory } from '../../store/inventory';
+import { InventoryType } from '../../typings';
 
 const RightInventory: React.FC = () => {
-  const player = useAppSelector(selectEquipmentInventory);
-  const groups = player.groups;
-  const getItem = (slot: number) => player.items[slot - 1] || { slot };
+  const rightInventory = useAppSelector(selectRightInventory);
+
+  if (rightInventory.type && rightInventory.type !== InventoryType.PLAYER) {
+    return (
+      <div className="right-inventory">
+        <InventoryGrid inventory={rightInventory} />
+      </div>
+    );
+  }
 
   return (
     <div className="right-inventory">
