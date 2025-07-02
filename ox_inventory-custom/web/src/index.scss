@@ -527,6 +527,15 @@ button:active {
   .weight-icon {
     padding-right: 4px;
   }
+
+  .collapse-toggle {
+    margin-left: 6px;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+  }
 }
 
 .inventory-grid-container {
@@ -539,6 +548,13 @@ button:active {
   padding-top: 7px;
   padding-left: 7px;
   padding-right: 7px;
+  transition: height 0.3s ease;
+
+  &.collapsed {
+    height: 0;
+    overflow: hidden;
+    padding-top: 0;
+  }
 }
 
 // item slot
@@ -1106,6 +1122,15 @@ button:active {
     .weight-icon {
       padding-right: 8px;
     }
+
+    .collapse-toggle {
+      margin-left: 10px;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      font-size: 2rem;
+    }
   }
 
   .inventory-grid-container {
@@ -1117,6 +1142,13 @@ button:active {
     overflow-y: scroll;
     padding-left: 7px;
     padding-right: 7px;
+    transition: height 0.3s ease;
+
+    &.collapsed {
+      height: 0;
+      overflow: hidden;
+      padding-top: 0;
+    }
   }
 
   .item-slot-wrapper {
