@@ -1,4 +1,7 @@
 import React from 'react';
+import { useAppSelector } from '../../store';
+import { selectRightInventory } from '../../store/inventory';
+import { InventoryType } from '../../typings';
 
 interface Props {
   showEquipment: boolean;
@@ -6,6 +9,13 @@ interface Props {
 }
 
 const InventoryTabs: React.FC<Props> = ({ showEquipment, setShowEquipment }) => {
+  const rightInventory = useAppSelector(selectRightInventory);
+
+  let equipmentLabel = 'Equipment';
+  if (rightInventory.type === InventoryType.CRAFTING) equipmentLabel = 'Crafting';
+  else if (rightInventory.type === InventoryType.SHOP) equipmentLabel = rightInventory.label || 'Shop';
+  else if (rightInventory.type && rightInventory.type !== InventoryType.PLAYER) equipmentLabel = rightInventory.label || rightInventory.type;
+
   return (
     <div className="inventory-tabs">
       <div
@@ -18,7 +28,7 @@ const InventoryTabs: React.FC<Props> = ({ showEquipment, setShowEquipment }) => 
         className={`tab-btn ${showEquipment ? 'active' : ''}`}
         onClick={() => setShowEquipment(true)}
       >
-        E Equipment
+        E {equipmentLabel}
       </div>
     </div>
   );

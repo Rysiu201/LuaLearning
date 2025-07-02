@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useNuiEvent from '../../hooks/useNuiEvent';
 import InventoryHotbar from './InventoryHotbar';
-import { useAppDispatch } from '../../store';
+import { useAppDispatch, useAppSelector } from '../../store';
 import { refreshSlots, setAdditionalMetadata, setupInventory } from '../../store/inventory';
 import { useExitListener } from '../../hooks/useExitListener';
 import type { Inventory as InventoryProps } from '../../typings';
@@ -14,11 +14,14 @@ import { closeContextMenu } from '../../store/contextMenu';
 import Fade from '../utils/transitions/Fade';
 import useKeyPress from '../../hooks/useKeyPress';
 import InventoryTabs from './InventoryTabs';
+import { selectRightInventory } from '../../store/inventory';
+import { InventoryType } from '../../typings';
 
 const Inventory: React.FC = () => {
   const [inventoryVisible, setInventoryVisible] = useState(false);
   const [showEquipment, setShowEquipment] = useState(false);
   const dispatch = useAppDispatch();
+  const rightInventory = useAppSelector(selectRightInventory);
 
   const qPressed = useKeyPress('q');
   const ePressed = useKeyPress('e');
@@ -43,12 +46,24 @@ const Inventory: React.FC = () => {
     }
   }, [qPressed, inventoryVisible]);
 
+  useEffect(() => {
+    if (!inventoryVisible) return;
+    if (rightInventory.type && rightInventory.type !== InventoryType.PLAYER) {
+      setShowEquipment(true);
+    }
+  }, [rightInventory.type, inventoryVisible]);
+
   useNuiEvent<{
     leftInventory?: InventoryProps;
     rightInventory?: InventoryProps;
   }>('setupInventory', (data) => {
     dispatch(setupInventory(data));
     !inventoryVisible && setInventoryVisible(true);
+    if (data.rightInventory && data.rightInventory.type !== InventoryType.PLAYER) {
+      setShowEquipment(true);
+    } else {
+      setShowEquipment(false);
+    }
   });
 
   useNuiEvent('refreshSlots', (data) => dispatch(refreshSlots(data)));
