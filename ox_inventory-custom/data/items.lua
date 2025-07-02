@@ -213,6 +213,7 @@ return {
         ['water'] = {
                 label = 'Water',
                 weight = 500,
+				maxStack = 25,
                 metadata = { quality = 'Common' },
                 client = {
                         status = { thirst = 200000 },
