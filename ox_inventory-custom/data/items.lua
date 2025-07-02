@@ -191,6 +191,7 @@ return {
         ['money'] = {
                 label = 'Money',
                 metadata = { quality = 'Common' },
+                maxStack = 500,
                 client = {
                         notification = 'You checked your money'
                 }

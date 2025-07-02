@@ -27,48 +27,48 @@ const InventoryHotbar: React.FC = () => {
   return (
     <SlideUp in={hotbarVisible}>
       <div className="hotbar-container">
-        {items.map((item) => (
-          <div
-            className="hotbar-item-slot"
-            key={`hotbar-${item.slot}`}
-          >
-            {isSlotWithItem(item) && (
-              <div className="item-slot-wrapper">
-                <div className="hotbar-slot-header-wrapper">
-                  <div className="inventory-slot-number">{item.slot}</div>
-                  <div className="item-slot-info-wrapper">
-                    <p>
-                      {item.weight > 0
-                        ? item.weight >= 1000
-                          ? `${(item.weight / 1000).toLocaleString('en-us', {
-                              minimumFractionDigits: 2,
-                            })}kg `
-                          : `${item.weight.toLocaleString('en-us', {
-                              minimumFractionDigits: 0,
-                            })}g `
-                        : ''}
-                    </p>
-                    <span>{item.count ? item.count.toLocaleString('en-us') + `x` : ''}</span>
+        {items.map((item) => {
+          let quality: string | undefined = isSlotWithItem(item)
+            ? item.metadata?.quality
+            : undefined;
+          if (!quality) quality = 'Common';
+          return (
+            <div className="hotbar-item-slot" key={`hotbar-${item.slot}`}> 
+              {isSlotWithItem(item) && (
+                <div className="item-slot-wrapper">
+                  <div className="item-hotslot-header-wrapper">
+                    <div className="inventory-slot-number">{item.slot}</div>
+                    <span className={`item-quality quality-${quality.toLowerCase()}`}>{quality}</span>
+                    <span className="item-count">
+                      {item.count ? item.count.toLocaleString('en-us') + `x` : ''}
+                    </span>
                   </div>
-                </div>
-                <div
-                  className="item-image"
-                  style={{
-                    backgroundImage: `url(${item?.name ? getItemUrl(item as SlotWithItem) : 'none'})`,
-                  }}
-                />
-                <div>
-                  {item?.durability !== undefined && <WeightBar percent={item.durability} durability />}
-                  <div className="inventory-slot-label-box">
-                    <div className="inventory-slot-label-text">
-                      {item.metadata?.label ? item.metadata.label : Items[item.name]?.label || item.name}
+                  <div
+                    className="item-image"
+                    style={{ backgroundImage: `url(${getItemUrl(item as SlotWithItem)})` }}
+                  />
+                  <div>
+                    {item.durability !== undefined && (
+                      <WeightBar percent={item.durability} durability />
+                    )}
+                    <div className="inventory-slot-label-box">
+                      <div className="inventory-slot-label-text">
+                        {item.metadata?.label ? item.metadata.label : Items[item.name]?.label || item.name}
+                      </div>
+                      <div className="inventory-slot-weight">
+                        {item.weight > 0
+                          ? item.weight >= 1000
+                            ? `${(item.weight / 1000).toLocaleString('en-us', { minimumFractionDigits: 2 })}kg`
+                            : `${item.weight.toLocaleString('en-us', { minimumFractionDigits: 0 })}g`
+                          : ''}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            )}
-          </div>
-        ))}
+              )}
+            </div>
+          );
+        })}
       </div>
     </SlideUp>
   );
