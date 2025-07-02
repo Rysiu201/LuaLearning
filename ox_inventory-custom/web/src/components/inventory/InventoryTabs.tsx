@@ -1,7 +1,4 @@
 import React from 'react';
-import { useAppSelector } from '../../store';
-import { selectRightInventory } from '../../store/inventory';
-import { InventoryType } from '../../typings';
 
 interface Props {
   showEquipment: boolean;
@@ -9,29 +6,30 @@ interface Props {
 }
 
 const InventoryTabs: React.FC<Props> = ({ showEquipment, setShowEquipment }) => {
-  const rightInventory = useAppSelector(selectRightInventory);
-
-  let equipmentLabel = 'Equipment';
-  if (rightInventory.type === InventoryType.CRAFTING) equipmentLabel = 'Crafting';
-  else if (rightInventory.type === InventoryType.SHOP) equipmentLabel = rightInventory.label || 'Shop';
-  else if (rightInventory.type && rightInventory.type !== InventoryType.PLAYER) equipmentLabel = rightInventory.label || rightInventory.type;
-
   return (
     <div className="inventory-tabs">
-      <div
-        className={`tab-btn ${!showEquipment ? 'active' : ''}`}
+      <button
+        type="button"
+        className={`tab-btn key-wrapper ${!showEquipment ? 'green active' : ''}`}
         onClick={() => setShowEquipment(false)}
       >
-        Q Inventory
-      </div>
-      <div
-        className={`tab-btn ${showEquipment ? 'active' : ''}`}
+        <span className={`key-wrapper ${!showEquipment ? 'green' : ''}`}>
+          <span className="key-box">Q</span>
+        </span>
+        Inventory
+      </button>
+      <button
+        type="button"
+        className={`tab-btn key-wrapper ${showEquipment ? 'green active' : ''}`}
         onClick={() => setShowEquipment(true)}
       >
-        E {equipmentLabel}
-      </div>
+        <span className={`key-wrapper ${showEquipment ? 'green' : ''}`}>
+          <span className="key-box">E</span>
+        </span>
+        Equipment
+      </button>
     </div>
   );
-};
+}; 
 
 export default InventoryTabs;

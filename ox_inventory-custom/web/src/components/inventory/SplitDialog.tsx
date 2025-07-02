@@ -4,10 +4,11 @@ import {
   FloatingFocusManager,
   FloatingOverlay,
   FloatingPortal,
+  useDismiss,
   useFloating,
+  useInteractions,
   useTransitionStyles,
 } from '@floating-ui/react';
-import { fetchNui } from '../../utils/fetchNui';
 import { Locale } from '../../store/locale';
 import type { SlotWithItem } from '../../typings';
 
@@ -21,7 +22,9 @@ const SplitDialog: React.FC<Props> = ({ visible, onClose, item }) => {
   const max = item?.count ? Math.max(1, item.count - 1) : 1;
   const [qty, setQty] = useState(1);
   const { refs, context } = useFloating({ open: visible, onOpenChange: onClose });
+  const dismiss = useDismiss(context, { outsidePressEvent: 'mousedown' });
   const { isMounted, styles } = useTransitionStyles(context);
+  const { getFloatingProps } = useInteractions([dismiss]);
 
   const update = (n: number) => setQty(Math.min(max, Math.max(1, n)));
 
@@ -35,19 +38,11 @@ const SplitDialog: React.FC<Props> = ({ visible, onClose, item }) => {
     <>
       {isMounted && (
         <FloatingPortal>
-          <FloatingOverlay
-            lockScroll
-            className="useful-controls-dialog-overlay"
-            data-open={visible}
-            style={styles}
-            onClick={(e) => {
-              if (e.target === e.currentTarget) onClose();
-            }}
-          >
+          <FloatingOverlay lockScroll className="split-dialog-overlay" data-open={visible} style={styles}>
             <FloatingFocusManager context={context}>
-              <div ref={refs.setFloating} className="useful-controls-dialog" style={styles}>
-                <div className="useful-controls-dialog-WR">
-                  <div className="useful-controls-dialog-title">
+              <div ref={refs.setFloating} {...getFloatingProps()} className="split-dialog" style={styles}>
+                <div className="split-dialog-WR">
+                  <div className="split-dialog-title">
                     <p>SPLIT</p>
                     <div className="split-dialog-close" onClick={onClose}>
                       ×
@@ -55,34 +50,14 @@ const SplitDialog: React.FC<Props> = ({ visible, onClose, item }) => {
                   </div>
                   <div className="useful-controls-content-wrapper">
                     <p>Item Quantity</p>
-                    <input
-                      type="number"
-                      min={1}
-                      max={max}
-                      value={qty}
-                      onChange={(e) => update(Number(e.target.value))}
-                    />
-                    <input
-                      type="range"
-                      min={1}
-                      max={max}
-                      value={qty}
-                      onChange={(e) => update(Number(e.target.value))}
-                    />
+                    <input type="number" min={1} max={max} value={qty} onChange={(e) => update(Number(e.target.value))} />
+                    <input type="range" min={1} max={max} value={qty} onChange={(e) => update(Number(e.target.value))} />
                     <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
                       <button onClick={() => update(Math.floor(max / 2))}>1/2</button>
                       <button onClick={() => update(Math.floor(max / 3))}>1/3</button>
                       <button onClick={() => update(Math.floor(max / 4))}>1/4</button>
                     </div>
                     <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
-                      <button
-                        onClick={() => {
-                          fetchNui('splitItem', { slot: item?.slot, count: qty });
-                          onClose();
-                        }}
-                      >
-                        Split
-                      </button>
                       <button onClick={onClose}>{Locale.ui_cancel || 'Cancel'}</button>
                       <button onClick={confirm}>{Locale.ui_confirm || 'Confirm'}</button>
                     </div>

@@ -50,22 +50,9 @@ We do not guarantee compatibility or support for third-party resources.
 - Personal stashes, linking a stash with a specific identifier or creating per-player instances.
 - Restricted access based on groups.
 - Registration of new stashes from any resource.
- - Containers allow access to stashes when using an item, like a paperbag or backpack.
- - Access gloveboxes and trunks for any vehicle.
- - Random item generation inside dumpsters and unowned vehicles.
-
-## Web UI
-
-The `web` folder contains the React front‑end used for the inventory menus.
-After cloning, build the assets by running:
-
-```bash
-cd web
-pnpm install
-pnpm run build
-```
-
-The production files will appear in `web/build`.
+- Containers allow access to stashes when using an item, like a paperbag or backpack.
+- Access gloveboxes and trunks for any vehicle.
+- Random item generation inside dumpsters and unowned vehicles.
 
 ## Copyright
 
