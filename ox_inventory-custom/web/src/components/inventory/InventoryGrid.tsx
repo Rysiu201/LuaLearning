@@ -7,12 +7,7 @@ import { useAppSelector } from '../../store';
 
 const PAGE_SIZE = 24;
 
-interface InventoryGridProps {
-  inventory: Inventory;
-  showSlotNumbers?: boolean;
-}
-
-const InventoryGrid: React.FC<InventoryGridProps> = ({ inventory, showSlotNumbers = true }) => {
+const InventoryGrid: React.FC<{ inventory: Inventory; hideHeader?: boolean }> = ({ inventory, hideHeader }) => {
   const weight = useMemo(
     () => (inventory.maxWeight !== undefined ? Math.floor(getTotalWeight(inventory.items) * 1000) / 1000 : 0),
     [inventory.maxWeight, inventory.items]
@@ -21,18 +16,19 @@ const InventoryGrid: React.FC<InventoryGridProps> = ({ inventory, showSlotNumber
   return (
     <>
       <div className="inventory-grid-wrapper" style={{ pointerEvents: isBusy ? 'none' : 'auto' }}>
-        <div>
-          <div className="inventory-grid-header-wrapper">
-            <p>{inventory.label}</p>
-            {inventory.maxWeight && (
-              <p>
-                <span className="weight-icon">⚖</span>
-                {weight / 1000}/{inventory.maxWeight / 1000}kg
-              </p>
-            )}
+        {!hideHeader && (
+          <div>
+            <div className="inventory-grid-header-wrapper">
+              <p>{inventory.label}</p>
+              {inventory.maxWeight && (
+                <p>
+                  {weight / 1000}/{inventory.maxWeight / 1000}kg
+                </p>
+              )}
+            </div>
+            <WeightBar percent={inventory.maxWeight ? (weight / inventory.maxWeight) * 100 : 0} />
           </div>
-          <WeightBar percent={inventory.maxWeight ? (weight / inventory.maxWeight) * 100 : 0} />
-        </div>
+        )}
         <div className="inventory-grid-container">
           {inventory.items.slice(0, PAGE_SIZE).map((item) => (
             <InventorySlot
