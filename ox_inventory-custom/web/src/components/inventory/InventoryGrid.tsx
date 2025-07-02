@@ -10,9 +10,18 @@ const PAGE_SIZE = 24;
 interface InventoryGridProps {
   inventory: Inventory;
   showSlotNumbers?: boolean;
+  collapsible?: boolean;
+  collapsed?: boolean;
+  onToggleCollapse?: () => void;
 }
 
-const InventoryGrid: React.FC<InventoryGridProps> = ({ inventory, showSlotNumbers = true }) => {
+const InventoryGrid: React.FC<InventoryGridProps> = ({
+  inventory,
+  showSlotNumbers = true,
+  collapsible = false,
+  collapsed = false,
+  onToggleCollapse,
+}) => {
   const weight = useMemo(
     () => (inventory.maxWeight !== undefined ? Math.floor(getTotalWeight(inventory.items) * 1000) / 1000 : 0),
     [inventory.maxWeight, inventory.items]
@@ -28,12 +37,21 @@ const InventoryGrid: React.FC<InventoryGridProps> = ({ inventory, showSlotNumber
               <p>
                 <span className="weight-icon">⚖</span>
                 {weight / 1000}/{inventory.maxWeight / 1000}kg
+                {collapsible && (
+                  <button
+                    type="button"
+                    className="collapse-toggle"
+                    onClick={onToggleCollapse}
+                  >
+                    {collapsed ? '▲' : '▼'}
+                  </button>
+                )}
               </p>
             )}
           </div>
           <WeightBar percent={inventory.maxWeight ? (weight / inventory.maxWeight) * 100 : 0} />
         </div>
-        <div className="inventory-grid-container">
+        <div className={`inventory-grid-container ${collapsed ? 'collapsed' : ''}`}>
           {inventory.items.slice(0, PAGE_SIZE).map((item) => (
             <InventorySlot
               key={`${inventory.type}-${inventory.id}-${item.slot}`}
