@@ -4,8 +4,22 @@ import parachuteIcon from '../../../images/parachute.png?url';
 import phoneIcon from '../../../images/phone.png?url';
 import weaponIcon from '../../../images/WEAPON_PISTOL.png?url';
 import bagIcon from '../../../images/garbage.png?url';
+import InventoryGrid from './InventoryGrid';
+import { useAppSelector } from '../../store';
+import { selectRightInventory } from '../../store/inventory';
+import { InventoryType } from '../../typings';
 
 const RightInventory: React.FC = () => {
+  const rightInventory = useAppSelector(selectRightInventory);
+
+  if (rightInventory.type && rightInventory.type !== InventoryType.PLAYER) {
+    return (
+      <div className="right-inventory">
+        <InventoryGrid inventory={rightInventory} />
+      </div>
+    );
+  }
+
   return (
     <div className="right-inventory">
       <h2 className="pockets-title">Equipment</h2>
