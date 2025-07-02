@@ -13,17 +13,23 @@ const InventoryTabs: React.FC<Props> = ({ showEquipment, setShowEquipment }) => 
         className={`tab-btn ${!showEquipment ? 'active' : ''}`}
         onClick={() => setShowEquipment(false)}
       >
-        Q Inventory
+        <span className={`key-wrapper ${!showEquipment ? 'green' : ''}`}>
+          <span className="key-box">Q</span>
+        </span>
+        Inventory
       </button>
       <button
         type="button"
         className={`tab-btn ${showEquipment ? 'active' : ''}`}
         onClick={() => setShowEquipment(true)}
       >
-        E Equipment
+        <span className={`key-wrapper ${showEquipment ? 'green' : ''}`}>
+          <span className="key-box">E</span>
+        </span>
+        Equipment
       </button>
     </div>
   );
-};
+}; 
 
 export default InventoryTabs;
