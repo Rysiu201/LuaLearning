@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../store';
 import { DragSource } from '../../typings';
 import { removeItem, updateQuantity, clear, addItem } from '../../store/cart';
 import { getItemUrl } from '../../helpers';
+import { Items } from '../../store/items';
 
 const ShoppingCart: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -49,7 +50,11 @@ const ShoppingCart: React.FC = () => {
               <td>
                 <img src={getItemUrl(entry.item)} alt="" width={32} />
               </td>
-              <td>{entry.item.label}</td>
+              <td>
+                {entry.item.metadata?.label
+                  ? entry.item.metadata.label
+                  : Items[entry.item.name]?.label || entry.item.name}
+              </td>
               <td>{entry.item.metadata?.quality || 'COMMON'}</td>
               <td>
                 <button onClick={() => dispatch(updateQuantity({ slot: entry.slot, quantity: Math.max(1, entry.quantity - 1) }))}>-</button>
