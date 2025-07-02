@@ -6,6 +6,7 @@ import { refreshSlots, setAdditionalMetadata, setupInventory } from '../../store
 import { useExitListener } from '../../hooks/useExitListener';
 import type { Inventory as InventoryProps } from '../../typings';
 import EquipmentInventory from './EquipmentInventory';
+import GroundInventory from './GroundInventory';
 import LeftInventory from './LeftInventory';
 import InventoryTabs from './InventoryTabs';
 import Tooltip from '../utils/Tooltip';
@@ -61,6 +62,9 @@ const Inventory: React.FC = () => {
           <InventoryTabs showEquipment={showEquipment} setShowEquipment={setShowEquipment} />
           <Fade in={showEquipment}>
             <EquipmentInventory />
+          </Fade>
+          <Fade in={!showEquipment}>
+            <GroundInventory />
           </Fade>
           <LeftInventory />
           <Tooltip />

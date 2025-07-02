@@ -4,6 +4,7 @@ import { useDrag, useDragDropManager, useDrop } from 'react-dnd';
 import { useAppDispatch, useAppSelector } from '../../store';
 import WeightBar from '../utils/WeightBar';
 import { onDrop } from '../../dnd/onDrop';
+import { onDrop as onGroundDrop } from '../../dnd/onGround';
 import { onBuy } from '../../dnd/onBuy';
 import { Items } from '../../store/items';
 import { canCraftItem, canPurchaseItem, getItemUrl, isSlotWithItem, findAvailableSlot } from '../../helpers';
@@ -92,7 +93,11 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
             onCraft(source, { inventory: inventoryType, item: { slot: item.slot } });
             break;
           default:
-            onDrop(source, { inventory: inventoryType, item: { slot: item.slot } });
+            if (inventoryType === 'newdrop' || inventoryType === 'drop') {
+              onGroundDrop(source, { inventory: inventoryType, item: { slot: item.slot } });
+            } else {
+              onDrop(source, { inventory: inventoryType, item: { slot: item.slot } });
+            }
             break;
         }
       },
@@ -130,7 +135,11 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
     dispatch(closeTooltip());
     if (timerRef.current) clearTimeout(timerRef.current);
     if (event.ctrlKey && isSlotWithItem(item) && inventoryType !== 'shop' && inventoryType !== 'crafting') {
-      onDrop({ item: item, inventory: inventoryType });
+      if (inventoryType === 'newdrop' || inventoryType === 'drop') {
+        onGroundDrop({ item: item, inventory: inventoryType });
+      } else {
+        onDrop({ item: item, inventory: inventoryType });
+      }
     } else if (event.altKey && isSlotWithItem(item) && inventoryType === 'player') {
       onUse(item);
     } else if (event.shiftKey && isSlotWithItem(item) && inventoryType === 'player') {
