@@ -8,18 +8,20 @@ interface Props {
 const InventoryTabs: React.FC<Props> = ({ showEquipment, setShowEquipment }) => {
   return (
     <div className="inventory-tabs">
-      <div
+      <button
+        type="button"
         className={`tab-btn ${!showEquipment ? 'active' : ''}`}
         onClick={() => setShowEquipment(false)}
       >
         Q Inventory
-      </div>
-      <div
+      </button>
+      <button
+        type="button"
         className={`tab-btn ${showEquipment ? 'active' : ''}`}
         onClick={() => setShowEquipment(true)}
       >
         E Equipment
-      </div>
+      </button>
     </div>
   );
 };
