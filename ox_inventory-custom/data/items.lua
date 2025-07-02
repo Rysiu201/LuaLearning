@@ -1,16 +1,18 @@
 return {
-	['testburger'] = {
-		label = 'Test Burger',
-		weight = 220,
-		degrade = 60,
-		client = {
-			image = 'burger_chicken.png',
-			status = { hunger = 200000 },
-			anim = 'eating',
-			prop = 'burger',
-			usetime = 2500,
-			export = 'ox_inventory_examples.testburger'
-		},
+        ['testburger'] = {
+                label = 'Test Burger',
+                weight = 220,
+                metadata = { quality = 'Common' },
+                degrade = 60,
+                client = {
+                        image = 'burger_chicken.png',
+                        status = { hunger = 200000 },
+                        anim = 'eating',
+                        prop = 'burger',
+                        usetime = 2500,
+                        export = 'ox_inventory_examples.testburger',
+                        notification = 'You consumed a test burger'
+                },
 		server = {
 			export = 'ox_inventory_examples.testburger',
 			test = 'what an amazingly delicious burger, amirite?'
@@ -53,20 +55,26 @@ return {
 		consume = 0.3
 	},
 
-	['bandage'] = {
-		label = 'Bandage',
-		weight = 115,
-		client = {
-			anim = { dict = 'missheistdockssetup1clipboard@idle_a', clip = 'idle_a', flag = 49 },
-			prop = { model = `prop_rolled_sock_02`, pos = vec3(-0.14, -0.14, -0.08), rot = vec3(-50.0, -50.0, 0.0) },
-			disable = { move = true, car = true, combat = true },
-			usetime = 2500,
-		}
-	},
+        ['bandage'] = {
+                label = 'Bandage',
+                weight = 115,
+                metadata = { quality = 'Common' },
+                client = {
+                        anim = { dict = 'missheistdockssetup1clipboard@idle_a', clip = 'idle_a', flag = 49 },
+                        prop = { model = `prop_rolled_sock_02`, pos = vec3(-0.14, -0.14, -0.08), rot = vec3(-50.0, -50.0, 0.0) },
+                        disable = { move = true, car = true, combat = true },
+                        usetime = 2500,
+                        notification = 'You applied a bandage'
+                }
+        },
 
-	['black_money'] = {
-		label = 'Dirty Money',
-	},
+        ['black_money'] = {
+                label = 'Dirty Money',
+                metadata = { quality = 'Rare' },
+                client = {
+                        notification = 'You inspected your dirty money'
+                }
+        },
 
         ['burger'] = {
                 label = 'Burger',
@@ -81,10 +89,11 @@ return {
 		},
 	},
 
-	['sprunk'] = {
-		label = 'Sprunk',
-		weight = 350,
-		client = {
+        ['sprunk'] = {
+                label = 'Sprunk',
+                weight = 350,
+                metadata = { quality = 'Common' },
+                client = {
 			status = { thirst = 200000 },
 			anim = { dict = 'mp_player_intdrink', clip = 'loop_bottle' },
 			prop = { model = `prop_ld_can_01`, pos = vec3(0.01, 0.01, 0.06), rot = vec3(5.0, 5.0, -180.5) },
@@ -93,51 +102,69 @@ return {
 		}
 	},
 
-	['parachute'] = {
-		label = 'Parachute',
-		weight = 8000,
-		stack = false,
-		client = {
-			anim = { dict = 'clothingshirt', clip = 'try_shirt_positive_d' },
-			usetime = 1500
-		}
-	},
+        ['parachute'] = {
+                label = 'Parachute',
+                weight = 8000,
+                metadata = { quality = 'Uncommon' },
+                stack = false,
+                client = {
+                        anim = { dict = 'clothingshirt', clip = 'try_shirt_positive_d' },
+                        usetime = 1500,
+                        notification = 'You used a parachute'
+                }
+        },
 
-	['garbage'] = {
-		label = 'Garbage',
-	},
+        ['garbage'] = {
+                label = 'Garbage',
+                metadata = { quality = 'Common' },
+                client = {
+                        notification = 'You looked through the garbage'
+                }
+        },
 
-	['paperbag'] = {
-		label = 'Paper Bag',
-		weight = 1,
-		stack = false,
-		close = false,
-		consume = 0
-	},
+        ['paperbag'] = {
+                label = 'Paper Bag',
+                weight = 1,
+                metadata = { quality = 'Common' },
+                stack = false,
+                close = false,
+                consume = 0,
+                client = {
+                        notification = 'You used a paper bag'
+                }
+        },
 
-	['identification'] = {
-		label = 'Identification',
-		client = {
-			image = 'card_id.png'
-		}
-	},
+        ['identification'] = {
+                label = 'Identification',
+                metadata = { quality = 'Uncommon' },
+                client = {
+                        image = 'card_id.png',
+                        notification = 'You checked your identification'
+                }
+        },
 
-	['panties'] = {
-		label = 'Knickers',
-		weight = 10,
-		consume = 0,
-		client = {
+        ['panties'] = {
+                label = 'Knickers',
+                weight = 10,
+                metadata = { quality = 'Uncommon' },
+                consume = 0,
+                client = {
 			status = { thirst = -100000, stress = -25000 },
 			anim = { dict = 'mp_player_intdrink', clip = 'loop_bottle' },
 			prop = { model = `prop_cs_panties_02`, pos = vec3(0.03, 0.0, 0.02), rot = vec3(0.0, -13.5, -1.5) },
-			usetime = 2500,
-		}
-	},
+                        usetime = 2500,
+                        notification = 'You smelled the knickers',
+                }
+        },
 
-	['lockpick'] = {
-		label = 'Lockpick',
-		weight = 160,
-	},
+        ['lockpick'] = {
+                label = 'Lockpick',
+                weight = 160,
+                metadata = { quality = 'Uncommon' },
+                client = {
+                        notification = 'You used a lockpick'
+                }
+        },
 
 	['phone'] = {
 		label = 'Phone',
@@ -152,22 +179,28 @@ return {
 				end
 			end,
 
-			remove = function(total)
-				if total < 1 then
-					pcall(function() return exports.npwd:setPhoneDisabled(true) end)
-				end
-			end
-		}
-	},
+                        remove = function(total)
+                                if total < 1 then
+                                        pcall(function() return exports.npwd:setPhoneDisabled(true) end)
+                                end
+                        end,
+                        notification = 'You used your phone'
+                }
+        },
 
-	['money'] = {
-		label = 'Money',
-	},
+        ['money'] = {
+                label = 'Money',
+                metadata = { quality = 'Common' },
+                client = {
+                        notification = 'You checked your money'
+                }
+        },
 
-	['mustard'] = {
-		label = 'Mustard',
-		weight = 500,
-		client = {
+        ['mustard'] = {
+                label = 'Mustard',
+                weight = 500,
+                metadata = { quality = 'Common' },
+                client = {
 			status = { hunger = 25000, thirst = 25000 },
 			anim = { dict = 'mp_player_intdrink', clip = 'loop_bottle' },
 			prop = { model = `prop_food_mustard`, pos = vec3(0.01, 0.0, -0.07), rot = vec3(1.0, 1.0, -1.5) },
@@ -190,12 +223,16 @@ return {
 		}
 	},
 
-	['radio'] = {
-		label = 'Radio',
-		weight = 1000,
-		stack = false,
-		allowArmed = true
-	},
+        ['radio'] = {
+                label = 'Radio',
+                weight = 1000,
+                metadata = { quality = 'Uncommon' },
+                stack = false,
+                allowArmed = true,
+                client = {
+                        notification = 'You turned on the radio'
+                }
+        },
 
         ['armour'] = {
                 label = 'Bulletproof Vest',
@@ -204,28 +241,39 @@ return {
                 stack = false,
                 client = {
                         anim = { dict = 'clothingshirt', clip = 'try_shirt_positive_d' },
-                        usetime = 3500
+                        usetime = 3500,
+                        notification = 'You donned a bulletproof vest'
                 }
         },
 
-	['clothing'] = {
-		label = 'Clothing',
-		consume = 0,
-	},
+        ['clothing'] = {
+                label = 'Clothing',
+                metadata = { quality = 'Common' },
+                consume = 0,
+                client = {
+                        notification = 'You equipped some clothing'
+                }
+        },
 
-	['mastercard'] = {
-		label = 'Fleeca Card',
-		stack = false,
-		weight = 10,
-		client = {
-			image = 'card_bank.png'
-		}
-	},
+        ['mastercard'] = {
+                label = 'Fleeca Card',
+                stack = false,
+                weight = 10,
+                metadata = { quality = 'Rare' },
+                client = {
+                        image = 'card_bank.png',
+                        notification = 'You looked at your Fleeca card'
+                }
+        },
 
-	['scrapmetal'] = {
-		label = 'Scrap Metal',
-		weight = 80,
-	},
+        ['scrapmetal'] = {
+                label = 'Scrap Metal',
+                weight = 80,
+                metadata = { quality = 'Common' },
+                client = {
+                        notification = 'You examined scrap metal'
+                }
+        },
 
 	["empty_weed_bag"] = {
 		label = "Empty Weed Bag",
