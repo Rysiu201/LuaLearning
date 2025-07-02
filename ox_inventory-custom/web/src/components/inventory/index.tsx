@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useNuiEvent from '../../hooks/useNuiEvent';
 import InventoryHotbar from './InventoryHotbar';
 import { useAppDispatch } from '../../store';
@@ -12,10 +12,16 @@ import { closeTooltip } from '../../store/tooltip';
 import InventoryContext from './InventoryContext';
 import { closeContextMenu } from '../../store/contextMenu';
 import Fade from '../utils/transitions/Fade';
+import useKeyPress from '../../hooks/useKeyPress';
+import InventoryTabs from './InventoryTabs';
 
 const Inventory: React.FC = () => {
   const [inventoryVisible, setInventoryVisible] = useState(false);
+  const [showEquipment, setShowEquipment] = useState(false);
   const dispatch = useAppDispatch();
+
+  const qPressed = useKeyPress('q');
+  const ePressed = useKeyPress('e');
 
   useNuiEvent<boolean>('setInventoryVisible', setInventoryVisible);
   useNuiEvent<false>('closeInventory', () => {
@@ -24,6 +30,18 @@ const Inventory: React.FC = () => {
     dispatch(closeTooltip());
   });
   useExitListener(setInventoryVisible);
+
+  useEffect(() => {
+    if (inventoryVisible && ePressed) {
+      setShowEquipment(true);
+    }
+  }, [ePressed, inventoryVisible]);
+
+  useEffect(() => {
+    if (inventoryVisible && qPressed) {
+      setShowEquipment(false);
+    }
+  }, [qPressed, inventoryVisible]);
 
   useNuiEvent<{
     leftInventory?: InventoryProps;
@@ -43,7 +61,13 @@ const Inventory: React.FC = () => {
     <>
       <Fade in={inventoryVisible}>
         <div className="inventory-wrapper">
-          <RightInventory />
+          <InventoryTabs
+            showEquipment={showEquipment}
+            setShowEquipment={setShowEquipment}
+          />
+          <Fade in={showEquipment}>
+            <RightInventory />
+          </Fade>
           <LeftInventory />
           <Tooltip />
           <InventoryContext />
