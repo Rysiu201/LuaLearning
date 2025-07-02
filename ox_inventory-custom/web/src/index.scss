@@ -4,8 +4,9 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-    'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
@@ -97,7 +98,7 @@ input[type='number']::-webkit-outer-spin-button {
   padding-top: 5px;
 }
 
-.tooltip-markdown>p {
+.tooltip-markdown > p {
   margin: 0;
 }
 
@@ -145,7 +146,7 @@ button:active {
     padding: 8px 14px;
     border-radius: $mainRadius;
     background: rgba(24, 24, 24, 0.3);
-    border: 0.5px solid rgba(247, 247, 247, 0.600);
+    border: 0.5px solid rgba(247, 247, 247, 0.6);
     color: #fff;
     font-family: $mainFont;
     font-size: 0.9rem;
@@ -159,7 +160,7 @@ button:active {
     &:hover {
       background: $primaryBG;
       border-color: $primary;
-      border: 0.5px solid rgba(247, 247, 247, 0.400);
+      border: 0.5px solid rgba(247, 247, 247, 0.4);
     }
   }
 }
@@ -186,56 +187,56 @@ button:active {
   min-width: calc(#{$gridSize * 5} + 72px);
   padding: 10px;
 }
-  
-  .inventory-grid-container {
-    overflow-y: auto;
+
+.inventory-grid-container {
+  overflow-y: auto;
+}
+
+.inventory-grid-container::-webkit-scrollbar {
+  display: block;
+  width: 6px;
+}
+
+.inventory-grid-container::-webkit-scrollbar-thumb {
+  background-color: $primary;
+}
+
+.equipment-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: repeat(3, auto);
+  align-items: center;
+}
+
+.equipment-slot {
+  width: $gridSize;
+  height: $gridSize;
+  margin: 2px;
+  border-radius: 6px;
+
+  background: rgba(255, 255, 255, 0.025); // lekkie półprzezroczyste tło
+  border: 1px solid rgba(255, 255, 255, 0.05); // subtelna ramka
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
   }
 
-  .inventory-grid-container::-webkit-scrollbar {
-    display: block;
-    width: 6px;
+  &.has-item {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
   }
-
-  .inventory-grid-container::-webkit-scrollbar-thumb {
-    background-color: $primary;
-  }
-
-  .equipment-grid {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    grid-template-rows: repeat(3, auto);
-    align-items: center;
-  }
-
-  .equipment-slot {
-    width: $gridSize;
-    height: $gridSize;
-    margin: 2px;
-    border-radius: 6px;
-
-    background: rgba(255, 255, 255, 0.025); // lekkie półprzezroczyste tło
-    border: 1px solid rgba(255, 255, 255, 0.05); // subtelna ramka
-
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-
-    transition: background 0.2s ease;
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.06);
-    }
-
-    &.has-item {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-  }
+}
 
 .equipment-placeholder {
-  width: $gridSize * 2.0;
+  width: $gridSize * 2;
   height: $gridSize * 5;
   margin: 0;
   display: flex;
@@ -248,63 +249,63 @@ button:active {
     position: absolute;
     width: 100%;
     height: 90%;
-    object-fit: cover;         // zamiast contain
+    object-fit: cover; // zamiast contain
     object-position: center;
     opacity: 0.85;
     pointer-events: none;
   }
 }
 
-  .hotkey-row {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    margin-top: 10px;
-  }
+.hotkey-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 10px;
+}
 
-  .hotkey-slot {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    span {
-      font-size: 0.65rem;
-    }
+.hotkey-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  span {
+    font-size: 0.65rem;
   }
+}
 
-  .slot-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    span {
-      font-size: 0.65rem;
-    }
+.slot-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  span {
+    font-size: 0.65rem;
   }
+}
 
-  .slot-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-  }
+.slot-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
 
-  .slot-wrapper.right-shift {
-    margin-left: 10%;
-  }
+.slot-wrapper.right-shift {
+  margin-left: 10%;
+}
 
-  .equipment-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 55%;
-    height: 55%;
-    object-fit: contain;
-    opacity: 0.5;
-    pointer-events: none;
-    z-index: 0;
-  }
+.equipment-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 55%;
+  height: 55%;
+  object-fit: contain;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
 
 .left-inventory {
   position: absolute;
@@ -320,6 +321,18 @@ button:active {
   padding: 10px;
 }
 
+.ground-inventory {
+  position: absolute;
+  left: 4%;
+  top: 50%;
+  transform: translateY(-50%) perspective(1000px) rotateY(10deg);
+  transform-origin: left center;
+  background: rgba(24, 24, 24, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
+  border-radius: 18px;
+  padding: 10px;
+
   .inventory-grid-container {
     overflow-y: auto;
   }
@@ -332,6 +345,20 @@ button:active {
   .inventory-grid-container::-webkit-scrollbar-thumb {
     background-color: $primary;
   }
+}
+
+.inventory-grid-container {
+  overflow-y: auto;
+}
+
+.inventory-grid-container::-webkit-scrollbar {
+  display: block;
+  width: 6px;
+}
+
+.inventory-grid-container::-webkit-scrollbar-thumb {
+  background-color: $primary;
+}
 
 .inventory-control {
   display: flex;
@@ -512,7 +539,6 @@ button:active {
   flex-direction: column;
   gap: calc($gridGap * 2);
 }
-
 
 .inventory-grid-header-wrapper {
   display: flex;
@@ -758,7 +784,6 @@ button:active {
   padding-right: 7px;
 }
 
-
 .weight-bar-WR {
   border-radius: $mainRadius;
   padding: 1px;
@@ -800,7 +825,7 @@ button:active {
 }
 
 .transition-slide-up-enter {
-  transform: translateY(200px)
+  transform: translateY(200px);
 }
 
 .transition-slide-up-enter-active {
@@ -855,7 +880,7 @@ button:active {
     padding-top: 10px;
   }
 
-  .tooltip-markdown>p {
+  .tooltip-markdown > p {
     margin: 0;
   }
 
@@ -955,7 +980,7 @@ button:active {
     }
 
     .equipment-placeholder {
-      width: $gridSize * 2.0;
+      width: $gridSize * 2;
       height: $gridSize * 5;
       margin: 12px;
       display: flex;
@@ -997,28 +1022,28 @@ button:active {
   }
 
   // info panel
-.useful-controls-dialog {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-  gap: 22px;
+  .useful-controls-dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 22px;
 
-  min-width: 50vw;
-  min-height: 50vh;
+    min-width: 50vw;
+    min-height: 50vh;
 
-  background: rgba(24, 24, 24, 0.1);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
-  border-radius: 18px;
+    background: rgba(24, 24, 24, 0.1);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
+    border-radius: 18px;
 
-  color: $textColor;
-  font-family: $mainFont;
-}
+    color: $textColor;
+    font-family: $mainFont;
+  }
 
   .useful-controls-dialog-WR {
     background: #121212;
