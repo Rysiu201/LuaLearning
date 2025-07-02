@@ -135,7 +135,7 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
       onUse(item);
     } else if (event.shiftKey && isSlotWithItem(item) && inventoryType === 'player') {
       if (item.slot <= 9) {
-        const target = findAvailableSlot(item as SlotWithItem, Items[item.name], leftInventory.items.slice(9));
+        const target = findAvailableSlot(item as SlotWithItem, Items[item.name]!, leftInventory.items.slice(9));
         if (!target) return;
         dispatch(
           validateMove({
