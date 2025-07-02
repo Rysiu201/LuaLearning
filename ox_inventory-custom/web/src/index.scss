@@ -135,6 +135,37 @@ button:active {
   position: relative;
 }
 
+.key-wrapper {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid #444;
+  border-radius: 6px;
+  padding: 4px 8px;
+  background-color: #1a1a1a;
+  margin-right: 10px;
+  font-family: Arial, sans-serif;
+
+  &.green {
+    border-color: #4caf50;
+    background-color: #2e4;
+  }
+}
+
+.key-box {
+  background-color: #222;
+  border: 2px solid #888;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-weight: bold;
+  margin: 0 4px;
+  color: white;
+}
+
+.key-label {
+  color: white;
+  font-size: 14px;
+}
+
 .inventory-tabs {
   position: absolute;
   top: 100px;
@@ -159,36 +190,6 @@ button:active {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     transform: perspective(1000px) rotateY(10deg);
     transform-origin: left center;
-
-    &.key-wrapper {
-      border: 2px solid #444;
-      background-color: #1a1a1a;
-      border-radius: 6px;
-      padding: 4px 8px;
-      margin-right: 10px;
-      font-family: Arial, sans-serif;
-      align-items: center;
-
-      &.green {
-        border-color: #4caf50;
-        background-color: #2e4;
-      }
-
-      .key-box {
-        background-color: #222;
-        border: 2px solid #888;
-        border-radius: 4px;
-        padding: 2px 6px;
-        font-weight: bold;
-        margin: 0 4px;
-        color: white;
-      }
-
-      .key-label {
-        color: white;
-        font-size: 14px;
-      }
-    }
 
     &.active,
     &:hover {
@@ -262,6 +263,7 @@ button:active {
   &:hover {
     background: rgba(255, 255, 255, 0.06);
   }
+}
 
   &.has-item {
     background: rgba(255, 255, 255, 0.04);
@@ -368,7 +370,12 @@ button:active {
   padding: 10px;
 
   .inventory-grid-container {
+    height: calc(4 * (#{$gridSize + 0.22vh}) + 4 * #{$gridGap});
     overflow-y: auto;
+  }
+
+  .weight-info {
+    position: relative;
   }
 
   .inventory-grid-container::-webkit-scrollbar {
@@ -600,6 +607,23 @@ button:active {
     cursor: pointer;
     font-size: 1rem;
   }
+}
+
+.inventory-grid-header-wrapper.ground-header {
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
+  position: relative;
+}
+
+.inventory-grid-header-wrapper.ground-header .weight-info {
+  width: 100%;
+  text-align: center;
+}
+
+.inventory-grid-header-wrapper.ground-header .collapse-toggle {
+  position: absolute;
+  right: 0;
 }
 
 .inventory-grid-container {
@@ -951,36 +975,6 @@ button:active {
       cursor: pointer;
       user-select: none;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-
-      &.key-wrapper {
-        border: 2px solid #444;
-        background-color: #1a1a1a;
-        border-radius: 6px;
-        padding: 4px 8px;
-        margin-right: 10px;
-        font-family: Arial, sans-serif;
-        align-items: center;
-
-        &.green {
-          border-color: #4caf50;
-          background-color: #2e4;
-        }
-
-        .key-box {
-          background-color: #222;
-          border: 2px solid #888;
-          border-radius: 4px;
-          padding: 2px 6px;
-          font-weight: bold;
-          margin: 0 4px;
-          color: white;
-        }
-
-        .key-label {
-          color: white;
-          font-size: 14px;
-        }
-      }
 
       &.active,
       &:hover {
