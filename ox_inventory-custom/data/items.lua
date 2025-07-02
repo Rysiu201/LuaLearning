@@ -1,3 +1,4 @@
+--Common, Uncommon, Rare, Epic, Legendary
 return {
         ['testburger'] = {
                 label = 'Test Burger',
@@ -228,7 +229,7 @@ return {
         ['radio'] = {
                 label = 'Radio',
                 weight = 1000,
-                metadata = { quality = 'Uncommon' },
+                metadata = { quality = 'Epic' },
                 stack = false,
                 allowArmed = true,
                 client = {
