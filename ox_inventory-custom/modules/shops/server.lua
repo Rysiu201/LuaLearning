@@ -235,7 +235,7 @@ lib.callback.register('ox_inventory:buyCart', function(source, data)
                if player then
                        local receiverId = ('shop_%s'):format(shopType)
                        TriggerEvent('okokBanking:AddNewTransaction', shop.label, receiverId, GetPlayerName(source), player.PlayerData.identifier, totalPrice, ('Zakup w sklepie: %s'):format(table.concat(itemNames, ', ')))
-                       TriggerClientEvent('ox_lib:notify', source, { type = 'success', description = ('✅ Zakupiono przedmiot(y) za %s z konta bankowego.'):format(totalPrice) })
+                       TriggerClientEvent('ox_lib:notify', source, { type = 'success', description = ('✅ Zakupiono przedmiot(y) za %s $ z konta bankowego.'):format(totalPrice) })
                end
        end
 
