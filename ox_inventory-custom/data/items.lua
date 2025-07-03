@@ -188,7 +188,6 @@ return {
                         notification = 'You used your phone'
                 }
         },
-
         ['money'] = {
                 label = 'Money',
                 metadata = { quality = 'Common' },
@@ -197,7 +196,6 @@ return {
                         notification = 'You checked your money'
                 }
         },
-
         ['mustard'] = {
                 label = 'Mustard',
                 weight = 500,
