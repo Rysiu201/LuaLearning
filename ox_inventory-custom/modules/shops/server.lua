@@ -154,16 +154,32 @@ lib.callback.register('ox_inventory:openShop', function(source, data)
 end)
 
 local function canAffordItem(inv, currency, price)
-	local canAfford = price >= 0 and Inventory.GetItemCount(inv, currency) >= price
+        if currency == 'bank' then
+                local player = server.GetPlayerFromId(inv.id)
+                local canAfford = player and player.Functions.GetMoney('bank') >= price
+                return canAfford or {
+                        type = 'error',
+                        description = locale('cannot_afford', ('%s%s'):format(locale('$'), math.groupdigits(price)))
+                }
+        end
 
-	return canAfford or {
-		type = 'error',
-		description = locale('cannot_afford', ('%s%s'):format((currency == 'money' and locale('$') or math.groupdigits(price)), (currency == 'money' and math.groupdigits(price) or ' '..Items(currency).label)))
-	}
+        local canAfford = price >= 0 and Inventory.GetItemCount(inv, currency) >= price
+
+        return canAfford or {
+                type = 'error',
+                description = locale('cannot_afford', ('%s%s'):format((currency == 'money' and locale('$') or math.groupdigits(price)), (currency == 'money' and math.groupdigits(price) or ' '..Items(currency).label)))
+        }
 end
 
 local function removeCurrency(inv, currency, price)
-	Inventory.RemoveItem(inv, currency, price)
+        if currency == 'bank' then
+                local player = server.GetPlayerFromId(inv.id)
+                if player then
+                        player.Functions.RemoveMoney('bank', price, 'ox_inventory_shop')
+                end
+        else
+                Inventory.RemoveItem(inv, currency, price)
+        end
 end
 
 local TriggerEventHooks = require 'modules.hooks.server'
@@ -195,9 +211,8 @@ lib.callback.register('ox_inventory:buyItem', function(source, data)
 
 		if shopId then shopId = tonumber(shopId) end
 
-		local shop = shopId and Shops[shopType][shopId] or Shops[shopType]
-		local fromData = shop.items[data.fromSlot]
-		local toData = playerInv.items[data.toSlot]
+                local shop = shopId and Shops[shopType][shopId] or Shops[shopType]
+                local fromData = shop.items[data.fromSlot]
 
 		if fromData then
 			if fromData.count then
@@ -222,15 +237,17 @@ lib.callback.register('ox_inventory:buyItem', function(source, data)
                         local currency = data.currency or fromData.currency or 'money'
 			local fromItem = Items(fromData.name)
 
-			local result = fromItem.cb and fromItem.cb('buying', fromItem, playerInv, data.fromSlot, shop)
-			if result == false then return false end
+                        local result = fromItem.cb and fromItem.cb('buying', fromItem, playerInv, data.fromSlot, shop)
+                        if result == false then return false end
 
-			local toItem = toData and Items(toData.name)
+                        local metadata, count = Items.Metadata(playerInv, fromItem, fromData.metadata and table.clone(fromData.metadata) or {}, data.count)
+                        local price = count * fromData.price
 
-			local metadata, count = Items.Metadata(playerInv, fromItem, fromData.metadata and table.clone(fromData.metadata) or {}, data.count)
-			local price = count * fromData.price
+                        local targetSlot = Inventory.GetSlotForItem(playerInv, fromItem.name, metadata) or Inventory.GetEmptySlot(playerInv)
+                        local toData = targetSlot and playerInv.items[targetSlot]
+                        local toItem = toData and Items(toData.name)
 
-			if toData == nil or (fromItem.name == toItem?.name and fromItem.stack and table.matches(toData.metadata, metadata)) then
+                        if targetSlot and (toData == nil or (fromItem.name == toItem?.name and fromItem.stack and table.matches(toData.metadata, metadata))) then
 				local newWeight = playerInv.weight + (fromItem.weight + (metadata?.weight or 0)) * count
 
 				if newWeight > playerInv.maxWeight then
@@ -243,24 +260,33 @@ lib.callback.register('ox_inventory:buyItem', function(source, data)
 					return false, false, canAfford
 				end
 
-				if not TriggerEventHooks('buyItem', {
-					source = source,
-					shopType = shopType,
-					shopId = shopId,
-					toInventory = playerInv.id,
-					toSlot = data.toSlot,
-					fromSlot = fromData,
-					itemName = fromData.name,
-					metadata = metadata,
-					count = count,
-					price = fromData.price,
-					totalPrice = price,
-					currency = currency,
-				}) then return false end
+                                if not TriggerEventHooks('buyItem', {
+                                        source = source,
+                                        shopType = shopType,
+                                        shopId = shopId,
+                                        toInventory = playerInv.id,
+                                        toSlot = targetSlot,
+                                        fromSlot = fromData,
+                                        itemName = fromData.name,
+                                        metadata = metadata,
+                                        count = count,
+                                        price = fromData.price,
+                                        totalPrice = price,
+                                        currency = currency,
+                                }) then return false end
 
-				Inventory.SetSlot(playerInv, fromItem, count, metadata, data.toSlot)
-				playerInv.weight = newWeight
-				removeCurrency(playerInv, currency, price)
+                                Inventory.SetSlot(playerInv, fromItem, count, metadata, targetSlot)
+                                playerInv.weight = newWeight
+                                removeCurrency(playerInv, currency, price)
+
+                                if currency == 'bank' then
+                                        local player = server.GetPlayerFromId(playerInv.id)
+                                        if player then
+                                                local receiverId = ('shop_%s'):format(shopType)
+                                                TriggerEvent('okokBanking:AddNewTransaction', shop.label, receiverId, GetPlayerName(source), player.PlayerData.identifier, price, ('Zakup w sklepie: %s'):format(metadata?.label or fromItem.label))
+                                                TriggerClientEvent('ox_lib:notify', source, { type = 'success', description = ('✅ Zakupiono przedmiot za %s z konta bankowego.'):format(price) })
+                                        end
+                                end
 
 				if fromData.count then
 					shop.items[data.fromSlot].count = fromData.count - count
@@ -276,8 +302,8 @@ lib.callback.register('ox_inventory:buyItem', function(source, data)
 					end
 				end
 
-				return true, {data.toSlot, playerInv.items[data.toSlot], shop.items[data.fromSlot].count and shop.items[data.fromSlot], playerInv.weight}, { type = 'success', description = message }
-			end
+                                return true, {targetSlot, playerInv.items[targetSlot], shop.items[data.fromSlot].count and shop.items[data.fromSlot], playerInv.weight}, { type = 'success', description = message }
+                        end
 
 			return false, false, { type = 'error', description = locale('unable_stack_items') }
 		end
