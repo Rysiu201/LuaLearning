@@ -34,11 +34,12 @@ const ShoppingCart: React.FC = () => {
   const handlePay = async (method: 'bank' | 'cash') => {
     for (const entry of items) {
       if (!isSlotWithItem(entry.item)) continue;
-      let player = store.getState().inventory.leftInventory;
+      const player = store.getState().inventory.leftInventory;
+      const pockets = player.items.slice(9);
       const data = Items[entry.item.name];
       const target =
-        findAvailableSlot(entry.item, data!, player.items) ||
-        player.items.find((s) => s.name === undefined);
+        findAvailableSlot(entry.item, data!, pockets) ||
+        pockets.find((s) => s.name === undefined);
 
       if (!target) {
         console.error('No slot for', entry.item.name);
@@ -52,6 +53,7 @@ const ShoppingCart: React.FC = () => {
           toSlot: target.slot,
           toType: player.type,
           count: entry.quantity,
+          currency: method === 'bank' ? 'bank' : 'money',
         })
       );
     }
