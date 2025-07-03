@@ -1,0 +1,76 @@
+.shop-inventory {
+  position: absolute;
+  left: 4%;
+  top: 50%;
+  transform: translateY(-50%) perspective(1000px) rotateY(10deg);
+  transform-origin: left center;
+  background: rgba(24, 24, 24, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
+  border-radius: 18px;
+  padding: 10px;
+}
+
+.shopping-cart {
+  margin-top: 10px;
+  background: rgba(24, 24, 24, 0.3);
+  padding: 8px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  max-height: 200px;
+  overflow-y: auto;
+}
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+.cart-table th, .cart-table td {
+  border-bottom: 1px solid #555;
+  padding: 4px;
+  text-align: center;
+}
+.cart-table input {
+  width: 40px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid #555;
+  color: #fff;
+  text-align: center;
+  margin: 0 4px;
+  border-radius: 4px;
+}
+.qty-cell button {
+  margin: 0 4px;
+}
+.cart-summary {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cart-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-top: 4px;
+}
+.pay-btn {
+  display: flex;
+  padding: 8px 14px;
+  border-radius: $mainRadius;
+  background: rgba(24, 24, 24, 0.3);
+  border: 0.5px solid rgba(247, 247, 247, 0.6);
+  color: #fff;
+  font-family: $mainFont;
+  font-size: 0.9rem;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: $primaryBG;
+    border-color: $primary;
+  }
+}

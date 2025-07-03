@@ -14,11 +14,15 @@ import { closeTooltip } from '../../store/tooltip';
 import InventoryContext from './InventoryContext';
 import { closeContextMenu } from '../../store/contextMenu';
 import Fade from '../utils/transitions/Fade';
+import { useAppSelector } from '../../store';
+import { selectRightInventory } from '../../store/inventory';
+import ShopInventory from '../cart/ShopInventory';
 
 const Inventory: React.FC = () => {
   const [inventoryVisible, setInventoryVisible] = useState(false);
   const [showEquipment, setShowEquipment] = useState(true);
   const dispatch = useAppDispatch();
+  const rightInventory = useAppSelector(selectRightInventory);
 
   useNuiEvent<boolean>('setInventoryVisible', setInventoryVisible);
   useNuiEvent<false>('closeInventory', () => {
@@ -64,7 +68,7 @@ const Inventory: React.FC = () => {
             <EquipmentInventory />
           </Fade>
           <Fade in={!showEquipment}>
-            <GroundInventory />
+            {rightInventory.type === 'shop' ? <ShopInventory /> : <GroundInventory />}
           </Fade>
           <LeftInventory />
           <Tooltip />
