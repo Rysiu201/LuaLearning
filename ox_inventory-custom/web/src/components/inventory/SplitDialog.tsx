@@ -22,7 +22,7 @@ const SplitDialog: React.FC<Props> = ({ visible, onClose, item }) => {
   const max = item?.count ? Math.max(1, item.count - 1) : 1;
   const [qty, setQty] = useState(1);
   const { refs, context } = useFloating({ open: visible, onOpenChange: onClose });
-  const dismiss = useDismiss(context, { outsidePressEvent: 'pointerdown' });
+  const dismiss = useDismiss(context, { outsidePressEvent: 'mousedown' });
   const { isMounted, styles } = useTransitionStyles(context);
   const { getFloatingProps } = useInteractions([dismiss]);
 

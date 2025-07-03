@@ -10,7 +10,7 @@ const ShopInventory: React.FC = () => {
   return (
     <div className="shop-inventory">
       <h2 className="pockets-title">{shopInventory.label}</h2>
-      <InventoryGrid inventory={shopInventory} showSlotNumbers={false} />
+      <InventoryGrid inventory={shopInventory} showSlotNumbers={false} showWeightBar={false} />
       <ShoppingCart />
     </div>
   );
