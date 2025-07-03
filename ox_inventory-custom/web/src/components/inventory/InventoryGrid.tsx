@@ -13,6 +13,7 @@ interface InventoryGridProps {
   collapsible?: boolean;
   collapsed?: boolean;
   onToggleCollapse?: () => void;
+  showWeightBar?: boolean;
 }
 
 const InventoryGrid: React.FC<InventoryGridProps> = ({
@@ -21,6 +22,7 @@ const InventoryGrid: React.FC<InventoryGridProps> = ({
   collapsible = false,
   collapsed = false,
   onToggleCollapse,
+  showWeightBar = true,
 }) => {
   const isGround = inventory.type === 'drop' || inventory.type === 'newdrop';
   const weight = useMemo(
@@ -34,22 +36,24 @@ const InventoryGrid: React.FC<InventoryGridProps> = ({
         <div>
           <div className={`inventory-grid-header-wrapper ${isGround ? 'ground-header' : ''}`}>
             {!isGround && <p>{inventory.label}</p>}
-            <p className="weight-info">
-              <span className="weight-icon">⚖</span>
-              {weight / 1000}
-              {!isGround && inventory.maxWeight ? `/${inventory.maxWeight / 1000}kg` : 'kg'}
-              {collapsible && (
-                <button
-                  type="button"
-                  className="collapse-toggle"
-                  onClick={onToggleCollapse}
-                >
-                  {collapsed ? '▲' : '▼'}
-                </button>
-              )}
-            </p>
+            {showWeightBar && (
+              <p className="weight-info">
+                <span className="weight-icon">⚖</span>
+                {weight / 1000}
+                {!isGround && inventory.maxWeight ? `/${inventory.maxWeight / 1000}kg` : 'kg'}
+                {collapsible && (
+                  <button
+                    type="button"
+                    className="collapse-toggle"
+                    onClick={onToggleCollapse}
+                  >
+                    {collapsed ? '▲' : '▼'}
+                  </button>
+                )}
+              </p>
+            )}
           </div>
-          {!isGround && (
+          {!isGround && showWeightBar && (
             <WeightBar percent={inventory.maxWeight ? (weight / inventory.maxWeight) * 100 : 0} />
           )}
         </div>

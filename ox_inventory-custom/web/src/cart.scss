@@ -1,0 +1,40 @@
+.shop-inventory {
+  position: absolute;
+  left: 4%;
+  top: 50%;
+  transform: translateY(-50%) perspective(1000px) rotateY(10deg);
+  transform-origin: left center;
+  background: rgba(24, 24, 24, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
+  border-radius: 18px;
+  padding: 10px;
+}
+
+.shopping-cart {
+  margin-top: 10px;
+  background: rgba(24, 24, 24, 0.3);
+  padding: 8px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  max-height: 200px;
+  overflow-y: auto;
+}
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+.cart-table th, .cart-table td {
+  border-bottom: 1px solid #555;
+  padding: 4px;
+  text-align: center;
+}
+.cart-summary {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+.cart-summary button {
+  margin-left: 4px;
+}
