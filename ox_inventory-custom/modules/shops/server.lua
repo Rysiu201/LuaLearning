@@ -219,7 +219,7 @@ lib.callback.register('ox_inventory:buyItem', function(source, data)
 				end
 			end
 
-			local currency = fromData.currency or 'money'
+                        local currency = data.currency or fromData.currency or 'money'
 			local fromItem = Items(fromData.name)
 
 			local result = fromItem.cb and fromItem.cb('buying', fromItem, playerInv, data.fromSlot, shop)
