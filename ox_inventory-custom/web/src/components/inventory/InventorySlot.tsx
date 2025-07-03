@@ -13,6 +13,7 @@ import { Locale } from '../../store/locale';
 import { onCraft } from '../../dnd/onCraft';
 import { validateMove } from '../../thunks/validateItems';
 import { selectLeftInventory } from '../../store/inventory';
+import { addItem } from '../../store/cart';
 import useNuiEvent from '../../hooks/useNuiEvent';
 import { ItemsPayload } from '../../reducers/refreshSlots';
 import { closeTooltip, openTooltip } from '../../store/tooltip';
@@ -134,6 +135,10 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     dispatch(closeTooltip());
+    if (event.detail === 2 && inventoryType === 'shop' && isSlotWithItem(item)) {
+      dispatch(addItem({ slot: item.slot, item: item as SlotWithItem, quantity: 1 }));
+      return;
+    }
     if (timerRef.current) clearTimeout(timerRef.current);
     if (event.ctrlKey && isSlotWithItem(item) && inventoryType !== 'shop' && inventoryType !== 'crafting') {
       if (inventoryType === 'newdrop' || inventoryType === 'drop') {

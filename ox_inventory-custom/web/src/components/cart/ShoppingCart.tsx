@@ -5,6 +5,8 @@ import { DragSource } from '../../typings';
 import { removeItem, updateQuantity, clear, addItem } from '../../store/cart';
 import { getItemUrl } from '../../helpers';
 import { Items } from '../../store/items';
+import bankIcon from '../../../images/card_bank.png?url';
+import cashIcon from '../../../images/money.png?url';
 
 const ShoppingCart: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -31,38 +33,37 @@ const ShoppingCart: React.FC = () => {
 
   return (
     <div className="shopping-cart" ref={drop}>
-      <h3>Shopping Cart</h3>
+      <h3 className="pockets-title">Shopping Cart</h3>
       <table className="cart-table">
-        <thead>
-          <tr>
-            <th>Icon</th>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Qty</th>
-            <th>Unit</th>
-            <th>Total</th>
-            <th></th>
-          </tr>
-        </thead>
         <tbody>
           {items.map((entry) => (
             <tr key={entry.slot}>
               <td>
                 <img src={getItemUrl(entry.item)} alt="" width={32} />
               </td>
-              <td>
+              <td className="cart-name">
                 {entry.item.metadata?.label
                   ? entry.item.metadata.label
                   : Items[entry.item.name]?.label || entry.item.name}
               </td>
-              <td>{entry.item.metadata?.quality || 'COMMON'}</td>
-              <td>
+              <td className="cart-type">{entry.item.metadata?.quality || 'COMMON'}</td>
+              <td className="qty-cell">
                 <button onClick={() => dispatch(updateQuantity({ slot: entry.slot, quantity: Math.max(1, entry.quantity - 1) }))}>-</button>
-                {entry.quantity}
+                <input
+                  type="number"
+                  min={1}
+                  value={entry.quantity}
+                  onChange={(e) =>
+                    dispatch(updateQuantity({
+                      slot: entry.slot,
+                      quantity: Math.max(1, Number(e.target.value)),
+                    }))
+                  }
+                />
                 <button onClick={() => dispatch(updateQuantity({ slot: entry.slot, quantity: entry.quantity + 1 }))}>+</button>
               </td>
-              <td>${entry.item.price}</td>
-              <td>${entry.item.price! * entry.quantity}</td>
+              <td className="unit-price">${entry.item.price}</td>
+              <td className="total-price">${entry.item.price! * entry.quantity}</td>
               <td>
                 <button onClick={() => dispatch(removeItem(entry.slot))}>🗑️</button>
               </td>
@@ -71,9 +72,16 @@ const ShoppingCart: React.FC = () => {
         </tbody>
       </table>
       <div className="cart-summary">
-        <span>Total: ${total}</span>
-        <button onClick={() => handlePay('bank')}>Pay with Bank</button>
-        <button onClick={() => handlePay('cash')}>Pay with Cash</button>
+        <span className="total-label">Total Cost:</span>
+        <span className="total-value">${total}</span>
+      </div>
+      <div className="cart-actions">
+        <button className="pay-btn" onClick={() => handlePay('bank')}>
+          <img src={bankIcon} alt="pay bank" width={20} />
+        </button>
+        <button className="pay-btn" onClick={() => handlePay('cash')}>
+          <img src={cashIcon} alt="pay cash" width={20} />
+        </button>
       </div>
     </div>
   );
