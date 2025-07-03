@@ -188,6 +188,7 @@ return {
                         notification = 'You used your phone'
                 }
         },
+
         ['money'] = {
                 label = 'Money',
                 metadata = { quality = 'Common' },
@@ -196,6 +197,7 @@ return {
                         notification = 'You checked your money'
                 }
         },
+
         ['mustard'] = {
                 label = 'Mustard',
                 weight = 500,
@@ -300,6 +302,7 @@ return {
 
 	["largescope_attachment"] = {
 		label = "Large Scope",
+		metadata = { quality = 'Rare' },
 		weight = 1000,
 		stack = true,
 		close = true,
@@ -433,6 +436,7 @@ return {
 
 	["phone_hack"] = {
 		label = "Phone Hack",
+		metadata = { quality = 'Rare' },
 		weight = 300,
 		stack = false,
 		close = true,
@@ -455,6 +459,7 @@ return {
 
 	["car_armor"] = {
 		label = "Vehicle Armor",
+		metadata = { quality = 'Uncommon' },
 		weight = 0,
 		stack = false,
 		close = true,
@@ -466,6 +471,7 @@ return {
 
 	["police_stormram"] = {
 		label = "Stormram",
+		metadata = { quality = 'Uncommon' },
 		weight = 18000,
 		stack = true,
 		close = true,
@@ -543,6 +549,7 @@ return {
 
 	["vehicletrackertablet"] = {
 		label = "Vehicle Tracker Tablet",
+		metadata = { quality = 'Uncommon' },
 		weight = 1000,
 		stack = false,
 		close = true,
@@ -620,6 +627,7 @@ return {
 
 	["c4_bomb"] = {
 		label = "C4 Bomb",
+		metadata = { quality = 'Uncommon' },
 		weight = 220,
 		stack = true,
 		close = true,
@@ -741,6 +749,7 @@ return {
 
 	["labkey"] = {
 		label = "Key",
+		metadata = { quality = 'Uncommon' },
 		weight = 500,
 		stack = false,
 		close = true,
@@ -862,6 +871,7 @@ return {
 
 	["sapphire_ring"] = {
 		label = "Sapphire Ring",
+		metadata = { quality = 'Rare' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -939,6 +949,7 @@ return {
 
 	["driver_license"] = {
 		label = "Drivers License",
+		metadata = { quality = 'Uncommon' },
 		weight = 0,
 		stack = false,
 		close = false,
@@ -983,6 +994,7 @@ return {
 
 	["uncut_emerald"] = {
 		label = "Uncut Emerald",
+		metadata = { quality = 'Uncommon' },
 		weight = 100,
 		stack = true,
 		close = false,
@@ -994,6 +1006,7 @@ return {
 
 	["body_cam"] = {
 		label = "Body Cam",
+		metadata = { quality = 'Uncommon' },
 		weight = 0,
 		stack = false,
 		close = true,
@@ -1016,6 +1029,7 @@ return {
 
 	["fishinglootbig"] = {
 		label = "Treasure Chest",
+		metadata = { quality = 'Rare' },
 		weight = 2500,
 		stack = true,
 		close = true,
@@ -1027,6 +1041,7 @@ return {
 
 	["security_card_02"] = {
 		label = "Security Card B",
+		metadata = { quality = 'Rare' },
 		weight = 0,
 		stack = true,
 		close = true,
@@ -1093,6 +1108,7 @@ return {
 
 	["comp_attachment"] = {
 		label = "Compensator",
+		metadata = { quality = 'Rare' },
 		weight = 1000,
 		stack = true,
 		close = true,
@@ -1115,6 +1131,7 @@ return {
 
 	["thermite_bomb"] = {
 		label = "Thermite Bomb",
+		metadata = { quality = 'Rare' },
 		weight = 100,
 		stack = true,
 		close = true,
@@ -1247,6 +1264,7 @@ return {
 
 	["sapphire_ring_silver"] = {
 		label = "Sapphire Ring Silver",
+		metadata = { quality = 'Rare' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -1291,6 +1309,7 @@ return {
 
 	["electronickit"] = {
 		label = "Electronic Kit",
+		metadata = { quality = 'Uncommon' },
 		weight = 100,
 		stack = true,
 		close = true,
@@ -1302,6 +1321,7 @@ return {
 
 	["casino_vip"] = {
 		label = "V.I.P Membership",
+		metadata = { quality = 'Rare' },
 		weight = 500,
 		stack = false,
 		close = false,
@@ -1489,6 +1509,7 @@ return {
 
 	["slanted_muzzle_brake"] = {
 		label = "Slanted Muzzle Brake",
+		metadata = { quality = 'Rare' },
 		weight = 1000,
 		stack = true,
 		close = true,
@@ -1500,6 +1521,7 @@ return {
 
 	["diamond_earring_silver"] = {
 		label = "Diamond Earrings Silver",
+		metadata = { quality = 'Epic' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -1665,6 +1687,7 @@ return {
 
 	["armor"] = {
 		label = "Armor",
+		metadata = { quality = 'Rare' },
 		weight = 5000,
 		stack = true,
 		close = true,
@@ -1786,6 +1809,7 @@ return {
 
 	["gold_ring"] = {
 		label = "Gold Ring",
+		metadata = { quality = 'Uncommon' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -1830,6 +1854,7 @@ return {
 
 	["emerald"] = {
 		label = "Emerald",
+		metadata = { quality = 'Rare' },
 		weight = 100,
 		stack = true,
 		close = false,
@@ -1940,6 +1965,7 @@ return {
 
 	["goldchain"] = {
 		label = "Golden Chain",
+		metadata = { quality = 'Uncommon' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -1984,6 +2010,7 @@ return {
 
 	["firstaid"] = {
 		label = "First Aid",
+		metadata = { quality = 'Uncommon' },
 		weight = 2500,
 		stack = true,
 		close = true,
@@ -2017,6 +2044,7 @@ return {
 
 	["bank_card"] = {
 		label = "Bank Card",
+		metadata = { quality = 'Uncommon' },
 		weight = 0,
 		stack = false,
 		close = true,
@@ -2039,6 +2067,7 @@ return {
 
 	["miningdrill"] = {
 		label = "Mining Drill",
+		metadata = { quality = 'Uncommon' },
 		weight = 1000,
 		stack = true,
 		close = false,
@@ -2116,6 +2145,7 @@ return {
 
 	["package"] = {
 		label = "Suspicious Package",
+		metadata = { quality = 'Rare' },
 		weight = 10000,
 		stack = false,
 		close = false,
@@ -2149,6 +2179,7 @@ return {
 
 	["tactical_muzzle_brake"] = {
 		label = "Tactical Muzzle Brake",
+		metadata = { quality = 'Rare' },
 		weight = 1000,
 		stack = true,
 		close = true,
@@ -2182,6 +2213,7 @@ return {
 
 	["casinochips"] = {
 		label = "Casino Chips",
+		metadata = { quality = 'Uncommon' },
 		weight = 0,
 		stack = true,
 		close = false,
@@ -2281,6 +2313,7 @@ return {
 
 	["markedbills"] = {
 		label = "Marked Money",
+		metadata = { quality = 'Rare' },
 		weight = 1000,
 		stack = false,
 		close = true,
@@ -2303,6 +2336,7 @@ return {
 
 	["vehicletracker"] = {
 		label = "Vehicle GPS Tracker",
+		metadata = { quality = 'Uncommon' },
 		weight = 1000,
 		stack = false,
 		close = true,
@@ -2325,6 +2359,7 @@ return {
 
 	["diamond_necklace_silver"] = {
 		label = "Diamond Necklace Silver",
+		metadata = { quality = 'Epic' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -2380,6 +2415,7 @@ return {
 
 	["diamond"] = {
 		label = "Diamond",
+		metadata = { quality = 'Legendary' },
 		weight = 100,
 		stack = true,
 		close = false,
@@ -2391,6 +2427,7 @@ return {
 
 	["emerald_necklace_silver"] = {
 		label = "Emerald Necklace Silver",
+		metadata = { quality = 'Rare' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -2413,6 +2450,7 @@ return {
 
 	["emerald_ring"] = {
 		label = "Emerald Ring",
+		metadata = { quality = 'Rare' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -2512,6 +2550,7 @@ return {
 
 	["goldore"] = {
 		label = "Gold Ore",
+		metadata = { quality = 'Uncommon' },
 		weight = 1000,
 		stack = true,
 		close = false,
@@ -2600,6 +2639,7 @@ return {
 
 	["emerald_earring"] = {
 		label = "Emerald Earrings",
+		metadata = { quality = 'Rare' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -2611,6 +2651,7 @@ return {
 
 	["rolex"] = {
 		label = "Golden Watch",
+		metadata = { quality = 'Uncommon' },
 		weight = 1500,
 		stack = true,
 		close = true,
@@ -2666,6 +2707,7 @@ return {
 
 	["ruby_necklace_silver"] = {
 		label = "Ruby Necklace Silver",
+		metadata = { quality = 'Rare' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -2677,6 +2719,7 @@ return {
 
 	["silverore"] = {
 		label = "Silver Ore",
+		metadata = { quality = 'Uncommon' },
 		weight = 1000,
 		stack = true,
 		close = false,
@@ -2743,6 +2786,7 @@ return {
 
 	["dendrogyra_coral"] = {
 		label = "Dendrogyra",
+		metadata = { quality = 'Rare' },
 		weight = 1000,
 		stack = true,
 		close = true,
@@ -2798,6 +2842,7 @@ return {
 
 	["thermalscope_attachment"] = {
 		label = "Thermal Scope",
+		metadata = { quality = 'Rare' },
 		weight = 1000,
 		stack = true,
 		close = true,
@@ -2809,6 +2854,7 @@ return {
 
 	["radioscanner"] = {
 		label = "Radio Scanner",
+		metadata = { quality = 'Uncommon' },
 		weight = 1000,
 		stack = true,
 		close = true,
@@ -2831,6 +2877,7 @@ return {
 
 	["weaponlicense"] = {
 		label = "Weapon License",
+		metadata = { quality = 'Rare' },
 		weight = 0,
 		stack = false,
 		close = true,
@@ -2951,6 +2998,7 @@ return {
 
 	["ruby_earring"] = {
 		label = "Ruby Earrings",
+		metadata = { quality = 'Rare' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -2973,6 +3021,7 @@ return {
 
 	["meth"] = {
 		label = "Meth",
+		metadata = { quality = 'Uncommon' },
 		weight = 100,
 		stack = true,
 		close = true,
@@ -3017,6 +3066,7 @@ return {
 
 	["id_card"] = {
 		label = "ID Card",
+		metadata = { quality = 'Uncommon' },
 		weight = 0,
 		stack = false,
 		close = false,
@@ -3028,6 +3078,7 @@ return {
 
 	["emerald_ring_silver"] = {
 		label = "Emerald Ring Silver",
+		metadata = { quality = 'Rare' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -3050,6 +3101,7 @@ return {
 
 	["thermite"] = {
 		label = "Thermite",
+		metadata = { quality = 'Uncommon' },
 		weight = 1000,
 		stack = true,
 		close = true,
@@ -3138,6 +3190,7 @@ return {
 
 	["ruby_ring_silver"] = {
 		label = "Ruby Ring Silver",
+		metadata = { quality = 'Uncommon' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -3149,6 +3202,7 @@ return {
 
 	["ruby_earring_silver"] = {
 		label = "Ruby Earrings Silver",
+		metadata = { quality = 'Uncommon' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -3171,6 +3225,7 @@ return {
 
 	["sapphire_earring"] = {
 		label = "Sapphire Earrings",
+		metadata = { quality = 'Rare' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -3226,6 +3281,7 @@ return {
 
 	["certificate"] = {
 		label = "Certificate",
+		metadata = { quality = 'Rare' },
 		weight = 0,
 		stack = true,
 		close = true,
@@ -3248,6 +3304,7 @@ return {
 
 	["uncut_sapphire"] = {
 		label = "Uncut Sapphire",
+		metadata = { quality = 'Rare' },
 		weight = 100,
 		stack = true,
 		close = false,
@@ -3368,6 +3425,7 @@ return {
 
 	["ruby"] = {
 		label = "Ruby",
+		metadata = { quality = 'Rare' },
 		weight = 100,
 		stack = true,
 		close = false,
@@ -3511,6 +3569,7 @@ return {
 
 	["fingerprintreader"] = {
 		label = "Pro Tech XFR8001",
+		metadata = { quality = 'Uncommon' },
 		weight = 200,
 		stack = false,
 		close = true,
@@ -3544,6 +3603,7 @@ return {
 
 	["handcuffs"] = {
 		label = "Handcuffs",
+		metadata = { quality = 'Epic' },
 		weight = 100,
 		stack = true,
 		close = true,
@@ -3555,6 +3615,7 @@ return {
 
 	["10kgoldchain"] = {
 		label = "10k Gold Chain",
+		metadata = { quality = 'Epic' },
 		weight = 2000,
 		stack = true,
 		close = true,
@@ -3621,6 +3682,7 @@ return {
 
 	["diamond_necklace"] = {
 		label = "Diamond Necklace",
+		metadata = { quality = 'Legendary' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -3676,6 +3738,7 @@ return {
 
 	["leopardcamo_attachment"] = {
 		label = "Leopard Camo",
+		metadata = { quality = 'Rare' },
 		weight = 1000,
 		stack = true,
 		close = true,
@@ -3764,6 +3827,7 @@ return {
 
 	["casino_goldchip"] = {
 		label = "Casino Chip",
+		metadata = { quality = 'Uncommon' },
 		weight = 0,
 		stack = true,
 		close = false,
@@ -3896,6 +3960,7 @@ return {
 
 	["idcard"] = {
 		label = "ID Card",
+		metadata = { quality = 'Uncommon' },
 		weight = 0,
 		stack = false,
 		close = false,
@@ -3940,6 +4005,7 @@ return {
 
 	["casino_member"] = {
 		label = "Casino Membership",
+		metadata = { quality = 'Uncommon' },
 		weight = 500,
 		stack = false,
 		close = false,
@@ -4292,6 +4358,7 @@ return {
 
 	["split_end_muzzle_brake"] = {
 		label = "Split End Muzzle Brake",
+		metadata = { quality = 'Rare' },
 		weight = 1000,
 		stack = true,
 		close = true,
@@ -4391,6 +4458,7 @@ return {
 
 	["sapphire_necklace_silver"] = {
 		label = "Sapphire Necklace Silver",
+		metadata = { quality = 'Uncommon' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -4666,6 +4734,7 @@ return {
 
 	["advancedrepairkit"] = {
 		label = "Advanced Repairkit",
+		metadata = { quality = 'Uncommon' },
 		weight = 4000,
 		stack = true,
 		close = true,
@@ -4688,6 +4757,7 @@ return {
 
 	["emerald_necklace"] = {
 		label = "Emerald Necklace",
+		metadata = { quality = 'Rare' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -4699,6 +4769,7 @@ return {
 
 	["diamond_earring"] = {
 		label = "Diamond Earrings",
+		metadata = { quality = 'Legendary' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -4743,6 +4814,7 @@ return {
 
 	["sapphire_earring_silver"] = {
 		label = "Sapphire Earrings Silver",
+		metadata = { quality = 'Uncommon' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -4754,6 +4826,7 @@ return {
 
 	["sapphire"] = {
 		label = "Sapphire",
+		metadata = { quality = 'Rare' },
 		weight = 100,
 		stack = true,
 		close = false,
@@ -4787,6 +4860,7 @@ return {
 
 	["zebracamo_attachment"] = {
 		label = "Zebra Camo",
+		metadata = { quality = 'Rare' },
 		weight = 1000,
 		stack = true,
 		close = true,
@@ -4886,6 +4960,7 @@ return {
 
 	["flashlight_attachment"] = {
 		label = "Flashlight",
+		metadata = { quality = 'Rare' },
 		weight = 1000,
 		stack = true,
 		close = true,
@@ -4897,6 +4972,7 @@ return {
 
 	["diamond_ring_silver"] = {
 		label = "Diamond Ring Silver",
+		metadata = { quality = 'Epic' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -4974,6 +5050,7 @@ return {
 
 	["dnatestkit"] = {
 		label = "DNA Field Swab Kit",
+		metadata = { quality = 'Uncommon' },
 		weight = 200,
 		stack = true,
 		close = true,
@@ -5183,6 +5260,7 @@ return {
 
 	["drill"] = {
 		label = "Drill",
+		metadata = { quality = 'Uncommon' },
 		weight = 20000,
 		stack = true,
 		close = false,
@@ -5216,6 +5294,7 @@ return {
 
 	["holoscope_attachment"] = {
 		label = "Holo Scope",
+		metadata = { quality = 'Uncommon' },
 		weight = 1000,
 		stack = true,
 		close = true,
@@ -5282,6 +5361,7 @@ return {
 
 	["uncut_diamond"] = {
 		label = "Uncut Diamond",
+		metadata = { quality = 'Legendary' },
 		weight = 100,
 		stack = true,
 		close = false,
@@ -5293,6 +5373,7 @@ return {
 
 	["ironore"] = {
 		label = "Iron Ore",
+		metadata = { quality = 'Uncommon' },
 		weight = 1000,
 		stack = true,
 		close = false,
@@ -5304,6 +5385,7 @@ return {
 
 	["heavyarmor"] = {
 		label = "Heavy Armor",
+		metadata = { quality = 'Epic' },
 		weight = 5000,
 		stack = true,
 		close = true,
@@ -5557,6 +5639,7 @@ return {
 
 	["vehicletrackerscanner"] = {
 		label = "Vehicle Tracker Scanner",
+		metadata = { quality = 'Uncommon' },
 		weight = 1000,
 		stack = false,
 		close = true,
@@ -5678,6 +5761,7 @@ return {
 
 	["sapphire_necklace"] = {
 		label = "Sapphire Necklace",
+		metadata = { quality = 'Rare' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -5733,6 +5817,7 @@ return {
 
 	["ruby_necklace"] = {
 		label = "Ruby Necklace",
+		metadata = { quality = 'Rare' },
 		weight = 200,
 		stack = true,
 		close = false,
@@ -5876,6 +5961,7 @@ return {
 
 	["goldingot"] = {
 		label = "Gold Ingot",
+		metadata = { quality = 'Uncommon' },
 		weight = 1000,
 		stack = true,
 		close = false,
@@ -5898,6 +5984,7 @@ return {
 
 	["silveringot"] = {
 		label = "Silver Ingot",
+		metadata = { quality = 'Uncommon' },
 		weight = 1000,
 		stack = true,
 		close = false,
@@ -5953,6 +6040,7 @@ return {
 
 	["goldbar"] = {
 		label = "Gold Bar",
+		metadata = { quality = 'Rare' },
 		weight = 500,
 		stack = true,
 		close = true,
