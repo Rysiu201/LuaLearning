@@ -154,16 +154,32 @@ lib.callback.register('ox_inventory:openShop', function(source, data)
 end)
 
 local function canAffordItem(inv, currency, price)
-	local canAfford = price >= 0 and Inventory.GetItemCount(inv, currency) >= price
+        if currency == 'bank' then
+                local player = server.GetPlayerFromId(inv.id)
+                local canAfford = player and player.Functions.GetMoney('bank') >= price
+                return canAfford or {
+                        type = 'error',
+                        description = locale('cannot_afford', ('%s%s'):format(locale('$'), math.groupdigits(price)))
+                }
+        end
 
-	return canAfford or {
-		type = 'error',
-		description = locale('cannot_afford', ('%s%s'):format((currency == 'money' and locale('$') or math.groupdigits(price)), (currency == 'money' and math.groupdigits(price) or ' '..Items(currency).label)))
-	}
+        local canAfford = price >= 0 and Inventory.GetItemCount(inv, currency) >= price
+
+        return canAfford or {
+                type = 'error',
+                description = locale('cannot_afford', ('%s%s'):format((currency == 'money' and locale('$') or math.groupdigits(price)), (currency == 'money' and math.groupdigits(price) or ' '..Items(currency).label)))
+        }
 end
 
 local function removeCurrency(inv, currency, price)
-	Inventory.RemoveItem(inv, currency, price)
+        if currency == 'bank' then
+                local player = server.GetPlayerFromId(inv.id)
+                if player then
+                        player.Functions.RemoveMoney('bank', price, 'ox_inventory_shop')
+                end
+        else
+                Inventory.RemoveItem(inv, currency, price)
+        end
 end
 
 local TriggerEventHooks = require 'modules.hooks.server'
