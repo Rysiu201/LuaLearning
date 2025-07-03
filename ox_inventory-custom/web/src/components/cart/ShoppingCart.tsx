@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDrop } from 'react-dnd';
-import { useAppDispatch, useAppSelector, store } from '../../store';
+import { useAppDispatch, useAppSelector } from '../../store';
 import { DragSource } from '../../typings';
 import {
   removeItem,
@@ -8,9 +8,9 @@ import {
   clear,
   addItem,
 } from '../../store/cart';
-import { getItemUrl, findAvailableSlot, isSlotWithItem } from '../../helpers';
+import { getItemUrl } from '../../helpers';
 import { Items } from '../../store/items';
-import { buyItem } from '../../thunks/buyItem';
+import { buyCart } from '../../thunks/buyCart';
 import bankIcon from '../../../images/card_bank.png?url';
 import cashIcon from '../../../images/money.png?url';
 
@@ -32,31 +32,13 @@ const ShoppingCart: React.FC = () => {
   const total = items.reduce((acc, item) => acc + item.item.price! * item.quantity, 0);
 
   const handlePay = async (method: 'bank' | 'cash') => {
-    for (const entry of items) {
-      if (!isSlotWithItem(entry.item)) continue;
-      const player = store.getState().inventory.leftInventory;
-      const pockets = player.items.slice(9);
-      const data = Items[entry.item.name];
-      const target =
-        findAvailableSlot(entry.item, data!, pockets) ||
-        pockets.find((s) => s.name === undefined);
-
-      if (!target) {
-        console.error('No slot for', entry.item.name);
-        continue;
-      }
-
-      await dispatch(
-        buyItem({
-          fromSlot: entry.slot,
-          fromType: shop.type,
-          toSlot: target.slot,
-          toType: player.type,
-          count: entry.quantity,
-          currency: method === 'bank' ? 'bank' : 'money',
-        })
-      );
-    }
+    if (items.length === 0) return;
+    await dispatch(
+      buyCart({
+        items: items.map((entry) => ({ fromSlot: entry.slot, count: entry.quantity })),
+        currency: method === 'bank' ? 'bank' : 'money',
+      })
+    );
     dispatch(clear());
   };
 

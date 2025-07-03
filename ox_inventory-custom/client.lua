@@ -982,8 +982,8 @@ RegisterNetEvent('ox_inventory:updateSlots', function(items, weights)
 end)
 
 RegisterNetEvent('ox_inventory:inventoryReturned', function(data)
-	if source == '' then return end
-	if currentWeapon then currentWeapon = Weapon.Disarm(currentWeapon) end
+        if source == '' then return end
+        if currentWeapon then currentWeapon = Weapon.Disarm(currentWeapon) end
 
 	lib.notify({ description = locale('items_returned') })
 	client.closeInventory()
@@ -995,7 +995,20 @@ RegisterNetEvent('ox_inventory:inventoryReturned', function(data)
 		items[num] = { item = slotData, inventory = cache.serverId }
 	end
 
-	updateInventory(items, data[3])
+        updateInventory(items, data[3])
+end)
+
+RegisterNetEvent('ox_inventory:refreshInventory', function(data)
+        if source == '' then return end
+
+        local num, items = 0, {}
+
+        for _, slotData in pairs(data[1]) do
+                num += 1
+                items[num] = { item = slotData, inventory = cache.serverId }
+        end
+
+        updateInventory(items, data[2])
 end)
 
 RegisterNetEvent('ox_inventory:inventoryConfiscated', function(message)
@@ -1879,6 +1892,16 @@ RegisterNUICallback('buyItem', function(data, cb)
 	end
 
 	cb(response)
+end)
+
+RegisterNUICallback('buyCart', function(data, cb)
+        local success, message = lib.callback.await('ox_inventory:buyCart', 100, data)
+
+        if not success and message then
+                lib.notify(message)
+        end
+
+        cb(success or false)
 end)
 
 RegisterNUICallback('craftItem', function(data, cb)

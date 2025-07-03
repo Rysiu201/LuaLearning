@@ -2191,6 +2191,47 @@ end
 exports('GetEmptySlot', Inventory.GetEmptySlot)
 
 ---@param inv inventory
+---@return integer?
+function Inventory.GetEmptyPocketSlot(inv)
+    local inventory = Inventory(inv)
+
+    if not inventory then return end
+
+    local items = inventory.items
+
+    for i = 10, inventory.slots do
+        if not items[i] then
+            return i
+        end
+    end
+end
+
+exports('GetEmptyPocketSlot', Inventory.GetEmptyPocketSlot)
+
+---@param inv inventory
+function Inventory.Refresh(inv)
+    inv = Inventory(inv)
+
+    if not inv then return end
+
+    local items = {}
+    local inc = 0
+
+    for slot, item in pairs(inv.items) do
+        inc = inc + 1
+        items[inc] = { item = item, inventory = inv.id }
+    end
+
+    TriggerClientEvent('ox_inventory:refreshInventory', inv.id, { items, inv.weight })
+end
+
+exports('RefreshInventory', Inventory.Refresh)
+
+RegisterNetEvent('ox_inventory:refreshInventory', function()
+    Inventory.Refresh(source)
+end)
+
+---@param inv inventory
 ---@param itemName string
 ---@param metadata any
 function Inventory.GetSlotForItem(inv, itemName, metadata)

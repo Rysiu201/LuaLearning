@@ -88,7 +88,8 @@ export const canStack = (sourceSlot: Slot, targetSlot: Slot) =>
 export const findAvailableSlot = (item: Slot, data: ItemData, items: Slot[]) => {
   if (!data.stack) return items.find((target) => target.name === undefined);
 
-  const stackableSlot = items.find((target) => target.name === item.name && isEqual(target.metadata, item.metadata));
+  const meta = item.metadata ?? data.metadata ?? {};
+  const stackableSlot = items.find((target) => target.name === item.name && isEqual(target.metadata, meta));
 
   return stackableSlot || items.find((target) => target.name === undefined);
 };
@@ -104,8 +105,8 @@ export const getTargetInventory = (
       ? state.leftInventory
       : state.rightInventory
     : sourceType === InventoryType.PLAYER
-    ? state.rightInventory
-    : state.leftInventory,
+      ? state.rightInventory
+      : state.leftInventory,
 });
 
 export const itemDurability = (metadata: any, curTime: number) => {
