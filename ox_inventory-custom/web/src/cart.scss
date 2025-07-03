@@ -39,14 +39,25 @@
   margin: 0 4px;
   border-radius: 4px;
 }
-.qty-cell button {
+.qty-cell button,
+.remove-btn {
   margin: 0 4px;
+  background: rgba(24, 24, 24, 0.6);
+  border: 0.5px solid rgba(247, 247, 247, 0.6);
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 2px 6px;
 }
 .cart-summary {
   margin-top: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.total-value {
+  color: #2ecc71;
 }
 .cart-actions {
   display: flex;
@@ -68,6 +79,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   align-items: center;
   justify-content: center;
+  gap: 6px;
 
   &:hover {
     background: $primaryBG;

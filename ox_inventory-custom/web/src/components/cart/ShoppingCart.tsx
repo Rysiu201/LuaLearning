@@ -1,10 +1,16 @@
 import React from 'react';
 import { useDrop } from 'react-dnd';
-import { useAppDispatch, useAppSelector } from '../../store';
+import { useAppDispatch, useAppSelector, store } from '../../store';
 import { DragSource } from '../../typings';
-import { removeItem, updateQuantity, clear, addItem } from '../../store/cart';
-import { getItemUrl } from '../../helpers';
+import {
+  removeItem,
+  updateQuantity,
+  clear,
+  addItem,
+} from '../../store/cart';
+import { getItemUrl, findAvailableSlot, isSlotWithItem } from '../../helpers';
 import { Items } from '../../store/items';
+import { buyItem } from '../../thunks/buyItem';
 import bankIcon from '../../../images/card_bank.png?url';
 import cashIcon from '../../../images/money.png?url';
 
@@ -25,9 +31,30 @@ const ShoppingCart: React.FC = () => {
 
   const total = items.reduce((acc, item) => acc + item.item.price! * item.quantity, 0);
 
-  const handlePay = (method: 'bank' | 'cash') => {
-    // Placeholder for payment logic
-    console.log('Pay', method, items);
+  const handlePay = async (method: 'bank' | 'cash') => {
+    for (const entry of items) {
+      if (!isSlotWithItem(entry.item)) continue;
+      let player = store.getState().inventory.leftInventory;
+      const data = Items[entry.item.name];
+      const target =
+        findAvailableSlot(entry.item, data!, player.items) ||
+        player.items.find((s) => s.name === undefined);
+
+      if (!target) {
+        console.error('No slot for', entry.item.name);
+        continue;
+      }
+
+      await dispatch(
+        buyItem({
+          fromSlot: entry.slot,
+          fromType: shop.type,
+          toSlot: target.slot,
+          toType: player.type,
+          count: entry.quantity,
+        })
+      );
+    }
     dispatch(clear());
   };
 
@@ -63,9 +90,8 @@ const ShoppingCart: React.FC = () => {
                 <button onClick={() => dispatch(updateQuantity({ slot: entry.slot, quantity: entry.quantity + 1 }))}>+</button>
               </td>
               <td className="unit-price">${entry.item.price}</td>
-              <td className="total-price">${entry.item.price! * entry.quantity}</td>
               <td>
-                <button onClick={() => dispatch(removeItem(entry.slot))}>🗑️</button>
+                <button className="remove-btn" onClick={() => dispatch(removeItem(entry.slot))}>🗑️</button>
               </td>
             </tr>
           ))}
@@ -78,9 +104,11 @@ const ShoppingCart: React.FC = () => {
       <div className="cart-actions">
         <button className="pay-btn" onClick={() => handlePay('bank')}>
           <img src={bankIcon} alt="pay bank" width={20} />
+          <span>Pay Bank</span>
         </button>
         <button className="pay-btn" onClick={() => handlePay('cash')}>
           <img src={cashIcon} alt="pay cash" width={20} />
+          <span>Pay Cash</span>
         </button>
       </div>
     </div>
