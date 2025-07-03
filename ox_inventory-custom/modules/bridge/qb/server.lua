@@ -102,7 +102,7 @@ function server.UseItem(source, itemName, data)
 end
 
 AddEventHandler('QBCore:Server:OnMoneyChange', function(src, account, amount, changeType)
-    if account ~= "cash" then return end
+    if account ~= 'cash' then return end
 
     local item = Inventory.GetItem(src, 'money', nil, false)
 

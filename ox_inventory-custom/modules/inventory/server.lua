@@ -2191,6 +2191,24 @@ end
 exports('GetEmptySlot', Inventory.GetEmptySlot)
 
 ---@param inv inventory
+---@return integer?
+function Inventory.GetEmptyPocketSlot(inv)
+    local inventory = Inventory(inv)
+
+    if not inventory then return end
+
+    local items = inventory.items
+
+    for i = 10, inventory.slots do
+        if not items[i] then
+            return i
+        end
+    end
+end
+
+exports('GetEmptyPocketSlot', Inventory.GetEmptyPocketSlot)
+
+---@param inv inventory
 ---@param itemName string
 ---@param metadata any
 function Inventory.GetSlotForItem(inv, itemName, metadata)
