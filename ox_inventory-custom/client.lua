@@ -1881,6 +1881,16 @@ RegisterNUICallback('buyItem', function(data, cb)
 	cb(response)
 end)
 
+RegisterNUICallback('buyCart', function(data, cb)
+        local success, message = lib.callback.await('ox_inventory:buyCart', 100, data)
+
+        if not success and message then
+                lib.notify(message)
+        end
+
+        cb(success or false)
+end)
+
 RegisterNUICallback('craftItem', function(data, cb)
 	cb(true)
 
