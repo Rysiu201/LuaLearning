@@ -1765,6 +1765,15 @@ lib.callback.register('ox_inventory:swapItems', function(source, data)
             data.count = fromData.count
         end
 
+        -- Prevent unequipping backpack with items inside
+        if data.fromType == 'player' and data.fromSlot == 6 and fromData.metadata?.container then
+            local bagInv = Inventory.GetContainerFromSlot(fromInventory, data.fromSlot)
+            if bagInv and next(bagInv.items) then
+                TriggerClientEvent('ox_lib:notify', source, { type = 'error', description = locale('backpack_not_empty') })
+                return false
+            end
+        end
+
         if data.toType == 'newdrop' then
             return dropItem(source, playerInventory, fromData, data)
         end

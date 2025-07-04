@@ -24,6 +24,13 @@ const initialState: State = {
     maxWeight: 0,
     items: [],
   },
+  backpackInventory: {
+    id: '',
+    type: '',
+    slots: 0,
+    maxWeight: 0,
+    items: [],
+  },
   additionalMetadata: new Array(),
   itemAmount: 0,
   shiftPressed: false,
@@ -56,7 +63,11 @@ export const inventorySlice = createSlice({
       state.shiftPressed = action.payload;
     },
     setContainerWeight: (state, action: PayloadAction<number>) => {
-      const container = state.leftInventory.items.find((item) => item.metadata?.container === state.rightInventory.id);
+      let container = state.leftInventory.items.find((item) => item.metadata?.container === state.rightInventory.id);
+
+      if (!container && state.backpackInventory.id) {
+        container = state.leftInventory.items.find((item) => item.metadata?.container === state.backpackInventory.id);
+      }
 
       if (!container) return;
 
@@ -105,6 +116,7 @@ export const selectEquipmentInventory = (state: RootState) => ({
   ...state.inventory.leftInventory,
   items: state.inventory.leftInventory.items.slice(0, 9),
 });
+export const selectBackpackInventory = (state: RootState) => state.inventory.backpackInventory;
 export const selectRightInventory = (state: RootState) => state.inventory.rightInventory;
 export const selectItemAmount = (state: RootState) => state.inventory.itemAmount;
 export const selectIsBusy = (state: RootState) => state.inventory.isBusy;
