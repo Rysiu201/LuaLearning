@@ -8,6 +8,7 @@ import type { Inventory as InventoryProps } from '../../typings';
 import EquipmentInventory from './EquipmentInventory';
 import GroundInventory from './GroundInventory';
 import LeftInventory from './LeftInventory';
+import BackpackInventory from './BackpackInventory';
 import InventoryTabs from './InventoryTabs';
 import Tooltip from '../utils/Tooltip';
 import { closeTooltip } from '../../store/tooltip';
@@ -35,6 +36,7 @@ const Inventory: React.FC = () => {
   useNuiEvent<{
     leftInventory?: InventoryProps;
     rightInventory?: InventoryProps;
+    backpackInventory?: InventoryProps;
   }>('setupInventory', (data) => {
     dispatch(setupInventory(data));
     !inventoryVisible && setInventoryVisible(true);
@@ -71,6 +73,7 @@ const Inventory: React.FC = () => {
             {rightInventory.type === 'shop' ? <ShopInventory /> : <GroundInventory />}
           </Fade>
           <LeftInventory />
+          <BackpackInventory />
           <Tooltip />
           <InventoryContext />
         </div>

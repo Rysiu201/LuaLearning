@@ -54,6 +54,7 @@
   "cannot_carry_other": "Target inventory can not hold that much",
   "cannot_carry_limit": "You cannot carry more than %s %s",
   "cannot_carry_limit_other": "Target cannot carry more than %s %s",
+  "backpack_not_empty": "You can't remove your backpack while it contains items",
   "items_confiscated": "Your items have been confiscated",
   "items_returned": "Your items have been returned",
   "item_unauthorised": "You are not authorised to purchase this item",

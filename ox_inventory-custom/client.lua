@@ -159,7 +159,7 @@ function client.openInventory(inv, data)
         return lib.notify({ id = 'inventory_player_access', type = 'error', description = locale('inventory_player_access') })
     end
 
-    local left, right, accessError
+    local left, right, accessError, backpack
 
     if inv == 'player' and data ~= cache.serverId then
         local targetId, targetPed
@@ -235,7 +235,7 @@ function client.openInventory(inv, data)
             end
         end
 
-        left, right, accessError = lib.callback.await('ox_inventory:openInventory', false, inv, data)
+        left, right, accessError, backpack = lib.callback.await('ox_inventory:openInventory', false, inv, data)
     end
 
     if accessError then
@@ -279,7 +279,8 @@ function client.openInventory(inv, data)
         action = 'setupInventory',
         data = {
             leftInventory = left,
-            rightInventory = currentInventory
+            rightInventory = currentInventory,
+            backpackInventory = backpack
         }
     })
 
@@ -333,13 +334,14 @@ RegisterNetEvent('ox_inventory:forceOpenInventory', function(left, right)
 	left.items = PlayerData.inventory
 	left.groups = PlayerData.groups
 
-	SendNUIMessage({
-		action = 'setupInventory',
-		data = {
-			leftInventory = left,
-			rightInventory = currentInventory
-		}
-	})
+        SendNUIMessage({
+                action = 'setupInventory',
+                data = {
+                        leftInventory = left,
+                        rightInventory = currentInventory,
+                        backpackInventory = backpack
+                }
+        })
 end)
 
 local Animations = lib.load('data.animations')
@@ -1592,13 +1594,14 @@ RegisterNetEvent('ox_inventory:viewInventory', function(left, right)
 	left.items = PlayerData.inventory
 	left.groups = PlayerData.groups
 
-	SendNUIMessage({
-		action = 'setupInventory',
-		data = {
-			leftInventory = left,
-			rightInventory = currentInventory
-		}
-	})
+        SendNUIMessage({
+                action = 'setupInventory',
+                data = {
+                        leftInventory = left,
+                        rightInventory = currentInventory,
+                        backpackInventory = backpack
+                }
+        })
 end)
 
 RegisterNUICallback('uiLoaded', function(_, cb)

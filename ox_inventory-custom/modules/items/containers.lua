@@ -58,9 +58,35 @@ setContainerProperties('paperbag', {
 })
 
 setContainerProperties('pizzabox', {
-	slots = 5,
-	maxWeight = 1000,
-	whitelist = { 'pizza' }
+        slots = 5,
+        maxWeight = 1000,
+        whitelist = { 'pizza' }
+})
+
+-- Backpack containers
+setContainerProperties('backpack1', {
+       slots = shared.playerslots - 9,
+       maxWeight = 20000
+})
+
+setContainerProperties('backpack2', {
+       slots = shared.playerslots - 9,
+       maxWeight = 40000
+})
+
+setContainerProperties('backpack3', {
+       slots = shared.playerslots - 9,
+       maxWeight = 60000
+})
+
+setContainerProperties('backpack4', {
+       slots = shared.playerslots - 9,
+       maxWeight = 80000
+})
+
+setContainerProperties('backpack5', {
+       slots = shared.playerslots - 9,
+       maxWeight = 100000
 })
 
 return containers
