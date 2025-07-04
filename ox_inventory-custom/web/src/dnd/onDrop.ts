@@ -10,7 +10,15 @@ const isWeapon = (name: string) => name.toUpperCase().startsWith('WEAPON_');
 const allowedInSlot = (slot: number, name: string) => {
   if (slot === 1 || slot === 2) return isWeapon(name);
   if (slot >= 3 && slot <= 5) return !isWeapon(name);
-  if (slot === 6) return name === 'paperbag';
+  if (slot === 6)
+    return (
+      name === 'paperbag' ||
+      name === 'backpack1' ||
+      name === 'backpack2' ||
+      name === 'backpack3' ||
+      name === 'backpack4' ||
+      name === 'backpack5'
+    );
   if (slot === 7) return name === 'armour';
   if (slot === 8) return name.toLowerCase().includes('phone');
   if (slot === 9) return name === 'parachute';

@@ -198,24 +198,44 @@ local function openInventory(source, invType, data, ignoreSecurityChecks)
 		left:openInventory(left)
 	end
 
-	return {
-		id = left.id,
-		label = left.label,
-		type = left.type,
-		slots = left.slots,
-		weight = left.weight,
-		maxWeight = left.maxWeight
-	}, right and {
-		id = right.id,
-		label = right.player and '' or right.label,
-		type = right.player and 'otherplayer' or right.type,
-		slots = right.slots,
-		weight = right.weight,
-		maxWeight = right.maxWeight,
-		items = right.items,
-		coords = closestCoords or right.coords,
-		distance = right.distance
-	}
+        local backpack
+
+        if invType == 'player' then
+                local bag = left.items[6]
+                if bag and bag.metadata and bag.metadata.container then
+                        local bagInv = Inventory.GetContainerFromSlot(left, 6)
+                        if bagInv then
+                                backpack = {
+                                        id = bagInv.id,
+                                        label = bag.label,
+                                        type = bagInv.type,
+                                        slots = bagInv.slots,
+                                        weight = bagInv.weight,
+                                        maxWeight = bagInv.maxWeight,
+                                        items = bagInv.items
+                                }
+                        end
+                end
+        end
+
+        return {
+                id = left.id,
+                label = left.label,
+                type = left.type,
+                slots = left.slots,
+                weight = left.weight,
+                maxWeight = left.maxWeight
+        }, right and {
+                id = right.id,
+                label = right.player and '' or right.label,
+                type = right.player and 'otherplayer' or right.type,
+                slots = right.slots,
+                weight = right.weight,
+                maxWeight = right.maxWeight,
+                items = right.items,
+                coords = closestCoords or right.coords,
+                distance = right.distance
+        }, nil, backpack
 end
 
 ---@param source number
