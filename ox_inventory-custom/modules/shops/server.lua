@@ -230,14 +230,29 @@ lib.callback.register('ox_inventory:buyCart', function(source, data)
 
        removeCurrency(playerInv, currency, totalPrice)
 
-       if currency == 'bank' then
-               local player = server.GetPlayerFromId(playerInv.id)
-               if player then
-                       local receiverId = ('shop_%s'):format(shopType)
-                       TriggerEvent('okokBanking:AddNewTransaction', shop.label, receiverId, GetPlayerName(source), player.PlayerData.identifier, totalPrice, ('Zakup w sklepie: %s'):format(table.concat(itemNames, ', ')))
-                       TriggerClientEvent('ox_lib:notify', source, { type = 'success', description = ('✅ Zakupiono przedmiot(y) za %s $ z konta bankowego.'):format(totalPrice) })
-               end
-       end
+      if currency == 'bank' then
+        local player = server.GetPlayerFromId(playerInv.id)
+        if player then
+                local senderName = player.name
+                local senderIdentifier = player.identifier
+
+                local receiverName = shop.label or "Sklep"
+                local receiverIdentifier = shop.identifier or "shop_account" -- lub inne ID sklepu
+
+                TriggerEvent("okokBanking:AddCustomTransaction", {
+                source = source,
+                amount = totalPrice,
+                type = "shop_purchase",
+                receiver_name = shop.label or "Sklep",
+                receiver_identifier = "shop_account"
+                })
+
+                TriggerClientEvent('ox_lib:notify', source, {
+                type = 'success',
+                description = ('✅ Zakupiono przedmiot(y) za %s $ z konta bankowego.'):format(totalPrice)
+                })
+        end
+        end
 
                                 if server.syncInventory then server.syncInventory(playerInv) end
 TriggerEvent('ox_inventory:refreshInventory', source)
@@ -384,8 +399,8 @@ lib.callback.register('ox_inventory:buyItem', function(source, data)
                                 if currency == 'bank' then
                                         local player = server.GetPlayerFromId(playerInv.id)
                                         if player then
-                                                local receiverId = ('shop_%s'):format(shopType)
-                                                TriggerEvent('okokBanking:AddNewTransaction', shop.label, receiverId, GetPlayerName(source), player.PlayerData.identifier, price, ('Zakup w sklepie: %s'):format(metadata?.label or fromItem.label))
+                                                --TriggerEvent('okokBanking:AddWithdrawTransaction', price, source)
+                                                TriggerEvent('okokBanking:AddNewTransaction', Shop, shop, getName(source), xPlayer.identifier, price, itemName..' '..count)
                                                 TriggerClientEvent('ox_lib:notify', source, { type = 'success', description = ('✅ Zakupiono przedmiot za %s z konta bankowego.'):format(price) })
                                         end
                                 end

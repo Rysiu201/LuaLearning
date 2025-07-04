@@ -6159,4 +6159,97 @@ return {
 			image = "smoothiest.png",
 		}
 	},
+
+	["backpack1"] = {
+     label = "Wytarty Plecak",
+     weight = 5000,
+     stack = false,
+     close = true,
+	 metadata = { quality = 'Common' },
+     description = "Stary, przetarty plecak z lumpeksu. Trzyma się na słowo honoru, ale nadal coś pomieści."
+	},
+
+	["backpack2"] = {
+		label = "Turystyczny Plecak",
+		weight = 10000,
+		stack = false,
+		close = true,
+		metadata = { quality = 'Uncommon' },
+		description = "Standardowy plecak na co dzień. Pomieści laptopa, narzędzia i kanapkę. Idealny dla miejskich wojowników."
+	},
+
+	["backpack3"] = {
+		label = "Taktyczny Plecak",
+		weight = 13500,
+		stack = false,
+		close = true,
+		metadata = { quality = 'Rare' },
+		description = "Solidna konstrukcja, dobre zamki, sporo kieszeni. Lubiany przez survivalowców i przemytników."
+	},
+
+	["backpack4"] = {
+		label = "Plecak Eksploratora",
+		weight = 15000,
+		stack = false,
+		close = true,
+		metadata = { quality = 'Epic' },
+		description = "Wyposażony w ukryte przegródki i wodoodporny materiał. Gotowy na każdą misję — legalną lub nie."
+	},
+
+	["backpack5"] = {
+		label = "Plecak Czempiona",
+		weight = 20000,
+		stack = false,
+		close = true,
+		metadata = { quality = 'Legendary' },
+		description = "Unikalny plecak z limitowanej serii. Legenda głosi, że zwiększa szanse na przeżycie i szacunek na mieście."
+	},
+
+	["duffle1"] = {
+		label = "Duffle bag",
+		weight = 15000,
+		stack = false,
+		close = true,
+		description = "A stylish duffle bag"
+	},
+
+	["briefcase"] = {
+		label = "Briefcase",
+		weight = 10000,
+		stack = false,
+		close = true,
+		description = "A portable rectangular case used for carrying important documents, files, or other personal belongings."
+	},
+
+	["paramedicbag"] = {
+		label = "Paramedic bag",
+		weight = 5000,
+		stack = false,
+		close = true,
+		description = "A medical bag used by paramedics, containing essential supplies for emergency care."
+	},
+
+	["policepouches"] = {
+		label = "Police Pouch",
+		weight = 5000,
+		stack = false,
+		close = true,
+		description = "A pouch used by police officers to store and carry essential supplies such as handcuffs, pepper spray, and other tactical equipment."
+	},
+
+	["policepouches1"] = {
+		label = "Police Pouch",
+		weight = 5000,
+		stack = false,
+		close = true,
+		description = "A larger version of the police pouch used to store additional tactical gear and equipment."
+	},
+
+	["briefcaselockpicker"] = {
+		label = "Briefcase Lockpicker",
+		weight = 0.5,
+		stack = true,
+		close = true,
+		description = "Briefcase Lockpicker"
+	}
 }
