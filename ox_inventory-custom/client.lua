@@ -980,7 +980,11 @@ local function updateInventory(data, weight)
 end
 
 RegisterNetEvent('ox_inventory:updateSlots', function(items, weights)
-	if source ~= '' and next(items) then updateInventory(items, weights) end
+        if source ~= '' and next(items) then updateInventory(items, weights) end
+end)
+
+RegisterNetEvent('ox_inventory:setBackpackInventory', function(backpack)
+    SendNUIMessage({ action = 'setupInventory', data = { backpackInventory = backpack } })
 end)
 
 RegisterNetEvent('ox_inventory:inventoryReturned', function(data)
