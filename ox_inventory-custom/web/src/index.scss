@@ -335,6 +335,7 @@ button:active {
   z-index: 0;
 }
 
+
 .left-inventory {
   position: absolute;
   right: 10%;
@@ -347,6 +348,16 @@ button:active {
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.6); // dodane
   border-radius: 18px;
   padding: 10px;
+}
+
+.inventory-wrapper.with-backpack {
+  .left-inventory {
+    top: 40%;
+  }
+
+  .backpack-inventory {
+    top: 72%;
+  }
 }
 
 .backpack-inventory {
@@ -965,6 +976,16 @@ button:active {
     gap: 40px;
     z-index: 9999;
     position: relative;
+  }
+
+  .inventory-wrapper.with-backpack {
+    .left-inventory {
+      top: 40%;
+    }
+
+    .backpack-inventory {
+      top: 72%;
+    }
   }
 
   .inventory-tabs {

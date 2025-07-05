@@ -357,11 +357,14 @@ end
 ---@param ostime number
 ---Validate (and in some cases convert) item metadata when an inventory is being loaded.
 function Items.CheckMetadata(metadata, item, name, ostime)
-	if metadata.bag then
-		metadata.container = metadata.bag
-		metadata.size = Items.containers[name]?.size or {5, 1000}
-		metadata.bag = nil
-	end
+        if metadata.bag then
+                metadata.container = metadata.bag
+                metadata.size = Items.containers[name]?.size or {5, 1000}
+                metadata.bag = nil
+        elseif Items.containers[name] and not metadata.container then
+                metadata.container = GenerateText(3)..os.time()
+                metadata.size = Items.containers[name].size
+        end
 
 	local durability = metadata.durability
 

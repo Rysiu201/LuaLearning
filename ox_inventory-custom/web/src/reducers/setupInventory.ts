@@ -52,13 +52,14 @@ export const setupInventoryReducer: CaseReducer<
       }),
     };
 
-  if (backpackInventory)
+  if (backpackInventory) {
     state.backpackInventory = {
       ...backpackInventory,
       items: Array.from(Array(backpackInventory.slots), (_, index) => {
-        const item = Object.values(backpackInventory.items).find((item) => item?.slot === index + 1) || {
-          slot: index + 1,
-        };
+        const item =
+          Object.values(backpackInventory.items).find((item) => item?.slot === index + 1) || {
+            slot: index + 1,
+          };
 
         if (!item.name) return item;
 
@@ -70,6 +71,15 @@ export const setupInventoryReducer: CaseReducer<
         return item;
       }),
     };
+  } else {
+    state.backpackInventory = {
+      id: '',
+      type: '',
+      slots: 0,
+      maxWeight: 0,
+      items: [],
+    };
+  }
 
   state.shiftPressed = false;
   state.isBusy = false;
