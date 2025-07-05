@@ -67,6 +67,13 @@ export const onDrop = (source: DragSource, target?: DropTarget) => {
     return console.log(`Item ${sourceSlot.name} cannot go in slot ${targetSlot.slot}`);
   }
 
+  if (
+    targetInventory.type === InventoryType.BACKPACK &&
+    (isWeapon(sourceSlot.name) || sourceSlot.slot <= 9)
+  ) {
+    return console.log(`Item ${sourceSlot.name} cannot be stored in backpack`);
+  }
+
   // If dropping on container slot when opened
   if (
     targetSlot.metadata?.container !== undefined &&

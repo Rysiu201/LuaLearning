@@ -5,6 +5,8 @@ import { DragSource, DropTarget, InventoryType, SlotWithItem } from '../typings'
 import { moveSlots, stackSlots, swapSlots } from '../store/inventory';
 import { Items } from '../store/items';
 
+const isWeapon = (name: string) => name.toUpperCase().startsWith('WEAPON_');
+
 export const onDrop = (source: DragSource, target?: DropTarget) => {
   const { inventory: state } = store.getState();
 
@@ -46,6 +48,13 @@ export const onDrop = (source: DragSource, target?: DropTarget) => {
     state.rightInventory.id === targetSlot.metadata.container
   )
     return console.log(`Cannot swap item ${sourceSlot.name} with container ${targetSlot.name} when opened`);
+
+  if (
+    targetInventory.type === InventoryType.BACKPACK &&
+    (isWeapon(sourceSlot.name) || sourceSlot.slot <= 9)
+  ) {
+    return console.log(`Item ${sourceSlot.name} cannot be stored in backpack`);
+  }
 
   const count =
     state.shiftPressed && sourceSlot.count > 1 && sourceInventory.type !== 'shop'
