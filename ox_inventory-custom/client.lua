@@ -222,7 +222,7 @@ function client.openInventory(inv, data)
                 distance = distance
             }
         end
-    elseif invOpen ~= nil then
+    else
         if inv == 'policeevidence' then
             if not data then
                 local input = lib.inputDialog(locale('police_evidence'), {
@@ -895,10 +895,11 @@ function client.closeInventory(server)
 			TriggerServerEvent('ox_inventory:closeInventory')
 		end
 
-		currentInventory = nil
-		plyState.invOpen = false
-		defaultInventory.coords = nil
-	end
+                currentInventory = nil
+                plyState.invOpen = false
+                defaultInventory.coords = nil
+                invOpen = false
+        end
 end
 
 RegisterNetEvent('ox_inventory:closeInventory', client.closeInventory)
