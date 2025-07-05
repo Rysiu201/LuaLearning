@@ -46,7 +46,10 @@ export const onDrop = (source: DragSource, target?: DropTarget) => {
       return console.log(`Cannot store container ${sourceSlot.name} inside another container`);
 
     // Prevent dragging of container slot when opened
-    if (state.rightInventory.id === sourceSlot.metadata.container)
+    if (
+      state.rightInventory.id === sourceSlot.metadata.container ||
+      state.backpackInventory.id === sourceSlot.metadata.container
+    )
       return console.log(`Cannot move container ${sourceSlot.name} when opened`);
   }
 
