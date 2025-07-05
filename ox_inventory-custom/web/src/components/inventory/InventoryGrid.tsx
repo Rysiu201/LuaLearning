@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
-import { Inventory } from '../../typings';
+import { Inventory, InventoryType } from '../../typings';
 import WeightBar from '../utils/WeightBar';
 import InventorySlot from './InventorySlot';
 import { getTotalWeight } from '../../helpers';
 import { useAppSelector } from '../../store';
 
-const PAGE_SIZE = 24;
+const DEFAULT_PAGE_SIZE = 24;
 
 interface InventoryGridProps {
   inventory: Inventory;
@@ -58,7 +58,9 @@ const InventoryGrid: React.FC<InventoryGridProps> = ({
           )}
         </div>
         <div className={`inventory-grid-container ${collapsed ? 'collapsed' : ''}`}>
-          {inventory.items.slice(0, PAGE_SIZE).map((item) => (
+          {inventory.items
+            .slice(0, inventory.type === InventoryType.BACKPACK ? inventory.slots : DEFAULT_PAGE_SIZE)
+            .map((item) => (
             <InventorySlot
               key={`${inventory.type}-${inventory.id}-${item.slot}`}
               item={item}

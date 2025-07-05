@@ -8,6 +8,7 @@ import type { Inventory as InventoryProps } from '../../typings';
 import EquipmentInventory from './EquipmentInventory';
 import GroundInventory from './GroundInventory';
 import LeftInventory from './LeftInventory';
+import BackpackInventory from './BackpackInventory';
 import InventoryTabs from './InventoryTabs';
 import Tooltip from '../utils/Tooltip';
 import { closeTooltip } from '../../store/tooltip';
@@ -15,7 +16,7 @@ import InventoryContext from './InventoryContext';
 import { closeContextMenu } from '../../store/contextMenu';
 import Fade from '../utils/transitions/Fade';
 import { useAppSelector } from '../../store';
-import { selectRightInventory } from '../../store/inventory';
+import { selectRightInventory, selectBackpackInventory } from '../../store/inventory';
 import ShopInventory from '../cart/ShopInventory';
 
 const Inventory: React.FC = () => {
@@ -23,6 +24,7 @@ const Inventory: React.FC = () => {
   const [showEquipment, setShowEquipment] = useState(true);
   const dispatch = useAppDispatch();
   const rightInventory = useAppSelector(selectRightInventory);
+  const backpackInventory = useAppSelector(selectBackpackInventory);
 
   useNuiEvent<boolean>('setInventoryVisible', setInventoryVisible);
   useNuiEvent<false>('closeInventory', () => {
@@ -35,6 +37,7 @@ const Inventory: React.FC = () => {
   useNuiEvent<{
     leftInventory?: InventoryProps;
     rightInventory?: InventoryProps;
+    backpackInventory?: InventoryProps;
   }>('setupInventory', (data) => {
     dispatch(setupInventory(data));
     !inventoryVisible && setInventoryVisible(true);
@@ -62,7 +65,7 @@ const Inventory: React.FC = () => {
   return (
     <>
       <Fade in={inventoryVisible}>
-        <div className="inventory-wrapper">
+        <div className={`inventory-wrapper${backpackInventory.id ? ' with-backpack' : ''}`}>
           <InventoryTabs showEquipment={showEquipment} setShowEquipment={setShowEquipment} />
           <Fade in={showEquipment}>
             <EquipmentInventory />
@@ -71,6 +74,7 @@ const Inventory: React.FC = () => {
             {rightInventory.type === 'shop' ? <ShopInventory /> : <GroundInventory />}
           </Fade>
           <LeftInventory />
+          <BackpackInventory />
           <Tooltip />
           <InventoryContext />
         </div>

@@ -19,7 +19,10 @@ export const onDrop = (source: DragSource, target?: DropTarget) => {
   // If dragging from container slot
   if (sourceSlot.metadata?.container !== undefined) {
     // Prevent storing container in container
-    if (targetInventory.type === InventoryType.CONTAINER)
+    if (
+      targetInventory.type === InventoryType.CONTAINER ||
+      targetInventory.type === InventoryType.BACKPACK
+    )
       return console.log(`Cannot store container ${sourceSlot.name} inside another container`);
 
     // Prevent dragging of container slot when opened
@@ -34,7 +37,10 @@ export const onDrop = (source: DragSource, target?: DropTarget) => {
   if (targetSlot === undefined) return console.error('Target slot undefined!');
 
   // If dropping on container slot when opened
-  if (targetSlot.metadata?.container !== undefined && state.rightInventory.id === targetSlot.metadata.container)
+  if (
+    targetSlot.metadata?.container !== undefined &&
+    state.rightInventory.id === targetSlot.metadata.container
+  )
     return console.log(`Cannot swap item ${sourceSlot.name} with container ${targetSlot.name} when opened`);
 
   const count =

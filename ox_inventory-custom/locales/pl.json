@@ -54,6 +54,7 @@
   "cannot_carry_other": "Docelowy ekwipunek nie może tyle unieść",
   "cannot_carry_limit": "Nie możesz unieść więcej niż %s %s",
   "cannot_carry_limit_other": "Docelowy ekwipunek nie może unieść %s %s",
+  "backpack_not_empty": "❌ Nie możesz zdjąć plecaka, gdy są w nim przedmioty.",
   "items_confiscated": "Twoje przedmioty zostały skonfiskowane",
   "items_returned": "Twoje przedmioty zostały zwrócone",
   "item_unauthorised": "Nie posiadasz autoryzacji do zakupu tego przedmiotu",
