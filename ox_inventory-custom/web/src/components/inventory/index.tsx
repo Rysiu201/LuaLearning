@@ -65,7 +65,7 @@ const Inventory: React.FC = () => {
   return (
     <>
       <Fade in={inventoryVisible}>
-        <div className={`inventory-wrapper${backpackInventory.id ? ' with-backpack' : ''}`}>
+        <div className="inventory-wrapper">
           <InventoryTabs showEquipment={showEquipment} setShowEquipment={setShowEquipment} />
           <Fade in={showEquipment}>
             <EquipmentInventory />
@@ -73,8 +73,10 @@ const Inventory: React.FC = () => {
           <Fade in={!showEquipment}>
             {rightInventory.type === 'shop' ? <ShopInventory /> : <GroundInventory />}
           </Fade>
-          <LeftInventory />
-          <BackpackInventory />
+          <div className="pockets-wrapper">
+            <LeftInventory />
+            <BackpackInventory />
+          </div>
           <Tooltip />
           <InventoryContext />
         </div>

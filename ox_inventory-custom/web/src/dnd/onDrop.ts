@@ -48,7 +48,8 @@ export const onDrop = (source: DragSource, target?: DropTarget) => {
     // Prevent dragging of container slot when opened
     if (
       state.rightInventory.id === sourceSlot.metadata.container ||
-      state.backpackInventory.id === sourceSlot.metadata.container
+      (state.backpackInventory.id === sourceSlot.metadata.container &&
+        sourceSlot.slot !== 6)
     )
       return console.log(`Cannot move container ${sourceSlot.name} when opened`);
   }
@@ -64,6 +65,13 @@ export const onDrop = (source: DragSource, target?: DropTarget) => {
     !allowedInSlot(targetSlot.slot, sourceSlot.name)
   ) {
     return console.log(`Item ${sourceSlot.name} cannot go in slot ${targetSlot.slot}`);
+  }
+
+  if (
+    targetInventory.type === InventoryType.BACKPACK &&
+    (isWeapon(sourceSlot.name) || sourceSlot.slot <= 9)
+  ) {
+    return console.log(`Item ${sourceSlot.name} cannot be stored in backpack`);
   }
 
   // If dropping on container slot when opened
