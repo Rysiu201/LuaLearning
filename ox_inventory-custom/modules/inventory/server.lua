@@ -1765,6 +1765,15 @@ lib.callback.register('ox_inventory:swapItems', function(source, data)
             data.count = fromData.count
         end
 
+        -- Prevent unequipping backpack with items inside
+        if data.fromType == 'player' and data.fromSlot == 6 and fromData.metadata?.container then
+            local bagInv = Inventory.GetContainerFromSlot(fromInventory, data.fromSlot)
+            if bagInv and next(bagInv.items) then
+                TriggerClientEvent('ox_lib:notify', source, { type = 'error', description = locale('backpack_not_empty') })
+                return false
+            end
+        end
+
         if data.toType == 'newdrop' then
             return dropItem(source, playerInventory, fromData, data)
         end
@@ -2018,15 +2027,53 @@ lib.callback.register('ox_inventory:swapItems', function(source, data)
 				end
 			end
 
-			if fromInventory.weapon == data.fromSlot then
-				if not sameInventory then
-					fromInventory.weapon = nil
-					TriggerClientEvent('ox_inventory:disarm', fromInventory.id)
-				elseif not weaponSlot then
-					weaponSlot = data.toSlot
-					fromInventory.weapon = weaponSlot
-				end
-			end
+                        if fromInventory.weapon == data.fromSlot then
+                                if not sameInventory then
+                                        fromInventory.weapon = nil
+                                        TriggerClientEvent('ox_inventory:disarm', fromInventory.id)
+                                elseif not weaponSlot then
+                                        weaponSlot = data.toSlot
+                                        fromInventory.weapon = weaponSlot
+                                end
+                        end
+
+                        if toInventory.player and data.toSlot == 6 then
+                                local bag = toInventory.items[6]
+                                local backpack
+                                if bag and bag.metadata and bag.metadata.container then
+                                        local bagInv = Inventory.GetContainerFromSlot(toInventory, 6)
+                                        if bagInv then
+                                                backpack = {
+                                                        id = bagInv.id,
+                                                        label = bag.label,
+                                                        type = bagInv.type,
+                                                        slots = bagInv.slots,
+                                                        weight = bagInv.weight,
+                                                        maxWeight = bagInv.maxWeight,
+                                                        items = bagInv.items
+                                                }
+                                        end
+                                end
+                                TriggerClientEvent('ox_inventory:setBackpackInventory', toInventory.id, backpack)
+                        elseif fromInventory.player and data.fromSlot == 6 then
+                                local bag = fromInventory.items[6]
+                                local backpack
+                                if bag and bag.metadata and bag.metadata.container then
+                                        local bagInv = Inventory.GetContainerFromSlot(fromInventory, 6)
+                                        if bagInv then
+                                                backpack = {
+                                                        id = bagInv.id,
+                                                        label = bag.label,
+                                                        type = bagInv.type,
+                                                        slots = bagInv.slots,
+                                                        weight = bagInv.weight,
+                                                        maxWeight = bagInv.maxWeight,
+                                                        items = bagInv.items
+                                                }
+                                        end
+                                end
+                                TriggerClientEvent('ox_inventory:setBackpackInventory', fromInventory.id, backpack)
+                        end
 
 			return containerItem and containerItem.weight or true, resp, weaponSlot
 		end
