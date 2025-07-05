@@ -60,6 +60,8 @@ export const refreshSlotsReducer: CaseReducer<State, PayloadAction<Payload>> = (
         ? 'leftInventory'
         : inventoryId === state.rightInventory.id
         ? 'rightInventory'
+        : inventoryId === state.backpackInventory.id
+        ? 'backpackInventory'
         : null;
 
     if (!inv) return;
@@ -76,6 +78,8 @@ export const refreshSlotsReducer: CaseReducer<State, PayloadAction<Payload>> = (
         ? 'leftInventory'
         : inventoryId === state.rightInventory.id
         ? 'rightInventory'
+        : inventoryId === state.backpackInventory.id
+        ? 'backpackInventory'
         : null;
 
     if (!inv) return;
@@ -86,6 +90,7 @@ export const refreshSlotsReducer: CaseReducer<State, PayloadAction<Payload>> = (
       payload: {
         leftInventory: inv === 'leftInventory' ? state[inv] : undefined,
         rightInventory: inv === 'rightInventory' ? state[inv] : undefined,
+        backpackInventory: inv === 'backpackInventory' ? state[inv] : undefined,
       },
     });
   }
