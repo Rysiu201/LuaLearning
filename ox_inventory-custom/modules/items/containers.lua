@@ -65,27 +65,27 @@ setContainerProperties('pizzabox', {
 
 -- Backpack containers
 setContainerProperties('backpack1', {
-       slots = shared.playerslots - 9,
+       slots = 8,
        maxWeight = 20000
 })
 
 setContainerProperties('backpack2', {
-       slots = shared.playerslots - 9,
+       slots = 12,
        maxWeight = 40000
 })
 
 setContainerProperties('backpack3', {
-       slots = shared.playerslots - 9,
+       slots = 16,
        maxWeight = 60000
 })
 
 setContainerProperties('backpack4', {
-       slots = shared.playerslots - 9,
+       slots = 20,
        maxWeight = 80000
 })
 
 setContainerProperties('backpack5', {
-       slots = shared.playerslots - 9,
+       slots = 24,
        maxWeight = 100000
 })
 

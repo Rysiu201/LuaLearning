@@ -1,7 +1,7 @@
 import { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
 import { getItemData, itemDurability } from '../helpers';
 import { Items } from '../store/items';
-import { Inventory, State } from '../typings';
+import { Inventory, State, InventoryType } from '../typings';
 
 export const setupInventoryReducer: CaseReducer<
   State,
@@ -55,6 +55,7 @@ export const setupInventoryReducer: CaseReducer<
   if (backpackInventory) {
     state.backpackInventory = {
       ...backpackInventory,
+      type: InventoryType.BACKPACK,
       items: Array.from(Array(backpackInventory.slots), (_, index) => {
         const item =
           Object.values(backpackInventory.items).find((item) => item?.slot === index + 1) || {
