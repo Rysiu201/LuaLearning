@@ -352,18 +352,18 @@ button:active {
 
 .inventory-wrapper.with-backpack {
   .left-inventory {
-    top: 35%;
+    top: 30%;
   }
 
   .backpack-inventory {
-    top: 72%;
+    top: 70%;
   }
 }
 
 .backpack-inventory {
   position: absolute;
   right: 10%;
-  top: 75%;
+  top: 70%;
   transform: translateY(-50%) perspective(1000px) rotateY(-10deg);
   transform-origin: right center;
   background: rgba(24, 24, 24, 0.3);
@@ -980,11 +980,11 @@ button:active {
 
   .inventory-wrapper.with-backpack {
     .left-inventory {
-      top: 35%;
+      top: 30%;
     }
 
     .backpack-inventory {
-      top: 72%;
+      top: 70%;
     }
   }
 

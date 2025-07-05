@@ -69,8 +69,7 @@ export const onDrop = (source: DragSource, target?: DropTarget) => {
   // If dropping on container slot when opened
   if (
     targetSlot.metadata?.container !== undefined &&
-    (state.rightInventory.id === targetSlot.metadata.container ||
-      state.backpackInventory.id === targetSlot.metadata.container)
+    state.rightInventory.id === targetSlot.metadata.container
   )
     return console.log(`Cannot swap item ${sourceSlot.name} with container ${targetSlot.name} when opened`);
 
