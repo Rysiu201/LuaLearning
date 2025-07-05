@@ -98,16 +98,23 @@ export const getTargetInventory = (
   state: State,
   sourceType: Inventory['type'],
   targetType?: Inventory['type']
-): { sourceInventory: Inventory; targetInventory: Inventory } => ({
-  sourceInventory: sourceType === InventoryType.PLAYER ? state.leftInventory : state.rightInventory,
-  targetInventory: targetType
-    ? targetType === InventoryType.PLAYER
-      ? state.leftInventory
-      : state.rightInventory
-    : sourceType === InventoryType.PLAYER
-      ? state.rightInventory
-      : state.leftInventory,
-});
+): { sourceInventory: Inventory; targetInventory: Inventory } => {
+  const resolve = (type: Inventory['type']) => {
+    switch (type) {
+      case InventoryType.PLAYER:
+        return state.leftInventory;
+      case InventoryType.BACKPACK:
+        return state.backpackInventory;
+      default:
+        return state.rightInventory;
+    }
+  };
+
+  return {
+    sourceInventory: resolve(sourceType),
+    targetInventory: targetType ? resolve(targetType) : sourceType === InventoryType.PLAYER ? state.rightInventory : state.leftInventory,
+  };
+};
 
 export const itemDurability = (metadata: any, curTime: number) => {
   // sorry dunak
@@ -127,7 +134,8 @@ export const itemDurability = (metadata: any, curTime: number) => {
 export const getTotalWeight = (items: Inventory['items']) =>
   items.reduce((totalWeight, slot) => (isSlotWithItem(slot) ? totalWeight + slot.weight : totalWeight), 0);
 
-export const isContainer = (inventory: Inventory) => inventory.type === InventoryType.CONTAINER;
+export const isContainer = (inventory: Inventory) =>
+  inventory.type === InventoryType.CONTAINER || inventory.type === InventoryType.BACKPACK;
 
 export const getItemData = async (itemName: string) => {
   const resp: ItemData | null = await fetchNui('getItemData', itemName);

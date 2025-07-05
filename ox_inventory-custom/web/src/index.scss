@@ -335,6 +335,7 @@ button:active {
   z-index: 0;
 }
 
+
 .left-inventory {
   position: absolute;
   right: 10%;
@@ -345,6 +346,29 @@ button:active {
   // backdrop-filter: blur(12px); <-- usunięte
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.6); // dodane
+  border-radius: 18px;
+  padding: 10px;
+}
+
+.inventory-wrapper.with-backpack {
+  .left-inventory {
+    top: 35%;
+  }
+
+  .backpack-inventory {
+    top: 72%;
+  }
+}
+
+.backpack-inventory {
+  position: absolute;
+  right: 10%;
+  top: 75%;
+  transform: translateY(-50%) perspective(1000px) rotateY(-10deg);
+  transform-origin: right center;
+  background: rgba(24, 24, 24, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
   border-radius: 18px;
   padding: 10px;
 }
@@ -954,6 +978,16 @@ button:active {
     position: relative;
   }
 
+  .inventory-wrapper.with-backpack {
+    .left-inventory {
+      top: 35%;
+    }
+
+    .backpack-inventory {
+      top: 72%;
+    }
+  }
+
   .inventory-tabs {
     position: absolute;
     top: 160px;
@@ -1057,6 +1091,21 @@ button:active {
   }
 
   .left-inventory {
+    right: 10%;
+    transform: translateY(-50%) perspective(1000px) rotateY(-10deg);
+    transform-origin: right center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+
+    .inventory-grid-container::-webkit-scrollbar {
+      width: 8px;
+    }
+  }
+
+  .backpack-inventory {
     right: 10%;
     transform: translateY(-50%) perspective(1000px) rotateY(-10deg);
     transform-origin: right center;
