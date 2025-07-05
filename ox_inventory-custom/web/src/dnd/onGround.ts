@@ -28,7 +28,8 @@ export const onDrop = (source: DragSource, target?: DropTarget) => {
     // Prevent dragging of container slot when opened
     if (
       state.rightInventory.id === sourceSlot.metadata.container ||
-      state.backpackInventory.id === sourceSlot.metadata.container
+      (state.backpackInventory.id === sourceSlot.metadata.container &&
+        sourceSlot.slot !== 6)
     )
       return console.log(`Cannot move container ${sourceSlot.name} when opened`);
   }
